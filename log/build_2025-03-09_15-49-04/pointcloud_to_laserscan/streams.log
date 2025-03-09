@@ -1,0 +1,18 @@
+[0.007s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.051s] [ 20%] Built target pointcloud_to_laserscan_node
+[0.052s] [ 40%] Built target laserscan_to_pointcloud_node
+[0.055s] [ 60%] Built target laserscan_to_pointcloud
+[0.080s] [ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[3.905s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In constructor ‘[01m[Kpointcloud_to_laserscan::PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions&)[m[K’:
+[3.905s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:82:3:[m[K [01;31m[Kerror: [m[K‘[01m[Kmin_height_longrange_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmin_height_shortrange_[m[K’?
+[3.905s]    82 |   [01;31m[Kmin_height_longrange_[m[K = this->declare_parameter("min_height_longrange", std::numeric_limits<double>::min());
+[3.905s]       |   [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[3.905s]       |   [32m[Kmin_height_shortrange_[m[K
+[3.917s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:83:3:[m[K [01;31m[Kerror: [m[K‘[01m[Kmax_height_longrange_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmax_height_shortrange_[m[K’?
+[3.917s]    83 |   [01;31m[Kmax_height_longrange_[m[K = this->declare_parameter("max_height_longrange", std::numeric_limits<double>::max());
+[3.917s]       |   [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[3.917s]       |   [32m[Kmax_height_shortrange_[m[K
+[6.572s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+[6.572s] gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[6.572s] gmake: *** [Makefile:146: all] Error 2
+[6.574s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

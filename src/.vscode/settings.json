@@ -22,6 +22,7 @@
         "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
+        "any": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "strstream": "cpp",

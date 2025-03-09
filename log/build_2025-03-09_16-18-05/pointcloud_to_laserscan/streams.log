@@ -1,0 +1,49 @@
+[0.007s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.047s] [ 40%] Built target laserscan_to_pointcloud_node
+[0.047s] [ 40%] Built target pointcloud_to_laserscan_node
+[0.050s] [ 60%] Built target laserscan_to_pointcloud
+[0.062s] [35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[0.080s] [ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[2.692s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[2.692s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:96:6:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ has not been declared
+[2.692s]    96 |      [01;31m[Kstring[m[K target_frame);
+[2.693s]       |      [01;31m[K^~~~~~[m[K
+[3.856s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Kvoid pointcloud_to_laserscan::PointCloudToLaserScanNode::cloudCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[3.856s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:163:83:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Kstd::string[m[K’ {aka ‘[01m[Kstd::__cxx11::basic_string<char>[m[K’} to ‘[01m[Kint[m[K’
+[3.856s]   163 | ent_, scan_time_, inf_epsilon_, use_inf_, [01;31m[Ktarget_frame_[m[K);
+[3.856s]       |                                           [01;31m[K^~~~~~~~~~~~~[m[K
+[3.856s]       |                                           [01;31m[K|[m[K
+[3.856s]       |                                           [01;31m[Kstd::string {aka std::__cxx11::basic_string<char>}[m[K
+[3.857s] 
+[3.857s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:96:13:[m[K [01;36m[Knote: [m[K  initializing argument 12 of ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::PointCloudToLaserScanNode::computeLaserScan(const ConstSharedPtr&, double, double, double, double, double, double, double, double, double, bool, int)[m[K’
+[3.857s]    96 |      [01;36m[Kstring target_frame[m[K);
+[3.857s]       |      [01;36m[K~~~~~~~^~~~~~~~~~~~[m[K
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:166:84:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Kstd::string[m[K’ {aka ‘[01m[Kstd::__cxx11::basic_string<char>[m[K’} to ‘[01m[Kint[m[K’
+[3.857s]   166 | ment_, scan_time_, inf_epsilon_, use_inf_,[01;31m[Ktarget_frame_[m[K);
+[3.857s]       |                                           [01;31m[K^~~~~~~~~~~~~[m[K
+[3.857s]       |                                           [01;31m[K|[m[K
+[3.857s]       |                                           [01;31m[Kstd::string {aka std::__cxx11::basic_string<char>}[m[K
+[3.857s] 
+[3.857s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:96:13:[m[K [01;36m[Knote: [m[K  initializing argument 12 of ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::PointCloudToLaserScanNode::computeLaserScan(const ConstSharedPtr&, double, double, double, double, double, double, double, double, double, bool, int)[m[K’
+[3.857s]    96 |      [01;36m[Kstring target_frame[m[K);
+[3.857s]       |      [01;36m[K~~~~~~~^~~~~~~~~~~~[m[K
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K At global scope:
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:184:3:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K...[m[K’ before ‘[01m[Kstring[m[K’
+[3.857s]   184 |   [01;31m[Kstring[m[K target_frame )
+[3.857s]       |   [01;31m[K^~~~~~[m[K
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:172:40:[m[K [01;31m[Kerror: [m[Kno declaration matches ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::PointCloudToLaserScanNode::computeLaserScan(const ConstSharedPtr&, double, double, double, double, double, double, double, double, double, bool)[m[K’
+[3.857s]   172 | sensor_msgs::msg::LaserScan::UniquePtr [01;31m[KPointCloudToLaserScanNode[m[K::computeLaserScan(
+[3.857s]       |                                        [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[3.857s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:85:43:[m[K [01;36m[Knote: [m[Kcandidate is: ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::PointCloudToLaserScanNode::computeLaserScan(const ConstSharedPtr&, double, double, double, double, double, double, double, double, double, bool, int)[m[K’
+[3.857s]    85 |    sensor_msgs::msg::LaserScan::UniquePtr [01;36m[KcomputeLaserScan[m[K(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg,
+[3.857s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[3.857s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:71:8:[m[K [01;36m[Knote: [m[K‘[01m[Kclass pointcloud_to_laserscan::PointCloudToLaserScanNode[m[K’ defined here
+[3.857s]    71 |  class [01;36m[KPointCloudToLaserScanNode[m[K : public rclcpp::Node
+[3.857s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.529s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+[6.529s] gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[6.530s] gmake: *** [Makefile:146: all] Error 2
+[6.532s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

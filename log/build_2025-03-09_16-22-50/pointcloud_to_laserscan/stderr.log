@@ -1,0 +1,12 @@
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::PointCloudToLaserScanNode::computeLaserScan(const ConstSharedPtr&, double, double, double, double, double, double, double, double, double, bool, std::string)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:234:13:[m[K [01;31m[Kerror: [m[K‘[01m[Krange_min[m[K’ was not declared in this scope; did you mean ‘[01m[Krange_min_[m[K’?
+  234 | if (range < [01;31m[Krange_min[m[K) {
+      |             [01;31m[K^~~~~~~~~[m[K
+      |             [32m[Krange_min_[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:241:13:[m[K [01;31m[Kerror: [m[K‘[01m[Krange_max[m[K’ was not declared in this scope; did you mean ‘[01m[Krange_max_[m[K’?
+  241 | if (range > [01;31m[Krange_max[m[K) {
+      |             [01;31m[K^~~~~~~~~[m[K
+      |             [32m[Krange_max_[m[K
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -6,7 +6,6 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/home/alex/thesis_ws/install/pointcloud_to_laserscan/include/**",
         "/opt/ros/humble/include/**",
         "/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/**",
         "/usr/include/**"

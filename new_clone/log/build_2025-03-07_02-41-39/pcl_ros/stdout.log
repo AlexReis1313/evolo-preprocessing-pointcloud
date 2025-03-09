@@ -1,9 +1,0 @@
-[ 16%] [32mBuilding CXX object CMakeFiles/pcd_to_pointcloud_lib.dir/tools/pcd_to_pointcloud.cpp.o[0m
-[ 33%] [32mBuilding CXX object CMakeFiles/pcl_ros_tf.dir/src/transforms.cpp.o[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/pcd_to_pointcloud.dir/rclcpp_components/node_main_pcd_to_pointcloud.cpp.o[0m
-[ 66%] [32m[1mLinking CXX executable pcd_to_pointcloud[0m
-[ 66%] Built target pcd_to_pointcloud
-[ 83%] [32m[1mLinking CXX shared library libpcd_to_pointcloud_lib.so[0m
-[ 83%] Built target pcd_to_pointcloud_lib
-[100%] [32m[1mLinking CXX static library libpcl_ros_tf.a[0m
-[100%] Built target pcl_ros_tf

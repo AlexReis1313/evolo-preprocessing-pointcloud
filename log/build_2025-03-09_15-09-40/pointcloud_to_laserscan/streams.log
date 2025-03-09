@@ -1,0 +1,65 @@
+[0.006s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/pointcloud_to_laserscan -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pointcloud_to_laserscan
+[0.118s] -- The C compiler identification is GNU 11.4.0
+[0.209s] -- The CXX compiler identification is GNU 11.4.0
+[0.217s] -- Detecting C compiler ABI info
+[0.266s] -- Detecting C compiler ABI info - done
+[0.270s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.271s] -- Detecting C compile features
+[0.272s] -- Detecting C compile features - done
+[0.275s] -- Detecting CXX compiler ABI info
+[0.327s] -- Detecting CXX compiler ABI info - done
+[0.332s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.332s] -- Detecting CXX compile features
+[0.332s] -- Detecting CXX compile features - done
+[0.335s] -- Found ament_cmake_auto: 1.3.11 (/opt/ros/humble/share/ament_cmake_auto/cmake)
+[0.446s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.629s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.635s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.648s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.666s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.687s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.744s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.749s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.824s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.842s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.866s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.877s] -- Looking for pthread.h
+[0.922s] -- Looking for pthread.h - found
+[0.922s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.967s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.967s] -- Found Threads: TRUE  
+[1.244s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.271s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.271s] -- Configured cppcheck include dirs: /home/alex/thesis_ws/src/pointcloud_to_laserscan/include
+[1.271s] -- Configured cppcheck exclude dirs and/or files: 
+[1.273s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.273s] -- Configured cpplint exclude dirs and/or files: 
+[1.274s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.275s] -- Added test 'lint_cmake' to check CMake code style
+[1.275s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.277s] -- Added test 'uncrustify' to check C / C++ code style
+[1.277s] -- Configured uncrustify additional arguments: 
+[1.278s] -- Added test 'xmllint' to check XML markup files
+[1.281s] -- Configuring done
+[1.303s] -- Generating done
+[1.310s] -- Build files have been written to: /home/alex/thesis_ws/build/pointcloud_to_laserscan
+[1.317s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/pointcloud_to_laserscan -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pointcloud_to_laserscan
+[1.319s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[1.353s] [ 20%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan_node.dir/rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.o[0m
+[1.353s] [ 20%] [32mBuilding CXX object CMakeFiles/laserscan_to_pointcloud_node.dir/rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.o[0m
+[1.353s] [ 30%] [32mBuilding CXX object CMakeFiles/laserscan_to_pointcloud.dir/src/laserscan_to_pointcloud_node.cpp.o[0m
+[3.955s] [ 40%] [32m[1mLinking CXX executable laserscan_to_pointcloud_node[0m
+[4.094s] [ 40%] Built target laserscan_to_pointcloud_node
+[4.309s] [ 50%] [32m[1mLinking CXX executable pointcloud_to_laserscan_node[0m
+[4.397s] [ 50%] Built target pointcloud_to_laserscan_node
+[9.599s] [ 60%] [32m[1mLinking CXX shared library liblaserscan_to_pointcloud.so[0m
+[9.998s] [ 60%] Built target laserscan_to_pointcloud
+[10.009s] [ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[10.250s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:56:11:[m[K [01;31m[Kfatal error: [m[Ktf2_geometry_msgs/tf2_geometry_msgs.hpp: No such file or directory
+[10.250s]    56 |  #include [01;31m[K<tf2_geometry_msgs/tf2_geometry_msgs.hpp>[m[K
+[10.250s]       |           [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[10.250s] compilation terminated.
+[10.253s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+[10.253s] gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[10.253s] gmake: *** [Makefile:146: all] Error 2
+[10.255s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

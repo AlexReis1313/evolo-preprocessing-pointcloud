@@ -1,0 +1,86 @@
+[0.012s] Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_conversions -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_conversions
+[0.126s] -- The C compiler identification is GNU 11.4.0
+[0.217s] -- The CXX compiler identification is GNU 11.4.0
+[0.225s] -- Detecting C compiler ABI info
+[0.273s] -- Detecting C compiler ABI info - done
+[0.278s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.278s] -- Detecting C compile features
+[0.280s] -- Detecting C compile features - done
+[0.283s] -- Detecting CXX compiler ABI info
+[0.335s] -- Detecting CXX compiler ABI info - done
+[0.339s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.340s] -- Detecting CXX compile features
+[0.340s] -- Detecting CXX compile features - done
+[0.344s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.454s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.565s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0")  
+[0.572s] -- Found message_filters: 4.3.5 (/opt/ros/humble/share/message_filters/cmake)
+[0.637s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.643s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.655s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.674s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.694s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.752s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.756s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.831s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.850s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.873s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.884s] -- Looking for pthread.h
+[0.929s] -- Looking for pthread.h - found
+[0.929s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.974s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.975s] -- Found Threads: TRUE  
+[1.087s] -- Checking for module 'eigen3'
+[1.095s] --   Found eigen3, version 3.4.0
+[1.113s] -- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") 
+[1.113s] -- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+[1.163s] -- Checking for module 'libusb-1.0'
+[1.171s] --   Found libusb-1.0, version 1.0.25
+[1.191s] -- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  
+[1.191s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[1.222s] -- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+[2.006s] -- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+[2.007s] -- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  
+[2.008s] -- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  
+[2.009s] -- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  
+[2.011s] -- Found pcl_msgs: 1.0.0 (/opt/ros/humble/share/pcl_msgs/cmake)
+[2.060s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[2.068s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[2.147s] -- Configuring done
+[2.182s] -- Generating done
+[2.187s] -- Build files have been written to: /home/alex/thesis_ws/build/pcl_conversions
+[2.199s] Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_conversions -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_conversions
+[2.200s] Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
+[2.240s] [ 16%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[2.245s] [ 33%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[3.032s] [ 50%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[3.071s] [ 50%] Built target gtest_main
+[4.614s] [ 66%] [32m[1mLinking CXX static library libgtest.a[0m
+[4.649s] [ 66%] Built target gtest
+[4.662s] [ 83%] [32mBuilding CXX object CMakeFiles/pcl_conversions-test.dir/test/test_pcl_conversions.cpp.o[0m
+[9.048s] [100%] [32m[1mLinking CXX executable pcl_conversions-test[0m
+[9.379s] [100%] Built target pcl_conversions-test
+[9.386s] Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
+[9.392s] Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions
+[9.396s] -- Install configuration: ""
+[9.396s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions
+[9.396s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions/pcl_conversions
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions/pcl_conversions/pcl_conversions.h
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/package_run_dependencies/pcl_conversions
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/parent_prefix_path/pcl_conversions
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/ament_prefix_path.sh
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/ament_prefix_path.dsv
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/path.sh
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/path.dsv
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.bash
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.sh
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.zsh
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.dsv
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.dsv
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/packages/pcl_conversions
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/ament_cmake_export_include_directories-extras.cmake
+[9.397s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake
+[9.398s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake
+[9.398s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/pcl_conversionsConfig-version.cmake
+[9.398s] -- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.xml
+[9.399s] Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions
