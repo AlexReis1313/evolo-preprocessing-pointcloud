@@ -1,0 +1,11 @@
+[ 20%] Built target laserscan_to_pointcloud_node
+[ 40%] Built target laserscan_to_pointcloud
+[ 60%] Built target pointcloud_to_laserscan_node
+[ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[01m[K/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:54:10:[m[K [01;31m[Kfatal error: [m[Kpcl_ros/transforms.hpp: No such file or directory
+   54 | #include [01;31m[K"pcl_ros/transforms.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

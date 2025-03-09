@@ -1,0 +1,15 @@
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/ament_index/resource_index/package_run_dependencies/perception_pcl
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/ament_index/resource_index/parent_prefix_path/perception_pcl
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/environment/ament_prefix_path.sh
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/environment/ament_prefix_path.dsv
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/environment/path.sh
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/environment/path.dsv
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/local_setup.bash
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/local_setup.sh
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/local_setup.zsh
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/local_setup.dsv
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/package.dsv
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/ament_index/resource_index/packages/perception_pcl
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/cmake/perception_pclConfig.cmake
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/cmake/perception_pclConfig-version.cmake
+/home/alex/thesis_ws/new_clone/install/perception_pcl/share/perception_pcl/package.xml

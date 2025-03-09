@@ -1,0 +1,32 @@
+[0.007s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.043s] [ 30%] Built target laserscan_to_pointcloud_node
+[0.043s] [ 40%] Built target pointcloud_to_laserscan_node
+[0.044s] [ 60%] Built target laserscan_to_pointcloud
+[0.053s] [35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[0.065s] [ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[2.340s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Kvoid pointcloud_to_laserscan::PointCloudToLaserScanNode::cloudCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[2.340s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:170:55:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KtoMsg(tf2::Quaternion&)[m[K’
+[2.340s]   170 |   noattitude_transform.transform.rotation = [01;31m[Ktf2::toMsg(q_new)[m[K;
+[2.340s]       |                                             [01;31m[K~~~~~~~~~~^~~~~~~[m[K
+[2.340s] In file included from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/buffer_interface.h:43[m[K,
+[2.340s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/buffer.h:42[m[K,
+[2.340s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:50[m[K,
+[2.340s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[2.340s] [01m[K/opt/ros/humble/include/tf2/tf2/convert.hpp:129:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class A, class B> B tf2::toMsg(const A&)[m[K’
+[2.340s]   129 | B [01;36m[KtoMsg[m[K(const A & a);
+[2.340s]       |   [01;36m[K^~~~~[m[K
+[2.340s] [01m[K/opt/ros/humble/include/tf2/tf2/convert.hpp:129:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[2.340s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:170:55:[m[K [01;36m[Knote: [m[K  couldn’t deduce template parameter ‘[01m[KB[m[K’
+[2.340s]   170 |   noattitude_transform.transform.rotation = [01;36m[Ktf2::toMsg(q_new)[m[K;
+[2.340s]       |                                             [01;36m[K~~~~~~~~~~^~~~~~~[m[K
+[2.340s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:52[m[K:
+[2.340s] [01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp:119:31:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ksensor_msgs::msg::PointCloud2 tf2::toMsg(const PointCloud2&)[m[K’
+[2.340s]   119 | sensor_msgs::msg::PointCloud2 [01;36m[KtoMsg[m[K(const sensor_msgs::msg::PointCloud2 & in)
+[2.341s]       |                               [01;36m[K^~~~~[m[K
+[2.341s] [01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp:119:75:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Ktf2::Quaternion[m[K’ to ‘[01m[Kconst PointCloud2&[m[K’ {aka ‘[01m[Kconst sensor_msgs::msg::PointCloud2_<std::allocator<void> >&[m[K’}
+[2.341s]   119 | sensor_msgs::msg::PointCloud2 toMsg([01;36m[Kconst sensor_msgs::msg::PointCloud2 & in[m[K)
+[2.341s]       |                                     [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~[m[K
+[4.677s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+[4.677s] gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[4.678s] gmake: *** [Makefile:146: all] Error 2
+[4.679s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

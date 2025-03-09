@@ -1,0 +1,17 @@
+[ 20%] Built target laserscan_to_pointcloud_node
+[ 40%] Built target pointcloud_to_laserscan_node
+[ 60%] Built target laserscan_to_pointcloud
+[ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In constructor ‘[01m[Kpointcloud_to_laserscan::PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions&)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:90:3:[m[K [01;31m[Kerror: [m[K‘[01m[Kpub_cloud_[m[K’ was not declared in this scope; did you mean ‘[01m[Kpub_long_[m[K’?
+   90 |   [01;31m[Kpub_cloud_[m[K = this->create_publisher<sensor_msgs::msg::PointCloud2>("scanner/pointcloud", rclcpp::SensorDataQoS());
+      |   [01;31m[K^~~~~~~~~~[m[K
+      |   [32m[Kpub_long_[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Kvoid pointcloud_to_laserscan::PointCloudToLaserScanNode::cloudCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:224:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpub_cloud_[m[K’ was not declared in this scope; did you mean ‘[01m[Kpub_long_[m[K’?
+  224 |     [01;31m[Kpub_cloud_[m[K->publish(std::move(cloud_msg));
+      |     [01;31m[K^~~~~~~~~~[m[K
+      |     [32m[Kpub_long_[m[K
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

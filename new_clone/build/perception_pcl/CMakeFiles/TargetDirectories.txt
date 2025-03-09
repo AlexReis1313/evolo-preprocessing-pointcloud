@@ -1,0 +1,9 @@
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/uninstall.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/perception_pcl_uninstall.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/test.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/edit_cache.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/rebuild_cache.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/list_install_components.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/install.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/install/local.dir
+/home/alex/thesis_ws/new_clone/build/perception_pcl/CMakeFiles/install/strip.dir

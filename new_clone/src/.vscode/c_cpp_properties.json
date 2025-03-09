@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/alex/thesis_ws/new_clone/install/pcl_ros/include/**",
+        "/home/alex/thesis_ws/new_clone/install/pcl_conversions/include/**",
+        "/home/alex/thesis_ws/install/pointcloud_to_laserscan/include/**",
+        "/home/alex/thesis_ws/install/pcl_ros/include/**",
+        "/home/alex/thesis_ws/install/pcl_conversions/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions/include/**",
+        "/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros/include/**",
+        "/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,105 @@
+[35m[1mConsolidate compiler generated dependencies of target pcd_to_pointcloud[0m
+[35m[1mConsolidate compiler generated dependencies of target pcd_to_pointcloud_lib[0m
+[35m[1mConsolidate compiler generated dependencies of target pcl_ros_tf[0m
+[ 33%] Built target pcd_to_pointcloud
+[ 66%] Built target pcd_to_pointcloud_lib
+[100%] Built target pcl_ros_tf
+-- Install configuration: ""
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud
+-- Set runtime path of "/home/alex/thesis_ws/new_clone/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud" to ""
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh_omp.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/principal_curvatures.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/feature.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/vfh.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot_omp.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_tbb.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_omp.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/pfh.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/boundary.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/features/moment_invariants.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/io
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/io/bag_io.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_data.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_fields.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/io/pcd_io.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/pcl_nodelet.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/point_cloud.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/statistical_outlier_removal.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/passthrough.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/project_inliers.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/crop_box.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/radius_outlier_removal.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/extract_indices.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/filter.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/filters/voxel_grid.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/surface
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/surface/convex_hull.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/surface/moving_least_squares.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/publisher.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_polygonal_prism_data.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/sac_segmentation.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/segment_differences.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_clusters.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/impl
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/include/pcl_ros/pcl_ros/impl/transforms.hpp
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/lib/libpcl_ros_tf.a
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so
+-- Set runtime path of "/home/alex/thesis_ws/new_clone/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so" to ""
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_surface.xml
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_features.xml
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_io.xml
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_filters.xml
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_segmentation.xml
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features/sample_normal_3d.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io/sample_concatenate_data.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_voxel_grid.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_statistical_outlier_removal.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/statistical_outlier_removal.rviz
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/voxel_grid.rviz
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface/sample_convex_hull.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation/sample_extract_clusters.launch
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/data
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/samples/data/.gitignore
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/library_path.sh
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/library_path.dsv
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/ament_index/resource_index/package_run_dependencies/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/ament_index/resource_index/parent_prefix_path/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.sh
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.dsv
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/path.sh
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/environment/path.dsv
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/local_setup.bash
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/local_setup.sh
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/local_setup.zsh
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/local_setup.dsv
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/package.dsv
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/ament_index/resource_index/packages/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/ament_index/resource_index/rclcpp_components/pcl_ros
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport-noconfig.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig-version.cmake
+-- Installing: /home/alex/thesis_ws/new_clone/install/pcl_ros/share/pcl_ros/package.xml

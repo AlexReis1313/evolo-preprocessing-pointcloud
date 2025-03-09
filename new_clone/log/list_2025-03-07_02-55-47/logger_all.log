@@ -1,0 +1,100 @@
+[0.123s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/alex/thesis_ws/new_clone']
+[0.124s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/alex/thesis_ws/new_clone'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], topological_order=False, names_only=False, paths_only=True, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x75f7f86533a0>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x75f7f8652410>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x75f7f8652410>>, mixin_verb=('list',))
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.345s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/alex/thesis_ws/new_clone'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['ignore', 'ignore_ament_install']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'ignore'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'ignore_ament_install'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['colcon_pkg']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'colcon_pkg'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['colcon_meta']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'colcon_meta'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['ros']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'ros'
+[0.360s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['cmake', 'python']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'cmake'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'python'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extensions ['python_setup_py']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone) by extension 'python_setup_py'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/build) by extensions ['ignore', 'ignore_ament_install']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/build) by extension 'ignore'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/build) ignored
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/install) by extensions ['ignore', 'ignore_ament_install']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/install) by extension 'ignore'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/install) ignored
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/log) by extensions ['ignore', 'ignore_ament_install']
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/log) by extension 'ignore'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/log) ignored
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['ignore', 'ignore_ament_install']
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'ignore'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'ignore_ament_install'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['colcon_pkg']
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'colcon_pkg'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['colcon_meta']
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'colcon_meta'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['ros']
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'ros'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['cmake', 'python']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'cmake'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'python'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extensions ['python_setup_py']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src) by extension 'python_setup_py'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['ignore', 'ignore_ament_install']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'ignore'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'ignore_ament_install'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['colcon_pkg']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'colcon_pkg'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['colcon_meta']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'colcon_meta'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['ros']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'ros'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['cmake', 'python']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'cmake'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'python'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extensions ['python_setup_py']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl) by extension 'python_setup_py'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extensions ['ignore', 'ignore_ament_install']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extension 'ignore'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extension 'ignore_ament_install'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extensions ['colcon_pkg']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extension 'colcon_pkg'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extensions ['colcon_meta']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extension 'colcon_meta'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extensions ['ros']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions) by extension 'ros'
+[0.380s] DEBUG:colcon.colcon_core.package_identification:Package '/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_conversions' with type 'ros.ament_cmake' and name 'pcl_conversions'
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extension 'ignore'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extension 'ignore_ament_install'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extensions ['colcon_pkg']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extension 'colcon_pkg'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extensions ['colcon_meta']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extension 'colcon_meta'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extensions ['ros']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros) by extension 'ros'
+[0.383s] DEBUG:colcon.colcon_core.package_identification:Package '/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros' with type 'ros.ament_cmake' and name 'pcl_ros'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extensions ['ignore', 'ignore_ament_install']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extension 'ignore'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extension 'ignore_ament_install'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extensions ['colcon_pkg']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extension 'colcon_pkg'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extensions ['colcon_meta']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extension 'colcon_meta'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extensions ['ros']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl) by extension 'ros'
+[0.384s] DEBUG:colcon.colcon_core.package_identification:Package '/home/alex/thesis_ws/new_clone/src/perception_pcl/perception_pcl' with type 'ros.ament_cmake' and name 'perception_pcl'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extensions ['ignore', 'ignore_ament_install']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extension 'ignore'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extension 'ignore_ament_install'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extensions ['colcon_pkg']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extension 'colcon_pkg'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extensions ['colcon_meta']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extension 'colcon_meta'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extensions ['ros']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan) by extension 'ros'
+[0.386s] DEBUG:colcon.colcon_core.package_identification:Package '/home/alex/thesis_ws/new_clone/src/pointcloud_to_laserscan' with type 'ros.ament_cmake' and name 'pointcloud_to_laserscan'
+[0.386s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults

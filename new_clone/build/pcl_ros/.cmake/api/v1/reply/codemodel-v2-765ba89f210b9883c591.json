@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-d947a7bf524afcca583e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "pcl_ros",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "pcd_to_pointcloud::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pcd_to_pointcloud-564790a565fa8474db83.json",
+					"name" : "pcd_to_pointcloud",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "pcd_to_pointcloud_lib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pcd_to_pointcloud_lib-9efcd68841bf85320066.json",
+					"name" : "pcd_to_pointcloud_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "pcl_ros_tf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pcl_ros_tf-940b03871726be019856.json",
+					"name" : "pcl_ros_tf",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "pcl_ros_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pcl_ros_uninstall-3b5819e637e2526dac75.json",
+					"name" : "pcl_ros_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-85cf0df2804534066231.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/alex/thesis_ws/new_clone/build/pcl_ros",
+		"source" : "/home/alex/thesis_ws/new_clone/src/perception_pcl/pcl_ros"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

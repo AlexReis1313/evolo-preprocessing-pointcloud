@@ -1,0 +1,362 @@
+[0.073s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.073s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7cf5e8726290>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7cf5e8725cc0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7cf5e8725cc0>>, mixin_verb=('build',))
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.187s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.187s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/alex/thesis_ws'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.201s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extensions ['ignore', 'ignore_ament_install']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extension 'ignore'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) ignored
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extensions ['ignore', 'ignore_ament_install']
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extension 'ignore'
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) ignored
+[0.202s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extensions ['ignore', 'ignore_ament_install']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extension 'ignore'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) ignored
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['ignore', 'ignore_ament_install']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'ignore'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'ignore_ament_install'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['colcon_pkg']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'colcon_pkg'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['colcon_meta']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'colcon_meta'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['ros']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'ros'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['cmake', 'python']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'cmake'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'python'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extensions ['python_setup_py']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl) by extension 'python_setup_py'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extensions ['ignore', 'ignore_ament_install']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extension 'ignore'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extension 'ignore_ament_install'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extensions ['colcon_pkg']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extension 'colcon_pkg'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extensions ['colcon_meta']
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extension 'colcon_meta'
+[0.203s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extensions ['ros']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_conversions) by extension 'ros'
+[0.206s] DEBUG:colcon.colcon_core.package_identification:Package 'src/perception_pcl/pcl_conversions' with type 'ros.ament_cmake' and name 'pcl_conversions'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extension 'ignore'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extension 'ignore_ament_install'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extensions ['colcon_pkg']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extension 'colcon_pkg'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extensions ['colcon_meta']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extension 'colcon_meta'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extensions ['ros']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/pcl_ros) by extension 'ros'
+[0.207s] DEBUG:colcon.colcon_core.package_identification:Package 'src/perception_pcl/pcl_ros' with type 'ros.ament_cmake' and name 'pcl_ros'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extensions ['ignore', 'ignore_ament_install']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extension 'ignore'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extension 'ignore_ament_install'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extensions ['colcon_pkg']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extension 'colcon_pkg'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extensions ['colcon_meta']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extension 'colcon_meta'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extensions ['ros']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/perception_pcl/perception_pcl) by extension 'ros'
+[0.208s] DEBUG:colcon.colcon_core.package_identification:Package 'src/perception_pcl/perception_pcl' with type 'ros.ament_cmake' and name 'perception_pcl'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extensions ['ignore', 'ignore_ament_install']
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extension 'ignore'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extension 'ignore_ament_install'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extensions ['colcon_pkg']
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extension 'colcon_pkg'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extensions ['colcon_meta']
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extension 'colcon_meta'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extensions ['ros']
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/pointcloud_to_laserscan) by extension 'ros'
+[0.209s] DEBUG:colcon.colcon_core.package_identification:Package 'src/pointcloud_to_laserscan' with type 'ros.ament_cmake' and name 'pointcloud_to_laserscan'
+[0.209s] Level 1:colcon.colcon_core.package_identification:_identify(src/snipets) by extensions ['ignore', 'ignore_ament_install']
+[0.209s] Level 1:colcon.colcon_core.package_identification:_identify(src/snipets) by extension 'ignore'
+[0.209s] Level 1:colcon.colcon_core.package_identification:_identify(src/snipets) ignored
+[0.209s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.209s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.209s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.209s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.209s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.222s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.222s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.223s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/alex/thesis_ws/install
+[0.224s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 302 installed packages in /opt/ros/humble
+[0.225s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.248s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'pcl_conversions' is in: /opt/ros/humble
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding pcl_conversions
+
+This may be promoted to an error in a future release of colcon-override-check.
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_target' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_clean_cache' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_clean_first' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'cmake_force_configure' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'ament_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'catkin_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_conversions' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.249s] DEBUG:colcon.colcon_core.verb:Building package 'pcl_conversions' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/alex/thesis_ws/build/pcl_conversions', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/alex/thesis_ws/install/pcl_conversions', 'merge_install': False, 'path': '/home/alex/thesis_ws/src/perception_pcl/pcl_conversions', 'symlink_install': False, 'test_result_base': None}
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_target' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_clean_cache' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_clean_first' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'cmake_force_configure' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'ament_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'catkin_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'pcl_ros' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.249s] DEBUG:colcon.colcon_core.verb:Building package 'pcl_ros' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/alex/thesis_ws/build/pcl_ros', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/alex/thesis_ws/install/pcl_ros', 'merge_install': False, 'path': '/home/alex/thesis_ws/src/perception_pcl/pcl_ros', 'symlink_install': False, 'test_result_base': None}
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_target' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_clean_cache' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_clean_first' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'cmake_force_configure' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'ament_cmake_args' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'catkin_cmake_args' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'perception_pcl' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.250s] DEBUG:colcon.colcon_core.verb:Building package 'perception_pcl' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/alex/thesis_ws/build/perception_pcl', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/alex/thesis_ws/install/perception_pcl', 'merge_install': False, 'path': '/home/alex/thesis_ws/src/perception_pcl/perception_pcl', 'symlink_install': False, 'test_result_base': None}
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_args' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_target' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_clean_cache' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_clean_first' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'cmake_force_configure' from command line to 'False'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'ament_cmake_args' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'catkin_cmake_args' from command line to 'None'
+[0.250s] Level 5:colcon.colcon_core.verb:set package 'pointcloud_to_laserscan' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.250s] DEBUG:colcon.colcon_core.verb:Building package 'pointcloud_to_laserscan' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/alex/thesis_ws/build/pointcloud_to_laserscan', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/alex/thesis_ws/install/pointcloud_to_laserscan', 'merge_install': False, 'path': '/home/alex/thesis_ws/src/pointcloud_to_laserscan', 'symlink_install': False, 'test_result_base': None}
+[0.250s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.251s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.251s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/alex/thesis_ws/src/perception_pcl/pcl_conversions' with build type 'ament_cmake'
+[0.251s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/alex/thesis_ws/src/perception_pcl/pcl_conversions'
+[0.252s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.253s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.253s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.258s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_conversions -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_conversions
+[1.754s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_conversions -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_conversions
+[1.756s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
+[7.980s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
+[7.986s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions
+[7.993s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pcl_conversions)
+[7.994s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions
+[7.995s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions' for CMake module files
+[7.995s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions' for CMake config files
+[7.996s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_conversions', 'cmake_prefix_path')
+[7.996s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.ps1'
+[7.996s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.dsv'
+[7.996s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.sh'
+[7.997s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/bin'
+[7.997s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/lib/pkgconfig/pcl_conversions.pc'
+[7.997s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/lib/python3.10/site-packages'
+[7.997s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/bin'
+[7.998s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.ps1'
+[7.998s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.dsv'
+[7.998s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.sh'
+[7.999s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.bash'
+[7.999s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.zsh'
+[8.000s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/pcl_conversions/share/colcon-core/packages/pcl_conversions)
+[8.000s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pcl_conversions)
+[8.000s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions' for CMake module files
+[8.001s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions' for CMake config files
+[8.001s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_conversions', 'cmake_prefix_path')
+[8.001s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.ps1'
+[8.001s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.dsv'
+[8.001s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/hook/cmake_prefix_path.sh'
+[8.002s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/bin'
+[8.002s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/lib/pkgconfig/pcl_conversions.pc'
+[8.002s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/lib/python3.10/site-packages'
+[8.002s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_conversions/bin'
+[8.002s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.ps1'
+[8.002s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.dsv'
+[8.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.sh'
+[8.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.bash'
+[8.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.zsh'
+[8.003s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/pcl_conversions/share/colcon-core/packages/pcl_conversions)
+[8.003s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/alex/thesis_ws/src/perception_pcl/pcl_ros' with build type 'ament_cmake'
+[8.004s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/alex/thesis_ws/src/perception_pcl/pcl_ros'
+[8.004s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[8.004s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.009s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_ros': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_ros -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_ros
+[9.880s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_ros' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/pcl_ros -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_ros
+[9.882s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_ros': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_ros -- -j8 -l8
+[16.122s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_ros' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_ros -- -j8 -l8
+[16.123s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pcl_ros': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_ros
+[16.136s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pcl_ros)
+[16.136s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros' for CMake module files
+[16.137s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pcl_ros' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_ros
+[16.137s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros' for CMake config files
+[16.137s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_ros', 'cmake_prefix_path')
+[16.137s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.ps1'
+[16.138s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.dsv'
+[16.138s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.sh'
+[16.138s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib'
+[16.138s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_ros', 'ld_library_path_lib')
+[16.138s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.ps1'
+[16.139s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.dsv'
+[16.139s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.sh'
+[16.139s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/bin'
+[16.139s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib/pkgconfig/pcl_ros.pc'
+[16.139s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib/python3.10/site-packages'
+[16.139s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/bin'
+[16.139s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.ps1'
+[16.140s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.dsv'
+[16.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.sh'
+[16.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.bash'
+[16.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.zsh'
+[16.141s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/pcl_ros/share/colcon-core/packages/pcl_ros)
+[16.141s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pcl_ros)
+[16.141s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros' for CMake module files
+[16.141s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros' for CMake config files
+[16.141s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_ros', 'cmake_prefix_path')
+[16.142s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.ps1'
+[16.142s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.dsv'
+[16.142s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/cmake_prefix_path.sh'
+[16.142s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib'
+[16.142s] Level 1:colcon.colcon_core.shell:create_environment_hook('pcl_ros', 'ld_library_path_lib')
+[16.143s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.ps1'
+[16.143s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.dsv'
+[16.143s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/hook/ld_library_path_lib.sh'
+[16.143s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/bin'
+[16.143s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib/pkgconfig/pcl_ros.pc'
+[16.143s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/lib/python3.10/site-packages'
+[16.143s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pcl_ros/bin'
+[16.144s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.ps1'
+[16.144s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.dsv'
+[16.144s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.sh'
+[16.144s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.bash'
+[16.145s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.zsh'
+[16.145s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/pcl_ros/share/colcon-core/packages/pcl_ros)
+[16.145s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/alex/thesis_ws/src/perception_pcl/perception_pcl' with build type 'ament_cmake'
+[16.145s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/alex/thesis_ws/src/perception_pcl/perception_pcl'
+[16.145s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[16.145s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[16.148s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/alex/thesis_ws/src/pointcloud_to_laserscan' with build type 'ament_cmake'
+[16.148s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/alex/thesis_ws/src/pointcloud_to_laserscan'
+[16.148s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[16.148s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[16.153s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/perception_pcl': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/perception_pcl -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/perception_pcl
+[16.155s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[16.536s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/perception_pcl' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/alex/thesis_ws/src/perception_pcl/perception_pcl -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/perception_pcl
+[16.537s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/perception_pcl': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/alex/thesis_ws/build/perception_pcl -- -j8 -l8
+[16.560s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/perception_pcl' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/alex/thesis_ws/build/perception_pcl -- -j8 -l8
+[16.561s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alex/thesis_ws/build/perception_pcl': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/alex/thesis_ws/build/perception_pcl
+[16.569s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(perception_pcl)
+[16.569s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl' for CMake module files
+[16.569s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/perception_pcl' returned '0': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/alex/thesis_ws/build/perception_pcl
+[16.570s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl' for CMake config files
+[16.570s] Level 1:colcon.colcon_core.shell:create_environment_hook('perception_pcl', 'cmake_prefix_path')
+[16.570s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.ps1'
+[16.570s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.dsv'
+[16.570s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.sh'
+[16.571s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/bin'
+[16.571s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/lib/pkgconfig/perception_pcl.pc'
+[16.571s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/lib/python3.10/site-packages'
+[16.571s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/bin'
+[16.571s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.ps1'
+[16.572s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.dsv'
+[16.572s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.sh'
+[16.572s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.bash'
+[16.572s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.zsh'
+[16.573s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/perception_pcl/share/colcon-core/packages/perception_pcl)
+[16.573s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(perception_pcl)
+[16.573s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl' for CMake module files
+[16.574s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl' for CMake config files
+[16.574s] Level 1:colcon.colcon_core.shell:create_environment_hook('perception_pcl', 'cmake_prefix_path')
+[16.574s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.ps1'
+[16.574s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.dsv'
+[16.574s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/hook/cmake_prefix_path.sh'
+[16.575s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/bin'
+[16.575s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/lib/pkgconfig/perception_pcl.pc'
+[16.575s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/lib/python3.10/site-packages'
+[16.575s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/perception_pcl/bin'
+[16.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.ps1'
+[16.575s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.dsv'
+[16.576s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.sh'
+[16.576s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.bash'
+[16.576s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.zsh'
+[16.576s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/perception_pcl/share/colcon-core/packages/perception_pcl)
+[31.594s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': AMENT_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[31.595s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pointcloud_to_laserscan)
+[31.595s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan' for CMake module files
+[31.595s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan' for CMake config files
+[31.595s] Level 1:colcon.colcon_core.shell:create_environment_hook('pointcloud_to_laserscan', 'cmake_prefix_path')
+[31.596s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/cmake_prefix_path.ps1'
+[31.596s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/cmake_prefix_path.dsv'
+[31.596s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/cmake_prefix_path.sh'
+[31.596s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib'
+[31.597s] Level 1:colcon.colcon_core.shell:create_environment_hook('pointcloud_to_laserscan', 'ld_library_path_lib')
+[31.597s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/ld_library_path_lib.ps1'
+[31.597s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/ld_library_path_lib.dsv'
+[31.597s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/hook/ld_library_path_lib.sh'
+[31.597s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan/bin'
+[31.597s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pkgconfig/pointcloud_to_laserscan.pc'
+[31.597s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/python3.10/site-packages'
+[31.598s] Level 1:colcon.colcon_core.environment:checking '/home/alex/thesis_ws/install/pointcloud_to_laserscan/bin'
+[31.598s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.ps1'
+[31.598s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.dsv'
+[31.598s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.sh'
+[31.599s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.bash'
+[31.599s] INFO:colcon.colcon_core.shell:Creating package script '/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.zsh'
+[31.599s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/alex/thesis_ws/install/pointcloud_to_laserscan/share/colcon-core/packages/pointcloud_to_laserscan)
+[31.609s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[31.610s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[31.610s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '2'
+[31.610s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[31.613s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[31.613s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[31.613s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[31.621s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[31.622s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/alex/thesis_ws/install/local_setup.ps1'
+[31.622s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/alex/thesis_ws/install/_local_setup_util_ps1.py'
+[31.623s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/alex/thesis_ws/install/setup.ps1'
+[31.624s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/alex/thesis_ws/install/local_setup.sh'
+[31.624s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/alex/thesis_ws/install/_local_setup_util_sh.py'
+[31.625s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/alex/thesis_ws/install/setup.sh'
+[31.625s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/alex/thesis_ws/install/local_setup.bash'
+[31.626s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/alex/thesis_ws/install/setup.bash'
+[31.626s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/alex/thesis_ws/install/local_setup.zsh'
+[31.626s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/alex/thesis_ws/install/setup.zsh'

@@ -1,0 +1,99 @@
+[0.011s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.049s] [ 20%] Built target laserscan_to_pointcloud_node
+[0.050s] [ 40%] Built target pointcloud_to_laserscan_node
+[0.051s] [ 60%] Built target laserscan_to_pointcloud
+[0.073s] [ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[2.364s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In constructor ‘[01m[Kpointcloud_to_laserscan::PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions&)[m[K’:
+[2.364s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:86:40:[m[K [01;31m[Kerror: [m[K‘[01m[KMessageFilter[m[K’ was not declared in this scope; did you mean ‘[01m[Ktf2_ros::MessageFilter[m[K’?
+[2.364s]    86 |     message_filter_ = std::make_unique<[01;31m[KMessageFilter[m[K>(
+[2.364s]       |                                        [01;31m[K^~~~~~~~~~~~~[m[K
+[2.364s]       |                                        [32m[Ktf2_ros::MessageFilter[m[K
+[2.364s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:53[m[K,
+[2.364s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:40[m[K:
+[2.364s] [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:149:7:[m[K [01;36m[Knote: [m[K‘[01m[Ktf2_ros::MessageFilter[m[K’ declared here
+[2.364s]   149 | class [01;36m[KMessageFilter[m[K : public MessageFilterBase, public message_filters::SimpleFilter<M>
+[2.364s]       |       [01;36m[K^~~~~~~~~~~~~[m[K
+[2.365s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:86:54:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kmake_unique<<expression error> >(message_filters::Subscriber<sensor_msgs::msg::PointCloud2_<std::allocator<void> > >&, tf2_ros::Buffer&, std::string&, int&, rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr, rclcpp::node_interfaces::NodeClockInterface::SharedPtr)[m[K’
+[2.365s]    86 |     message_filter_ = [01;31m[Kstd::make_unique<MessageFilter>([m[K
+[2.365s]       |                       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[2.365s]    87 | [01;31m[K      sub_, *tf2_, target_frame_, input_queue_size_,[m[K
+[2.365s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K  
+[2.365s]    88 | [01;31m[K      this->get_node_logging_interface(),[m[K
+[2.365s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K             
+[2.365s]    89 | [01;31m[K      this->get_node_clock_interface())[m[K;
+[2.365s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K               
+[2.365s] In file included from [01m[K/usr/include/c++/11/memory:76[m[K,
+[2.365s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:44[m[K,
+[2.365s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:40[m[K:
+[2.365s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:961:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class ... _Args> typename std::_MakeUniq<_Tp>::__single_object std::make_unique(_Args&& ...)[m[K’
+[2.365s]   961 |     [01;36m[Kmake_unique[m[K(_Args&&... __args)
+[2.365s]       |     [01;36m[K^~~~~~~~~~~[m[K
+[2.365s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:961:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[2.365s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:86:54:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[2.365s]    86 |     message_filter_ = [01;31m[Kstd::make_unique<MessageFilter>([m[K
+[2.365s]       |                       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[2.365s]    87 | [01;31m[K      sub_, *tf2_, target_frame_, input_queue_size_,[m[K
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K  
+[2.366s]    88 | [01;31m[K      this->get_node_logging_interface(),[m[K
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K             
+[2.366s]    89 | [01;31m[K      this->get_node_clock_interface())[m[K;
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K               
+[2.366s] In file included from [01m[K/usr/include/c++/11/memory:76[m[K,
+[2.366s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:44[m[K,
+[2.366s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:40[m[K:
+[2.366s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:967:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> typename std::_MakeUniq<_Tp>::__array std::make_unique(std::size_t)[m[K’
+[2.366s]   967 |     [01;36m[Kmake_unique[m[K(size_t __num)
+[2.366s]       |     [01;36m[K^~~~~~~~~~~[m[K
+[2.366s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:967:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[2.366s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:86:54:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[2.366s]    86 |     message_filter_ = [01;31m[Kstd::make_unique<MessageFilter>([m[K
+[2.366s]       |                       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[2.366s]    87 | [01;31m[K      sub_, *tf2_, target_frame_, input_queue_size_,[m[K
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K  
+[2.366s]    88 | [01;31m[K      this->get_node_logging_interface(),[m[K
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K             
+[2.366s]    89 | [01;31m[K      this->get_node_clock_interface())[m[K;
+[2.366s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K               
+[2.366s] In file included from [01m[K/usr/include/c++/11/memory:76[m[K,
+[2.366s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:44[m[K,
+[2.366s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:40[m[K:
+[2.366s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:973:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class ... _Args> typename std::_MakeUniq<_Tp>::__invalid_type std::make_unique(_Args&& ...)[m[K’ (deleted)
+[2.366s]   973 |     [01;36m[Kmake_unique[m[K(_Args&&...) = delete;
+[2.366s]       |     [01;36m[K^~~~~~~~~~~[m[K
+[2.366s] [01m[K/usr/include/c++/11/bits/unique_ptr.h:973:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[2.366s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:86:54:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[2.366s]    86 |     message_filter_ = [01;31m[Kstd::make_unique<MessageFilter>([m[K
+[2.366s]       |                       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[2.367s]    87 | [01;31m[K      sub_, *tf2_, target_frame_, input_queue_size_,[m[K
+[2.367s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K  
+[2.367s]    88 | [01;31m[K      this->get_node_logging_interface(),[m[K
+[2.367s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K             
+[2.367s]    89 | [01;31m[K      this->get_node_clock_interface())[m[K;
+[2.367s]       |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K               
+[2.379s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Kvoid pointcloud_to_laserscan::PointCloudToLaserScanNode::cloudCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[2.379s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:164:55:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KtoMsg(tf2::Quaternion&)[m[K’
+[2.379s]   164 |   noattitude_transform.transform.rotation = [01;31m[Ktf2::toMsg(q_new)[m[K;
+[2.379s]       |                                             [01;31m[K~~~~~~~~~~^~~~~~~[m[K
+[2.379s] In file included from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/buffer_interface.h:43[m[K,
+[2.379s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/buffer.h:42[m[K,
+[2.379s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:51[m[K,
+[2.379s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:40[m[K:
+[2.379s] [01m[K/opt/ros/humble/include/tf2/tf2/convert.hpp:129:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class A, class B> B tf2::toMsg(const A&)[m[K’
+[2.379s]   129 | B [01;36m[KtoMsg[m[K(const A & a);
+[2.379s]       |   [01;36m[K^~~~~[m[K
+[2.379s] [01m[K/opt/ros/humble/include/tf2/tf2/convert.hpp:129:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[2.379s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:164:55:[m[K [01;36m[Knote: [m[K  couldn’t deduce template parameter ‘[01m[KB[m[K’
+[2.380s]   164 |   noattitude_transform.transform.rotation = [01;36m[Ktf2::toMsg(q_new)[m[K;
+[2.380s]       |                                             [01;36m[K~~~~~~~~~~^~~~~~~[m[K
+[2.380s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:51[m[K:
+[2.380s] [01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp:119:31:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ksensor_msgs::msg::PointCloud2 tf2::toMsg(const PointCloud2&)[m[K’
+[2.380s]   119 | sensor_msgs::msg::PointCloud2 [01;36m[KtoMsg[m[K(const sensor_msgs::msg::PointCloud2 & in)
+[2.380s]       |                               [01;36m[K^~~~~[m[K
+[2.380s] [01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp:119:75:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Ktf2::Quaternion[m[K’ to ‘[01m[Kconst PointCloud2&[m[K’ {aka ‘[01m[Kconst sensor_msgs::msg::PointCloud2_<std::allocator<void> >&[m[K’}
+[2.380s]   119 | _msgs::msg::PointCloud2 toMsg([01;36m[Kconst sensor_msgs::msg::PointCloud2 & in[m[K)
+[2.380s]       |                               [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~[m[K
+[2.380s] 
+[4.597s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+[4.597s] gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[4.597s] gmake: *** [Makefile:146: all] Error 2
+[4.599s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

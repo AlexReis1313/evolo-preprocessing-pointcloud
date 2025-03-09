@@ -1,0 +1,31 @@
+[ 40%] Built target pointcloud_to_laserscan_node
+[ 40%] Built target laserscan_to_pointcloud_node
+[ 60%] Built target laserscan_to_pointcloud
+[35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:112:102:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kdouble pointcloud_to_laserscan::PointCloudToLaserScanNode::min_height_longrange_[m[K’
+  112 |   double min_height_shortrange_, max_height_shortrange_, min_height_longrange_, min_height_longrange_[01;31m[K,[m[K angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
+      |                                                                                                      [01;31m[K^[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:112:58:[m[K [01;36m[Knote: [m[Kprevious declaration ‘[01m[Kdouble pointcloud_to_laserscan::PointCloudToLaserScanNode::min_height_longrange_[m[K’
+  112 |   double min_height_shortrange_, max_height_shortrange_, [01;36m[Kmin_height_longrange_[m[K, min_height_longrange_, angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
+      |                                                          [01;36m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In constructor ‘[01m[Kpointcloud_to_laserscan::PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions&)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:73:3:[m[K [01;31m[Kerror: [m[K‘[01m[Kmax_height_longrange_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmin_height_longrange_[m[K’?
+   73 |   [01;31m[Kmax_height_longrange_[m[K = this->declare_parameter("max_height_long", std::numeric_limits<double>::max());
+      |   [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+      |   [32m[Kmin_height_longrange_[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In member function ‘[01m[Kvoid pointcloud_to_laserscan::PointCloudToLaserScanNode::cloudCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:209:72:[m[K [01;31m[Kerror: [m[K‘[01m[Kmax_height_longrange_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmin_height_longrange_[m[K’?
+  209 |       cloud_msg, range_transition_, range_max_, min_height_longrange_, [01;31m[Kmax_height_longrange_[m[K,
+      |                                                                        [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+      |                                                                        [32m[Kmin_height_longrange_[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:[m[K In function ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr pointcloud_to_laserscan::mergeLaserScans(const UniquePtr&, const UniquePtr&)[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:313:12:[m[K [01;31m[Kerror: [m[Kcould not convert ‘[01m[K(& long_scan)->std::unique_ptr<sensor_msgs::msg::LaserScan_<std::allocator<void> >, std::default_delete<sensor_msgs::msg::LaserScan_<std::allocator<void> > > >::operator*()[m[K’ from ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >[m[K’ to ‘[01m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >::UniquePtr[m[K’ {aka ‘[01m[Kstd::unique_ptr<sensor_msgs::msg::LaserScan_<std::allocator<void> >, std::default_delete<sensor_msgs::msg::LaserScan_<std::allocator<void> > > >[m[K’}
+  313 |     return [01;31m[K*long_scan[m[K;
+      |            [01;31m[K^~~~~~~~~~[m[K
+      |            [01;31m[K|[m[K
+      |            [01;31m[Ksensor_msgs::msg::LaserScan_<std::allocator<void> >[m[K
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:76: CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
