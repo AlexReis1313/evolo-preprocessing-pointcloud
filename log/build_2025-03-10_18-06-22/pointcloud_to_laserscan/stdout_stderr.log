@@ -1,0 +1,35 @@
+[ 28%] Built target pointcloud_to_laserscan_node
+[ 57%] Built target laserscan_to_pointcloud
+[35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o[0m
+In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+                 from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+   10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+      |  [01;35m[K^~~~~~~[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kvoid vgicpRegistrationClass::computeRegistration()[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:44:[m[K [01;31m[Kerror: [m[K‘[01m[KtransformToTF[m[K’ is not a member of ‘[01m[Ktf2[m[K’; did you mean ‘[01m[KTransform[m[K’?
+   61 |         tf2::Transform tf_transform = tf2::[01;31m[KtransformToTF[m[K(tf2::eigenToTransform(transform_matrix));
+      |                                            [01;31m[K^~~~~~~~~~~~~[m[K
+      |                                            [32m[KTransform[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:79:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KeigenToTransform(Eigen::Matrix4f&)[m[K’
+   61 |         tf2::Transform tf_transform = tf2::transformToTF([01;31m[Ktf2::eigenToTransform(transform_matrix)[m[K);
+      |                                                          [01;31m[K~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:9[m[K:
+[01m[K/opt/ros/humble/include/tf2_eigen/tf2_eigen/tf2_eigen.hpp:75:38:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped tf2::eigenToTransform(const Affine3d&)[m[K’
+   75 | geometry_msgs::msg::TransformStamped [01;36m[KeigenToTransform[m[K(const Eigen::Affine3d & T)
+      |                                      [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/tf2_eigen/tf2_eigen/tf2_eigen.hpp:75:79:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} to ‘[01m[Kconst Affine3d&[m[K’ {aka ‘[01m[Kconst Eigen::Transform<double, 3, 2>&[m[K’}
+   75 | geometry_msgs::msg::TransformStamped eigenToTransform([01;36m[Kconst Eigen::Affine3d & T[m[K)
+      |                                                       [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[01m[K/opt/ros/humble/include/tf2_eigen/tf2_eigen/tf2_eigen.hpp:96:38:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped tf2::eigenToTransform(const Isometry3d&)[m[K’
+   96 | geometry_msgs::msg::TransformStamped [01;36m[KeigenToTransform[m[K(const Eigen::Isometry3d & T)
+      |                                      [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/tf2_eigen/tf2_eigen/tf2_eigen.hpp:96:81:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} to ‘[01m[Kconst Isometry3d&[m[K’ {aka ‘[01m[Kconst Eigen::Transform<double, 3, 1>&[m[K’}
+   96 | geometry_msgs::msg::TransformStamped eigenToTransform([01;36m[Kconst Eigen::Isometry3d & T[m[K)
+      |                                                       [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:90: CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

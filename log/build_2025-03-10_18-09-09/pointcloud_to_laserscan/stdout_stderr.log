@@ -1,0 +1,49 @@
+[ 28%] Built target pointcloud_to_laserscan_node
+[ 57%] Built target laserscan_to_pointcloud
+[35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o[0m
+In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+                 from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+   10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+      |  [01;35m[K^~~~~~~[m[K
+[ 85%] [32m[1mLinking CXX shared library libpointcloud_to_laserscan.so[0m
+[100%] Built target pointcloud_to_laserscan
+-- Install configuration: ""
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/visibility_control.h
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/laserscan_to_pointcloud_node.hpp
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.sh
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.dsv
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so
+-- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so" to ""
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so
+-- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so" to ""
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_laserscan_to_pointcloud_launch.py
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_pointcloud_to_laserscan_launch.py
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/package_run_dependencies/pointcloud_to_laserscan
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/parent_prefix_path/pointcloud_to_laserscan
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.sh
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.sh
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.dsv
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.bash
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.sh
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.zsh
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.dsv
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.dsv
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/packages/pointcloud_to_laserscan
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/rclcpp_components/pointcloud_to_laserscan
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig.cmake
+-- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig-version.cmake
+-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.xml

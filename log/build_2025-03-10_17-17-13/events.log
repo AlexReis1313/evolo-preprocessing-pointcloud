@@ -1,0 +1,973 @@
+[0.000000] (-) TimerEvent: {}
+[0.000314] (pcl_conversions) JobQueued: {'identifier': 'pcl_conversions', 'dependencies': OrderedDict()}
+[0.000404] (pcl_ros) JobQueued: {'identifier': 'pcl_ros', 'dependencies': OrderedDict([('pcl_conversions', '/home/alex/thesis_ws/install/pcl_conversions')])}
+[0.000434] (perception_pcl) JobQueued: {'identifier': 'perception_pcl', 'dependencies': OrderedDict([('pcl_conversions', '/home/alex/thesis_ws/install/pcl_conversions'), ('pcl_ros', '/home/alex/thesis_ws/install/pcl_ros')])}
+[0.000447] (pointcloud_to_laserscan) JobQueued: {'identifier': 'pointcloud_to_laserscan', 'dependencies': OrderedDict([('pcl_conversions', '/home/alex/thesis_ws/install/pcl_conversions'), ('pcl_ros', '/home/alex/thesis_ws/install/pcl_ros')])}
+[0.000458] (pcl_conversions) JobStarted: {'identifier': 'pcl_conversions'}
+[0.005437] (pcl_conversions) JobProgress: {'identifier': 'pcl_conversions', 'progress': 'cmake'}
+[0.005707] (pcl_conversions) Command: {'cmd': ['/usr/bin/cmake', '/home/alex/thesis_ws/src/perception_pcl/pcl_conversions', '-DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_conversions'], 'cwd': '/home/alex/thesis_ws/build/pcl_conversions', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_conversions'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble')]), 'shell': False}
+[0.040559] (pcl_conversions) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.077106] (pcl_conversions) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.081932] (pcl_conversions) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.099855] (-) TimerEvent: {}
+[0.126072] (pcl_conversions) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.131564] (pcl_conversions) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.131753] (pcl_conversions) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.132042] (pcl_conversions) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.134002] (pcl_conversions) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.185908] (pcl_conversions) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.190740] (pcl_conversions) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.190867] (pcl_conversions) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.191133] (pcl_conversions) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.192331] (pcl_conversions) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.199941] (-) TimerEvent: {}
+[0.292730] (pcl_conversions) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.300032] (-) TimerEvent: {}
+[0.357918] (pcl_conversions) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0")  \n'}
+[0.362410] (pcl_conversions) StdoutLine: {'line': b'-- Found message_filters: 4.3.5 (/opt/ros/humble/share/message_filters/cmake)\n'}
+[0.386115] (pcl_conversions) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.388440] (pcl_conversions) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.393031] (pcl_conversions) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.399976] (pcl_conversions) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.400077] (-) TimerEvent: {}
+[0.409729] (pcl_conversions) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.435948] (pcl_conversions) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.437378] (pcl_conversions) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.495912] (pcl_conversions) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.500207] (-) TimerEvent: {}
+[0.512557] (pcl_conversions) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.539365] (pcl_conversions) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.543879] (pcl_conversions) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.590668] (pcl_conversions) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.590844] (pcl_conversions) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.600318] (-) TimerEvent: {}
+[0.637045] (pcl_conversions) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.637812] (pcl_conversions) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.675961] (pcl_conversions) StdoutLine: {'line': b"-- Checking for module 'eigen3'\n"}
+[0.684236] (pcl_conversions) StdoutLine: {'line': b'--   Found eigen3, version 3.4.0\n'}
+[0.700409] (-) TimerEvent: {}
+[0.703369] (pcl_conversions) StdoutLine: {'line': b'-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") \n'}
+[0.703506] (pcl_conversions) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[0.748584] (pcl_conversions) StdoutLine: {'line': b"-- Checking for module 'libusb-1.0'\n"}
+[0.757452] (pcl_conversions) StdoutLine: {'line': b'--   Found libusb-1.0, version 1.0.25\n'}
+[0.786111] (pcl_conversions) StdoutLine: {'line': b'-- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  \n'}
+[0.786925] (pcl_conversions) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[0.800541] (-) TimerEvent: {}
+[0.841358] (pcl_conversions) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[0.900637] (-) TimerEvent: {}
+[1.000869] (-) TimerEvent: {}
+[1.101092] (-) TimerEvent: {}
+[1.201366] (-) TimerEvent: {}
+[1.301603] (-) TimerEvent: {}
+[1.401929] (-) TimerEvent: {}
+[1.402078] (pcl_conversions) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[1.402785] (pcl_conversions) StdoutLine: {'line': b'-- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  \n'}
+[1.403404] (pcl_conversions) StdoutLine: {'line': b'-- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  \n'}
+[1.404015] (pcl_conversions) StdoutLine: {'line': b'-- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  \n'}
+[1.405363] (pcl_conversions) StdoutLine: {'line': b'-- Found pcl_msgs: 1.0.0 (/opt/ros/humble/share/pcl_msgs/cmake)\n'}
+[1.435943] (pcl_conversions) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[1.437229] (pcl_conversions) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.486090] (pcl_conversions) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.501004] (pcl_conversions) StdoutLine: {'line': b'-- Generating done\n'}
+[1.502016] (-) TimerEvent: {}
+[1.507098] (pcl_conversions) StdoutLine: {'line': b'-- Build files have been written to: /home/alex/thesis_ws/build/pcl_conversions\n'}
+[1.517059] (pcl_conversions) CommandEnded: {'returncode': 0}
+[1.517563] (pcl_conversions) JobProgress: {'identifier': 'pcl_conversions', 'progress': 'build'}
+[1.518061] (pcl_conversions) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alex/thesis_ws/build/pcl_conversions', '--', '-j8', '-l8'], 'cwd': '/home/alex/thesis_ws/build/pcl_conversions', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_conversions'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble')]), 'shell': False}
+[1.551090] (pcl_conversions) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[1.551272] (pcl_conversions) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[1.602138] (-) TimerEvent: {}
+[1.702436] (-) TimerEvent: {}
+[1.802756] (-) TimerEvent: {}
+[1.903049] (-) TimerEvent: {}
+[1.948767] (pcl_conversions) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[1.968903] (pcl_conversions) StdoutLine: {'line': b'[ 50%] Built target gtest_main\n'}
+[2.003154] (-) TimerEvent: {}
+[2.104388] (-) TimerEvent: {}
+[2.204762] (-) TimerEvent: {}
+[2.305031] (-) TimerEvent: {}
+[2.405286] (-) TimerEvent: {}
+[2.505569] (-) TimerEvent: {}
+[2.605867] (-) TimerEvent: {}
+[2.706131] (-) TimerEvent: {}
+[2.806397] (-) TimerEvent: {}
+[2.906678] (-) TimerEvent: {}
+[3.006932] (-) TimerEvent: {}
+[3.107208] (-) TimerEvent: {}
+[3.207510] (-) TimerEvent: {}
+[3.307814] (-) TimerEvent: {}
+[3.408142] (-) TimerEvent: {}
+[3.434779] (pcl_conversions) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX static library libgtest.a\x1b[0m\n'}
+[3.473272] (pcl_conversions) StdoutLine: {'line': b'[ 66%] Built target gtest\n'}
+[3.486631] (pcl_conversions) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/pcl_conversions-test.dir/test/test_pcl_conversions.cpp.o\x1b[0m\n'}
+[3.508280] (-) TimerEvent: {}
+[3.608710] (-) TimerEvent: {}
+[3.709030] (-) TimerEvent: {}
+[3.809296] (-) TimerEvent: {}
+[3.909689] (-) TimerEvent: {}
+[4.009985] (-) TimerEvent: {}
+[4.110330] (-) TimerEvent: {}
+[4.210583] (-) TimerEvent: {}
+[4.310928] (-) TimerEvent: {}
+[4.411296] (-) TimerEvent: {}
+[4.511533] (-) TimerEvent: {}
+[4.611830] (-) TimerEvent: {}
+[4.712136] (-) TimerEvent: {}
+[4.812449] (-) TimerEvent: {}
+[4.912779] (-) TimerEvent: {}
+[5.013133] (-) TimerEvent: {}
+[5.113403] (-) TimerEvent: {}
+[5.213707] (-) TimerEvent: {}
+[5.314032] (-) TimerEvent: {}
+[5.414364] (-) TimerEvent: {}
+[5.514676] (-) TimerEvent: {}
+[5.614943] (-) TimerEvent: {}
+[5.715269] (-) TimerEvent: {}
+[5.815630] (-) TimerEvent: {}
+[5.915976] (-) TimerEvent: {}
+[6.016315] (-) TimerEvent: {}
+[6.116599] (-) TimerEvent: {}
+[6.216928] (-) TimerEvent: {}
+[6.317254] (-) TimerEvent: {}
+[6.417593] (-) TimerEvent: {}
+[6.517889] (-) TimerEvent: {}
+[6.618126] (-) TimerEvent: {}
+[6.718360] (-) TimerEvent: {}
+[6.818659] (-) TimerEvent: {}
+[6.918958] (-) TimerEvent: {}
+[7.019204] (-) TimerEvent: {}
+[7.119543] (-) TimerEvent: {}
+[7.219814] (-) TimerEvent: {}
+[7.320082] (-) TimerEvent: {}
+[7.420344] (-) TimerEvent: {}
+[7.520673] (-) TimerEvent: {}
+[7.620983] (-) TimerEvent: {}
+[7.721276] (-) TimerEvent: {}
+[7.792687] (pcl_conversions) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable pcl_conversions-test\x1b[0m\n'}
+[7.821461] (-) TimerEvent: {}
+[7.921744] (-) TimerEvent: {}
+[7.983811] (pcl_conversions) StdoutLine: {'line': b'[100%] Built target pcl_conversions-test\n'}
+[7.993843] (pcl_conversions) CommandEnded: {'returncode': 0}
+[7.994562] (pcl_conversions) JobProgress: {'identifier': 'pcl_conversions', 'progress': 'install'}
+[8.000387] (pcl_conversions) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/alex/thesis_ws/build/pcl_conversions'], 'cwd': '/home/alex/thesis_ws/build/pcl_conversions', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_conversions'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble')]), 'shell': False}
+[8.005393] (pcl_conversions) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.005506] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions\n'}
+[8.005610] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions/pcl_conversions\n'}
+[8.005668] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions/pcl_conversions/pcl_conversions.h\n'}
+[8.005741] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/package_run_dependencies/pcl_conversions\n'}
+[8.005811] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/parent_prefix_path/pcl_conversions\n'}
+[8.005889] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/ament_prefix_path.sh\n'}
+[8.005957] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/ament_prefix_path.dsv\n'}
+[8.006032] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/path.sh\n'}
+[8.006108] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/environment/path.dsv\n'}
+[8.006163] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.bash\n'}
+[8.006240] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.sh\n'}
+[8.006288] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.zsh\n'}
+[8.006369] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/local_setup.dsv\n'}
+[8.006420] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.dsv\n'}
+[8.006491] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/ament_index/resource_index/packages/pcl_conversions\n'}
+[8.006579] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.006669] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[8.006737] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake\n'}
+[8.006804] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake/pcl_conversionsConfig-version.cmake\n'}
+[8.006843] (pcl_conversions) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/package.xml\n'}
+[8.008058] (pcl_conversions) CommandEnded: {'returncode': 0}
+[8.017319] (pcl_conversions) JobEnded: {'identifier': 'pcl_conversions', 'rc': 0}
+[8.017891] (pcl_ros) JobStarted: {'identifier': 'pcl_ros'}
+[8.021781] (pcl_ros) JobProgress: {'identifier': 'pcl_ros', 'progress': 'cmake'}
+[8.021815] (-) TimerEvent: {}
+[8.022136] (pcl_ros) Command: {'cmd': ['/usr/bin/cmake', '/home/alex/thesis_ws/src/perception_pcl/pcl_ros', '-DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pcl_ros'], 'cwd': '/home/alex/thesis_ws/build/pcl_ros', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_ros'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/opt/ros/humble')]), 'shell': False}
+[8.058113] (pcl_ros) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[8.096032] (pcl_ros) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[8.100967] (pcl_ros) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[8.121947] (-) TimerEvent: {}
+[8.146867] (pcl_ros) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[8.152472] (pcl_ros) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[8.152653] (pcl_ros) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[8.153244] (pcl_ros) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[8.156031] (pcl_ros) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[8.210381] (pcl_ros) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[8.216545] (pcl_ros) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[8.216711] (pcl_ros) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[8.217006] (pcl_ros) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[8.222023] (-) TimerEvent: {}
+[8.229710] (pcl_ros) StdoutLine: {'line': b"-- Checking for module 'eigen3'\n"}
+[8.237136] (pcl_ros) StdoutLine: {'line': b'--   Found eigen3, version 3.4.0\n'}
+[8.261708] (pcl_ros) StdoutLine: {'line': b'-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") \n'}
+[8.261858] (pcl_ros) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[8.282932] (pcl_ros) StdoutLine: {'line': b"-- Checking for module 'flann'\n"}
+[8.290530] (pcl_ros) StdoutLine: {'line': b'--   Found flann, version 1.9.1\n'}
+[8.317805] (pcl_ros) StdoutLine: {'line': b'-- Found FLANN: /usr/lib/x86_64-linux-gnu/libflann_cpp.so  \n'}
+[8.317983] (pcl_ros) StdoutLine: {'line': b'-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n'}
+[8.322109] (-) TimerEvent: {}
+[8.422394] (-) TimerEvent: {}
+[8.522629] (-) TimerEvent: {}
+[8.622873] (-) TimerEvent: {}
+[8.723128] (-) TimerEvent: {}
+[8.823370] (-) TimerEvent: {}
+[8.923617] (-) TimerEvent: {}
+[9.023898] (-) TimerEvent: {}
+[9.097413] (pcl_ros) StdoutLine: {'line': b"-- Checking for module 'libusb-1.0'\n"}
+[9.105934] (pcl_ros) StdoutLine: {'line': b'--   Found libusb-1.0, version 1.0.25\n'}
+[9.124021] (-) TimerEvent: {}
+[9.128826] (pcl_ros) StdoutLine: {'line': b'-- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  \n'}
+[9.129692] (pcl_ros) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[9.168431] (pcl_ros) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[9.224129] (-) TimerEvent: {}
+[9.267443] (pcl_ros) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[9.268833] (pcl_ros) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[9.327384] (-) TimerEvent: {}
+[9.378769] (pcl_ros) StdoutLine: {'line': b'-- Could NOT find PCL_CORE (missing: PCL_CORE_LIBRARY PCL_CORE_INCLUDE_DIR) \n'}
+[9.379135] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  \n'}
+[9.379808] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_KDTREE: /usr/lib/x86_64-linux-gnu/libpcl_kdtree.so  \n'}
+[9.380207] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  \n'}
+[9.380785] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_SEARCH: /usr/lib/x86_64-linux-gnu/libpcl_search.so  \n'}
+[9.380897] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_2D: /usr/include/pcl-1.12  \n'}
+[9.381408] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_FEATURES: /usr/lib/x86_64-linux-gnu/libpcl_features.so  \n'}
+[9.381973] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_SAMPLE_CONSENSUS: /usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so  \n'}
+[9.382571] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_FILTERS: /usr/lib/x86_64-linux-gnu/libpcl_filters.so  \n'}
+[9.382987] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  \n'}
+[9.383256] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_GEOMETRY: /usr/include/pcl-1.12  \n'}
+[9.383920] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_ML: /usr/lib/x86_64-linux-gnu/libpcl_ml.so  \n'}
+[9.384271] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_SEGMENTATION: /usr/lib/x86_64-linux-gnu/libpcl_segmentation.so  \n'}
+[9.384975] (pcl_ros) StdoutLine: {'line': b'-- Found PCL_SURFACE: /usr/lib/x86_64-linux-gnu/libpcl_surface.so  \n'}
+[9.386266] (pcl_ros) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[9.427469] (-) TimerEvent: {}
+[9.485720] (pcl_ros) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[9.527555] (-) TimerEvent: {}
+[9.539713] (pcl_ros) StdoutLine: {'line': b'-- Found pcl_conversions: 2.4.5 (/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake)\n'}
+[9.563908] (pcl_ros) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[9.566428] (pcl_ros) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[9.571010] (pcl_ros) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[9.578377] (pcl_ros) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[9.587534] (pcl_ros) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[9.613671] (pcl_ros) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[9.615061] (pcl_ros) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[9.627636] (-) TimerEvent: {}
+[9.671617] (pcl_ros) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[9.687352] (pcl_ros) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[9.712668] (pcl_ros) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[9.717443] (pcl_ros) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[9.727707] (-) TimerEvent: {}
+[9.780252] (pcl_ros) StdoutLine: {'line': b'-- Found rclcpp_components: 16.0.11 (/opt/ros/humble/share/rclcpp_components/cmake)\n'}
+[9.796641] (pcl_ros) StdoutLine: {'line': b'-- Found tf2: 0.25.11 (/opt/ros/humble/share/tf2/cmake)\n'}
+[9.799321] (pcl_ros) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.11 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[9.803490] (pcl_ros) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[9.804227] (pcl_ros) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[9.804275] (pcl_ros) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[9.827804] (-) TimerEvent: {}
+[9.861060] (pcl_ros) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[9.916539] (pcl_ros) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[9.916706] (pcl_ros) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/alex/thesis_ws/src/perception_pcl/pcl_ros/include>\n'}
+[9.916762] (pcl_ros) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[9.919717] (pcl_ros) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[9.919799] (pcl_ros) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[9.920420] (pcl_ros) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[9.921429] (pcl_ros) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[9.921989] (pcl_ros) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[9.925057] (pcl_ros) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[9.925127] (pcl_ros) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[9.925697] (pcl_ros) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[9.927654] (pcl_ros) StdoutLine: {'line': b'-- Configuring done\n'}
+[9.927863] (-) TimerEvent: {}
+[9.959591] (pcl_ros) StdoutLine: {'line': b'-- Generating done\n'}
+[9.966820] (pcl_ros) StdoutLine: {'line': b'-- Build files have been written to: /home/alex/thesis_ws/build/pcl_ros\n'}
+[9.979553] (pcl_ros) CommandEnded: {'returncode': 0}
+[9.980117] (pcl_ros) JobProgress: {'identifier': 'pcl_ros', 'progress': 'build'}
+[9.980765] (pcl_ros) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alex/thesis_ws/build/pcl_ros', '--', '-j8', '-l8'], 'cwd': '/home/alex/thesis_ws/build/pcl_ros', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_ros'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/opt/ros/humble')]), 'shell': False}
+[10.016368] (pcl_ros) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/pcd_to_pointcloud_lib.dir/tools/pcd_to_pointcloud.cpp.o\x1b[0m\n'}
+[10.016507] (pcl_ros) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/pcd_to_pointcloud.dir/rclcpp_components/node_main_pcd_to_pointcloud.cpp.o\x1b[0m\n'}
+[10.016557] (pcl_ros) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/pcl_ros_tf.dir/src/transforms.cpp.o\x1b[0m\n'}
+[10.027990] (-) TimerEvent: {}
+[10.128350] (-) TimerEvent: {}
+[10.228732] (-) TimerEvent: {}
+[10.329058] (-) TimerEvent: {}
+[10.429381] (-) TimerEvent: {}
+[10.529743] (-) TimerEvent: {}
+[10.630040] (-) TimerEvent: {}
+[10.730378] (-) TimerEvent: {}
+[10.830714] (-) TimerEvent: {}
+[10.931044] (-) TimerEvent: {}
+[11.031372] (-) TimerEvent: {}
+[11.131678] (-) TimerEvent: {}
+[11.231993] (-) TimerEvent: {}
+[11.332309] (-) TimerEvent: {}
+[11.432622] (-) TimerEvent: {}
+[11.532946] (-) TimerEvent: {}
+[11.633253] (-) TimerEvent: {}
+[11.733573] (-) TimerEvent: {}
+[11.833897] (-) TimerEvent: {}
+[11.934256] (-) TimerEvent: {}
+[12.034590] (-) TimerEvent: {}
+[12.134913] (-) TimerEvent: {}
+[12.235229] (-) TimerEvent: {}
+[12.335569] (-) TimerEvent: {}
+[12.435896] (-) TimerEvent: {}
+[12.460623] (pcl_ros) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX executable pcd_to_pointcloud\x1b[0m\n'}
+[12.536004] (-) TimerEvent: {}
+[12.548435] (pcl_ros) StdoutLine: {'line': b'[ 66%] Built target pcd_to_pointcloud\n'}
+[12.636108] (-) TimerEvent: {}
+[12.736384] (-) TimerEvent: {}
+[12.836686] (-) TimerEvent: {}
+[12.937002] (-) TimerEvent: {}
+[13.037324] (-) TimerEvent: {}
+[13.137698] (-) TimerEvent: {}
+[13.237974] (-) TimerEvent: {}
+[13.338245] (-) TimerEvent: {}
+[13.438566] (-) TimerEvent: {}
+[13.538876] (-) TimerEvent: {}
+[13.639132] (-) TimerEvent: {}
+[13.739368] (-) TimerEvent: {}
+[13.839629] (-) TimerEvent: {}
+[13.939888] (-) TimerEvent: {}
+[14.040148] (-) TimerEvent: {}
+[14.140444] (-) TimerEvent: {}
+[14.240734] (-) TimerEvent: {}
+[14.341039] (-) TimerEvent: {}
+[14.441354] (-) TimerEvent: {}
+[14.541648] (-) TimerEvent: {}
+[14.641935] (-) TimerEvent: {}
+[14.742224] (-) TimerEvent: {}
+[14.842501] (-) TimerEvent: {}
+[14.942789] (-) TimerEvent: {}
+[15.043085] (-) TimerEvent: {}
+[15.143421] (-) TimerEvent: {}
+[15.243693] (-) TimerEvent: {}
+[15.311326] (pcl_ros) StdoutLine: {'line': b'[ 83%] \x1b[32m\x1b[1mLinking CXX shared library libpcd_to_pointcloud_lib.so\x1b[0m\n'}
+[15.343810] (-) TimerEvent: {}
+[15.444104] (-) TimerEvent: {}
+[15.544471] (-) TimerEvent: {}
+[15.636841] (pcl_ros) StdoutLine: {'line': b'[ 83%] Built target pcd_to_pointcloud_lib\n'}
+[15.644580] (-) TimerEvent: {}
+[15.744838] (-) TimerEvent: {}
+[15.845119] (-) TimerEvent: {}
+[15.945393] (-) TimerEvent: {}
+[16.045638] (-) TimerEvent: {}
+[16.145884] (-) TimerEvent: {}
+[16.246121] (-) TimerEvent: {}
+[16.346382] (-) TimerEvent: {}
+[16.446610] (-) TimerEvent: {}
+[16.546848] (-) TimerEvent: {}
+[16.579770] (pcl_ros) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX static library libpcl_ros_tf.a\x1b[0m\n'}
+[16.614735] (pcl_ros) StdoutLine: {'line': b'[100%] Built target pcl_ros_tf\n'}
+[16.622084] (pcl_ros) CommandEnded: {'returncode': 0}
+[16.622574] (pcl_ros) JobProgress: {'identifier': 'pcl_ros', 'progress': 'install'}
+[16.622846] (pcl_ros) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/alex/thesis_ws/build/pcl_ros'], 'cwd': '/home/alex/thesis_ws/build/pcl_ros', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/home/alex/thesis_ws/install/pcl_ros/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pcl_ros'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/opt/ros/humble')]), 'shell': False}
+[16.627878] (pcl_ros) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[16.628004] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud\n'}
+[16.628267] (pcl_ros) StdoutLine: {'line': b'-- Set runtime path of "/home/alex/thesis_ws/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud" to ""\n'}
+[16.628338] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros\n'}
+[16.628397] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros\n'}
+[16.628453] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features\n'}
+[16.628509] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh_omp.hpp\n'}
+[16.628565] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/principal_curvatures.hpp\n'}
+[16.628625] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d.hpp\n'}
+[16.628695] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/feature.hpp\n'}
+[16.628729] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/vfh.hpp\n'}
+[16.628772] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot_omp.hpp\n'}
+[16.628820] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_tbb.hpp\n'}
+[16.628871] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot.hpp\n'}
+[16.628926] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_omp.hpp\n'}
+[16.628962] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh.hpp\n'}
+[16.629014] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/pfh.hpp\n'}
+[16.629048] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/boundary.hpp\n'}
+[16.629101] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/moment_invariants.hpp\n'}
+[16.629144] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io\n'}
+[16.629177] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/bag_io.hpp\n'}
+[16.629225] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_data.hpp\n'}
+[16.629280] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_fields.hpp\n'}
+[16.629320] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/pcd_io.hpp\n'}
+[16.629371] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp\n'}
+[16.629426] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/pcl_nodelet.hpp\n'}
+[16.629460] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/point_cloud.hpp\n'}
+[16.629506] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters\n'}
+[16.629560] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/statistical_outlier_removal.hpp\n'}
+[16.629600] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/passthrough.hpp\n'}
+[16.629653] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/project_inliers.hpp\n'}
+[16.629693] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/crop_box.hpp\n'}
+[16.629745] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/radius_outlier_removal.hpp\n'}
+[16.629780] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/extract_indices.hpp\n'}
+[16.629831] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/filter.hpp\n'}
+[16.629865] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/voxel_grid.hpp\n'}
+[16.629916] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface\n'}
+[16.629952] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface/convex_hull.hpp\n'}
+[16.630003] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface/moving_least_squares.hpp\n'}
+[16.630041] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/publisher.hpp\n'}
+[16.630090] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation\n'}
+[16.630134] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_polygonal_prism_data.hpp\n'}
+[16.630187] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/sac_segmentation.hpp\n'}
+[16.630242] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/segment_differences.hpp\n'}
+[16.630278] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_clusters.hpp\n'}
+[16.630335] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/impl\n'}
+[16.630372] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/impl/transforms.hpp\n'}
+[16.630421] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/libpcl_ros_tf.a\n'}
+[16.631486] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so\n'}
+[16.632423] (pcl_ros) StdoutLine: {'line': b'-- Set runtime path of "/home/alex/thesis_ws/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so" to ""\n'}
+[16.632534] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins\n'}
+[16.632622] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet\n'}
+[16.632689] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_surface.xml\n'}
+[16.632727] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_features.xml\n'}
+[16.632791] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_io.xml\n'}
+[16.632829] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_filters.xml\n'}
+[16.632884] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_segmentation.xml\n'}
+[16.632919] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples\n'}
+[16.632954] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros\n'}
+[16.632989] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features\n'}
+[16.633042] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features/sample_normal_3d.launch\n'}
+[16.633120] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io\n'}
+[16.633158] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io/sample_concatenate_data.launch\n'}
+[16.633194] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters\n'}
+[16.633228] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_voxel_grid.launch\n'}
+[16.633308] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_statistical_outlier_removal.launch\n'}
+[16.633368] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config\n'}
+[16.633405] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/statistical_outlier_removal.rviz\n'}
+[16.633455] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/voxel_grid.rviz\n'}
+[16.633493] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface\n'}
+[16.633529] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface/sample_convex_hull.launch\n'}
+[16.633563] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation\n'}
+[16.633650] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation/sample_extract_clusters.launch\n'}
+[16.633705] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/data\n'}
+[16.633740] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/data/.gitignore\n'}
+[16.633774] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/library_path.sh\n'}
+[16.633808] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/library_path.dsv\n'}
+[16.633871] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/package_run_dependencies/pcl_ros\n'}
+[16.633920] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/parent_prefix_path/pcl_ros\n'}
+[16.633955] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.sh\n'}
+[16.633989] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.dsv\n'}
+[16.634038] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/path.sh\n'}
+[16.634088] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/path.dsv\n'}
+[16.634137] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.bash\n'}
+[16.634193] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.sh\n'}
+[16.634280] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.zsh\n'}
+[16.634373] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.dsv\n'}
+[16.634460] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.dsv\n'}
+[16.634546] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/packages/pcl_ros\n'}
+[16.634675] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/rclcpp_components/pcl_ros\n'}
+[16.634826] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport.cmake\n'}
+[16.634956] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport-noconfig.cmake\n'}
+[16.635041] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[16.635124] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[16.635211] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[16.635296] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[16.635518] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig.cmake\n'}
+[16.635586] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig-version.cmake\n'}
+[16.635673] (pcl_ros) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.xml\n'}
+[16.636852] (pcl_ros) CommandEnded: {'returncode': 0}
+[16.646205] (pcl_ros) JobEnded: {'identifier': 'pcl_ros', 'rc': 0}
+[16.647047] (-) TimerEvent: {}
+[16.647187] (perception_pcl) JobStarted: {'identifier': 'perception_pcl'}
+[16.649196] (pointcloud_to_laserscan) JobStarted: {'identifier': 'pointcloud_to_laserscan'}
+[16.652102] (perception_pcl) JobProgress: {'identifier': 'perception_pcl', 'progress': 'cmake'}
+[16.652325] (perception_pcl) Command: {'cmd': ['/usr/bin/cmake', '/home/alex/thesis_ws/src/perception_pcl/perception_pcl', '-DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/perception_pcl'], 'cwd': '/home/alex/thesis_ws/build/perception_pcl', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/perception_pcl'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[16.654008] (pointcloud_to_laserscan) JobProgress: {'identifier': 'pointcloud_to_laserscan', 'progress': 'cmake'}
+[16.654470] (pointcloud_to_laserscan) Command: {'cmd': ['/usr/bin/cmake', '/home/alex/thesis_ws/src/pointcloud_to_laserscan', '-DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/pointcloud_to_laserscan'], 'cwd': '/home/alex/thesis_ws/build/pointcloud_to_laserscan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pointcloud_to_laserscan'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[16.688492] (perception_pcl) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[16.688673] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[16.724170] (perception_pcl) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[16.724340] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[16.728670] (perception_pcl) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[16.729484] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[16.747144] (-) TimerEvent: {}
+[16.771907] (perception_pcl) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[16.773092] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[16.777769] (perception_pcl) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[16.777985] (perception_pcl) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[16.778302] (perception_pcl) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[16.779028] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[16.779331] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[16.779795] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[16.781213] (perception_pcl) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[16.782116] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[16.835836] (perception_pcl) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[16.835976] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[16.840612] (perception_pcl) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[16.840785] (perception_pcl) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[16.841100] (perception_pcl) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[16.842404] (perception_pcl) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[16.844878] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[16.845141] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[16.845632] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[16.847203] (-) TimerEvent: {}
+[16.847798] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found ament_cmake_auto: 1.3.11 (/opt/ros/humble/share/ament_cmake_auto/cmake)\n'}
+[16.945088] (perception_pcl) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[16.947293] (-) TimerEvent: {}
+[16.950845] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[17.047383] (-) TimerEvent: {}
+[17.048243] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found pcl_ros: 2.4.5 (/home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake)\n'}
+[17.081655] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[17.084683] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[17.089598] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[17.091051] (perception_pcl) StdoutLine: {'line': b'-- Configuring done\n'}
+[17.092520] (perception_pcl) StdoutLine: {'line': b'-- Generating done\n'}
+[17.093470] (perception_pcl) StdoutLine: {'line': b'-- Build files have been written to: /home/alex/thesis_ws/build/perception_pcl\n'}
+[17.096384] (perception_pcl) CommandEnded: {'returncode': 0}
+[17.096798] (perception_pcl) JobProgress: {'identifier': 'perception_pcl', 'progress': 'build'}
+[17.097025] (perception_pcl) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alex/thesis_ws/build/perception_pcl', '--', '-j8', '-l8'], 'cwd': '/home/alex/thesis_ws/build/perception_pcl', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/perception_pcl'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[17.102387] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[17.112630] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[17.121817] (perception_pcl) CommandEnded: {'returncode': 0}
+[17.122292] (perception_pcl) JobProgress: {'identifier': 'perception_pcl', 'progress': 'install'}
+[17.122513] (perception_pcl) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/alex/thesis_ws/build/perception_pcl'], 'cwd': '/home/alex/thesis_ws/build/perception_pcl', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/perception_pcl'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[17.127382] (perception_pcl) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[17.127509] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/ament_index/resource_index/package_run_dependencies/perception_pcl\n'}
+[17.127571] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/ament_index/resource_index/parent_prefix_path/perception_pcl\n'}
+[17.127661] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/environment/ament_prefix_path.sh\n'}
+[17.127753] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/environment/ament_prefix_path.dsv\n'}
+[17.127850] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/environment/path.sh\n'}
+[17.127904] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/environment/path.dsv\n'}
+[17.127974] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/local_setup.bash\n'}
+[17.128061] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/local_setup.sh\n'}
+[17.128153] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/local_setup.zsh\n'}
+[17.128241] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/local_setup.dsv\n'}
+[17.128331] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.dsv\n'}
+[17.128462] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/ament_index/resource_index/packages/perception_pcl\n'}
+[17.128537] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/cmake/perception_pclConfig.cmake\n'}
+[17.128603] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/cmake/perception_pclConfig-version.cmake\n'}
+[17.128665] (perception_pcl) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/perception_pcl/share/perception_pcl/package.xml\n'}
+[17.129910] (perception_pcl) CommandEnded: {'returncode': 0}
+[17.136727] (perception_pcl) JobEnded: {'identifier': 'perception_pcl', 'rc': 0}
+[17.143172] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[17.144595] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[17.147440] (-) TimerEvent: {}
+[17.198530] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[17.214343] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[17.241211] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[17.245878] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[17.247503] (-) TimerEvent: {}
+[17.295169] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[17.295400] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[17.344574] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[17.345505] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[17.347584] (-) TimerEvent: {}
+[17.417156] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Checking for module 'eigen3'\n"}
+[17.424789] (pointcloud_to_laserscan) StdoutLine: {'line': b'--   Found eigen3, version 3.4.0\n'}
+[17.444932] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") \n'}
+[17.445105] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[17.447680] (-) TimerEvent: {}
+[17.467129] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Checking for module 'flann'\n"}
+[17.476702] (pointcloud_to_laserscan) StdoutLine: {'line': b'--   Found flann, version 1.9.1\n'}
+[17.501838] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found FLANN: /usr/lib/x86_64-linux-gnu/libflann_cpp.so  \n'}
+[17.502008] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n'}
+[17.547790] (-) TimerEvent: {}
+[17.648083] (-) TimerEvent: {}
+[17.748457] (-) TimerEvent: {}
+[17.848744] (-) TimerEvent: {}
+[17.949047] (-) TimerEvent: {}
+[18.049285] (-) TimerEvent: {}
+[18.104025] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Checking for module 'libusb-1.0'\n"}
+[18.113230] (pointcloud_to_laserscan) StdoutLine: {'line': b'--   Found libusb-1.0, version 1.0.25\n'}
+[18.135392] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  \n'}
+[18.136153] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[18.149380] (-) TimerEvent: {}
+[18.172171] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[18.249529] (-) TimerEvent: {}
+[18.272995] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[18.277869] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[18.283161] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[18.349621] (-) TimerEvent: {}
+[18.379577] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[18.449731] (-) TimerEvent: {}
+[18.475148] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[18.549849] (-) TimerEvent: {}
+[18.570554] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  \n'}
+[18.570919] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_KDTREE: /usr/lib/x86_64-linux-gnu/libpcl_kdtree.so  \n'}
+[18.571546] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  \n'}
+[18.572013] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_SEARCH: /usr/lib/x86_64-linux-gnu/libpcl_search.so  \n'}
+[18.572475] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_SAMPLE_CONSENSUS: /usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so  \n'}
+[18.573047] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_FILTERS: /usr/lib/x86_64-linux-gnu/libpcl_filters.so  \n'}
+[18.573228] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_2D: /usr/include/pcl-1.12  \n'}
+[18.573502] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_GEOMETRY: /usr/include/pcl-1.12  \n'}
+[18.574038] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  \n'}
+[18.574603] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_FEATURES: /usr/lib/x86_64-linux-gnu/libpcl_features.so  \n'}
+[18.575388] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_ML: /usr/lib/x86_64-linux-gnu/libpcl_ml.so  \n'}
+[18.575786] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_SEGMENTATION: /usr/lib/x86_64-linux-gnu/libpcl_segmentation.so  \n'}
+[18.576437] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_VISUALIZATION: /usr/lib/x86_64-linux-gnu/libpcl_visualization.so  \n'}
+[18.577117] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_SURFACE: /usr/lib/x86_64-linux-gnu/libpcl_surface.so  \n'}
+[18.577601] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_REGISTRATION: /usr/lib/x86_64-linux-gnu/libpcl_registration.so  \n'}
+[18.578731] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_KEYPOINTS: /usr/lib/x86_64-linux-gnu/libpcl_keypoints.so  \n'}
+[18.579714] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_TRACKING: /usr/lib/x86_64-linux-gnu/libpcl_tracking.so  \n'}
+[18.580169] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_RECOGNITION: /usr/lib/x86_64-linux-gnu/libpcl_recognition.so  \n'}
+[18.580945] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_STEREO: /usr/lib/x86_64-linux-gnu/libpcl_stereo.so  \n'}
+[18.581277] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_APPS: /usr/lib/x86_64-linux-gnu/libpcl_apps.so  \n'}
+[18.581915] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_IN_HAND_SCANNER: /usr/include/pcl-1.12  \n'}
+[18.582159] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_MODELER: /usr/include/pcl-1.12  \n'}
+[18.582542] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_POINT_CLOUD_EDITOR: /usr/include/pcl-1.12  \n'}
+[18.583027] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_OUTOFCORE: /usr/lib/x86_64-linux-gnu/libpcl_outofcore.so  \n'}
+[18.583513] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found PCL_PEOPLE: /usr/lib/x86_64-linux-gnu/libpcl_people.so  \n'}
+[18.603570] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[18.604489] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[18.604657] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[18.649957] (-) TimerEvent: {}
+[18.750196] (-) TimerEvent: {}
+[18.850429] (-) TimerEvent: {}
+[18.901827] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[18.915552] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[18.915862] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/alex/thesis_ws/src/pointcloud_to_laserscan/include\n'}
+[18.915940] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[18.919669] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[18.919792] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[18.920390] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[18.921459] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[18.922238] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[18.925456] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[18.925526] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[18.926012] (pointcloud_to_laserscan) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[18.927574] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Configuring done\n'}
+[18.950520] (-) TimerEvent: {}
+[18.963323] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Generating done\n'}
+[18.971534] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Build files have been written to: /home/alex/thesis_ws/build/pointcloud_to_laserscan\n'}
+[18.984854] (pointcloud_to_laserscan) CommandEnded: {'returncode': 0}
+[18.985417] (pointcloud_to_laserscan) JobProgress: {'identifier': 'pointcloud_to_laserscan', 'progress': 'build'}
+[18.985824] (pointcloud_to_laserscan) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alex/thesis_ws/build/pointcloud_to_laserscan', '--', '-j8', '-l8'], 'cwd': '/home/alex/thesis_ws/build/pointcloud_to_laserscan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pointcloud_to_laserscan'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[19.024576] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan_node.dir/rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.o\x1b[0m\n'}
+[19.024752] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/laserscan_to_pointcloud.dir/src/laserscan_to_pointcloud_node.cpp.o\x1b[0m\n'}
+[19.050612] (-) TimerEvent: {}
+[19.150962] (-) TimerEvent: {}
+[19.251235] (-) TimerEvent: {}
+[19.351510] (-) TimerEvent: {}
+[19.451828] (-) TimerEvent: {}
+[19.552127] (-) TimerEvent: {}
+[19.652443] (-) TimerEvent: {}
+[19.752738] (-) TimerEvent: {}
+[19.853051] (-) TimerEvent: {}
+[19.953382] (-) TimerEvent: {}
+[20.053693] (-) TimerEvent: {}
+[20.154004] (-) TimerEvent: {}
+[20.254320] (-) TimerEvent: {}
+[20.354584] (-) TimerEvent: {}
+[20.454830] (-) TimerEvent: {}
+[20.555083] (-) TimerEvent: {}
+[20.655371] (-) TimerEvent: {}
+[20.755608] (-) TimerEvent: {}
+[20.856008] (-) TimerEvent: {}
+[20.956372] (-) TimerEvent: {}
+[21.056644] (-) TimerEvent: {}
+[21.156949] (-) TimerEvent: {}
+[21.255419] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX executable pointcloud_to_laserscan_node\x1b[0m\n'}
+[21.257043] (-) TimerEvent: {}
+[21.346206] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 50%] Built target pointcloud_to_laserscan_node\n'}
+[21.357158] (-) TimerEvent: {}
+[21.457443] (-) TimerEvent: {}
+[21.557738] (-) TimerEvent: {}
+[21.658042] (-) TimerEvent: {}
+[21.758329] (-) TimerEvent: {}
+[21.858606] (-) TimerEvent: {}
+[21.958907] (-) TimerEvent: {}
+[22.059191] (-) TimerEvent: {}
+[22.159579] (-) TimerEvent: {}
+[22.259831] (-) TimerEvent: {}
+[22.360137] (-) TimerEvent: {}
+[22.460423] (-) TimerEvent: {}
+[22.560703] (-) TimerEvent: {}
+[22.660965] (-) TimerEvent: {}
+[22.761228] (-) TimerEvent: {}
+[22.861511] (-) TimerEvent: {}
+[22.961912] (-) TimerEvent: {}
+[23.062277] (-) TimerEvent: {}
+[23.162652] (-) TimerEvent: {}
+[23.263014] (-) TimerEvent: {}
+[23.363297] (-) TimerEvent: {}
+[23.463538] (-) TimerEvent: {}
+[23.563900] (-) TimerEvent: {}
+[23.664172] (-) TimerEvent: {}
+[23.764549] (-) TimerEvent: {}
+[23.864911] (-) TimerEvent: {}
+[23.965318] (-) TimerEvent: {}
+[24.065732] (-) TimerEvent: {}
+[24.166059] (-) TimerEvent: {}
+[24.266380] (-) TimerEvent: {}
+[24.366702] (-) TimerEvent: {}
+[24.466989] (-) TimerEvent: {}
+[24.567357] (-) TimerEvent: {}
+[24.667744] (-) TimerEvent: {}
+[24.768018] (-) TimerEvent: {}
+[24.868384] (-) TimerEvent: {}
+[24.968774] (-) TimerEvent: {}
+[25.069164] (-) TimerEvent: {}
+[25.169489] (-) TimerEvent: {}
+[25.269864] (-) TimerEvent: {}
+[25.370165] (-) TimerEvent: {}
+[25.470502] (-) TimerEvent: {}
+[25.570807] (-) TimerEvent: {}
+[25.671192] (-) TimerEvent: {}
+[25.771593] (-) TimerEvent: {}
+[25.871946] (-) TimerEvent: {}
+[25.972274] (-) TimerEvent: {}
+[26.072652] (-) TimerEvent: {}
+[26.172987] (-) TimerEvent: {}
+[26.273278] (-) TimerEvent: {}
+[26.373521] (-) TimerEvent: {}
+[26.473792] (-) TimerEvent: {}
+[26.574042] (-) TimerEvent: {}
+[26.613125] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX shared library liblaserscan_to_pointcloud.so\x1b[0m\n'}
+[26.674147] (-) TimerEvent: {}
+[26.774466] (-) TimerEvent: {}
+[26.874775] (-) TimerEvent: {}
+[26.975036] (-) TimerEvent: {}
+[27.075303] (-) TimerEvent: {}
+[27.175566] (-) TimerEvent: {}
+[27.239272] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 66%] Built target laserscan_to_pointcloud\n'}
+[27.252884] (pointcloud_to_laserscan) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o\x1b[0m\n'}
+[27.275666] (-) TimerEvent: {}
+[27.375954] (-) TimerEvent: {}
+[27.476206] (-) TimerEvent: {}
+[27.576453] (-) TimerEvent: {}
+[27.676789] (-) TimerEvent: {}
+[27.777105] (-) TimerEvent: {}
+[27.877382] (-) TimerEvent: {}
+[27.977639] (-) TimerEvent: {}
+[28.077957] (-) TimerEvent: {}
+[28.178224] (-) TimerEvent: {}
+[28.268160] (pointcloud_to_laserscan) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17\x1b[m\x1b[K,\n'}
+[28.268332] (pointcloud_to_laserscan) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116\x1b[m\x1b[K,\n'}
+[28.268376] (pointcloud_to_laserscan) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6\x1b[m\x1b[K,\n'}
+[28.268410] (pointcloud_to_laserscan) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:62\x1b[m\x1b[K,\n'}
+[28.268442] (pointcloud_to_laserscan) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41\x1b[m\x1b[K:\n'}
+[28.268475] (pointcloud_to_laserscan) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[K#warning "OpenMP is not available. Parallel reduction will be disabled." [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp\x07-Wcpp\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[28.268510] (pointcloud_to_laserscan) StderrLine: {'line': b'   10 | #\x1b[01;35m\x1b[Kwarning\x1b[m\x1b[K "OpenMP is not available. Parallel reduction will be disabled."\n'}
+[28.268542] (pointcloud_to_laserscan) StderrLine: {'line': b'      |  \x1b[01;35m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[28.278347] (-) TimerEvent: {}
+[28.378595] (-) TimerEvent: {}
+[28.478864] (-) TimerEvent: {}
+[28.579119] (-) TimerEvent: {}
+[28.679442] (-) TimerEvent: {}
+[28.779696] (-) TimerEvent: {}
+[28.879949] (-) TimerEvent: {}
+[28.980333] (-) TimerEvent: {}
+[29.080672] (-) TimerEvent: {}
+[29.181001] (-) TimerEvent: {}
+[29.281281] (-) TimerEvent: {}
+[29.381557] (-) TimerEvent: {}
+[29.481883] (-) TimerEvent: {}
+[29.582236] (-) TimerEvent: {}
+[29.682595] (-) TimerEvent: {}
+[29.782943] (-) TimerEvent: {}
+[29.883293] (-) TimerEvent: {}
+[29.983667] (-) TimerEvent: {}
+[30.084031] (-) TimerEvent: {}
+[30.184370] (-) TimerEvent: {}
+[30.284717] (-) TimerEvent: {}
+[30.385105] (-) TimerEvent: {}
+[30.485491] (-) TimerEvent: {}
+[30.585737] (-) TimerEvent: {}
+[30.686067] (-) TimerEvent: {}
+[30.786402] (-) TimerEvent: {}
+[30.886746] (-) TimerEvent: {}
+[30.987108] (-) TimerEvent: {}
+[31.087436] (-) TimerEvent: {}
+[31.187795] (-) TimerEvent: {}
+[31.288135] (-) TimerEvent: {}
+[31.388474] (-) TimerEvent: {}
+[31.488843] (-) TimerEvent: {}
+[31.589194] (-) TimerEvent: {}
+[31.689560] (-) TimerEvent: {}
+[31.789928] (-) TimerEvent: {}
+[31.890277] (-) TimerEvent: {}
+[31.990629] (-) TimerEvent: {}
+[32.090977] (-) TimerEvent: {}
+[32.191340] (-) TimerEvent: {}
+[32.291670] (-) TimerEvent: {}
+[32.392013] (-) TimerEvent: {}
+[32.492361] (-) TimerEvent: {}
+[32.592723] (-) TimerEvent: {}
+[32.693073] (-) TimerEvent: {}
+[32.793425] (-) TimerEvent: {}
+[32.893790] (-) TimerEvent: {}
+[32.994122] (-) TimerEvent: {}
+[33.094456] (-) TimerEvent: {}
+[33.194731] (-) TimerEvent: {}
+[33.295088] (-) TimerEvent: {}
+[33.395439] (-) TimerEvent: {}
+[33.495818] (-) TimerEvent: {}
+[33.596220] (-) TimerEvent: {}
+[33.696573] (-) TimerEvent: {}
+[33.796918] (-) TimerEvent: {}
+[33.897275] (-) TimerEvent: {}
+[33.997643] (-) TimerEvent: {}
+[34.097988] (-) TimerEvent: {}
+[34.198342] (-) TimerEvent: {}
+[34.298681] (-) TimerEvent: {}
+[34.398972] (-) TimerEvent: {}
+[34.499314] (-) TimerEvent: {}
+[34.599708] (-) TimerEvent: {}
+[34.700115] (-) TimerEvent: {}
+[34.800459] (-) TimerEvent: {}
+[34.900809] (-) TimerEvent: {}
+[35.001153] (-) TimerEvent: {}
+[35.101538] (-) TimerEvent: {}
+[35.201904] (-) TimerEvent: {}
+[35.302285] (-) TimerEvent: {}
+[35.402556] (-) TimerEvent: {}
+[35.502915] (-) TimerEvent: {}
+[35.603255] (-) TimerEvent: {}
+[35.703604] (-) TimerEvent: {}
+[35.803957] (-) TimerEvent: {}
+[35.904315] (-) TimerEvent: {}
+[36.004664] (-) TimerEvent: {}
+[36.105038] (-) TimerEvent: {}
+[36.205393] (-) TimerEvent: {}
+[36.305753] (-) TimerEvent: {}
+[36.406120] (-) TimerEvent: {}
+[36.506398] (-) TimerEvent: {}
+[36.606716] (-) TimerEvent: {}
+[36.706946] (-) TimerEvent: {}
+[36.807211] (-) TimerEvent: {}
+[36.907478] (-) TimerEvent: {}
+[37.007746] (-) TimerEvent: {}
+[37.108002] (-) TimerEvent: {}
+[37.208267] (-) TimerEvent: {}
+[37.308546] (-) TimerEvent: {}
+[37.408865] (-) TimerEvent: {}
+[37.509173] (-) TimerEvent: {}
+[37.609502] (-) TimerEvent: {}
+[37.709834] (-) TimerEvent: {}
+[37.810178] (-) TimerEvent: {}
+[37.910515] (-) TimerEvent: {}
+[38.010818] (-) TimerEvent: {}
+[38.111174] (-) TimerEvent: {}
+[38.211507] (-) TimerEvent: {}
+[38.311824] (-) TimerEvent: {}
+[38.412139] (-) TimerEvent: {}
+[38.512445] (-) TimerEvent: {}
+[38.612748] (-) TimerEvent: {}
+[38.713041] (-) TimerEvent: {}
+[38.813327] (-) TimerEvent: {}
+[38.913600] (-) TimerEvent: {}
+[39.013973] (-) TimerEvent: {}
+[39.114248] (-) TimerEvent: {}
+[39.214543] (-) TimerEvent: {}
+[39.314821] (-) TimerEvent: {}
+[39.415116] (-) TimerEvent: {}
+[39.515443] (-) TimerEvent: {}
+[39.615813] (-) TimerEvent: {}
+[39.716182] (-) TimerEvent: {}
+[39.816577] (-) TimerEvent: {}
+[39.916915] (-) TimerEvent: {}
+[40.017328] (-) TimerEvent: {}
+[40.117609] (-) TimerEvent: {}
+[40.217896] (-) TimerEvent: {}
+[40.318238] (-) TimerEvent: {}
+[40.418503] (-) TimerEvent: {}
+[40.518775] (-) TimerEvent: {}
+[40.619066] (-) TimerEvent: {}
+[40.719353] (-) TimerEvent: {}
+[40.819612] (-) TimerEvent: {}
+[40.919875] (-) TimerEvent: {}
+[41.020136] (-) TimerEvent: {}
+[41.120354] (-) TimerEvent: {}
+[41.220627] (-) TimerEvent: {}
+[41.320910] (-) TimerEvent: {}
+[41.421197] (-) TimerEvent: {}
+[41.521489] (-) TimerEvent: {}
+[41.621926] (-) TimerEvent: {}
+[41.722205] (-) TimerEvent: {}
+[41.822560] (-) TimerEvent: {}
+[41.922917] (-) TimerEvent: {}
+[42.023230] (-) TimerEvent: {}
+[42.123526] (-) TimerEvent: {}
+[42.223805] (-) TimerEvent: {}
+[42.324025] (-) TimerEvent: {}
+[42.424367] (-) TimerEvent: {}
+[42.524740] (-) TimerEvent: {}
+[42.625083] (-) TimerEvent: {}
+[42.725432] (-) TimerEvent: {}
+[42.825794] (-) TimerEvent: {}
+[42.926054] (-) TimerEvent: {}
+[43.026431] (-) TimerEvent: {}
+[43.126803] (-) TimerEvent: {}
+[43.227150] (-) TimerEvent: {}
+[43.327586] (-) TimerEvent: {}
+[43.427989] (-) TimerEvent: {}
+[43.528329] (-) TimerEvent: {}
+[43.628686] (-) TimerEvent: {}
+[43.728984] (-) TimerEvent: {}
+[43.829257] (-) TimerEvent: {}
+[43.929588] (-) TimerEvent: {}
+[44.029858] (-) TimerEvent: {}
+[44.130181] (-) TimerEvent: {}
+[44.230463] (-) TimerEvent: {}
+[44.330747] (-) TimerEvent: {}
+[44.430968] (-) TimerEvent: {}
+[44.531277] (-) TimerEvent: {}
+[44.631515] (-) TimerEvent: {}
+[44.731857] (-) TimerEvent: {}
+[44.832145] (-) TimerEvent: {}
+[44.932387] (-) TimerEvent: {}
+[45.032662] (-) TimerEvent: {}
+[45.132900] (-) TimerEvent: {}
+[45.233210] (-) TimerEvent: {}
+[45.333461] (-) TimerEvent: {}
+[45.433716] (-) TimerEvent: {}
+[45.533972] (-) TimerEvent: {}
+[45.634282] (-) TimerEvent: {}
+[45.734546] (-) TimerEvent: {}
+[45.834779] (-) TimerEvent: {}
+[45.935091] (-) TimerEvent: {}
+[46.035339] (-) TimerEvent: {}
+[46.135564] (-) TimerEvent: {}
+[46.235826] (-) TimerEvent: {}
+[46.336079] (-) TimerEvent: {}
+[46.436352] (-) TimerEvent: {}
+[46.536648] (-) TimerEvent: {}
+[46.636950] (-) TimerEvent: {}
+[46.686553] (pointcloud_to_laserscan) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libpointcloud_to_laserscan.so\x1b[0m\n'}
+[46.737135] (-) TimerEvent: {}
+[46.837380] (-) TimerEvent: {}
+[46.937632] (-) TimerEvent: {}
+[47.037913] (-) TimerEvent: {}
+[47.138163] (-) TimerEvent: {}
+[47.238447] (-) TimerEvent: {}
+[47.338747] (-) TimerEvent: {}
+[47.439028] (-) TimerEvent: {}
+[47.539294] (-) TimerEvent: {}
+[47.639544] (-) TimerEvent: {}
+[47.739811] (-) TimerEvent: {}
+[47.840065] (-) TimerEvent: {}
+[47.940292] (-) TimerEvent: {}
+[48.040559] (-) TimerEvent: {}
+[48.140865] (-) TimerEvent: {}
+[48.223292] (pointcloud_to_laserscan) StdoutLine: {'line': b'[100%] Built target pointcloud_to_laserscan\n'}
+[48.232930] (pointcloud_to_laserscan) CommandEnded: {'returncode': 0}
+[48.233389] (pointcloud_to_laserscan) JobProgress: {'identifier': 'pointcloud_to_laserscan', 'progress': 'install'}
+[48.233794] (pointcloud_to_laserscan) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/alex/thesis_ws/build/pointcloud_to_laserscan'], 'cwd': '/home/alex/thesis_ws/build/pointcloud_to_laserscan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alex'), ('LC_TIME', 'sv_SE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alex'), ('OLDPWD', '/home/alex'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('SYSTEMD_EXEC_PID', '1981'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alex/thesis_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alex'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alex/thesis_ws/install/small_gicp/lib/x86_64-linux-gnu/pkgconfig:/home/alex/thesis_ws/install/small_gicp/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alex'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.local/bin'), ('SESSION_MANAGER', 'local/alexandrereis22:@/tmp/.ICE-unix/1951,unix/alexandrereis22:/tmp/.ICE-unix/1951'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/19f4313c_6d9e_46ea_8702_d07832ab3e7f'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.0TWZ22'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.146'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '46'), ('AMENT_PREFIX_PATH', '/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/perception_pcl:/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sv_SE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alex/thesis_ws/build/pointcloud_to_laserscan'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/alex/thesis_ws/src'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble')]), 'shell': False}
+[48.238761] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[48.238893] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node\n'}
+[48.239296] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node" to ""\n'}
+[48.239437] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include\n'}
+[48.239501] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan\n'}
+[48.239541] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp\n'}
+[48.239597] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp\n'}
+[48.239638] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/visibility_control.h\n'}
+[48.239686] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/laserscan_to_pointcloud_node.hpp\n'}
+[48.239817] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.sh\n'}
+[48.239918] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.dsv\n'}
+[48.240029] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so\n'}
+[48.240914] (-) TimerEvent: {}
+[48.245064] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so" to ""\n'}
+[48.245153] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so\n'}
+[48.253298] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so" to ""\n'}
+[48.253398] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch\n'}
+[48.253462] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_laserscan_to_pointcloud_launch.py\n'}
+[48.253534] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_pointcloud_to_laserscan_launch.py\n'}
+[48.253628] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/package_run_dependencies/pointcloud_to_laserscan\n'}
+[48.253760] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/parent_prefix_path/pointcloud_to_laserscan\n'}
+[48.253862] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.sh\n'}
+[48.253956] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.dsv\n'}
+[48.254048] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.sh\n'}
+[48.254145] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.dsv\n'}
+[48.254255] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.bash\n'}
+[48.254372] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.sh\n'}
+[48.254451] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.zsh\n'}
+[48.254530] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.dsv\n'}
+[48.254625] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.dsv\n'}
+[48.254748] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/packages/pointcloud_to_laserscan\n'}
+[48.254865] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/rclcpp_components/pointcloud_to_laserscan\n'}
+[48.254998] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[48.255103] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[48.255194] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[48.255287] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig.cmake\n'}
+[48.255371] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig-version.cmake\n'}
+[48.255464] (pointcloud_to_laserscan) StdoutLine: {'line': b'-- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.xml\n'}
+[48.257126] (pointcloud_to_laserscan) CommandEnded: {'returncode': 0}
+[48.265873] (pointcloud_to_laserscan) JobEnded: {'identifier': 'pointcloud_to_laserscan', 'rc': 0}
+[48.266328] (-) EventReactorShutdown: {}

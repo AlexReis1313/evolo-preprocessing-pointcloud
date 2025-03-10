@@ -1,0 +1,160 @@
+[0.006s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.050s] [ 28%] Built target pointcloud_to_laserscan_node
+[0.051s] [ 57%] Built target laserscan_to_pointcloud
+[0.067s] [35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[0.091s] [ 71%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[0.092s] [ 85%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o[0m
+[1.091s] In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+[1.091s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+[1.091s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[1.091s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[1.091s] [01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+[1.091s]    10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+[1.091s]       |  [01;35m[K^~~~~~~[m[K
+[1.226s] In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+[1.226s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+[1.226s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[1.226s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:62[m[K,
+[1.226s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[1.226s] [01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+[1.226s]    10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+[1.226s]       |  [01;35m[K^~~~~~~[m[K
+[5.490s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:8:20:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[KvgicpRegistrationClass[m[K’
+[5.490s]     8 | using namespace tf2
+[5.490s]       |                    [01;31m[K^[m[K
+[5.490s]       |                    [32m[K;[m[K
+[5.490s] ......
+[5.490s]    13 | [32m[KvgicpRegistrationClass[m[K::vgicpRegistrationClass() : firstTime_(true) {
+[5.490s]       | [32m[K~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.493s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kpcl::PointCloud<pcl::PointXYZ> vgicpRegistrationClass::getNewTransformedCloud() const[m[K’:
+[5.494s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:39:37:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KtransformPointCloud(const pcl::PointCloud<pcl::PointXYZ>&, const pcl::PointCloud<pcl::PointXYZ>&, const TransformStamped&)[m[K’
+[5.494s]    39 |         [01;31m[Kpcl_ros::transformPointCloud(new_cloud_, new_cloud_transformed_, ICP_output_transform_)[m[K;
+[5.494s]       |         [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.494s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:19[m[K,
+[5.494s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.494s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:118:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class PointT> void pcl_ros::transformPointCloud(const pcl::PointCloud<PointT>&, pcl::PointCloud<PointT>&, const tf2::Transform&)[m[K’
+[5.494s]   118 | [01;36m[KtransformPointCloud[m[K(
+[5.494s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.494s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:118:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.494s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:39:37:[m[K [01;36m[Knote: [m[K  types ‘[01m[Kpcl::PointCloud<PointT>[m[K’ and ‘[01m[Kconst pcl::PointCloud<pcl::PointXYZ>[m[K’ have incompatible cv-qualifiers
+[5.494s]    39 |         [01;36m[Kpcl_ros::transformPointCloud(new_cloud_, new_cloud_transformed_, ICP_output_transform_)[m[K;
+[5.494s]       |         [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.494s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:19[m[K,
+[5.494s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.494s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:131:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class PointT> void pcl_ros::transformPointCloud(const pcl::PointCloud<PointT>&, pcl::PointCloud<PointT>&, const TransformStamped&)[m[K’
+[5.494s]   131 | [01;36m[KtransformPointCloud[m[K(
+[5.494s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.494s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:131:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.494s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:39:37:[m[K [01;36m[Knote: [m[K  types ‘[01m[Kpcl::PointCloud<PointT>[m[K’ and ‘[01m[Kconst pcl::PointCloud<pcl::PointXYZ>[m[K’ have incompatible cv-qualifiers
+[5.495s]    39 |         [01;36m[Kpcl_ros::transformPointCloud(new_cloud_, new_cloud_transformed_, ICP_output_transform_)[m[K;
+[5.495s]       |         [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.495s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:19[m[K,
+[5.495s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.495s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:144:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class PointT> bool pcl_ros::transformPointCloud(const string&, const pcl::PointCloud<PointT>&, pcl::PointCloud<PointT>&, const tf2_ros::Buffer&)[m[K’
+[5.495s]   144 | [01;36m[KtransformPointCloud[m[K(
+[5.495s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.495s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:144:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.495s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:39:37:[m[K [01;36m[Knote: [m[K  types ‘[01m[Kpcl::PointCloud<PointT>[m[K’ and ‘[01m[Kconst TransformStamped[m[K’ {aka ‘[01m[Kconst geometry_msgs::msg::TransformStamped_<std::allocator<void> >[m[K’} have incompatible cv-qualifiers
+[5.495s]    39 |         [01;36m[Kpcl_ros::transformPointCloud(new_cloud_, new_cloud_transformed_, ICP_output_transform_)[m[K;
+[5.495s]       |         [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.495s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:19[m[K,
+[5.495s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.495s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:160:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class PointT> bool pcl_ros::transformPointCloud(const string&, const rclcpp::Time&, const pcl::PointCloud<PointT>&, const string&, pcl::PointCloud<PointT>&, const tf2_ros::Buffer&)[m[K’
+[5.495s]   160 | [01;36m[KtransformPointCloud[m[K(
+[5.495s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.495s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:160:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.495s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:39:37:[m[K [01;36m[Knote: [m[K  ‘[01m[Kconst TransformStamped[m[K’ {aka ‘[01m[Kconst geometry_msgs::msg::TransformStamped_<std::allocator<void> >[m[K’} is not derived from ‘[01m[Kconst pcl::PointCloud<PointT>[m[K’
+[5.495s]    39 |         [01;36m[Kpcl_ros::transformPointCloud(new_cloud_, new_cloud_transformed_, ICP_output_transform_)[m[K;
+[5.495s]       |         [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.496s] In file included from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:19[m[K,
+[5.496s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:175:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kbool pcl_ros::transformPointCloud(const string&, const PointCloud2&, sensor_msgs::msg::PointCloud2&, const tf2_ros::Buffer&)[m[K’
+[5.496s]   175 | [01;36m[KtransformPointCloud[m[K(
+[5.496s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:175:1:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 3 provided
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:188:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid pcl_ros::transformPointCloud(const string&, const tf2::Transform&, const PointCloud2&, sensor_msgs::msg::PointCloud2&)[m[K’
+[5.496s]   188 | [01;36m[KtransformPointCloud[m[K(
+[5.496s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:188:1:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 3 provided
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:201:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid pcl_ros::transformPointCloud(const string&, const TransformStamped&, const PointCloud2&, sensor_msgs::msg::PointCloud2&)[m[K’
+[5.496s]   201 | [01;36m[KtransformPointCloud[m[K(
+[5.496s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:201:1:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 3 provided
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:213:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid pcl_ros::transformPointCloud(const Matrix4f&, const PointCloud2&, sensor_msgs::msg::PointCloud2&)[m[K’
+[5.496s]   213 | [01;36m[KtransformPointCloud[m[K(
+[5.496s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[5.496s] [01m[K/home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp:214:27:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kconst pcl::PointCloud<pcl::PointXYZ>[m[K’ to ‘[01m[Kconst Matrix4f&[m[K’ {aka ‘[01m[Kconst Eigen::Matrix<float, 4, 4>&[m[K’}
+[5.496s]   214 |   [01;36m[Kconst Eigen::Matrix4f & transform[m[K,
+[5.496s]       |   [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~[m[K
+[5.496s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kvoid vgicpRegistrationClass::computeRegistration()[m[K’:
+[5.496s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:50:32:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass pcl::PointCloud<pcl::PointXYZ>[m[K’ has no member named ‘[01m[Kreset[m[K’
+[5.496s]    50 |         new_cloud_transformed_.[01;31m[Kreset[m[K(new pcl::PointCloud<pcl::PointXYZ>);
+[5.497s]       |                                [01;31m[K^~~~~[m[K
+[5.497s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:52:20:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator*[m[K’ (operand type is ‘[01m[Kpcl::PointCloud<pcl::PointXYZ>[m[K’)
+[5.497s]    52 |         reg_.align([01;31m[K*new_cloud_transformed_[m[K);
+[5.497s]       |                    [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.497s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:19[m[K,
+[5.497s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.497s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.497s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.497s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.497s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.497s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:364:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2::Vector3&)[m[K’
+[5.497s]   364 | [01;36m[Koperator[m[K*(const Vector3& v1, const Vector3& v2)
+[5.497s]       | [01;36m[K^~~~~~~~[m[K
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:364:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:384:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2Scalar&)[m[K’
+[5.497s]   384 | [01;36m[Koperator[m[K*(const Vector3& v, const tf2Scalar& s)
+[5.497s]       | [01;36m[K^~~~~~~~[m[K
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:384:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:391:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2Scalar&, const tf2::Vector3&)[m[K’
+[5.497s]   391 | [01;36m[Koperator[m[K*(const tf2Scalar& s, const Vector3& v)
+[5.497s]       | [01;36m[K^~~~~~~~[m[K
+[5.497s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:391:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.497s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:20[m[K,
+[5.497s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.498s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.498s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:368:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Quaternion&, const tf2::Quaternion&)[m[K’
+[5.498s]   368 | [01;36m[Koperator[m[K*(const Quaternion& q1, const Quaternion& q2) {
+[5.498s]       | [01;36m[K^~~~~~~~[m[K
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:368:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:376:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Quaternion&, const tf2::Vector3&)[m[K’
+[5.498s]   376 | [01;36m[Koperator[m[K*(const Quaternion& q, const Vector3& w)
+[5.498s]       | [01;36m[K^~~~~~~~[m[K
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:376:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:385:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Vector3&, const tf2::Quaternion&)[m[K’
+[5.498s]   385 | [01;36m[Koperator[m[K*(const Vector3& w, const Quaternion& q)
+[5.498s]       | [01;36m[K^~~~~~~~[m[K
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:385:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.498s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.498s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.498s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.498s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:611:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Matrix3x3&, const tf2::Vector3&)[m[K’
+[5.498s]   611 | [01;36m[Koperator[m[K*(const Matrix3x3& m, const Vector3& v)
+[5.498s]       | [01;36m[K^~~~~~~~[m[K
+[5.498s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:611:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.499s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:618:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2::Matrix3x3&)[m[K’
+[5.499s]   618 | [01;36m[Koperator[m[K*(const Vector3& v, const Matrix3x3& m)
+[5.499s]       | [01;36m[K^~~~~~~~[m[K
+[5.499s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:618:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.499s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:624:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Matrix3x3 tf2::operator*(const tf2::Matrix3x3&, const tf2::Matrix3x3&)[m[K’
+[5.499s]   624 | [01;36m[Koperator[m[K*(const Matrix3x3& m1, const Matrix3x3& m2)
+[5.499s]       | [01;36m[K^~~~~~~~[m[K
+[5.499s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:624:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.499s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:56:38:[m[K [01;31m[Kerror: [m[K‘[01m[KeigenToTransform[m[K’ is not a member of ‘[01m[Ktf2[m[K’; did you mean ‘[01m[KdoTransform[m[K’?
+[5.499s]    56 |         ICP_output_transform_ = tf2::[01;31m[KeigenToTransform[m[K(transform_matrix);
+[5.499s]       |                                      [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[5.499s]       |                                      [32m[KdoTransform[m[K
+[11.014s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:90: CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o] Error 1
+[11.014s] gmake[2]: *** Waiting for unfinished jobs....
+[19.282s] gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[19.282s] gmake: *** [Makefile:146: all] Error 2
+[19.284s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

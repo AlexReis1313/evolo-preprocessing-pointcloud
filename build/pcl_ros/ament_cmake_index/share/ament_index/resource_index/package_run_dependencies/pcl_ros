@@ -1,0 +1,1 @@
+libpcl-all-dev;eigen;pcl_conversions;rclcpp;rclcpp_components;sensor_msgs;geometry_msgs;tf2;tf2_geometry_msgs;tf2_ros;libpcl-common;libpcl-features;libpcl-filters;libpcl-io;libpcl-segmentation;libpcl-surface;ament_lint_auto;ament_lint_common;ament_cmake_gtest

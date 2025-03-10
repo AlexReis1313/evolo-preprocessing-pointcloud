@@ -1,0 +1,38 @@
+In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+                 from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+   10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+      |  [01;35m[K^~~~~~~[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kvoid vgicpRegistrationClass::computeRegistration()[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:42:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} to ‘[01m[Kconst tf2Scalar*[m[K’ {aka ‘[01m[Kconst double*[m[K’}
+   60 |         tf_transform.setFromOpenGLMatrix([01;31m[Ktransform_matrix[m[K);
+      |                                          [01;31m[K^~~~~~~~~~~~~~~~[m[K
+      |                                          [01;31m[K|[m[K
+      |                                          [01;31m[KEigen::Matrix4f {aka Eigen::Matrix<float, 4, 4>}[m[K
+In file included from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+                 from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+                 from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:134:51:[m[K [01;36m[Knote: [m[K  initializing argument 1 of ‘[01m[Kvoid tf2::Transform::setFromOpenGLMatrix(const tf2Scalar*)[m[K’
+  134 |         void setFromOpenGLMatrix([01;36m[Kconst tf2Scalar *m[m[K)
+      |                                  [01;36m[K~~~~~~~~~~~~~~~~~^[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:56:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kgeometry_msgs::msg::TransformStamped[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >[m[K’} and ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’})
+   61 |         ICP_output_transform_ = tf2::toMsg(tf_transform[01;31m[K)[m[K;
+      |                                                        [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp:7[m[K,
+                 from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core_interface.hpp:34[m[K,
+                 from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:53[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >& geometry_msgs::msg::TransformStamped_<std::allocator<void> >::operator=(const geometry_msgs::msg::TransformStamped_<std::allocator<void> >&)[m[K’
+   38 | struct [01;36m[KTransformStamped_[m[K
+      |        [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’} to ‘[01m[Kconst geometry_msgs::msg::TransformStamped_<std::allocator<void> >&[m[K’
+[01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >& geometry_msgs::msg::TransformStamped_<std::allocator<void> >::operator=(geometry_msgs::msg::TransformStamped_<std::allocator<void> >&&)[m[K’
+[01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’} to ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >&&[m[K’
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:90: CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,11 @@
+[31mCMake Error at /opt/ros/humble/share/ament_cmake_auto/cmake/ament_auto_add_library.cmake:66 (add_library):
+  add_library cannot create target "pointcloud_to_laserscan" because another
+  target with the same name already exists.  The existing target is a shared
+  library created in source directory
+  "/home/alex/thesis_ws/src/pointcloud_to_laserscan".  See documentation for
+  policy CMP0002 for more details.
+Call Stack (most recent call first):
+  CMakeLists.txt:21 (ament_auto_add_library)
+
+[0m
+gmake: *** [Makefile:349: cmake_check_build_system] Error 1

@@ -1,0 +1,293 @@
+[0.009s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.054s] [ 28%] Built target pointcloud_to_laserscan_node
+[0.058s] [ 57%] Built target laserscan_to_pointcloud
+[0.073s] [35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[0.098s] [ 71%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o[0m
+[1.069s] In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+[1.069s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+[1.069s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[1.070s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[1.070s] [01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+[1.070s]    10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+[1.070s]       |  [01;35m[K^~~~~~~[m[K
+[5.266s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kvoid vgicpRegistrationClass::computeRegistration()[m[K’:
+[5.266s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:42:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator*[m[K’ (operand type is ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’})
+[5.267s]    60 |         tf_transform.setFromOpenGLMatrix([01;31m[K*transform_matrix[m[K);
+[5.267s]       |                                          [01;31m[K^~~~~~~~~~~~~~~~~[m[K
+[5.267s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:19[m[K,
+[5.267s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.267s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.267s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.267s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.268s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.268s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.268s] [01m[K/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:50:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class T> const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<typename Eigen::internal::traits<T>::Scalar, typename Eigen::internal::promote_scalar_arg<typename Eigen::internal::traits<T>::Scalar, T, Eigen::internal::has_ReturnType<Eigen::ScalarBinaryOpTraits<typename Eigen::internal::traits<T>::Scalar, T, Eigen::internal::scalar_product_op<typename Eigen::internal::traits<T>::Scalar, T> > >::value>::type>, const Derived, const typename Eigen::internal::plain_constant_type<Derived, typename Eigen::internal::promote_scalar_arg<typename Eigen::internal::traits<T>::Scalar, T, Eigen::internal::has_ReturnType<Eigen::ScalarBinaryOpTraits<typename Eigen::internal::traits<T>::Scalar, T, Eigen::internal::scalar_product_op<typename Eigen::internal::traits<T>::Scalar, T> > >::value>::type>::type> Eigen::MatrixBase<Derived>::operator*(const T&) const [with T = T; Derived = Eigen::Matrix<float, 4, 4>][m[K’
+[5.268s]    50 | [01;36m[KEIGEN_MAKE_SCALAR_BINARY_OP[m[K(operator*,product)
+[5.268s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.268s] [01m[K/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:50:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.268s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[5.268s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.268s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.268s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:273[m[K,
+[5.268s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.268s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.268s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.268s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.268s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.268s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.268s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:166:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class OtherDerived> const Eigen::Product<Derived, OtherDerived> Eigen::MatrixBase<Derived>::operator*(const Eigen::MatrixBase<OtherDerived>&) const [with OtherDerived = OtherDerived; Derived = Eigen::Matrix<float, 4, 4>][m[K’
+[5.269s]   166 |     [01;36m[Koperator[m[K*(const MatrixBase<OtherDerived> &other) const;
+[5.269s]       |     [01;36m[K^~~~~~~~[m[K
+[5.269s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:166:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.269s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[5.269s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.269s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.269s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:273[m[K,
+[5.269s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.269s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.269s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.269s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.269s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.269s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.269s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:185:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class DiagonalDerived> const Eigen::Product<Derived, OtherDerived, 1> Eigen::MatrixBase<Derived>::operator*(const Eigen::DiagonalBase<DiagonalDerived>&) const [with DiagonalDerived = DiagonalDerived; Derived = Eigen::Matrix<float, 4, 4>][m[K’
+[5.269s]   185 |     [01;36m[Koperator[m[K*(const DiagonalBase<DiagonalDerived> &diagonal) const;
+[5.269s]       |     [01;36m[K^~~~~~~~[m[K
+[5.269s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:185:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.269s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[5.269s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.270s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.270s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:19[m[K,
+[5.270s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.270s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.270s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.270s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.270s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.270s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.270s] [01m[K/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:50:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class T> const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<typename Eigen::internal::promote_scalar_arg<float, T, Eigen::internal::has_ReturnType<Eigen::ScalarBinaryOpTraits<T, float, Eigen::internal::scalar_product_op<T, float> > >::value>::type, float>, const typename Eigen::internal::plain_constant_type<Eigen::Matrix<float, 4, 4>, typename Eigen::internal::promote_scalar_arg<float, T, Eigen::internal::has_ReturnType<Eigen::ScalarBinaryOpTraits<T, float, Eigen::internal::scalar_product_op<T, float> > >::value>::type>::type, const Eigen::Matrix<float, 4, 4> > Eigen::operator*(const T&, const StorageBaseType&)[m[K’
+[5.270s]    50 | [01;36m[KEIGEN_MAKE_SCALAR_BINARY_OP[m[K(operator*,product)
+[5.270s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.270s] [01m[K/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:50:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.270s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.270s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.271s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.271s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:326[m[K,
+[5.271s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.271s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.271s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.271s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.271s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.271s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.271s] [01m[K/usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h:515:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MatrixDerived, class PermutationDerived> const Eigen::Product<MatrixDerived, PermutationDerived, 2> Eigen::operator*(const Eigen::MatrixBase<Derived>&, const Eigen::PermutationBase<PermutationDerived>&)[m[K’
+[5.271s]   515 | [01;36m[Koperator[m[K*(const MatrixBase<MatrixDerived> &matrix,
+[5.271s]       | [01;36m[K^~~~~~~~[m[K
+[5.271s] [01m[K/usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h:515:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.271s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.271s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.271s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.271s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:326[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.272s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.272s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.272s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.272s] [01m[K/usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h:527:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class PermutationDerived, class MatrixDerived> const Eigen::Product<MatrixDerived, PermutationDerived, 2> Eigen::operator*(const Eigen::PermutationBase<PermutationDerived>&, const Eigen::MatrixBase<U>&)[m[K’
+[5.272s]   527 | [01;36m[Koperator[m[K*(const PermutationBase<PermutationDerived> &permutation,
+[5.272s]       | [01;36m[K^~~~~~~~[m[K
+[5.272s] [01m[K/usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h:527:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.272s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::PermutationBase<PermutationDerived>[m[K’
+[5.272s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.272s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.272s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:327[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.272s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.273s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.273s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.273s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.273s] [01m[K/usr/include/eigen3/Eigen/src/Core/Transpositions.h:313:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MatrixDerived, class TranspositionsDerived> const Eigen::Product<MatrixDerived, PermutationDerived, 2> Eigen::operator*(const Eigen::MatrixBase<Derived>&, const Eigen::TranspositionsBase<TranspositionsDerived>&)[m[K’
+[5.273s]   313 | [01;36m[Koperator[m[K*(const MatrixBase<MatrixDerived> &matrix,
+[5.273s]       | [01;36m[K^~~~~~~~[m[K
+[5.273s] [01m[K/usr/include/eigen3/Eigen/src/Core/Transpositions.h:313:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.273s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.273s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.273s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.273s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:327[m[K,
+[5.273s]                  from [01m[K/usr/include/pcl-1.12/pcl/memory.h:48[m[K,
+[5.273s]                  from [01m[K/usr/include/pcl-1.12/pcl/impl/point_types.hpp:41[m[K,
+[5.273s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_types.h:354[m[K,
+[5.273s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point.hpp:5[m[K,
+[5.273s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:4[m[K,
+[5.274s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.274s] [01m[K/usr/include/eigen3/Eigen/src/Core/Transpositions.h:325:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class TranspositionsDerived, class MatrixDerived> const Eigen::Product<MatrixDerived, PermutationDerived, 2> Eigen::operator*(const Eigen::TranspositionsBase<TranspositionsDerived>&, const Eigen::MatrixBase<U>&)[m[K’
+[5.274s]   325 | [01;36m[Koperator[m[K*(const TranspositionsBase<TranspositionsDerived> &transpositions,
+[5.274s]       | [01;36m[K^~~~~~~~[m[K
+[5.274s] [01m[K/usr/include/eigen3/Eigen/src/Core/Transpositions.h:325:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.274s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::TranspositionsBase<TranspositionsDerived>[m[K’
+[5.274s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.274s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.274s] In file included from [01m[K/usr/include/eigen3/Eigen/Householder:24[m[K,
+[5.274s]                  from [01m[K/usr/include/eigen3/Eigen/QR:15[m[K,
+[5.274s]                  from [01m[K/usr/include/eigen3/Eigen/SVD:11[m[K,
+[5.274s]                  from [01m[K/usr/include/eigen3/Eigen/Geometry:13[m[K,
+[5.274s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_cloud.h:46[m[K,
+[5.274s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point_traits.hpp:6[m[K,
+[5.274s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:5[m[K,
+[5.274s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.274s] [01m[K/usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h:513:99:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class OtherDerived, class VectorsType, class CoeffsType, int Side> typename Eigen::internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, OtherDerived>::Type Eigen::operator*(const Eigen::MatrixBase<Derived>&, const Eigen::HouseholderSequence<VectorsType, CoeffsType, Side>&)[m[K’
+[5.275s]   513 | typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar,OtherDerived>::Type [01;36m[Koperator[m[K*(const MatrixBase<OtherDerived>& other, const HouseholderSequence<VectorsType,CoeffsType,Side>& h)
+[5.275s]       |                                                                                                   [01;36m[K^~~~~~~~[m[K
+[5.275s] [01m[K/usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h:513:99:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.275s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.275s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.275s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.275s] In file included from [01m[K/usr/include/eigen3/Eigen/Geometry:46[m[K,
+[5.275s]                  from [01m[K/usr/include/pcl-1.12/pcl/point_cloud.h:46[m[K,
+[5.275s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_point_traits.hpp:6[m[K,
+[5.275s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:5[m[K,
+[5.275s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.275s] [01m[K/usr/include/eigen3/Eigen/src/Geometry/Scaling.h:135:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class Derived, class Scalar> Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<typename Eigen::internal::traits<T>::Scalar, Scalar>, const Derived, const typename Eigen::internal::plain_constant_type<Expr, Scalar>::type> Eigen::operator*(const Eigen::MatrixBase<Derived>&, const Eigen::UniformScaling<Scalar>&)[m[K’
+[5.275s]   135 | [01;36m[Koperator[m[K*(const MatrixBase<Derived>& matrix, const UniformScaling<Scalar>& s)
+[5.275s]       | [01;36m[K^~~~~~~~[m[K
+[5.275s] [01m[K/usr/include/eigen3/Eigen/src/Geometry/Scaling.h:135:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.276s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.276s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.276s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.276s] In file included from [01m[K/usr/include/eigen3/Eigen/SparseCore:62[m[K,
+[5.276s]                  from [01m[K/usr/include/eigen3/Eigen/Sparse:26[m[K,
+[5.276s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:2[m[K,
+[5.276s]                  from [01m[K/usr/local/include/small_gicp/ann/projection.hpp:7[m[K,
+[5.276s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree.hpp:47[m[K,
+[5.276s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree_omp.hpp:6[m[K,
+[5.276s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:7[m[K,
+[5.276s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[5.276s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.276s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:147:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class SparseDerived, class PermDerived> const Eigen::Product<MatrixDerived, PermutationDerived, 2> Eigen::operator*(const Eigen::SparseMatrixBase<OtherDerived>&, const Eigen::PermutationBase<PermutationDerived>&)[m[K’
+[5.276s]   147 | [01;36m[Koperator[m[K*(const SparseMatrixBase<SparseDerived>& matrix, const PermutationBase<PermDerived>& perm)
+[5.276s]       | [01;36m[K^~~~~~~~[m[K
+[5.277s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:147:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.277s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::SparseMatrixBase<OtherDerived>[m[K’
+[5.277s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.277s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.277s] In file included from [01m[K/usr/include/eigen3/Eigen/SparseCore:62[m[K,
+[5.277s]                  from [01m[K/usr/include/eigen3/Eigen/Sparse:26[m[K,
+[5.277s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:2[m[K,
+[5.277s]                  from [01m[K/usr/local/include/small_gicp/ann/projection.hpp:7[m[K,
+[5.277s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree.hpp:47[m[K,
+[5.277s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree_omp.hpp:6[m[K,
+[5.277s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:7[m[K,
+[5.277s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[5.277s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.277s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:154:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class SparseDerived, class PermDerived> const Eigen::Product<PermDerived, SparseDerived, 2> Eigen::operator*(const Eigen::PermutationBase<PermutationDerived>&, const Eigen::SparseMatrixBase<OtherDerived>&)[m[K’
+[5.277s]   154 | [01;36m[Koperator[m[K*( const PermutationBase<PermDerived>& perm, const SparseMatrixBase<SparseDerived>& matrix)
+[5.277s]       | [01;36m[K^~~~~~~~[m[K
+[5.277s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:154:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.278s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::PermutationBase<PermutationDerived>[m[K’
+[5.278s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.278s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.278s] In file included from [01m[K/usr/include/eigen3/Eigen/SparseCore:62[m[K,
+[5.278s]                  from [01m[K/usr/include/eigen3/Eigen/Sparse:26[m[K,
+[5.278s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:2[m[K,
+[5.278s]                  from [01m[K/usr/local/include/small_gicp/ann/projection.hpp:7[m[K,
+[5.278s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree.hpp:47[m[K,
+[5.278s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree_omp.hpp:6[m[K,
+[5.278s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:7[m[K,
+[5.278s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[5.278s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.278s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:162:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class SparseDerived, class PermutationType> const Eigen::Product<SparseDerived, Eigen::Inverse<Rhs>, 2> Eigen::operator*(const Eigen::SparseMatrixBase<OtherDerived>&, const Eigen::InverseImpl<PermutationType, Eigen::PermutationStorage>&)[m[K’
+[5.278s]   162 | [01;36m[Koperator[m[K*(const SparseMatrixBase<SparseDerived>& matrix, const InverseImpl<PermutationType, PermutationStorage>& tperm)
+[5.278s]       | [01;36m[K^~~~~~~~[m[K
+[5.278s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:162:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.279s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::SparseMatrixBase<OtherDerived>[m[K’
+[5.279s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.279s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.279s] In file included from [01m[K/usr/include/eigen3/Eigen/SparseCore:62[m[K,
+[5.279s]                  from [01m[K/usr/include/eigen3/Eigen/Sparse:26[m[K,
+[5.279s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:2[m[K,
+[5.279s]                  from [01m[K/usr/local/include/small_gicp/ann/projection.hpp:7[m[K,
+[5.279s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree.hpp:47[m[K,
+[5.279s]                  from [01m[K/usr/local/include/small_gicp/ann/kdtree_omp.hpp:6[m[K,
+[5.279s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:7[m[K,
+[5.279s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[5.279s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.279s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:171:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class SparseDerived, class PermutationType> const Eigen::Product<Eigen::Inverse<Rhs>, SparseDerived, 2> Eigen::operator*(const Eigen::InverseImpl<PermutationType, Eigen::PermutationStorage>&, const Eigen::SparseMatrixBase<OtherDerived>&)[m[K’
+[5.279s]   171 | [01;36m[Koperator[m[K*(const InverseImpl<PermutationType,PermutationStorage>& tperm, const SparseMatrixBase<SparseDerived>& matrix)
+[5.279s]       | [01;36m[K^~~~~~~~[m[K
+[5.279s] [01m[K/usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h:171:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[5.279s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:60:43:[m[K [01;36m[Knote: [m[K  ‘[01m[KEigen::Matrix4f[m[K’ {aka ‘[01m[KEigen::Matrix<float, 4, 4>[m[K’} is not derived from ‘[01m[Kconst Eigen::InverseImpl<PermutationType, Eigen::PermutationStorage>[m[K’
+[5.280s]    60 |         tf_transform.setFromOpenGLMatrix(*[01;36m[Ktransform_matrix[m[K);
+[5.280s]       |                                           [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[5.280s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:19[m[K,
+[5.280s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.280s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.280s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.280s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.280s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.280s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.280s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:364:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2::Vector3&)[m[K’
+[5.280s]   364 | [01;36m[Koperator[m[K*(const Vector3& v1, const Vector3& v2)
+[5.280s]       | [01;36m[K^~~~~~~~[m[K
+[5.280s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:364:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.281s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:384:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2Scalar&)[m[K’
+[5.281s]   384 | [01;36m[Koperator[m[K*(const Vector3& v, const tf2Scalar& s)
+[5.281s]       | [01;36m[K^~~~~~~~[m[K
+[5.281s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:384:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.281s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:391:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2Scalar&, const tf2::Vector3&)[m[K’
+[5.281s]   391 | [01;36m[Koperator[m[K*(const tf2Scalar& s, const Vector3& v)
+[5.281s]       | [01;36m[K^~~~~~~~[m[K
+[5.281s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Vector3.hpp:391:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.281s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:20[m[K,
+[5.281s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.281s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.281s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.281s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.281s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.281s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.281s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:368:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Quaternion&, const tf2::Quaternion&)[m[K’
+[5.282s]   368 | [01;36m[Koperator[m[K*(const Quaternion& q1, const Quaternion& q2) {
+[5.282s]       | [01;36m[K^~~~~~~~[m[K
+[5.282s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:368:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.282s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:376:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Quaternion&, const tf2::Vector3&)[m[K’
+[5.282s]   376 | [01;36m[Koperator[m[K*(const Quaternion& q, const Vector3& w)
+[5.282s]       | [01;36m[K^~~~~~~~[m[K
+[5.282s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:376:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.282s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:385:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Quaternion tf2::operator*(const tf2::Vector3&, const tf2::Quaternion&)[m[K’
+[5.282s]   385 | [01;36m[Koperator[m[K*(const Vector3& w, const Quaternion& q)
+[5.282s]       | [01;36m[K^~~~~~~~[m[K
+[5.282s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp:385:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.282s] In file included from [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp:21[m[K,
+[5.282s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core.hpp:47[m[K,
+[5.282s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h:39[m[K,
+[5.282s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:55[m[K,
+[5.282s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.282s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:611:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Matrix3x3&, const tf2::Vector3&)[m[K’
+[5.283s]   611 | [01;36m[Koperator[m[K*(const Matrix3x3& m, const Vector3& v)
+[5.283s]       | [01;36m[K^~~~~~~~[m[K
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:611:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:618:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Vector3 tf2::operator*(const tf2::Vector3&, const tf2::Matrix3x3&)[m[K’
+[5.283s]   618 | [01;36m[Koperator[m[K*(const Vector3& v, const Matrix3x3& m)
+[5.283s]       | [01;36m[K^~~~~~~~[m[K
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:618:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:624:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktf2::Matrix3x3 tf2::operator*(const tf2::Matrix3x3&, const tf2::Matrix3x3&)[m[K’
+[5.283s]   624 | [01;36m[Koperator[m[K*(const Matrix3x3& m1, const Matrix3x3& m2)
+[5.283s]       | [01;36m[K^~~~~~~~[m[K
+[5.283s] [01m[K/opt/ros/humble/include/tf2/tf2/LinearMath/Matrix3x3.hpp:624:1:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[5.283s] [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:56:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kgeometry_msgs::msg::TransformStamped[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >[m[K’} and ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’})
+[5.283s]    61 |         ICP_output_transform_ = tf2::toMsg(tf_transform[01;31m[K)[m[K;
+[5.283s]       |                                                        [01;31m[K^[m[K
+[5.283s] In file included from [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp:7[m[K,
+[5.283s]                  from [01m[K/opt/ros/humble/include/tf2/tf2/buffer_core_interface.hpp:34[m[K,
+[5.284s]                  from [01m[K/opt/ros/humble/include/tf2_ros/tf2_ros/message_filter.h:53[m[K,
+[5.284s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:10[m[K,
+[5.284s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[5.284s] [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >& geometry_msgs::msg::TransformStamped_<std::allocator<void> >::operator=(const geometry_msgs::msg::TransformStamped_<std::allocator<void> >&)[m[K’
+[5.284s]    38 | struct [01;36m[KTransformStamped_[m[K
+[5.284s]       |        [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+[5.284s] [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’} to ‘[01m[Kconst geometry_msgs::msg::TransformStamped_<std::allocator<void> >&[m[K’
+[5.284s] [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >& geometry_msgs::msg::TransformStamped_<std::allocator<void> >::operator=(geometry_msgs::msg::TransformStamped_<std::allocator<void> >&&)[m[K’
+[5.284s] [01m[K/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp:38:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kgeometry_msgs::msg::Transform[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Transform_<std::allocator<void> >[m[K’} to ‘[01m[Kgeometry_msgs::msg::TransformStamped_<std::allocator<void> >&&[m[K’
+[10.428s] gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:90: CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o] Error 1
+[10.428s] gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+[10.428s] gmake: *** [Makefile:146: all] Error 2
+[10.430s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '2': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8

@@ -1,0 +1,28 @@
+In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+                 from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:4[m[K:
+[01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+   10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+      |  [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+                 from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:62[m[K,
+                 from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+   10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+      |  [01;35m[K^~~~~~~[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:[m[K In member function ‘[01m[Kvoid vgicpRegistrationClass::computeRegistration()[m[K’:
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:44:[m[K [01;31m[Kerror: [m[K‘[01m[KtransformToTF[m[K’ is not a member of ‘[01m[Ktf2[m[K’; did you mean ‘[01m[KTransform[m[K’?
+   61 |         tf2::Transform tf_transform = tf2::[01;31m[KtransformToTF[m[K(tf2::EigenToTransform(transform_matrix));
+      |                                            [01;31m[K^~~~~~~~~~~~~[m[K
+      |                                            [32m[KTransform[m[K
+[01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/vgicp_registration.cpp:61:63:[m[K [01;31m[Kerror: [m[K‘[01m[KEigenToTransform[m[K’ is not a member of ‘[01m[Ktf2[m[K’; did you mean ‘[01m[KeigenToTransform[m[K’?
+   61 |         tf2::Transform tf_transform = tf2::transformToTF(tf2::[01;31m[KEigenToTransform[m[K(transform_matrix));
+      |                                                               [01;31m[K^~~~~~~~~~~~~~~~[m[K
+      |                                                               [32m[KeigenToTransform[m[K
+gmake[2]: *** [CMakeFiles/pointcloud_to_laserscan.dir/build.make:90: CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/pointcloud_to_laserscan.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
