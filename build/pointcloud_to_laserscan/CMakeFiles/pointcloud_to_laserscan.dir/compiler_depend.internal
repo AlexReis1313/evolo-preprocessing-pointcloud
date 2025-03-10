@@ -770,375 +770,11 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /opt/ros/humble/include/sensor_msgs/sensor_msgs/msg/detail/point_field__traits.hpp
  /opt/ros/humble/include/sensor_msgs/sensor_msgs/msg/detail/point_cloud2__type_support.hpp
  /home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/visibility_control.h
- /opt/ros/humble/include/sensor_msgs/sensor_msgs/point_cloud2_iterator.hpp
- /usr/include/c++/11/cstdarg
- /opt/ros/humble/include/sensor_msgs/sensor_msgs/impl/point_cloud2_iterator.hpp
- /opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp
- /usr/include/eigen3/Eigen/Eigen
- /usr/include/eigen3/Eigen/Dense
- /usr/include/eigen3/Eigen/Core
- /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h
- /usr/include/eigen3/Eigen/src/Core/util/Macros.h
- /usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
- /usr/include/c++/11/complex
- /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h
- /usr/include/c++/11/cstddef
- /usr/include/c++/11/climits
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h
- /usr/include/limits.h
- /usr/include/x86_64-linux-gnu/bits/posix1_lim.h
- /usr/include/x86_64-linux-gnu/bits/local_lim.h
- /usr/include/linux/limits.h
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h
- /usr/include/eigen3/Eigen/src/Core/util/Constants.h
- /usr/include/eigen3/Eigen/src/Core/util/Meta.h
- /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h
- /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h
- /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h
- /usr/include/eigen3/Eigen/src/Core/util/Memory.h
- /usr/include/eigen3/Eigen/src/Core/util/IntegralConstant.h
- /usr/include/eigen3/Eigen/src/Core/util/SymbolicIndex.h
- /usr/include/eigen3/Eigen/src/Core/NumTraits.h
- /usr/include/eigen3/Eigen/src/Core/MathFunctions.h
- /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h
- /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/Half.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/BFloat16.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctionsFwd.h
- /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h
- /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h
- /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h
- /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h
- /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
- /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h
- /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h
- /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h
- /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h
- /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h
- /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h
- /usr/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h
- /usr/include/eigen3/Eigen/src/Core/util/ReshapedHelper.h
- /usr/include/eigen3/Eigen/src/Core/ArithmeticSequence.h
- /usr/include/eigen3/Eigen/src/Core/IO.h
- /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h
- /usr/include/eigen3/Eigen/src/Core/DenseBase.h
- /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h
- /usr/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h
- /usr/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h
- /usr/include/eigen3/Eigen/src/plugins/ReshapedMethods.h
- /usr/include/eigen3/Eigen/src/plugins/ReshapedMethods.h
- /usr/include/eigen3/Eigen/src/Core/MatrixBase.h
- /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
- /usr/include/eigen3/Eigen/src/Core/EigenBase.h
- /usr/include/eigen3/Eigen/src/Core/Product.h
- /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h
- /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h
- /usr/include/eigen3/Eigen/src/Core/Assign.h
- /usr/include/eigen3/Eigen/src/Core/ArrayBase.h
- /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h
- /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h
- /usr/include/eigen3/Eigen/src/Core/DenseStorage.h
- /usr/include/eigen3/Eigen/src/Core/NestByValue.h
- /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h
- /usr/include/eigen3/Eigen/src/Core/NoAlias.h
- /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h
- /usr/include/eigen3/Eigen/src/Core/Matrix.h
- /usr/include/eigen3/Eigen/src/Core/Array.h
- /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h
- /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h
- /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h
- /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h
- /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h
- /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h
- /usr/include/eigen3/Eigen/src/Core/Dot.h
- /usr/include/eigen3/Eigen/src/Core/StableNorm.h
- /usr/include/eigen3/Eigen/src/Core/Stride.h
- /usr/include/eigen3/Eigen/src/Core/MapBase.h
- /usr/include/eigen3/Eigen/src/Core/Map.h
- /usr/include/eigen3/Eigen/src/Core/Ref.h
- /usr/include/eigen3/Eigen/src/Core/Block.h
- /usr/include/eigen3/Eigen/src/Core/VectorBlock.h
- /usr/include/eigen3/Eigen/src/Core/IndexedView.h
- /usr/include/eigen3/Eigen/src/Core/Reshaped.h
- /usr/include/eigen3/Eigen/src/Core/Transpose.h
- /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h
- /usr/include/eigen3/Eigen/src/Core/Diagonal.h
- /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h
- /usr/include/eigen3/Eigen/src/Core/Redux.h
- /usr/include/eigen3/Eigen/src/Core/Visitor.h
- /usr/include/eigen3/Eigen/src/Core/Fuzzy.h
- /usr/include/eigen3/Eigen/src/Core/Swap.h
- /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h
- /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h
- /usr/include/eigen3/Eigen/src/Core/Solve.h
- /usr/include/eigen3/Eigen/src/Core/Inverse.h
- /usr/include/eigen3/Eigen/src/Core/SolverBase.h
- /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h
- /usr/include/eigen3/Eigen/src/Core/Transpositions.h
- /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h
- /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h
- /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h
- /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h
- /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h
- /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h
- /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h
- /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h
- /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h
- /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h
- /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h
- /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h
- /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h
- /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h
- /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h
- /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h
- /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h
- /usr/include/eigen3/Eigen/src/Core/BandMatrix.h
- /usr/include/eigen3/Eigen/src/Core/CoreIterators.h
- /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h
- /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h
- /usr/include/eigen3/Eigen/src/Core/Select.h
- /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h
- /usr/include/eigen3/Eigen/src/Core/PartialReduxEvaluator.h
- /usr/include/eigen3/Eigen/src/Core/Random.h
- /usr/include/eigen3/Eigen/src/Core/Replicate.h
- /usr/include/eigen3/Eigen/src/Core/Reverse.h
- /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h
- /usr/include/eigen3/Eigen/src/Core/StlIterators.h
- /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h
- /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h
- /usr/include/eigen3/Eigen/LU
- /usr/include/eigen3/Eigen/src/misc/Kernel.h
- /usr/include/eigen3/Eigen/src/misc/Image.h
- /usr/include/eigen3/Eigen/src/LU/FullPivLU.h
- /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h
- /usr/include/eigen3/Eigen/src/LU/Determinant.h
- /usr/include/eigen3/Eigen/src/LU/InverseImpl.h
- /usr/include/eigen3/Eigen/src/LU/arch/InverseSize4.h
- /usr/include/eigen3/Eigen/Cholesky
- /usr/include/eigen3/Eigen/Jacobi
- /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h
- /usr/include/eigen3/Eigen/src/Cholesky/LLT.h
- /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h
- /usr/include/eigen3/Eigen/QR
- /usr/include/eigen3/Eigen/Householder
- /usr/include/eigen3/Eigen/src/Householder/Householder.h
- /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h
- /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h
- /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h
- /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h
- /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h
- /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h
- /usr/include/eigen3/Eigen/SVD
- /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h
- /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h
- /usr/include/eigen3/Eigen/src/SVD/SVDBase.h
- /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h
- /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h
- /usr/include/eigen3/Eigen/Geometry
- /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h
- /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h
- /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h
- /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h
- /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h
- /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h
- /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h
- /usr/include/eigen3/Eigen/src/Geometry/Transform.h
- /usr/include/eigen3/Eigen/src/Geometry/Translation.h
- /usr/include/eigen3/Eigen/src/Geometry/Scaling.h
- /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h
- /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h
- /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h
- /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SIMD.h
- /usr/include/eigen3/Eigen/Eigenvalues
- /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/EigenSolver.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexEigenSolver.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h
- /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
- /usr/include/eigen3/Eigen/Sparse
- /usr/include/eigen3/Eigen/SparseCore
- /usr/include/eigen3/Eigen/src/SparseCore/SparseUtil.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseMatrixBase.h
- /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
- /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseAssign.h
- /usr/include/eigen3/Eigen/src/SparseCore/CompressedStorage.h
- /usr/include/eigen3/Eigen/src/SparseCore/AmbiVector.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseCompressedBase.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseMatrix.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseMap.h
- /usr/include/eigen3/Eigen/src/SparseCore/MappedSparseMatrix.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseVector.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseRef.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseTranspose.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseBlock.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseDot.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseRedux.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseView.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseDiagonalProduct.h
- /usr/include/eigen3/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseProduct.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseDenseProduct.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseSelfAdjointView.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseTriangularView.h
- /usr/include/eigen3/Eigen/src/SparseCore/TriangularSolver.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseFuzzy.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseSolverBase.h
- /usr/include/eigen3/Eigen/OrderingMethods
- /usr/include/eigen3/Eigen/src/OrderingMethods/Amd.h
- /usr/include/eigen3/Eigen/src/OrderingMethods/Ordering.h
- /usr/include/eigen3/Eigen/src/OrderingMethods/Eigen_Colamd.h
- /usr/include/eigen3/Eigen/SparseCholesky
- /usr/include/eigen3/Eigen/src/SparseCholesky/SimplicialCholesky.h
- /usr/include/eigen3/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
- /usr/include/eigen3/Eigen/SparseLU
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Structs.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLUImpl.h
- /usr/include/eigen3/Eigen/src/SparseCore/SparseColEtree.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Memory.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_relax_snode.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_pivotL.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_panel_dfs.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_panel_bmod.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_column_dfs.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_column_bmod.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_pruneL.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Utils.h
- /usr/include/eigen3/Eigen/src/SparseLU/SparseLU.h
- /usr/include/eigen3/Eigen/SparseQR
- /usr/include/eigen3/Eigen/src/SparseQR/SparseQR.h
- /usr/include/eigen3/Eigen/IterativeLinearSolvers
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
- /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
- /usr/include/eigen3/Eigen/Geometry
- /opt/ros/humble/include/tf2_ros/tf2_ros/create_timer_ros.h
- /opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.h
- /opt/ros/humble/include/tf2_geometry_msgs/tf2_geometry_msgs/tf2_geometry_msgs.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/quaternion_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/vector3.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/vector3_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point32.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_with_covariance.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_with_covariance_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/polygon_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/wrench.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__type_support.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/wrench_stamped.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__struct.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__builder.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__traits.hpp
- /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__type_support.hpp
- /usr/include/kdl/frames.hpp
- /usr/include/kdl/utilities/kdl-config.h
- /usr/include/kdl/utilities/utility.h
- /usr/include/kdl/utilities/kdl-config.h
- /usr/include/kdl/frames.inl
- /opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp
- /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp
- /usr/include/pcl-1.12/pcl/common/transforms.h
- /usr/include/pcl-1.12/pcl/point_cloud.h
- /usr/include/eigen3/Eigen/StdVector
- /usr/include/eigen3/Eigen/src/StlSupport/StdVector.h
- /usr/include/eigen3/Eigen/src/StlSupport/details.h
- /usr/include/pcl-1.12/pcl/PCLHeader.h
+ /home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp
+ /usr/local/include/small_gicp/pcl/pcl_point.hpp
+ /usr/include/pcl-1.12/pcl/point_types.h
+ /usr/include/c++/11/bitset
+ /usr/include/pcl-1.12/pcl/impl/point_types.hpp
  /usr/include/pcl-1.12/pcl/memory.h
  /usr/include/pcl-1.12/pcl/type_traits.h
  /usr/include/pcl-1.12/pcl/point_struct_traits.h
@@ -1153,6 +789,7 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/config/user.hpp
  /usr/include/boost/config/detail/select_compiler_config.hpp
  /usr/include/boost/config/compiler/gcc.hpp
+ /usr/include/c++/11/cstddef
  /usr/include/boost/config/detail/select_stdlib_config.hpp
  /usr/include/c++/11/version
  /usr/include/boost/config/stdlib/libstdcpp3.hpp
@@ -1334,8 +971,148 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/preprocessor/seq/enum.hpp
  /usr/include/boost/preprocessor/seq/size.hpp
  /usr/include/eigen3/Eigen/Core
- /usr/include/pcl-1.12/pcl/exceptions.h
- /usr/include/boost/current_function.hpp
+ /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h
+ /usr/include/eigen3/Eigen/src/Core/util/Macros.h
+ /usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
+ /usr/include/c++/11/complex
+ /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h
+ /usr/include/c++/11/climits
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h
+ /usr/include/limits.h
+ /usr/include/x86_64-linux-gnu/bits/posix1_lim.h
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h
+ /usr/include/linux/limits.h
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h
+ /usr/include/eigen3/Eigen/src/Core/util/Constants.h
+ /usr/include/eigen3/Eigen/src/Core/util/Meta.h
+ /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h
+ /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h
+ /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h
+ /usr/include/eigen3/Eigen/src/Core/util/Memory.h
+ /usr/include/eigen3/Eigen/src/Core/util/IntegralConstant.h
+ /usr/include/eigen3/Eigen/src/Core/util/SymbolicIndex.h
+ /usr/include/eigen3/Eigen/src/Core/NumTraits.h
+ /usr/include/eigen3/Eigen/src/Core/MathFunctions.h
+ /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h
+ /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/Half.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/BFloat16.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctionsFwd.h
+ /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h
+ /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h
+ /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h
+ /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h
+ /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
+ /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h
+ /usr/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h
+ /usr/include/eigen3/Eigen/src/Core/util/ReshapedHelper.h
+ /usr/include/eigen3/Eigen/src/Core/ArithmeticSequence.h
+ /usr/include/eigen3/Eigen/src/Core/IO.h
+ /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h
+ /usr/include/eigen3/Eigen/src/Core/DenseBase.h
+ /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h
+ /usr/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h
+ /usr/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h
+ /usr/include/eigen3/Eigen/src/plugins/ReshapedMethods.h
+ /usr/include/eigen3/Eigen/src/plugins/ReshapedMethods.h
+ /usr/include/eigen3/Eigen/src/Core/MatrixBase.h
+ /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
+ /usr/include/eigen3/Eigen/src/Core/EigenBase.h
+ /usr/include/eigen3/Eigen/src/Core/Product.h
+ /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h
+ /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h
+ /usr/include/eigen3/Eigen/src/Core/Assign.h
+ /usr/include/eigen3/Eigen/src/Core/ArrayBase.h
+ /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h
+ /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h
+ /usr/include/eigen3/Eigen/src/Core/DenseStorage.h
+ /usr/include/eigen3/Eigen/src/Core/NestByValue.h
+ /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h
+ /usr/include/eigen3/Eigen/src/Core/NoAlias.h
+ /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h
+ /usr/include/eigen3/Eigen/src/Core/Matrix.h
+ /usr/include/eigen3/Eigen/src/Core/Array.h
+ /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h
+ /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h
+ /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h
+ /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h
+ /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h
+ /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h
+ /usr/include/eigen3/Eigen/src/Core/Dot.h
+ /usr/include/eigen3/Eigen/src/Core/StableNorm.h
+ /usr/include/eigen3/Eigen/src/Core/Stride.h
+ /usr/include/eigen3/Eigen/src/Core/MapBase.h
+ /usr/include/eigen3/Eigen/src/Core/Map.h
+ /usr/include/eigen3/Eigen/src/Core/Ref.h
+ /usr/include/eigen3/Eigen/src/Core/Block.h
+ /usr/include/eigen3/Eigen/src/Core/VectorBlock.h
+ /usr/include/eigen3/Eigen/src/Core/IndexedView.h
+ /usr/include/eigen3/Eigen/src/Core/Reshaped.h
+ /usr/include/eigen3/Eigen/src/Core/Transpose.h
+ /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/Diagonal.h
+ /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h
+ /usr/include/eigen3/Eigen/src/Core/Redux.h
+ /usr/include/eigen3/Eigen/src/Core/Visitor.h
+ /usr/include/eigen3/Eigen/src/Core/Fuzzy.h
+ /usr/include/eigen3/Eigen/src/Core/Swap.h
+ /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h
+ /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h
+ /usr/include/eigen3/Eigen/src/Core/Solve.h
+ /usr/include/eigen3/Eigen/src/Core/Inverse.h
+ /usr/include/eigen3/Eigen/src/Core/SolverBase.h
+ /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/Transpositions.h
+ /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h
+ /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h
+ /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h
+ /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h
+ /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h
+ /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h
+ /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h
+ /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h
+ /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h
+ /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h
+ /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h
+ /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h
+ /usr/include/eigen3/Eigen/src/Core/BandMatrix.h
+ /usr/include/eigen3/Eigen/src/Core/CoreIterators.h
+ /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h
+ /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h
+ /usr/include/eigen3/Eigen/src/Core/Select.h
+ /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h
+ /usr/include/eigen3/Eigen/src/Core/PartialReduxEvaluator.h
+ /usr/include/eigen3/Eigen/src/Core/Random.h
+ /usr/include/eigen3/Eigen/src/Core/Replicate.h
+ /usr/include/eigen3/Eigen/src/Core/Reverse.h
+ /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h
+ /usr/include/eigen3/Eigen/src/Core/StlIterators.h
+ /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h
+ /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h
  /usr/include/pcl-1.12/pcl/pcl_macros.h
  /usr/include/pcl-1.12/pcl/pcl_config.h
  /usr/include/boost/preprocessor/comparison/equal.hpp
@@ -1343,13 +1120,8 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/preprocessor/comparison/less.hpp
  /usr/include/boost/preprocessor/comparison/less_equal.hpp
  /usr/include/boost/preprocessor/logical/not.hpp
- /usr/include/pcl-1.12/pcl/types.h
- /usr/include/pcl-1.12/pcl/console/print.h
- /usr/include/pcl-1.12/pcl/pcl_exports.h
- /usr/include/pcl-1.12/pcl/point_types.h
- /usr/include/c++/11/bitset
- /usr/include/pcl-1.12/pcl/impl/point_types.hpp
  /usr/include/pcl-1.12/pcl/PCLPointField.h
+ /usr/include/pcl-1.12/pcl/types.h
  /usr/include/pcl-1.12/pcl/register_point_struct.h
  /usr/include/boost/preprocessor/seq/for_each.hpp
  /usr/include/boost/preprocessor/repetition/for.hpp
@@ -1420,11 +1192,68 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/mpl/aux_/has_size.hpp
  /usr/include/boost/mpl/aux_/fold_impl.hpp
  /usr/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp
- /usr/include/pcl-1.12/pcl/common/centroid.h
+ /usr/local/include/small_gicp/pcl/pcl_point_traits.hpp
+ /usr/include/pcl-1.12/pcl/point_cloud.h
+ /usr/include/eigen3/Eigen/StdVector
+ /usr/include/eigen3/Eigen/Core
+ /usr/include/eigen3/Eigen/src/StlSupport/StdVector.h
+ /usr/include/eigen3/Eigen/src/StlSupport/details.h
+ /usr/include/eigen3/Eigen/Geometry
+ /usr/include/eigen3/Eigen/SVD
+ /usr/include/eigen3/Eigen/QR
+ /usr/include/eigen3/Eigen/Cholesky
+ /usr/include/eigen3/Eigen/Jacobi
+ /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h
+ /usr/include/eigen3/Eigen/src/Cholesky/LLT.h
+ /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h
+ /usr/include/eigen3/Eigen/Householder
+ /usr/include/eigen3/Eigen/src/Householder/Householder.h
+ /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h
+ /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h
+ /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h
+ /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h
+ /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h
+ /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h
+ /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h
+ /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h
+ /usr/include/eigen3/Eigen/src/SVD/SVDBase.h
+ /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h
+ /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h
+ /usr/include/eigen3/Eigen/LU
+ /usr/include/eigen3/Eigen/src/misc/Kernel.h
+ /usr/include/eigen3/Eigen/src/misc/Image.h
+ /usr/include/eigen3/Eigen/src/LU/FullPivLU.h
+ /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h
+ /usr/include/eigen3/Eigen/src/LU/Determinant.h
+ /usr/include/eigen3/Eigen/src/LU/InverseImpl.h
+ /usr/include/eigen3/Eigen/src/LU/arch/InverseSize4.h
+ /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h
+ /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h
+ /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h
+ /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h
+ /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h
+ /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h
+ /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h
+ /usr/include/eigen3/Eigen/src/Geometry/Transform.h
+ /usr/include/eigen3/Eigen/src/Geometry/Translation.h
+ /usr/include/eigen3/Eigen/src/Geometry/Scaling.h
+ /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h
+ /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h
+ /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h
+ /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h
+ /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SIMD.h
+ /usr/include/pcl-1.12/pcl/PCLHeader.h
+ /usr/include/pcl-1.12/pcl/exceptions.h
+ /usr/include/boost/current_function.hpp
+ /usr/include/pcl-1.12/pcl/console/print.h
+ /usr/include/pcl-1.12/pcl/pcl_exports.h
+ /usr/local/include/small_gicp/points/traits.hpp
+ /usr/local/include/small_gicp/pcl/pcl_registration.hpp
+ /usr/include/pcl-1.12/pcl/registration/registration.h
+ /usr/include/pcl-1.12/pcl/registration/correspondence_estimation.h
+ /usr/include/pcl-1.12/pcl/common/io.h
  /usr/include/pcl-1.12/pcl/PointIndices.h
- /usr/include/pcl-1.12/pcl/cloud_iterator.h
- /usr/include/pcl-1.12/pcl/correspondence.h
- /usr/include/pcl-1.12/pcl/pcl_base.h
+ /usr/include/pcl-1.12/pcl/PolygonMesh.h
  /usr/include/pcl-1.12/pcl/PCLPointCloud2.h
  /usr/include/boost/predef/other/endian.h
  /usr/include/boost/predef/version_number.h
@@ -1442,6 +1271,126 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/predef/os/bsd/open.h
  /usr/include/boost/predef/os/bsd/net.h
  /usr/include/boost/predef/platform/android.h
+ /usr/include/pcl-1.12/pcl/Vertices.h
+ /usr/include/pcl-1.12/pcl/common/impl/io.hpp
+ /usr/include/pcl-1.12/pcl/conversions.h
+ /usr/include/pcl-1.12/pcl/PCLImage.h
+ /usr/include/pcl-1.12/pcl/for_each_type.h
+ /usr/include/boost/mpl/is_sequence.hpp
+ /usr/include/boost/mpl/remove_if.hpp
+ /usr/include/boost/mpl/reverse_fold.hpp
+ /usr/include/boost/mpl/aux_/reverse_fold_impl.hpp
+ /usr/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp
+ /usr/include/boost/mpl/aux_/inserter_algorithm.hpp
+ /usr/include/boost/mpl/back_inserter.hpp
+ /usr/include/boost/mpl/push_back.hpp
+ /usr/include/boost/mpl/aux_/push_back_impl.hpp
+ /usr/include/boost/mpl/inserter.hpp
+ /usr/include/boost/mpl/front_inserter.hpp
+ /usr/include/boost/mpl/push_front.hpp
+ /usr/include/boost/mpl/aux_/push_front_impl.hpp
+ /usr/include/boost/mpl/clear.hpp
+ /usr/include/boost/mpl/aux_/clear_impl.hpp
+ /usr/include/boost/mpl/aux_/unwrap.hpp
+ /usr/include/boost/ref.hpp
+ /usr/include/boost/core/ref.hpp
+ /usr/include/boost/core/addressof.hpp
+ /usr/include/boost/foreach.hpp
+ /usr/include/boost/noncopyable.hpp
+ /usr/include/boost/core/noncopyable.hpp
+ /usr/include/boost/range/end.hpp
+ /usr/include/boost/range/config.hpp
+ /usr/include/boost/range/detail/implementation_help.hpp
+ /usr/include/boost/range/detail/common.hpp
+ /usr/include/boost/range/detail/sfinae.hpp
+ /usr/include/boost/type_traits/is_array.hpp
+ /usr/include/boost/type_traits/detail/yes_no_type.hpp
+ /usr/include/boost/type_traits/is_void.hpp
+ /usr/include/boost/range/iterator.hpp
+ /usr/include/boost/range/range_fwd.hpp
+ /usr/include/boost/range/mutable_iterator.hpp
+ /usr/include/boost/range/detail/extract_optional_type.hpp
+ /usr/include/boost/type_traits/remove_reference.hpp
+ /usr/include/boost/iterator/iterator_traits.hpp
+ /usr/include/boost/range/detail/msvc_has_iterator_workaround.hpp
+ /usr/include/boost/range/const_iterator.hpp
+ /usr/include/boost/type_traits/remove_const.hpp
+ /usr/include/boost/type_traits/is_const.hpp
+ /usr/include/boost/range/begin.hpp
+ /usr/include/boost/range/rend.hpp
+ /usr/include/boost/range/reverse_iterator.hpp
+ /usr/include/boost/iterator/reverse_iterator.hpp
+ /usr/include/boost/iterator/iterator_adaptor.hpp
+ /usr/include/boost/static_assert.hpp
+ /usr/include/boost/core/use_default.hpp
+ /usr/include/boost/iterator/iterator_categories.hpp
+ /usr/include/boost/iterator/detail/config_def.hpp
+ /usr/include/boost/type_traits/is_convertible.hpp
+ /usr/include/boost/type_traits/intrinsics.hpp
+ /usr/include/boost/type_traits/detail/config.hpp
+ /usr/include/boost/version.hpp
+ /usr/include/boost/type_traits/is_complete.hpp
+ /usr/include/boost/type_traits/declval.hpp
+ /usr/include/boost/type_traits/add_rvalue_reference.hpp
+ /usr/include/boost/type_traits/is_reference.hpp
+ /usr/include/boost/type_traits/is_lvalue_reference.hpp
+ /usr/include/boost/type_traits/is_rvalue_reference.hpp
+ /usr/include/boost/type_traits/is_function.hpp
+ /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp
+ /usr/include/boost/type_traits/is_arithmetic.hpp
+ /usr/include/boost/type_traits/is_integral.hpp
+ /usr/include/boost/type_traits/is_floating_point.hpp
+ /usr/include/boost/type_traits/is_abstract.hpp
+ /usr/include/boost/type_traits/add_lvalue_reference.hpp
+ /usr/include/boost/type_traits/add_reference.hpp
+ /usr/include/boost/iterator/detail/config_undef.hpp
+ /usr/include/boost/iterator/iterator_facade.hpp
+ /usr/include/boost/iterator/interoperable.hpp
+ /usr/include/boost/iterator/detail/facade_iterator_category.hpp
+ /usr/include/boost/detail/indirect_traits.hpp
+ /usr/include/boost/type_traits/is_pointer.hpp
+ /usr/include/boost/type_traits/is_class.hpp
+ /usr/include/boost/type_traits/is_volatile.hpp
+ /usr/include/boost/type_traits/is_member_function_pointer.hpp
+ /usr/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp
+ /usr/include/boost/type_traits/is_member_pointer.hpp
+ /usr/include/boost/type_traits/remove_cv.hpp
+ /usr/include/boost/type_traits/remove_pointer.hpp
+ /usr/include/boost/detail/select_type.hpp
+ /usr/include/boost/iterator/detail/enable_if.hpp
+ /usr/include/boost/type_traits/add_const.hpp
+ /usr/include/boost/type_traits/add_pointer.hpp
+ /usr/include/boost/type_traits/is_pod.hpp
+ /usr/include/boost/type_traits/is_scalar.hpp
+ /usr/include/boost/type_traits/is_enum.hpp
+ /usr/include/boost/range/rbegin.hpp
+ /usr/include/boost/type_traits/is_base_and_derived.hpp
+ /usr/include/boost/utility/addressof.hpp
+ /usr/include/boost/foreach_fwd.hpp
+ /usr/include/pcl-1.12/pcl/common/concatenate.h
+ /usr/include/pcl-1.12/pcl/common/copy_point.h
+ /usr/include/pcl-1.12/pcl/common/impl/copy_point.hpp
+ /usr/include/pcl-1.12/pcl/registration/correspondence_types.h
+ /usr/include/pcl-1.12/pcl/correspondence.h
+ /usr/include/pcl-1.12/pcl/pcl_base.h
+ /usr/include/pcl-1.12/pcl/registration/impl/correspondence_types.hpp
+ /usr/include/pcl-1.12/pcl/search/kdtree.h
+ /usr/include/pcl-1.12/pcl/search/search.h
+ /usr/include/pcl-1.12/pcl/kdtree/kdtree_flann.h
+ /usr/include/pcl-1.12/pcl/kdtree/kdtree.h
+ /usr/include/pcl-1.12/pcl/point_representation.h
+ /usr/include/flann/util/params.h
+ /usr/include/flann/util/any.h
+ /usr/include/flann/general.h
+ /usr/include/flann/defines.h
+ /usr/include/flann/config.h
+ /usr/include/pcl-1.12/pcl/registration/impl/correspondence_estimation.hpp
+ /usr/include/pcl-1.12/pcl/registration/correspondence_rejection.h
+ /usr/include/pcl-1.12/pcl/registration/correspondence_sorting.h
+ /usr/include/pcl-1.12/pcl/registration/transformation_estimation.h
+ /usr/include/pcl-1.12/pcl/common/transforms.h
+ /usr/include/pcl-1.12/pcl/common/centroid.h
+ /usr/include/pcl-1.12/pcl/cloud_iterator.h
  /usr/include/pcl-1.12/pcl/impl/cloud_iterator.hpp
  /usr/include/pcl-1.12/pcl/common/impl/accumulators.hpp
  /usr/include/boost/mpl/filter_view.hpp
@@ -1460,45 +1409,16 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/fusion/support/tag_of.hpp
  /usr/include/boost/utility/enable_if.hpp
  /usr/include/boost/core/enable_if.hpp
- /usr/include/boost/type_traits/remove_const.hpp
  /usr/include/boost/fusion/support/tag_of_fwd.hpp
  /usr/include/boost/fusion/support/detail/is_mpl_sequence.hpp
  /usr/include/boost/fusion/support/detail/is_native_fusion_sequence.hpp
  /usr/include/boost/fusion/support/sequence_base.hpp
- /usr/include/boost/type_traits/is_complete.hpp
- /usr/include/boost/type_traits/declval.hpp
- /usr/include/boost/type_traits/add_rvalue_reference.hpp
- /usr/include/boost/type_traits/is_void.hpp
- /usr/include/boost/type_traits/is_reference.hpp
- /usr/include/boost/type_traits/is_lvalue_reference.hpp
- /usr/include/boost/type_traits/is_rvalue_reference.hpp
- /usr/include/boost/type_traits/remove_reference.hpp
- /usr/include/boost/type_traits/is_function.hpp
- /usr/include/boost/type_traits/detail/config.hpp
- /usr/include/boost/version.hpp
- /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp
- /usr/include/boost/type_traits/detail/yes_no_type.hpp
- /usr/include/boost/type_traits/is_convertible.hpp
- /usr/include/boost/type_traits/intrinsics.hpp
- /usr/include/boost/type_traits/is_array.hpp
- /usr/include/boost/static_assert.hpp
- /usr/include/boost/type_traits/is_arithmetic.hpp
- /usr/include/boost/type_traits/is_integral.hpp
- /usr/include/boost/type_traits/is_floating_point.hpp
- /usr/include/boost/type_traits/is_abstract.hpp
- /usr/include/boost/type_traits/add_lvalue_reference.hpp
- /usr/include/boost/type_traits/add_reference.hpp
- /usr/include/boost/mpl/is_sequence.hpp
  /usr/include/boost/config/no_tr1/utility.hpp
  /usr/include/boost/fusion/iterator/prior.hpp
  /usr/include/boost/fusion/iterator/detail/distance.hpp
  /usr/include/boost/fusion/iterator/equal_to.hpp
- /usr/include/boost/type_traits/add_const.hpp
  /usr/include/boost/fusion/support/is_iterator.hpp
  /usr/include/boost/type_traits/is_base_of.hpp
- /usr/include/boost/type_traits/is_base_and_derived.hpp
- /usr/include/boost/type_traits/remove_cv.hpp
- /usr/include/boost/type_traits/is_class.hpp
  /usr/include/boost/fusion/support/category_of.hpp
  /usr/include/boost/mpl/advance.hpp
  /usr/include/boost/mpl/less.hpp
@@ -1545,7 +1465,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/mpl/empty_base.hpp
  /usr/include/boost/type_traits/is_empty.hpp
  /usr/include/boost/fusion/sequence/intrinsic_fwd.hpp
- /usr/include/boost/type_traits/is_const.hpp
  /usr/include/boost/fusion/support/is_sequence.hpp
  /usr/include/boost/fusion/mpl/back.hpp
  /usr/include/boost/mpl/back.hpp
@@ -1574,9 +1493,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/preprocessor/repetition/enum_binary_params.hpp
  /usr/include/boost/preprocessor/repetition/enum_shifted_params.hpp
  /usr/include/boost/preprocessor/facilities/intercept.hpp
- /usr/include/boost/type_traits/is_pointer.hpp
- /usr/include/boost/type_traits/is_member_function_pointer.hpp
- /usr/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp
  /usr/include/boost/type_traits/conditional.hpp
  /usr/include/boost/type_traits/type_identity.hpp
  /usr/include/boost/preprocessor/iteration/detail/iter/forward1.hpp
@@ -1599,9 +1515,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/fusion/view/iterator_range/detail/segmented_iterator_range.hpp
  /usr/include/boost/fusion/algorithm/transformation/push_back.hpp
  /usr/include/boost/fusion/support/detail/as_fusion_element.hpp
- /usr/include/boost/ref.hpp
- /usr/include/boost/core/ref.hpp
- /usr/include/boost/core/addressof.hpp
  /usr/include/boost/fusion/view/joint_view/joint_view.hpp
  /usr/include/boost/fusion/view/joint_view/joint_view_fwd.hpp
  /usr/include/boost/fusion/support/is_view.hpp
@@ -1659,8 +1572,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/fusion/container/list/detail/value_at_impl.hpp
  /usr/include/boost/fusion/container/list/detail/empty_impl.hpp
  /usr/include/boost/fusion/mpl/clear.hpp
- /usr/include/boost/mpl/clear.hpp
- /usr/include/boost/mpl/aux_/clear_impl.hpp
  /usr/include/boost/fusion/mpl/detail/clear.hpp
  /usr/include/boost/fusion/container/vector/vector_fwd.hpp
  /usr/include/boost/fusion/container/vector/detail/config.hpp
@@ -1672,11 +1583,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/mpl/erase.hpp
  /usr/include/boost/mpl/erase_fwd.hpp
  /usr/include/boost/mpl/aux_/erase_impl.hpp
- /usr/include/boost/mpl/push_front.hpp
- /usr/include/boost/mpl/aux_/push_front_impl.hpp
- /usr/include/boost/mpl/reverse_fold.hpp
- /usr/include/boost/mpl/aux_/reverse_fold_impl.hpp
- /usr/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp
  /usr/include/boost/fusion/algorithm/transformation/erase.hpp
  /usr/include/boost/fusion/sequence/convert.hpp
  /usr/include/boost/fusion/mpl/erase_key.hpp
@@ -1719,8 +1625,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/mpl/aux_/pop_front_impl.hpp
  /usr/include/boost/fusion/algorithm/transformation/pop_front.hpp
  /usr/include/boost/fusion/mpl/push_back.hpp
- /usr/include/boost/mpl/push_back.hpp
- /usr/include/boost/mpl/aux_/push_back_impl.hpp
  /usr/include/boost/fusion/mpl/push_front.hpp
  /usr/include/boost/fusion/mpl/size.hpp
  /usr/include/boost/fusion/include/for_each.hpp
@@ -1762,61 +1666,257 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/fusion/view/filter_view/detail/end_impl.hpp
  /usr/include/boost/fusion/view/filter_view/detail/size_impl.hpp
  /usr/include/pcl-1.12/pcl/common/impl/centroid.hpp
- /usr/include/pcl-1.12/pcl/conversions.h
- /usr/include/pcl-1.12/pcl/PCLImage.h
- /usr/include/pcl-1.12/pcl/for_each_type.h
- /usr/include/boost/mpl/remove_if.hpp
- /usr/include/boost/mpl/aux_/inserter_algorithm.hpp
- /usr/include/boost/mpl/back_inserter.hpp
- /usr/include/boost/mpl/inserter.hpp
- /usr/include/boost/mpl/front_inserter.hpp
- /usr/include/boost/mpl/aux_/unwrap.hpp
- /usr/include/boost/foreach.hpp
- /usr/include/boost/noncopyable.hpp
- /usr/include/boost/core/noncopyable.hpp
- /usr/include/boost/range/end.hpp
- /usr/include/boost/range/config.hpp
- /usr/include/boost/range/detail/implementation_help.hpp
- /usr/include/boost/range/detail/common.hpp
- /usr/include/boost/range/detail/sfinae.hpp
- /usr/include/boost/range/iterator.hpp
- /usr/include/boost/range/range_fwd.hpp
- /usr/include/boost/range/mutable_iterator.hpp
- /usr/include/boost/range/detail/extract_optional_type.hpp
- /usr/include/boost/iterator/iterator_traits.hpp
- /usr/include/boost/range/detail/msvc_has_iterator_workaround.hpp
- /usr/include/boost/range/const_iterator.hpp
- /usr/include/boost/range/begin.hpp
- /usr/include/boost/range/rend.hpp
- /usr/include/boost/range/reverse_iterator.hpp
- /usr/include/boost/iterator/reverse_iterator.hpp
- /usr/include/boost/iterator/iterator_adaptor.hpp
- /usr/include/boost/core/use_default.hpp
- /usr/include/boost/iterator/iterator_categories.hpp
- /usr/include/boost/iterator/detail/config_def.hpp
- /usr/include/boost/iterator/detail/config_undef.hpp
- /usr/include/boost/iterator/iterator_facade.hpp
- /usr/include/boost/iterator/interoperable.hpp
- /usr/include/boost/iterator/detail/facade_iterator_category.hpp
- /usr/include/boost/detail/indirect_traits.hpp
- /usr/include/boost/type_traits/is_volatile.hpp
- /usr/include/boost/type_traits/is_member_pointer.hpp
- /usr/include/boost/type_traits/remove_pointer.hpp
- /usr/include/boost/detail/select_type.hpp
- /usr/include/boost/iterator/detail/enable_if.hpp
- /usr/include/boost/type_traits/add_pointer.hpp
- /usr/include/boost/type_traits/is_pod.hpp
- /usr/include/boost/type_traits/is_scalar.hpp
- /usr/include/boost/type_traits/is_enum.hpp
- /usr/include/boost/range/rbegin.hpp
- /usr/include/boost/utility/addressof.hpp
- /usr/include/boost/foreach_fwd.hpp
  /usr/include/pcl-1.12/pcl/common/point_tests.h
  /usr/include/pcl-1.12/pcl/common/eigen.h
  /usr/include/pcl-1.12/pcl/ModelCoefficients.h
  /usr/include/eigen3/Eigen/LU
  /usr/include/pcl-1.12/pcl/common/impl/eigen.hpp
  /usr/include/pcl-1.12/pcl/common/impl/transforms.hpp
+ /usr/include/pcl-1.12/pcl/registration/impl/registration.hpp
+ /usr/local/include/small_gicp/ann/kdtree_omp.hpp
+ /usr/local/include/small_gicp/ann/kdtree.hpp
+ /usr/local/include/small_gicp/ann/traits.hpp
+ /usr/local/include/small_gicp/ann/projection.hpp
+ /usr/include/eigen3/Eigen/Eigen
+ /usr/include/eigen3/Eigen/Dense
+ /usr/include/eigen3/Eigen/Geometry
+ /usr/include/eigen3/Eigen/Eigenvalues
+ /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/EigenSolver.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexEigenSolver.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h
+ /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
+ /usr/include/eigen3/Eigen/Sparse
+ /usr/include/eigen3/Eigen/SparseCore
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseUtil.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseMatrixBase.h
+ /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
+ /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseAssign.h
+ /usr/include/eigen3/Eigen/src/SparseCore/CompressedStorage.h
+ /usr/include/eigen3/Eigen/src/SparseCore/AmbiVector.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseCompressedBase.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseMatrix.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseMap.h
+ /usr/include/eigen3/Eigen/src/SparseCore/MappedSparseMatrix.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseVector.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseRef.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseTranspose.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseBlock.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseDot.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseRedux.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseView.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseDiagonalProduct.h
+ /usr/include/eigen3/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseProduct.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseDenseProduct.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseSelfAdjointView.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseTriangularView.h
+ /usr/include/eigen3/Eigen/src/SparseCore/TriangularSolver.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparsePermutation.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseFuzzy.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseSolverBase.h
+ /usr/include/eigen3/Eigen/OrderingMethods
+ /usr/include/eigen3/Eigen/src/OrderingMethods/Amd.h
+ /usr/include/eigen3/Eigen/src/OrderingMethods/Ordering.h
+ /usr/include/eigen3/Eigen/src/OrderingMethods/Eigen_Colamd.h
+ /usr/include/eigen3/Eigen/SparseCholesky
+ /usr/include/eigen3/Eigen/src/SparseCholesky/SimplicialCholesky.h
+ /usr/include/eigen3/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+ /usr/include/eigen3/Eigen/SparseLU
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Structs.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLUImpl.h
+ /usr/include/eigen3/Eigen/src/SparseCore/SparseColEtree.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Memory.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_relax_snode.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_pivotL.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_column_dfs.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_column_bmod.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_pruneL.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Utils.h
+ /usr/include/eigen3/Eigen/src/SparseLU/SparseLU.h
+ /usr/include/eigen3/Eigen/SparseQR
+ /usr/include/eigen3/Eigen/src/SparseQR/SparseQR.h
+ /usr/include/eigen3/Eigen/IterativeLinearSolvers
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+ /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+ /usr/local/include/small_gicp/ann/knn_result.hpp
+ /usr/local/include/small_gicp/ann/gaussian_voxelmap.hpp
+ /usr/local/include/small_gicp/ann/incremental_voxelmap.hpp
+ /usr/local/include/small_gicp/ann/flat_container.hpp
+ /usr/include/c++/11/queue
+ /usr/include/c++/11/deque
+ /usr/include/c++/11/bits/stl_deque.h
+ /usr/include/c++/11/bits/deque.tcc
+ /usr/include/c++/11/bits/stl_queue.h
+ /usr/local/include/small_gicp/util/fast_floor.hpp
+ /usr/local/include/small_gicp/util/vector3i_hash.hpp
+ /usr/local/include/small_gicp/registration/registration_result.hpp
+ /usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp
+ /usr/include/pcl-1.12/pcl/impl/pcl_base.hpp
+ /usr/include/pcl-1.12/pcl/search/impl/search.hpp
+ /usr/include/pcl-1.12/pcl/search/impl/kdtree.hpp
+ /usr/include/pcl-1.12/pcl/search/impl/flann_search.hpp
+ /usr/include/flann/algorithms/kdtree_index.h
+ /usr/include/flann/algorithms/nn_index.h
+ /usr/include/flann/util/matrix.h
+ /usr/include/flann/util/serialization.h
+ /usr/include/lz4.h
+ /usr/include/lz4hc.h
+ /usr/include/lz4.h
+ /usr/include/flann/util/result_set.h
+ /usr/include/flann/util/dynamic_bitset.h
+ /usr/include/flann/util/saving.h
+ /usr/include/flann/util/heap.h
+ /usr/include/flann/util/allocator.h
+ /usr/include/flann/util/random.h
+ /usr/include/flann/algorithms/kdtree_single_index.h
+ /usr/include/flann/algorithms/kmeans_index.h
+ /usr/include/flann/algorithms/dist.h
+ /usr/include/flann/defines.h
+ /usr/include/flann/algorithms/center_chooser.h
+ /usr/include/flann/util/logger.h
+ /usr/include/pcl-1.12/pcl/search/flann_search.h
+ /usr/include/pcl-1.12/pcl/common/time.h
+ /usr/include/pcl-1.12/pcl/kdtree/impl/kdtree_flann.hpp
+ /usr/include/flann/flann.hpp
+ /usr/include/flann/algorithms/all_indices.h
+ /usr/include/flann/algorithms/composite_index.h
+ /usr/include/flann/algorithms/linear_index.h
+ /usr/include/flann/algorithms/hierarchical_clustering_index.h
+ /usr/include/flann/algorithms/lsh_index.h
+ /usr/include/flann/util/lsh_table.h
+ /usr/include/flann/algorithms/autotuned_index.h
+ /usr/include/flann/nn/ground_truth.h
+ /usr/include/flann/nn/index_testing.h
+ /usr/include/flann/util/timer.h
+ /usr/include/flann/util/sampling.h
+ /usr/local/include/small_gicp/pcl/pcl_proxy.hpp
+ /usr/local/include/small_gicp/util/normal_estimation_omp.hpp
+ /usr/local/include/small_gicp/util/normal_estimation.hpp
+ /usr/local/include/small_gicp/factors/gicp_factor.hpp
+ /usr/local/include/small_gicp/util/lie.hpp
+ /usr/local/include/small_gicp/registration/reduction_omp.hpp
+ /usr/local/include/small_gicp/registration/registration.hpp
+ /usr/local/include/small_gicp/factors/general_factor.hpp
+ /usr/local/include/small_gicp/registration/rejector.hpp
+ /usr/local/include/small_gicp/registration/reduction.hpp
+ /usr/local/include/small_gicp/registration/optimizer.hpp
+ /usr/local/include/small_gicp/registration/termination_criteria.hpp
+ /usr/local/include/small_gicp/util/downsampling_omp.hpp
+ /usr/local/include/small_gicp/util/sort_omp.hpp
+ /usr/local/include/small_gicp/benchmark/read_points.hpp
+ /usr/include/c++/11/fstream
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h
+ /usr/include/c++/11/bits/fstream.tcc
+ /opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.h
+ /opt/ros/humble/include/tf2_geometry_msgs/tf2_geometry_msgs/tf2_geometry_msgs.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/quaternion_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/vector3.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/vector3_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point32.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_with_covariance.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_with_covariance_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_with_covariance_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/polygon_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/polygon_stamped__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/wrench.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench__type_support.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/wrench_stamped.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__struct.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__builder.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__traits.hpp
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/wrench_stamped__type_support.hpp
+ /usr/include/kdl/frames.hpp
+ /usr/include/kdl/utilities/kdl-config.h
+ /usr/include/kdl/utilities/utility.h
+ /usr/include/kdl/utilities/kdl-config.h
+ /usr/include/kdl/frames.inl
+ /opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp
+ /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp
  /opt/ros/humble/include/tf2/tf2/LinearMath/Transform.h
  /usr/include/eigen3/Eigen/Dense
  /home/alex/thesis_ws/install/pcl_conversions/include/pcl_conversions/pcl_conversions/pcl_conversions.h
@@ -1843,13 +1943,11 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__builder.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__traits.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__type_support.hpp
- /usr/include/pcl-1.12/pcl/Vertices.h
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/vertices.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/vertices__struct.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/vertices__builder.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/vertices__traits.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/vertices__type_support.hpp
- /usr/include/pcl-1.12/pcl/PolygonMesh.h
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/polygon_mesh.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/polygon_mesh__struct.hpp
  /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/polygon_mesh__builder.hpp
@@ -2077,15 +2175,6 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/boost/algorithm/string/classification.hpp
  /usr/include/boost/algorithm/string/detail/classification.hpp
  /usr/include/boost/algorithm/string/predicate_facade.hpp
- /usr/include/c++/11/fstream
- /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h
- /usr/include/c++/11/bits/fstream.tcc
- /usr/include/pcl-1.12/pcl/common/io.h
- /usr/include/pcl-1.12/pcl/common/impl/io.hpp
- /usr/include/pcl-1.12/pcl/common/concatenate.h
- /usr/include/pcl-1.12/pcl/common/copy_point.h
- /usr/include/pcl-1.12/pcl/common/impl/copy_point.hpp
  /usr/include/pcl-1.12/pcl/io/low_level_io.h
  /usr/include/x86_64-linux-gnu/sys/mman.h
  /usr/include/x86_64-linux-gnu/bits/mman.h
@@ -2094,6 +2183,11 @@ CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o
  /usr/include/x86_64-linux-gnu/bits/mman-shared.h
  /usr/include/x86_64-linux-gnu/sys/fcntl.h
  /usr/include/pcl-1.12/pcl/io/lzf.h
+ /opt/ros/humble/include/sensor_msgs/sensor_msgs/point_cloud2_iterator.hpp
+ /usr/include/c++/11/cstdarg
+ /opt/ros/humble/include/sensor_msgs/sensor_msgs/impl/point_cloud2_iterator.hpp
+ /opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.hpp
+ /opt/ros/humble/include/tf2_ros/tf2_ros/create_timer_ros.h
  /opt/ros/humble/include/rclcpp_components/rclcpp_components/register_node_macro.hpp
  /opt/ros/humble/include/class_loader/class_loader/class_loader.hpp
  /usr/include/console_bridge/console.h

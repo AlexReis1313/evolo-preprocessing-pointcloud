@@ -1,0 +1,7 @@
+[31mCMake Error at CMakeLists.txt:11 (add_library):
+  The target name "src/vgicp_registration.cpp" is reserved or not valid for
+  certain CMake features, such as generator expressions, and may result in
+  undefined behavior.
+
+[0m
+gmake: *** [Makefile:431: cmake_check_build_system] Error 1

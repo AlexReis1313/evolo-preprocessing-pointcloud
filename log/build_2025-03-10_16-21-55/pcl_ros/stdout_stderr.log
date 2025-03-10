@@ -1,0 +1,184 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Checking for module 'eigen3'
+--   Found eigen3, version 3.4.0
+-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") 
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- Checking for module 'flann'
+--   Found flann, version 1.9.1
+-- Found FLANN: /usr/lib/x86_64-linux-gnu/libflann_cpp.so  
+-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)
+-- Checking for module 'libusb-1.0'
+--   Found libusb-1.0, version 1.0.25
+-- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- Found Qhull version 8.0.2
+-- Could NOT find PCL_CORE (missing: PCL_CORE_LIBRARY PCL_CORE_INCLUDE_DIR) 
+-- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  
+-- Found PCL_KDTREE: /usr/lib/x86_64-linux-gnu/libpcl_kdtree.so  
+-- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  
+-- Found PCL_SEARCH: /usr/lib/x86_64-linux-gnu/libpcl_search.so  
+-- Found PCL_2D: /usr/include/pcl-1.12  
+-- Found PCL_FEATURES: /usr/lib/x86_64-linux-gnu/libpcl_features.so  
+-- Found PCL_SAMPLE_CONSENSUS: /usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so  
+-- Found PCL_FILTERS: /usr/lib/x86_64-linux-gnu/libpcl_filters.so  
+-- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  
+-- Found PCL_GEOMETRY: /usr/include/pcl-1.12  
+-- Found PCL_ML: /usr/lib/x86_64-linux-gnu/libpcl_ml.so  
+-- Found PCL_SEGMENTATION: /usr/lib/x86_64-linux-gnu/libpcl_segmentation.so  
+-- Found PCL_SURFACE: /usr/lib/x86_64-linux-gnu/libpcl_surface.so  
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Found pcl_conversions: 2.4.5 (/home/alex/thesis_ws/install/pcl_conversions/share/pcl_conversions/cmake)
+-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+-- Found FastRTPS: /opt/ros/humble/include  
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found Threads: TRUE  
+-- Found rclcpp_components: 16.0.11 (/opt/ros/humble/share/rclcpp_components/cmake)
+-- Found tf2: 0.25.11 (/opt/ros/humble/share/tf2/cmake)
+-- Found tf2_geometry_msgs: 0.25.11 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+-- Found Eigen3: TRUE (found version "3.4.0") 
+-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'cppcheck' to perform static code analysis on C / C++ code
+-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/alex/thesis_ws/src/perception_pcl/pcl_ros/include>
+-- Configured cppcheck exclude dirs and/or files: 
+-- Added test 'cpplint' to check C / C++ code against the Google style
+-- Configured cpplint exclude dirs and/or files: 
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'uncrustify' to check C / C++ code style
+-- Configured uncrustify additional arguments: 
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/alex/thesis_ws/build/pcl_ros
+[ 50%] [32mBuilding CXX object CMakeFiles/pcd_to_pointcloud_lib.dir/tools/pcd_to_pointcloud.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/pcd_to_pointcloud.dir/rclcpp_components/node_main_pcd_to_pointcloud.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/pcl_ros_tf.dir/src/transforms.cpp.o[0m
+[ 66%] [32m[1mLinking CXX executable pcd_to_pointcloud[0m
+[ 66%] Built target pcd_to_pointcloud
+[ 83%] [32m[1mLinking CXX shared library libpcd_to_pointcloud_lib.so[0m
+[ 83%] Built target pcd_to_pointcloud_lib
+[100%] [32m[1mLinking CXX static library libpcl_ros_tf.a[0m
+[100%] Built target pcl_ros_tf
+-- Install configuration: ""
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud
+-- Set runtime path of "/home/alex/thesis_ws/install/pcl_ros/lib/pcl_ros/pcd_to_pointcloud" to ""
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh_omp.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/principal_curvatures.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/feature.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/vfh.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot_omp.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_tbb.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/shot.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/normal_3d_omp.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/fpfh.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/pfh.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/boundary.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/features/moment_invariants.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/bag_io.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_data.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/concatenate_fields.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/io/pcd_io.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/transforms.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/pcl_nodelet.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/point_cloud.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/statistical_outlier_removal.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/passthrough.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/project_inliers.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/crop_box.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/radius_outlier_removal.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/extract_indices.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/filter.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/filters/voxel_grid.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface/convex_hull.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/surface/moving_least_squares.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/publisher.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_polygonal_prism_data.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/sac_segmentation.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/segment_differences.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/segmentation/extract_clusters.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/impl
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/include/pcl_ros/pcl_ros/impl/transforms.hpp
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/libpcl_ros_tf.a
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so
+-- Set runtime path of "/home/alex/thesis_ws/install/pcl_ros/lib/libpcd_to_pointcloud_lib.so" to ""
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_surface.xml
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_features.xml
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_io.xml
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_filters.xml
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/plugins/nodelet/libpcl_ros_segmentation.xml
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/features/sample_normal_3d.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/io/sample_concatenate_data.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_voxel_grid.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/sample_statistical_outlier_removal.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/statistical_outlier_removal.rviz
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/filters/config/voxel_grid.rviz
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/surface/sample_convex_hull.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/pcl_ros/segmentation/sample_extract_clusters.launch
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/data
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/samples/data/.gitignore
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/library_path.sh
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/library_path.dsv
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/package_run_dependencies/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/parent_prefix_path/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.sh
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/ament_prefix_path.dsv
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/path.sh
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/environment/path.dsv
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.bash
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.sh
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.zsh
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/local_setup.dsv
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.dsv
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/packages/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/ament_index/resource_index/rclcpp_components/pcl_ros
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/export_pcl_rosExport-noconfig.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/cmake/pcl_rosConfig-version.cmake
+-- Installing: /home/alex/thesis_ws/install/pcl_ros/share/pcl_ros/package.xml

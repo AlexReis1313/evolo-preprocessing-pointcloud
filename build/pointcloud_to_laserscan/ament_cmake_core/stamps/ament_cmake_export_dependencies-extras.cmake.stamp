@@ -1,6 +1,6 @@
 # generated from ament_cmake_export_dependencies/cmake/ament_cmake_export_dependencies-extras.cmake.in
 
-set(_exported_dependencies "laser_geometry;message_filters;rclcpp;rclcpp_components;sensor_msgs;tf2;tf2_ros;tf2_sensor_msgs;tf2_geometry_msgs;pcl_ros")
+set(_exported_dependencies "laser_geometry;message_filters;rclcpp;rclcpp_components;sensor_msgs;tf2;tf2_ros;tf2_sensor_msgs;tf2_geometry_msgs;pcl_ros;small_gicp")
 
 find_package(ament_cmake_libraries QUIET REQUIRED)
 

@@ -1,4 +1,0 @@
-Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
-Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/pcl_conversions -- -j8 -l8
-Invoking command in '/home/alex/thesis_ws/build/pcl_conversions': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions
-Invoked command in '/home/alex/thesis_ws/build/pcl_conversions' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/pcl_conversions

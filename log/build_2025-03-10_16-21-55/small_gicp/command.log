@@ -1,0 +1,6 @@
+Invoking command in '/home/alex/thesis_ws/build/small_gicp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/small_gicp -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/small_gicp
+Invoked command in '/home/alex/thesis_ws/build/small_gicp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/alex/thesis_ws/src/small_gicp -DCMAKE_INSTALL_PREFIX=/home/alex/thesis_ws/install/small_gicp
+Invoking command in '/home/alex/thesis_ws/build/small_gicp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/small_gicp -- -j8 -l8
+Invoked command in '/home/alex/thesis_ws/build/small_gicp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/alex/thesis_ws/build/small_gicp -- -j8 -l8
+Invoking command in '/home/alex/thesis_ws/build/small_gicp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/small_gicp
+Invoked command in '/home/alex/thesis_ws/build/small_gicp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/alex/thesis_ws/build/small_gicp

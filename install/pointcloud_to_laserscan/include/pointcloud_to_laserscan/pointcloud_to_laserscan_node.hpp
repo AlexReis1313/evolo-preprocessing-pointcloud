@@ -59,6 +59,8 @@
  #include "sensor_msgs/msg/point_cloud2.hpp"
  
  #include "pointcloud_to_laserscan/visibility_control.h"
+ #include "pointcloud_to_laserscan/vgicp_registration.hpp"
+
  
  namespace pointcloud_to_laserscan
  {
@@ -94,6 +96,10 @@
      double inf_epsilon,
      bool use_inf,
      std::string target_frame);
+    
+    
+   vgicpRegistrationClass vgicpRegistration_;
+
  
  
    std::unique_ptr<tf2_ros::Buffer> tf2_;

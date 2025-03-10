@@ -1,5 +1,5 @@
-/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/laserscan_to_pointcloud_node
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node
+/home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/visibility_control.h
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/laserscan_to_pointcloud_node.hpp
@@ -7,7 +7,6 @@
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.dsv
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so
-/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/dummy_pointcloud_publisher
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_laserscan_to_pointcloud_launch.py
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_pointcloud_to_laserscan_launch.py
 /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/package_run_dependencies/pointcloud_to_laserscan

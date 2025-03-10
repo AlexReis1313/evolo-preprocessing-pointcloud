@@ -1,0 +1,53 @@
+[0.008s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[0.051s] [ 33%] Built target pointcloud_to_laserscan_node
+[0.053s] [ 66%] Built target laserscan_to_pointcloud
+[0.066s] [35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
+[0.087s] [ 83%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/pointcloud_to_laserscan_node.cpp.o[0m
+[1.143s] In file included from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration_impl.hpp:17[m[K,
+[1.143s]                  from [01m[K/usr/local/include/small_gicp/pcl/pcl_registration.hpp:116[m[K,
+[1.144s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp:6[m[K,
+[1.144s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp:62[m[K,
+[1.144s]                  from [01m[K/home/alex/thesis_ws/src/pointcloud_to_laserscan/src/pointcloud_to_laserscan_node.cpp:41[m[K:
+[1.144s] [01m[K/usr/local/include/small_gicp/registration/reduction_omp.hpp:10:2:[m[K [01;35m[Kwarning: [m[K#warning "OpenMP is not available. Parallel reduction will be disabled." [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
+[1.144s]    10 | #[01;35m[Kwarning[m[K "OpenMP is not available. Parallel reduction will be disabled."
+[1.144s]       |  [01;35m[K^~~~~~~[m[K
+[19.536s] [100%] [32m[1mLinking CXX shared library libpointcloud_to_laserscan.so[0m
+[21.072s] [100%] Built target pointcloud_to_laserscan
+[21.082s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '0': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/alex/thesis_ws/build/pointcloud_to_laserscan -- -j8 -l8
+[21.082s] Invoking command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/alex/thesis_ws/build/pointcloud_to_laserscan
+[21.088s] -- Install configuration: ""
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan
+[21.088s] -- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/vgicp_registration.hpp
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/visibility_control.h
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/include/pointcloud_to_laserscan/laserscan_to_pointcloud_node.hpp
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.sh
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/library_path.dsv
+[21.088s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/liblaserscan_to_pointcloud.so
+[21.088s] -- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so
+[21.098s] -- Set runtime path of "/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib/libpointcloud_to_laserscan.so" to ""
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_laserscan_to_pointcloud_launch.py
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/launch/sample_pointcloud_to_laserscan_launch.py
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/package_run_dependencies/pointcloud_to_laserscan
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/parent_prefix_path/pointcloud_to_laserscan
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.sh
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/ament_prefix_path.dsv
+[21.098s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.sh
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/environment/path.dsv
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.bash
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.sh
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.zsh
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/local_setup.dsv
+[21.099s] -- Installing: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.dsv
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/packages/pointcloud_to_laserscan
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/ament_index/resource_index/rclcpp_components/pointcloud_to_laserscan
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_dependencies-extras.cmake
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_include_directories-extras.cmake
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/ament_cmake_export_libraries-extras.cmake
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig.cmake
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/cmake/pointcloud_to_laserscanConfig-version.cmake
+[21.099s] -- Up-to-date: /home/alex/thesis_ws/install/pointcloud_to_laserscan/share/pointcloud_to_laserscan/package.xml
+[21.100s] Invoked command in '/home/alex/thesis_ws/build/pointcloud_to_laserscan' returned '0': CMAKE_PREFIX_PATH=/home/alex/thesis_ws/install/pcl_ros:/home/alex/thesis_ws/install/pcl_conversions:/home/alex/thesis_ws/install/pointcloud_to_laserscan:/home/alex/thesis_ws/install/small_gicp:/home/alex/thesis_ws/install/perception_pcl:/opt/ros/humble LD_LIBRARY_PATH=/home/alex/thesis_ws/install/pcl_ros/lib:/home/alex/thesis_ws/install/pointcloud_to_laserscan/lib:/home/alex/thesis_ws/install/small_gicp/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/alex/thesis_ws/build/pointcloud_to_laserscan

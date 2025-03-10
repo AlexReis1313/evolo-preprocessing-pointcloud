@@ -211,19 +211,6 @@ laserscan_to_pointcloud/fast:
 .PHONY : laserscan_to_pointcloud/fast
 
 #=============================================================================
-# Target rules for targets named laserscan_to_pointcloud_node
-
-# Build rule for target.
-laserscan_to_pointcloud_node: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 laserscan_to_pointcloud_node
-.PHONY : laserscan_to_pointcloud_node
-
-# fast build rule for target.
-laserscan_to_pointcloud_node/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laserscan_to_pointcloud_node.dir/build.make CMakeFiles/laserscan_to_pointcloud_node.dir/build
-.PHONY : laserscan_to_pointcloud_node/fast
-
-#=============================================================================
 # Target rules for targets named pointcloud_to_laserscan
 
 # Build rule for target.
@@ -249,43 +236,6 @@ pointcloud_to_laserscan_node/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pointcloud_to_laserscan_node.dir/build.make CMakeFiles/pointcloud_to_laserscan_node.dir/build
 .PHONY : pointcloud_to_laserscan_node/fast
 
-#=============================================================================
-# Target rules for targets named dummy_pointcloud_publisher
-
-# Build rule for target.
-dummy_pointcloud_publisher: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dummy_pointcloud_publisher
-.PHONY : dummy_pointcloud_publisher
-
-# fast build rule for target.
-dummy_pointcloud_publisher/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dummy_pointcloud_publisher.dir/build.make CMakeFiles/dummy_pointcloud_publisher.dir/build
-.PHONY : dummy_pointcloud_publisher/fast
-
-rclcpp_components/node_main_laserscan_to_pointcloud_node.o: rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.o
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.o
-
-# target to build an object file
-rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laserscan_to_pointcloud_node.dir/build.make CMakeFiles/laserscan_to_pointcloud_node.dir/rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.o
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.o
-
-rclcpp_components/node_main_laserscan_to_pointcloud_node.i: rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.i
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.i
-
-# target to preprocess a source file
-rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laserscan_to_pointcloud_node.dir/build.make CMakeFiles/laserscan_to_pointcloud_node.dir/rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.i
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.i
-
-rclcpp_components/node_main_laserscan_to_pointcloud_node.s: rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.s
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.s
-
-# target to generate assembly for a file
-rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laserscan_to_pointcloud_node.dir/build.make CMakeFiles/laserscan_to_pointcloud_node.dir/rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.s
-.PHONY : rclcpp_components/node_main_laserscan_to_pointcloud_node.cpp.s
-
 rclcpp_components/node_main_pointcloud_to_laserscan_node.o: rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.o
 .PHONY : rclcpp_components/node_main_pointcloud_to_laserscan_node.o
 
@@ -309,30 +259,6 @@ rclcpp_components/node_main_pointcloud_to_laserscan_node.s: rclcpp_components/no
 rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pointcloud_to_laserscan_node.dir/build.make CMakeFiles/pointcloud_to_laserscan_node.dir/rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.s
 .PHONY : rclcpp_components/node_main_pointcloud_to_laserscan_node.cpp.s
-
-src/dummy_pointcloud_publisher.o: src/dummy_pointcloud_publisher.cpp.o
-.PHONY : src/dummy_pointcloud_publisher.o
-
-# target to build an object file
-src/dummy_pointcloud_publisher.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dummy_pointcloud_publisher.dir/build.make CMakeFiles/dummy_pointcloud_publisher.dir/src/dummy_pointcloud_publisher.cpp.o
-.PHONY : src/dummy_pointcloud_publisher.cpp.o
-
-src/dummy_pointcloud_publisher.i: src/dummy_pointcloud_publisher.cpp.i
-.PHONY : src/dummy_pointcloud_publisher.i
-
-# target to preprocess a source file
-src/dummy_pointcloud_publisher.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dummy_pointcloud_publisher.dir/build.make CMakeFiles/dummy_pointcloud_publisher.dir/src/dummy_pointcloud_publisher.cpp.i
-.PHONY : src/dummy_pointcloud_publisher.cpp.i
-
-src/dummy_pointcloud_publisher.s: src/dummy_pointcloud_publisher.cpp.s
-.PHONY : src/dummy_pointcloud_publisher.s
-
-# target to generate assembly for a file
-src/dummy_pointcloud_publisher.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dummy_pointcloud_publisher.dir/build.make CMakeFiles/dummy_pointcloud_publisher.dir/src/dummy_pointcloud_publisher.cpp.s
-.PHONY : src/dummy_pointcloud_publisher.cpp.s
 
 src/laserscan_to_pointcloud_node.o: src/laserscan_to_pointcloud_node.cpp.o
 .PHONY : src/laserscan_to_pointcloud_node.o
@@ -397,20 +323,12 @@ help:
 	@echo "... test"
 	@echo "... pointcloud_to_laserscan_uninstall"
 	@echo "... uninstall"
-	@echo "... dummy_pointcloud_publisher"
 	@echo "... laserscan_to_pointcloud"
-	@echo "... laserscan_to_pointcloud_node"
 	@echo "... pointcloud_to_laserscan"
 	@echo "... pointcloud_to_laserscan_node"
-	@echo "... rclcpp_components/node_main_laserscan_to_pointcloud_node.o"
-	@echo "... rclcpp_components/node_main_laserscan_to_pointcloud_node.i"
-	@echo "... rclcpp_components/node_main_laserscan_to_pointcloud_node.s"
 	@echo "... rclcpp_components/node_main_pointcloud_to_laserscan_node.o"
 	@echo "... rclcpp_components/node_main_pointcloud_to_laserscan_node.i"
 	@echo "... rclcpp_components/node_main_pointcloud_to_laserscan_node.s"
-	@echo "... src/dummy_pointcloud_publisher.o"
-	@echo "... src/dummy_pointcloud_publisher.i"
-	@echo "... src/dummy_pointcloud_publisher.s"
 	@echo "... src/laserscan_to_pointcloud_node.o"
 	@echo "... src/laserscan_to_pointcloud_node.i"
 	@echo "... src/laserscan_to_pointcloud_node.s"
