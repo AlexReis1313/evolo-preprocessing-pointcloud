@@ -1,4 +1,0 @@
-[ 28%] Built target pointcloud_to_laserscan_node
-[ 57%] Built target laserscan_to_pointcloud
-[35m[1mConsolidate compiler generated dependencies of target pointcloud_to_laserscan[0m
-[ 71%] [32mBuilding CXX object CMakeFiles/pointcloud_to_laserscan.dir/src/vgicp_registration.cpp.o[0m
