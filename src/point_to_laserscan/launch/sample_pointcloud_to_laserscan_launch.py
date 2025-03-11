@@ -1,11 +1,12 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, SetParameter
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
     return LaunchDescription([
+
         DeclareLaunchArgument(
             name='scanner', default_value='scanner',
             description='Namespace for sample topics'
@@ -16,7 +17,9 @@ def generate_launch_description():
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
             remappings=[('cloud_in', 'ouster/points_corrected'),
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/merged'])],
+
             parameters=[{
+                'use_sim_time': True,  # Enable simulation time
                 'target_frame': 'laser_scan_frame',
                 'fixed_frame': 'map',
                 'cloud_frame': 'os_sensor',             

@@ -56,7 +56,6 @@
  #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
  #include "pcl_ros/transforms.hpp"
  #include <pcl_conversions/pcl_conversions.h>
-
  
 namespace pointcloud_to_laserscan
 {
@@ -64,6 +63,7 @@ namespace pointcloud_to_laserscan
 PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions & options)
 : rclcpp::Node("pointcloud_to_laserscan", options)
 {
+
   target_frame_ = this->declare_parameter("target_frame", "");
   fixed_frame_ =this->declare_parameter("fixed_frame", "");
   cloud_frame_=this->declare_parameter("cloud_frame", "");
@@ -86,11 +86,12 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   max_height_longrange_ = this->declare_parameter("max_height_longrange", std::numeric_limits<double>::max());
   range_transition_ = this->declare_parameter("range_transition", 0.0);
 
-  pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
-  pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
-  pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
 
-  vgicpRegistrationClass vgicpRegistration_;
+
+  pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
+  //pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
+  //pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
+
 
   using std::placeholders::_1;
   // if pointcloud target frame specified, we need to filter by transform availability
@@ -114,9 +115,7 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
 
   subscription_listener_thread_ = std::thread(
     std::bind(&PointCloudToLaserScanNode::subscriptionListenerThreadLoop, this));
-
-
-  }
+}
 
 PointCloudToLaserScanNode::~PointCloudToLaserScanNode()
 {
@@ -142,6 +141,7 @@ void PointCloudToLaserScanNode::subscriptionListenerThreadLoop()
         rclcpp::SensorDataQoS qos;
         qos.keep_last(input_queue_size_);
         sub_.subscribe(this, "cloud_in", qos.get_rmw_qos_profile());
+
       }
     } else if (sub_.getSubscriber()) {
       RCLCPP_INFO(
@@ -162,74 +162,61 @@ void PointCloudToLaserScanNode::cloudCallback(
 
   // Transform cloud if necessary
   //if (target_frame_ != cloud_msg->header.frame_id) {
-    try {
-        
-      geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform;
-  
-  
-      transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
-      // adavanced version transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
-      tf2::Quaternion q_orig, q_new;
-      tf2::convert(transform_stamped.transform.rotation, q_orig);
-  
-      double roll, pitch, yaw;
-      tf2::Matrix3x3(q_orig).getRPY(roll, pitch, yaw);
-  
-      q_new.setRPY(0, 0, yaw);
-  
-      noattitude_transform.header.stamp = cloud_msg->header.stamp;
-      noattitude_transform.header.frame_id = fixed_frame_;
-      noattitude_transform.child_frame_id = target_frame_;
-      noattitude_transform.transform.translation.x = transform_stamped.transform.translation.x;
-      noattitude_transform.transform.translation.y = transform_stamped.transform.translation.y;
-      noattitude_transform.transform.translation.z = transform_stamped.transform.translation.z;
-      noattitude_transform.transform.rotation = tf2::toMsg(q_new);
-  
-      tf_broadcaster_->sendTransform(noattitude_transform);
-      noattitude_transform.transform.translation.x =-transform_stamped.transform.translation.x;//changed, era 0
-      noattitude_transform.transform.translation.y =-transform_stamped.transform.translation.y;//changed
-      noattitude_transform.transform.translation.z =0;
-      q_new.setRPY(roll, pitch, 0);
-      noattitude_transform.transform.rotation = tf2::toMsg(q_new);
-        
-      pcl::PointCloud<pcl::PointXYZ> pcl_cloud, pcl_cloud_transformed, pcl_cloud_transformed2;
-      pcl::fromROSMsg(*cloud_msg, pcl_cloud);
-  
-      pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, noattitude_transform);
-  
-       //ICP cloud
-      if (vgicpRegistration_.firstTime_){
-        vgicpRegistration_.setLastCloud(pcl_cloud_transformed);
-      } else{
-        vgicpRegistration_.swapNewLastCloud();
-        vgicpRegistration_.setNewCloud(pcl_cloud_transformed);
-        vgicpRegistration_.computeRegistration();
-        pcl_cloud_transformed= vgicpRegistration_.getNewTransformedCloud();
-      }
-  
-      /*  //new
-      noattitude_transform.transform.translation.x =transform_stamped.transform.translation.x;//changed, era 0
-      noattitude_transform.transform.translation.y =transform_stamped.transform.translation.y;//changed
-      noattitude_transform.transform.translation.z =0;
-      q_new.setRPY(0, 0, 0);
-      noattitude_transform.transform.rotation = tf2::toMsg(q_new);
-      pcl_ros::transformPointCloud(pcl_cloud_transformed, pcl_cloud_transformed2, noattitude_transform);
-      */
-      //stop new
-      auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-      pcl::toROSMsg(pcl_cloud_transformed, *cloud); //should be non2 version
-      cloud_msg = cloud;
-    
-  
-    } catch (tf2::TransformException & ex) {
-      RCLCPP_ERROR_STREAM(this->get_logger(), "Transform failure: " << ex.what());
-      return;
-    }
-    //}
-  
-   
+  try {
+    bool a = true;
+    auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
 
- 
+    if (a){
+    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform;
+
+
+    transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
+    // adavanced version transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
+    tf2::Quaternion q_orig, q_new;
+    tf2::convert(transform_stamped.transform.rotation, q_orig);
+
+    double roll, pitch, yaw;
+    tf2::Matrix3x3(q_orig).getRPY(roll, pitch, yaw);
+
+    q_new.setRPY(0, 0, yaw);
+
+    noattitude_transform.header.stamp = cloud_msg->header.stamp;
+    noattitude_transform.header.frame_id = fixed_frame_;
+    noattitude_transform.child_frame_id = target_frame_;
+    noattitude_transform.transform.translation.x = transform_stamped.transform.translation.x;
+    noattitude_transform.transform.translation.y = transform_stamped.transform.translation.y;
+    noattitude_transform.transform.translation.z = transform_stamped.transform.translation.z;
+    noattitude_transform.transform.rotation = tf2::toMsg(q_new);
+
+    tf_broadcaster_->sendTransform(noattitude_transform);
+    noattitude_transform.transform.translation.x =0;
+    noattitude_transform.transform.translation.y =0;
+    noattitude_transform.transform.translation.z =0;
+    q_new.setRPY(roll, pitch, 0);
+    noattitude_transform.transform.rotation = tf2::toMsg(q_new);
+      
+    pcl::PointCloud<pcl::PointXYZ> pcl_cloud, pcl_cloud_transformed;
+    pcl::fromROSMsg(*cloud_msg, pcl_cloud);
+
+    pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, noattitude_transform);
+
+
+    pcl::toROSMsg(pcl_cloud_transformed, *cloud);
+
+    }else{
+    tf2_->transform(*cloud_msg, *cloud, target_frame_, tf2::durationFromSec(tolerance_));
+    }
+
+    cloud_msg = cloud;
+
+
+
+
+  } catch (tf2::TransformException & ex) {
+    RCLCPP_ERROR_STREAM(this->get_logger(), "Transform failure: " << ex.what());
+    return;
+  }
+  //}
   auto short_scan_msg = PointCloudToLaserScanNode::computeLaserScan(
     cloud_msg, range_min_, range_transition_, min_height_shortrange_, max_height_shortrange_,
     angle_min_, angle_max_, angle_increment_, scan_time_, inf_epsilon_, use_inf_, target_frame_);

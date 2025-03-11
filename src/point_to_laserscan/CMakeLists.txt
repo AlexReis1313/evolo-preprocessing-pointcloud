@@ -10,8 +10,7 @@ ament_auto_add_library(laserscan_to_pointcloud SHARED
   src/laserscan_to_pointcloud_node.cpp)
 
 ament_auto_add_library(pointcloud_to_laserscan SHARED
-  src/pointcloud_to_laserscan_node.cpp
-  src/vgicp_registration.cpp)
+  src/pointcloud_to_laserscan_node.cpp)
 
 rclcpp_components_register_node(pointcloud_to_laserscan
   PLUGIN "pointcloud_to_laserscan::PointCloudToLaserScanNode"
