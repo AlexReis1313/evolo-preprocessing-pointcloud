@@ -1,9 +1,21 @@
 # ROS2 Humble Lidar Point Cloud Pre-process node
 This node uses an altered version of the pointcloud_to_laserscan package.
 
+# Build and Run
+
+    git clone https://github.com/AlexReis1313/evolo-preprocessing-pointcloud.git
+    cd /evolo-preprocessing-pointcloud/
+    colcon build
+    source the workspace
+    ros2 launch pointcloud_to_laserscan sample_pointcloud_to_laserscan_launch.py 
+
+
+
+
 # ROS 2 pointcloud_to_laserscan package
 This is a ROS 2 package that provides components to convert `sensor_msgs/msg/PointCloud2` messages to `sensor_msgs/msg/LaserScan` messages and back.
-It provides the base methods for this package.
+It provides the base methods for this package. https://github.com/ros-perception/pointcloud_to_laserscan 
+
 
 # pointcloud <-> laserscan converter with pre-proccessing
 It has the following features:
@@ -38,16 +50,18 @@ This ROS 2 component projects `sensor_msgs/msg/PointCloud2` messages into `senso
 
 ### Published Topics
 
-* `scan` (`sensor_msgs/msg/LaserScan`) - The output laser scan.
+* `scanner/scan/merged` (`sensor_msgs/msg/LaserScan`) - The output laser scan.
+* `laser_scan_frame` frame in Tf tree - this is frame_id of scan
 
 ### Subscribed Topics
 
 * `cloud_in` (`sensor_msgs/msg/PointCloud2`) - The input point cloud. No input will be processed if there isn't at least one subscriber to the `scan` topic.
 * `tf` - Tf transform between a given fixed world frame and the frame_id of `cloud_in`
-* 
+  
 ### Parameters - Specific to this package
 
 * `fixed_frame` (str, default: none)
+* `cloud_frame` (str, default: none) - Frame where pointcloud is being published on: `os_sensor`
 * `min_height_longrange` (double, default: 2.2e-308) - The minimum height to sample in the long-range point cloud in meters.
 * `max_height_longrange` (double, default: 1.8e+308) - The maximum height to sample in the long-range point cloud in meters.
 * `min_height_shortrange` (double, default: 2.2e-308) - The minimum height to sample in the short-range point cloud in meters.
