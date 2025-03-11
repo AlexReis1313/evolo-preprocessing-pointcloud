@@ -21,7 +21,7 @@ def generate_launch_description():
                 'fixed_frame': 'map',
                 'cloud_frame': 'os_sensor',             
                 'transform_tolerance': 0.01,
-                'min_height': -8.0,
+                'min_height_longrange': -8.0,
                 'max_height_longrange': 8.0,
                 'angle_min': -3.14159,  # -M_PI/2
                 'angle_max': 3.14159,  # M_PI/2
