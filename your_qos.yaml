@@ -1,0 +1,7 @@
+qos_overrides:
+  /tf_static:
+    durability: volatile
+    reliability: best_effort
+  /scanner/scan/merged:
+    reliability: best_effort
+    durability: volatile

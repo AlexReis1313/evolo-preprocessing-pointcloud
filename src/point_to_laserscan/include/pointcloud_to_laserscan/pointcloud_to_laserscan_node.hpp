@@ -94,6 +94,9 @@
      double inf_epsilon,
      bool use_inf,
      std::string target_frame);
+     std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
+        LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan, 
+                    double angle_min, double angle_max, double angle_increment);
  
  
    std::unique_ptr<tf2_ros::Buffer> tf2_;
@@ -101,8 +104,11 @@
    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
    message_filters::Subscriber<sensor_msgs::msg::PointCloud2> sub_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_long_;
+   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmap_;
+   
+
+   //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
+   //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_long_;
  
    std::unique_ptr<MessageFilter> message_filter_;
  
@@ -113,7 +119,7 @@
    int input_queue_size_;
    std::string target_frame_, fixed_frame_, cloud_frame_;
    double tolerance_;
-   double min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
+   double angle_visual_outputmap_, min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
    range_transition_, range_max_;
    bool use_inf_;
    double inf_epsilon_;

@@ -85,12 +85,13 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   min_height_longrange_ = this->declare_parameter("min_height_longrange", std::numeric_limits<double>::min());
   max_height_longrange_ = this->declare_parameter("max_height_longrange", std::numeric_limits<double>::max());
   range_transition_ = this->declare_parameter("range_transition", 0.0);
-
+  angle_visual_outputmap_ =this->declare_parameter("angle_increment_output_map", M_PI / 180.0);
 
 
   pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
   //pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
   //pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
+  pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS());
 
 
   using std::placeholders::_1;
@@ -130,9 +131,7 @@ void PointCloudToLaserScanNode::subscriptionListenerThreadLoop()
   const std::chrono::milliseconds timeout(100);
   while (rclcpp::ok(context) && alive_.load()) {
     int subscription_count = pub_->get_subscription_count() +
-      pub_->get_intra_process_subscription_count()+pub_short_->get_subscription_count() +
-      pub_short_->get_intra_process_subscription_count() + pub_long_->get_subscription_count() +
-      pub_long_->get_intra_process_subscription_count();
+      pub_->get_intra_process_subscription_count()+pub_radialmap_->get_subscription_count() +  pub_radialmap_->get_intra_process_subscription_count(); //+ pub_long_->get_subscription_count() +pub_long_->get_intra_process_subscription_count();
     if (subscription_count > 0) {
       if (!sub_.getSubscriber()) {
         RCLCPP_INFO(
@@ -230,9 +229,12 @@ void PointCloudToLaserScanNode::cloudCallback(
   auto copy_long_scan_msg = std::make_unique<sensor_msgs::msg::LaserScan>(*long_scan_msg);
 
   auto merged_scan_msg = PointCloudToLaserScanNode::mergeLaserScans(short_scan_msg,  std::move(copy_long_scan_msg));
-  
+  auto [radialMap, radialMapVisual] = PointCloudToLaserScanNode::LaserScan2radialMap(merged_scan_msg, angle_min_, angle_max_, angle_visual_outputmap_);
+
+  pub_radialmap_->publish(std::move(radialMapVisual));
+
   pub_->publish(std::move(merged_scan_msg));
-  
+
   
 }
 sensor_msgs::msg::LaserScan::UniquePtr PointCloudToLaserScanNode::computeLaserScan(
@@ -347,6 +349,77 @@ sensor_msgs::msg::LaserScan::UniquePtr PointCloudToLaserScanNode::mergeLaserScan
     return std::move(long_scan);
   }
 
+ 
+std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
+  PointCloudToLaserScanNode::LaserScan2radialMap(
+    const sensor_msgs::msg::LaserScan::UniquePtr &scan,
+    double angle_min, double angle_max, double angle_increment)
+  {
+    auto radialMapScan = std::make_unique<sensor_msgs::msg::LaserScan>();
+    auto radialMapScanVisual = std::make_unique<sensor_msgs::msg::LaserScan>();
+  
+    // Copy metadata from input scan
+    radialMapScan->header = scan->header;
+    radialMapScan->header.frame_id = scan->header.frame_id;
+    radialMapScan->angle_min = angle_min;
+    radialMapScan->angle_max = angle_max;
+    radialMapScan->angle_increment = angle_increment;
+    radialMapScan->time_increment = scan->time_increment;
+    radialMapScan->scan_time = scan->scan_time;
+    radialMapScan->range_min = scan->range_min;
+    radialMapScan->range_max = scan->range_max;
+    
+    // Compute the number of output radial map bins
+    int number_of_cells = static_cast<int>((angle_max - angle_min) / angle_increment);
+    radialMapScan->ranges.resize(number_of_cells, radialMapScan->range_max);
+
+    // Iterate through each bin in the new radial map
+    for (int i = 0; i < number_of_cells; ++i)
+    {
+      double cell_angle_min = angle_min + i * angle_increment;
+      double cell_angle_max = cell_angle_min + angle_increment;
+      float lowest_range = radialMapScan->range_max;
+        
+        // Iterate through the original scan ranges to find points in the current bin
+      for (size_t j = 0; j < scan->ranges.size(); ++j)
+        {
+          double current_angle = scan->angle_min + j * scan->angle_increment;
+          
+          if (current_angle >= cell_angle_min && current_angle < cell_angle_max)
+          {
+              if (scan->ranges[j] >= scan->range_min && scan->ranges[j] <= scan->range_max)
+              {
+                       lowest_range = std::min(lowest_range, scan->ranges[j]);
+              }
+          }
+      radialMapScan->ranges[i] = lowest_range;
+
+        }
+              
+    }
+    radialMapScanVisual->header = radialMapScan->header;
+    radialMapScanVisual->header.frame_id = radialMapScan->header.frame_id;
+    radialMapScanVisual->angle_min = angle_min;
+    radialMapScanVisual->angle_max = angle_max;
+    radialMapScanVisual->angle_increment = scan->angle_increment;
+    radialMapScanVisual->time_increment = scan->time_increment;
+    radialMapScanVisual->scan_time = scan->scan_time;
+    radialMapScanVisual->range_min = scan->range_min;
+    radialMapScanVisual->range_max = scan->range_max;
+    
+    int visual_cells = static_cast<int>((angle_max - angle_min) / scan->angle_increment);
+    radialMapScanVisual->ranges.resize(visual_cells, radialMapScan->range_max);
+    
+    // Assign values from radialMapScan to radialMapScanVisual
+    for (int i = 0; i < visual_cells; ++i)
+    {
+        double current_angle = angle_min + i * scan->angle_increment;
+        int radial_index = static_cast<int>((current_angle - angle_min) / angle_increment);
+        radialMapScanVisual->ranges[i] = radialMapScan->ranges[radial_index];
+    }
+    
+    return {std::move(radialMapScan), std::move(radialMapScanVisual)};
+}
 
 }  // namespace pointcloud_to_laserscan
 

@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetParameter
+from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -36,7 +36,8 @@ def generate_launch_description():
                 'inf_epsilon': 1.0,
                 'min_height_shortrange': -0.2,
                 'max_height_shortrange': 6.0,
-                'range_transition': 20.0
+                'range_transition': 20.0,
+                'angle_increment_output_map': 0.2618 #pi/6
             }],
             name='pointcloud_to_laserscan_merged'
         )
