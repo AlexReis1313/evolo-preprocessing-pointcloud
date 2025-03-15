@@ -59,6 +59,8 @@
  #include "sensor_msgs/msg/point_cloud2.hpp"
  
  #include "pointcloud_to_laserscan/visibility_control.h"
+ #include "pointcloud_to_laserscan/vgicp_registration.hpp"
+
  
  namespace pointcloud_to_laserscan
  {
@@ -98,6 +100,9 @@
         LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan, 
                     double angle_min, double angle_max, double angle_increment);
  
+                    
+    vgicpRegistrationClass vgicpRegistration_;
+
  
    std::unique_ptr<tf2_ros::Buffer> tf2_;
    std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
@@ -105,6 +110,8 @@
    message_filters::Subscriber<sensor_msgs::msg::PointCloud2> sub_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmap_;
+   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_icpCloud_;
+
    
 
    //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
@@ -117,7 +124,7 @@
  
    // ROS Parameters
    int input_queue_size_;
-   std::string target_frame_, fixed_frame_, cloud_frame_;
+   std::string target_frame_, fixed_frame_, cloud_frame_, icp_cloud_frame_;
    double tolerance_;
    double angle_visual_outputmap_, min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
    range_transition_, range_max_;

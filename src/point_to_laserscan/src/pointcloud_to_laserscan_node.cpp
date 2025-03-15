@@ -86,12 +86,16 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   max_height_longrange_ = this->declare_parameter("max_height_longrange", std::numeric_limits<double>::max());
   range_transition_ = this->declare_parameter("range_transition", 0.0);
   angle_visual_outputmap_ =this->declare_parameter("angle_increment_output_map", M_PI / 180.0);
+  icp_cloud_frame_="icp_frame";
 
 
   pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
+  pub_icpCloud_=this->create_publisher<sensor_msgs::msg::PointCloud2>("ICP/points", rclcpp::SensorDataQoS());
   //pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
   //pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
   pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS());
+
+  vgicpRegistrationClass vgicpRegistration_;
 
 
   using std::placeholders::_1;
@@ -166,7 +170,7 @@ void PointCloudToLaserScanNode::cloudCallback(
     auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
 
     if (a){
-    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform;
+    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform, icp_cloud_tf2publish;
 
 
     transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
@@ -194,23 +198,81 @@ void PointCloudToLaserScanNode::cloudCallback(
     q_new.setRPY(roll, pitch, 0);
     noattitude_transform.transform.rotation = tf2::toMsg(q_new);
       
-    pcl::PointCloud<pcl::PointXYZ> pcl_cloud, pcl_cloud_transformed;
+    pcl::PointCloud<pcl::PointXYZ> pcl_cloud, pcl_cloud_transformed, pcl_cloud_transformed2;
     pcl::fromROSMsg(*cloud_msg, pcl_cloud);
 
     pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, noattitude_transform);
+    //RCLCPP_INFO(        this->get_logger(),        "Going to start ICP process");
+
+    if (vgicpRegistration_.firstTime_){
+      vgicpRegistration_.setLastCloud(pcl_cloud_transformed);
+      //RCLCPP_INFO(        this->get_logger(),        "First went well");
+    } else{
+      vgicpRegistration_.swapNewLastCloud();
+      //RCLCPP_INFO(        this->get_logger(),        "Swaped");
+      vgicpRegistration_.setNewCloud(pcl_cloud_transformed);
+      //RCLCPP_INFO(        this->get_logger(),        "set new cloud");
+      vgicpRegistration_.computeRegistration();
+      //RCLCPP_INFO(        this->get_logger(),        "ICCP computed");
+      pcl_cloud_transformed= vgicpRegistration_.getNewTransformedCloud();
+      //RCLCPP_INFO(        this->get_logger(),        "Cloud out");
+      auto icp_cloud_tf = vgicpRegistration_.getTransformation4NewCloud();
+      //RCLCPP_INFO(        this->get_logger(),        "ICP taken to main code");
+      icp_cloud_tf2publish.header.stamp = cloud_msg->header.stamp;
+      icp_cloud_tf2publish.header.frame_id = target_frame_;
+      icp_cloud_tf2publish.child_frame_id = icp_cloud_frame_;
+      icp_cloud_tf2publish.transform.translation=icp_cloud_tf.transform.translation;
+      icp_cloud_tf2publish.transform.rotation =icp_cloud_tf.transform.rotation ;
+      tf_broadcaster_->sendTransform(icp_cloud_tf2publish);
 
 
+      // Just for print
+      double x = icp_cloud_tf2publish.transform.translation.x;
+      double y = icp_cloud_tf2publish.transform.translation.y;
+      double z = icp_cloud_tf2publish.transform.translation.z;
+
+      // Extract rotation (quaternion)
+      tf2::Quaternion q(
+        icp_cloud_tf2publish.transform.rotation.x,
+        icp_cloud_tf2publish.transform.rotation.y,
+        icp_cloud_tf2publish.transform.rotation.z,
+        icp_cloud_tf2publish.transform.rotation.w
+      );
+
+      // Convert quaternion to roll, pitch, yaw
+      tf2::Matrix3x3 m(q);
+      double roll, pitch, yaw;
+      m.getRPY(roll, pitch, yaw);
+      RCLCPP_INFO(
+        this->get_logger(),
+        "Transform sent: x=%.3f, y=%.3f, z=%.3f, roll=%.3f, pitch=%.3f, yaw=%.3f",
+        x, y, z, roll, pitch, yaw
+    );
+
+    /*noattitude_transform.transform.translation.x =transform_stamped.transform.translation.x;//changed, era 0
+    noattitude_transform.transform.translation.y =transform_stamped.transform.translation.y;//changed
+    noattitude_transform.transform.translation.z =0;
+    q_new.setRPY(0, 0, 0);
+    noattitude_transform.transform.rotation = tf2::toMsg(q_new);
+    pcl_ros::transformPointCloud(pcl_cloud_transformed, pcl_cloud_transformed2, noattitude_transform);
+    
+    */
     pcl::toROSMsg(pcl_cloud_transformed, *cloud);
-
-    }else{
-    tf2_->transform(*cloud_msg, *cloud, target_frame_, tf2::durationFromSec(tolerance_));
-    }
+    cloud->header.frame_id=icp_cloud_frame_;
 
     cloud_msg = cloud;
+    pub_icpCloud_->publish(*cloud_msg);
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Cloud published");
+    }
+    } else{
+    tf2_->transform(*cloud_msg, *cloud, target_frame_, tf2::durationFromSec(tolerance_));
+    cloud_msg = cloud;
 
+    }
 
-
-
+    
   } catch (tf2::TransformException & ex) {
     RCLCPP_ERROR_STREAM(this->get_logger(), "Transform failure: " << ex.what());
     return;
