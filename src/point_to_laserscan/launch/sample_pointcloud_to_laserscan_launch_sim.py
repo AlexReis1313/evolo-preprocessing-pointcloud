@@ -14,10 +14,10 @@ def generate_launch_description():
        
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
-            remappings=[('cloud_in', '/Evolo/Lidar/MidRes'),
+            remappings=[('cloud_in', '/Evolo/Lidar/LowRes'),
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/merged'])],
             parameters=[{
-                'use_sim_time':True,
+                'use_sim_time':False,
                 'target_frame': 'laser_scan_frame',
                 'fixed_frame': 'map_gt',
                 'cloud_frame': 'Evolo/lidar_link_gt',             

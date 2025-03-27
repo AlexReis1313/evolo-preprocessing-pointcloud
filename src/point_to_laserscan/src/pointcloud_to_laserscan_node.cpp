@@ -92,7 +92,8 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   //pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
   //pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
   pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS());
-
+  pub_pc_= this->create_publisher<sensor_msgs::msg::PointCloud2>("scanner/scan/pointcloud", rclcpp::SensorDataQoS());
+  pub_OriginalPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("rotated_pointcloud", rclcpp::SensorDataQoS());
 
   using std::placeholders::_1;
   // if pointcloud target frame specified, we need to filter by transform availability
@@ -131,7 +132,8 @@ void PointCloudToLaserScanNode::subscriptionListenerThreadLoop()
   const std::chrono::milliseconds timeout(100);
   while (rclcpp::ok(context) && alive_.load()) {
     int subscription_count = pub_->get_subscription_count() +
-      pub_->get_intra_process_subscription_count()+pub_radialmap_->get_subscription_count() +  pub_radialmap_->get_intra_process_subscription_count(); //+ pub_long_->get_subscription_count() +pub_long_->get_intra_process_subscription_count();
+      pub_->get_intra_process_subscription_count()+pub_radialmap_->get_subscription_count() +  pub_radialmap_->get_intra_process_subscription_count()
+      + pub_pc_->get_subscription_count() +  pub_pc_->get_intra_process_subscription_count(); //+ pub_long_->get_subscription_count() +pub_long_->get_intra_process_subscription_count();
     if (subscription_count > 0) {
       if (!sub_.getSubscriber()) {
         RCLCPP_INFO(
@@ -157,15 +159,13 @@ void PointCloudToLaserScanNode::subscriptionListenerThreadLoop()
 void PointCloudToLaserScanNode::cloudCallback(
   sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg)
 {
-  
+  auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+
 
   // Transform cloud if necessary
   //if (target_frame_ != cloud_msg->header.frame_id) {
   try {
-    bool a = true;
-    auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-
-    if (a){
+    
     geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform;
 
 
@@ -202,13 +202,9 @@ void PointCloudToLaserScanNode::cloudCallback(
 
     pcl::toROSMsg(pcl_cloud_transformed, *cloud);
 
-    }else{
-    tf2_->transform(*cloud_msg, *cloud, target_frame_, tf2::durationFromSec(tolerance_));
-    }
+    
 
     cloud_msg = cloud;
-
-
 
 
   } catch (tf2::TransformException & ex) {
@@ -229,12 +225,24 @@ void PointCloudToLaserScanNode::cloudCallback(
   auto copy_long_scan_msg = std::make_unique<sensor_msgs::msg::LaserScan>(*long_scan_msg);
 
   auto merged_scan_msg = PointCloudToLaserScanNode::mergeLaserScans(short_scan_msg,  std::move(copy_long_scan_msg));
+  sensor_msgs::msg::PointCloud2 merged_point_cloud;
+
+  //https://wiki.ros.org/laser_geometry
+  Laser2PCprojector_.projectLaser(*merged_scan_msg, merged_point_cloud);
+
+  //auto clustered_point_cloud = PointCloudToLaserScanNode::DbscanCluster(merged_scan_msg, height_2dscan)
   auto [radialMap, radialMapVisual] = PointCloudToLaserScanNode::LaserScan2radialMap(merged_scan_msg, angle_min_, angle_max_, angle_visual_outputmap_);
 
+
+  sensor_msgs::msg::PointCloud2 transformed_cloud = *cloud_msg; // Create a modifiable copy
+  transformed_cloud.header.frame_id = target_frame_; // Set new frame_id
+  
+  pub_OriginalPC_->publish(transformed_cloud);
+  
   pub_radialmap_->publish(std::move(radialMapVisual));
-
+  pub_pc_->publish(merged_point_cloud);
   pub_->publish(std::move(merged_scan_msg));
-
+  
   
 }
 sensor_msgs::msg::LaserScan::UniquePtr PointCloudToLaserScanNode::computeLaserScan(
@@ -420,6 +428,7 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     
     return {std::move(radialMapScan), std::move(radialMapScanVisual)};
 }
+
 
 }  // namespace pointcloud_to_laserscan
 

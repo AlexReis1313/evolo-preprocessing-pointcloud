@@ -3,6 +3,8 @@ project(pointcloud_to_laserscan)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(pcl_ros REQUIRED)
+#find_package(laser_geometry REQUIRED)
+
 
 ament_auto_find_build_dependencies()
 
@@ -15,6 +17,8 @@ ament_auto_add_library(pointcloud_to_laserscan SHARED
 rclcpp_components_register_node(pointcloud_to_laserscan
   PLUGIN "pointcloud_to_laserscan::PointCloudToLaserScanNode"
   EXECUTABLE pointcloud_to_laserscan_node)
+
+#ament_target_dependencies(pointcloud_to_laserscan_node laser_geometry)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

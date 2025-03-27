@@ -1,20 +1,15 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>pointcloud_to_laserscan</name>
-    <version>2.0.1</version>
-    <description>Converts a 3D Point Cloud into a 2D laser scan. This is useful for making devices like the Kinect appear like a laser scanner for 2D-based algorithms (e.g. laser-based SLAM).</description>
+    <name>bb_dataass_tracking</name>
+    <version>1.0.1</version>
+    <description> Uses a clustered 2D pointcloud, produces an oriented bouding box around each object, does kalman filtering and data association to track these objects</description>
 
-    <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
-    <maintainer email="michel@ekumenlabs.com">Michel Hidalgo</maintainer>
-    <author email="paul@bovbel.com">Paul Bovbel</author>
-    <author email="michel@ekumenlabs.com">Michel Hidalgo</author>
-    <author>Tully Foote</author>
+    <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
+    <author email="apldar@kth.se">Alexandre Reis</author>
 
     <license>BSD</license>
 
-    <url type="website">http://ros.org/wiki/perception_pcl</url>
-    <url type="bugtracker">https://github.com/ros-perception/perception_pcl/issues</url>
-    <url type="repository">https://github.com/ros-perception/perception_pcl</url>
+    
 
     <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
@@ -22,13 +17,15 @@
     <depend>rclcpp</depend>
     <depend>rclcpp_components</depend>
     <depend>sensor_msgs</depend>
+    <depend>visualization_msgs</depend>
+    <depend>cmath</depend>
+    <depend>vector</depend>
     <depend>tf2</depend>
     <depend>tf2_ros</depend>
     <depend>tf2_eigen</depend>
     <depend>tf2_sensor_msgs</depend>
     <depend>tf2_geometry_msgs</depend> <!-- Add this line -->
     <depend>pcl_ros</depend>
-    <depend>laser_geometry</depend>
 
 
 

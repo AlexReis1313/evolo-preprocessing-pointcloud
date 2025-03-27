@@ -59,7 +59,9 @@
  #include "sensor_msgs/msg/point_cloud2.hpp"
  
  #include "pointcloud_to_laserscan/visibility_control.h"
- 
+ #include "laser_geometry/laser_geometry.hpp"
+
+
  namespace pointcloud_to_laserscan
  {
  typedef tf2_ros::MessageFilter<sensor_msgs::msg::PointCloud2> MessageFilter;
@@ -97,7 +99,8 @@
      std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
         LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan, 
                     double angle_min, double angle_max, double angle_increment);
- 
+  
+
  
    std::unique_ptr<tf2_ros::Buffer> tf2_;
    std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
@@ -105,7 +108,12 @@
    message_filters::Subscriber<sensor_msgs::msg::PointCloud2> sub_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmap_;
-   
+   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_pc_;
+   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_OriginalPC_;
+
+
+   laser_geometry::LaserProjection Laser2PCprojector_;
+
 
    //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
    //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_long_;

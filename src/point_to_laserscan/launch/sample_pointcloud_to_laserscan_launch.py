@@ -19,15 +19,15 @@ def generate_launch_description():
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/merged'])],
 
             parameters=[{
-                'use_sim_time': True,  # Enable simulation time
+                'use_sim_time': False,  # Enable simulation time
                 'target_frame': 'laser_scan_frame',
-                'fixed_frame': 'map',
+                'fixed_frame': 'odom',
                 'cloud_frame': 'os_sensor',             
                 'transform_tolerance': 0.01,
                 'min_height_longrange': -8.0,
                 'max_height_longrange': 8.0,
                 'angle_min': -3.14159,  # -M_PI/2
-                'angle_max': 3.14159,  # M_PI/2
+                'angle_max':  3.14159,  # M_PI/2
                 'angle_increment': 0.003067,  # M_PI/360.0
                 'scan_time': 0.1,
                 'range_min': 1.5,
