@@ -16,18 +16,20 @@
 #include "RotatingCalipers.h"
 #include <deque>
 #include "pcl_ros/transforms.hpp"
+#include "kalmanFilter.hpp"
+#include "Hungarian.h"
+#include <vector>
+#include <list>
 
 
-struct KalmanFilter
-{
-    double x;
-    double y;
-    double velx;
-    double vely;
+//GLOBAL variables
+int num_states = 10;
+int num_sensors = 5;
+extern Eigen::MatrixXd motion_model;
+extern Eigen::MatrixXd measurement_model;
 
 
-};
-
+            
 class FixedSizeQueue {
     public:
         FixedSizeQueue(size_t max_size) : max_size_(max_size) {}
@@ -51,14 +53,26 @@ class FixedSizeQueue {
         size_t max_size_;
     };
 
-struct trackedObject
+struct objectTracker
 {
     pcl::PointCloud<pcl::PointXYZI>::Ptr last_cluster;
     MinAreaRect rectangle;
     double height;
-    // KalmanFilter filter;
+    KalmanFilter kf;
+    Eigen::VectorXd costVector;
     FixedSizeQueue height_queue;
-    trackedObject(): height_queue(100){}; //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
+    bool updateStepKF = true;
+    unsigned int ocludedCounter = 0;
+    unsigned int newObjectCounter = 0;
+    const int newObjectThreshold=5;
+    const int pruneThreshold= 20;
+    bool newObject = true;  //if true, the object is newly seen and not yet considered as existent. 
+                            //Only when newObjectCounter>=newObjectThreshold, this bool=false and the object is considered for obstacle avoidance
+      
+    objectTracker():
+        height_queue(100), //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
+        kf(num_states, num_sensors, motion_model, measurement_model) {}
+    
 };
 
 class BoundingBoxNode : public rclcpp::Node {
@@ -68,11 +82,28 @@ public:
 private:
     void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
     void pointCloud3DBuffer(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
-    void defineHeight(trackedObject& object);
+    void predictKalmanFilters(float currentTime);
+    void defineHeight(objectTracker& object);
     void pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
+    void pubKfMarkerArrays(std::string frame_id);
+    void updateKalmanFilters();
+    void DataAssociate();
+    std::vector<int> findMissingNumbers(const std::vector<int>& assignment, int m);
+    void defineCosts(objectTracker& object);
+    double costFuntion(const objectTracker& object, const objectTracker& trackedObject);
+
+
+
+    
     MinAreaRect rotatingCaliper2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
     std::vector<Point> convertPCLCloudToCalipersInput(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud);
-    std::list<trackedObject> trackedObjectsList;
+    std::list<objectTracker> trackedObjectsList;
+    std::list<objectTracker> toEraseObjectsList;
+    std::list<objectTracker> currentObjectsList;
+	HungarianAlgorithm HungAlgo;
+	std::vector<int> assignment_;
+    std::vector< std::vector<double> > costMatrix_;
+
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr cloud2D_sub_;
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr cloud3D_sub_;
     sensor_msgs::msg::PointCloud2::SharedPtr last_3Dcloud_;
@@ -80,6 +111,8 @@ private:
     bool draw_height_=false;
 
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
+
 };
 
 #endif // BOUNDING_BOX_NODE_HPP

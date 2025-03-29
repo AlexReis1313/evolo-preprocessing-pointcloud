@@ -12,7 +12,8 @@ ament_auto_find_build_dependencies()
 ament_auto_add_library(bb_dataass_tracking SHARED 
                   src/bounding_box_node.cpp
                   src/RotatingCalipers.cpp
-                  src/kalmanFilter.cpp)
+                  src/kalmanFilter.cpp
+                  src/Hungarian.cpp)
 
 rclcpp_components_register_node(bb_dataass_tracking
   PLUGIN "bb_dataass_tracking::BoundingBoxNode"

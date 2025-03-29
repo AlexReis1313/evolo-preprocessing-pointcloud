@@ -1,0 +1,59 @@
+
+        
+    /* if (nCols == nRows){
+        //perfect match
+        for(auto const& trackedObject : trackedObjectsList){
+            trackedObject.updateStepKF=true;
+            if (trackedObject.newObject) {
+                trackedObject.newObjectCounter++;
+                if (trackedObject.newObjectCounter >trackedObject.newObjectThreshold){
+                    trackedObject.newObject=false;
+                }
+            trackedObject.ocludedCounter=0; //reset on the oclusion couter
+
+        }
+    } */
+       
+    //if (nCols >= nRows){ //nr old >=nr new
+    it=0;
+    for(auto it = trackedObjectsList.begin(); it != trackedObjectsList.end();){
+        const objectTracker trackedObject=trackedObjectsList[it]
+        if (assignment_[it]>=0 && assignment_[it]< nRows ){
+            trackedObject.updateStepKF=true;
+            trackedObject.rectangle= currentObjectsList[assignment_[it]].rectangle;   //bouding box rectangle has all the needed information to update KF
+            if (trackedObject.newObject) {
+                trackedObject.newObjectCounter++;
+                if (trackedObject.newObjectCounter >trackedObject.newObjectThreshold){ //contiditon to add object
+                    trackedObject.newObject=false;
+                }
+            trackedObject.ocludedCounter=0; //reset on the oclusion couter
+            }
+        } else{
+            // no match for this old tracked object
+            trackedObject.updateStepKF=false;
+            trackedObject.ocludedCounter++;
+        }
+        if (trackedObject.ocludedCounter>trackedObject.pruneThreshold){ //condition to prune
+                //lets not track this object anymore
+                trackedObjectsList.erase(it);
+
+        }else{it++;}
+    }
+    //to deal with new objects that were not associated to any old objects:
+    std::vector<int> missing = findMissingNumbers(assignment_, m);
+    for (int num : missing) {
+        trackedObjectsList.push_back(currentObjectsList[num])//this newly created object already comes with .updateStepKF=true, newObject = true;newObjectCounter = 0;
+    }
+
+        
+    /*
+    } else { //nr old < nr new
+        
+        one new object to add to list as new object
+        here, we need to dataassociate to objects in list of newtrackedObjects and either add a new object to this list or track an existing one (add to its tracking counter)
+        if tracking counter of any new tracked objects is above threshold, change it to fully trackedobject */          
+        // every (old) tracked  has a match  
+        //one of the old tracked objects will just predict and not update and it will add to unseen counter 
+        //loop old, for each, find the 
+
+    }
