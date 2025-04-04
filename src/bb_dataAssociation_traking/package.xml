@@ -2,7 +2,7 @@
 <package format="2">
     <name>bb_dataass_tracking</name>
     <version>1.0.1</version>
-    <description> Uses a clustered 2D pointcloud, produces an oriented bouding box around each object, does kalman filtering and data association to track these objects</description>
+    <description> Uses a clustered 2D pointcloud to produce an oriented bouding box around each object. Tracks each object using kalman filtering and data association</description>
 
     <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
     <author email="apldar@kth.se">Alexandre Reis</author>
@@ -26,6 +26,7 @@
     <depend>tf2_sensor_msgs</depend>
     <depend>tf2_geometry_msgs</depend> <!-- Add this line -->
     <depend>pcl_ros</depend>
+    <depend>opencv2</depend>
 
 
 

@@ -3,6 +3,10 @@ project(bb_dataass_tracking)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(pcl_ros REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
+
+
 #find_package(laser_geometry REQUIRED)
 
 
@@ -21,7 +25,7 @@ rclcpp_components_register_node(bb_dataass_tracking
 
 ament_auto_add_executable(bounding_box_node_main src/main.cpp)  # ✅ Add main.cpp as an executable
 
-
+#ament_target_dependencies(cv_bridge OpenCV)
 #ament_target_dependencies(pointcloud_to_laserscan_node laser_geometry)
 
 if(BUILD_TESTING)
