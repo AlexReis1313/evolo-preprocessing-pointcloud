@@ -40,22 +40,7 @@
 
  #include "pointcloud_to_laserscan/pointcloud_to_laserscan_node.hpp"
 
- #include <chrono>
- #include <functional>
- #include <limits>
- #include <memory>
- #include <string>
- #include <thread>
- #include <utility>
- 
- #include "sensor_msgs/point_cloud2_iterator.hpp"
- #include "tf2_sensor_msgs/tf2_sensor_msgs.hpp"
- #include "tf2_ros/create_timer_ros.h"
- #include "tf2_ros/transform_broadcaster.h"
- #include <tf2/LinearMath/Quaternion.h>
- #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
- #include "pcl_ros/transforms.hpp"
- #include <pcl_conversions/pcl_conversions.h>
+
  
 namespace pointcloud_to_laserscan
 {
@@ -86,14 +71,21 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   max_height_longrange_ = this->declare_parameter("max_height_longrange", std::numeric_limits<double>::max());
   range_transition_ = this->declare_parameter("range_transition", 0.0);
   angle_visual_outputmap_ =this->declare_parameter("angle_increment_output_map", M_PI / 180.0);
+  //params for the radius search removal of the pointcloud
+  b_neighboursRadius_ =this->declare_parameter("minimum_radius_paramB", 0.05);
+  m_neighboursRadius_ =this->declare_parameter("minimum_radius_paramM", 0.0125);
+  nr_neighbours_ =this->declare_parameter("minimum_neighbours", 3);
 
+
+ 
 
   pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
   //pub_short_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/short", rclcpp::SensorDataQoS());
   //pub_long_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scanner/scan/long", rclcpp::SensorDataQoS());
   pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS());
+  pub_radialmapVisual_=this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial/visual", rclcpp::SensorDataQoS());
   pub_pc_= this->create_publisher<sensor_msgs::msg::PointCloud2>("scanner/scan/pointcloud", rclcpp::SensorDataQoS());
-  pub_OriginalPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("rotated_pointcloud", rclcpp::SensorDataQoS());
+  pub_OriginalPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered_pointcloud", rclcpp::SensorDataQoS());
 
   using std::placeholders::_1;
   // if pointcloud target frame specified, we need to filter by transform availability
@@ -160,6 +152,7 @@ void PointCloudToLaserScanNode::cloudCallback(
   sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg)
 {
   auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+  pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed, pcl_cloud_filtered;
 
 
   // Transform cloud if necessary
@@ -194,16 +187,16 @@ void PointCloudToLaserScanNode::cloudCallback(
     q_new.setRPY(roll, pitch, 0);
     noattitude_transform.transform.rotation = tf2::toMsg(q_new);
       
-    pcl::PointCloud<pcl::PointXYZ> pcl_cloud, pcl_cloud_transformed;
     pcl::fromROSMsg(*cloud_msg, pcl_cloud);
 
     pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, noattitude_transform);
 
+    PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed, min_height_shortrange_,pcl_cloud_filtered);
 
-    pcl::toROSMsg(pcl_cloud_transformed, *cloud);
-
+    //pcl::toROSMsg(pcl_cloud_transformed, *cloud);
+    pcl::toROSMsg(pcl_cloud_filtered,*cloud);
     
-
+    //here, cloud_msg (ROS PointCLoud) and pcl_cloud_transformed (pcl XYZI pointcloud) have the same information
     cloud_msg = cloud;
 
 
@@ -212,6 +205,8 @@ void PointCloudToLaserScanNode::cloudCallback(
     return;
   }
   //}
+
+  
   auto short_scan_msg = PointCloudToLaserScanNode::computeLaserScan(
     cloud_msg, range_min_, range_transition_, min_height_shortrange_, max_height_shortrange_,
     angle_min_, angle_max_, angle_increment_, scan_time_, inf_epsilon_, use_inf_, target_frame_);
@@ -239,12 +234,97 @@ void PointCloudToLaserScanNode::cloudCallback(
   
   pub_OriginalPC_->publish(transformed_cloud);
   
-  pub_radialmap_->publish(std::move(radialMapVisual));
+  pub_radialmapVisual_->publish(std::move(radialMapVisual));
+  pub_radialmap_->publish(std::move(radialMap));
+
   pub_pc_->publish(merged_point_cloud);
   pub_->publish(std::move(merged_scan_msg));
   
   
 }
+
+void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height, pcl::PointCloud<pcl::PointXYZI> & cloud_out){
+
+    std::vector<int> indices;
+    pcl::removeNaNFromPointCloud(cloud_in, cloud_in, indices);
+
+    pcl::PointCloud<pcl::PointXYZI> filtered;
+    float min_intensity, max_intensity;
+    min_intensity = std::numeric_limits<float>::max();
+    max_intensity = std::numeric_limits<float>::lowest();
+
+    for (const auto& pt : cloud_in.points) {
+        if (!std::isfinite(pt.intensity)) continue;
+        if (pt.intensity < min_intensity) min_intensity = pt.intensity;
+        if (pt.intensity > max_intensity) max_intensity = pt.intensity;
+    }
+    float intensity_threshold = (max_intensity - min_intensity )*0.1 + min_intensity;
+    for (const auto& pt : cloud_in.points) {
+            if (pt.intensity >= intensity_threshold || pt.z >= min_height-3.0) { //remove points that are under the water and with low intensity water
+                filtered.points.push_back(pt);
+            }
+        }
+    filtered.width = filtered.points.size();
+    filtered.height = 1;
+    filtered.is_dense = true;
+
+    //pcl::PointCloud<pcl::PointXYZI>::Ptr filtered_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in));
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filtered_ptr(new pcl::PointCloud<pcl::PointXYZI>(filtered));
+        /*
+    pcl::RadiusOutlierRemoval<pcl::PointXYZI> outrem;
+    outrem.setInputCloud(filtered_ptr);
+    outrem.setRadiusSearch(0.45);  // Radius for neighbor search 0.8
+    outrem.setMinNeighborsInRadius(2);  // Keep points with >= 3 neighbors 3
+    outrem.filter(cloud_out);
+        */
+    auto output = PointCloudToLaserScanNode::adaptiveRadiusFilter(filtered_ptr, m_neighboursRadius_, b_neighboursRadius_, nr_neighbours_);
+    cloud_out=*output;
+
+  }
+
+
+
+pcl::PointCloud<pcl::PointXYZI>::Ptr  PointCloudToLaserScanNode::adaptiveRadiusFilter(
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
+  float scale , float min_radius ,             // Radius = scale * range
+  int min_neighbors )
+{
+  pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
+  
+  kdtree.setInputCloud(input_cloud);
+
+  std::vector<int> indices;
+  std::vector<float> distances;
+  float distance_to_origin, radius;
+
+  for (const auto& pt : input_cloud->points) {
+      //if (!pcl::isFinite(pt)) continue;
+
+      distance_to_origin = std::sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z);
+      radius = min_radius + (scale * distance_to_origin);
+      /*RCLCPP_INFO(
+        this->get_logger(),
+        "nr neighbours");
+      char buffer[64];
+      
+      int aux = kdtree.radiusSearch(pt, radius, indices, distances); 
+      int ret = snprintf(buffer, sizeof buffer, "%i", aux);
+        RCLCPP_INFO(
+          this->get_logger(),
+          buffer);*/
+      if (kdtree.radiusSearch(pt, radius, indices, distances) >= min_neighbors) {
+          output_cloud->points.push_back(pt);
+      }
+  }
+
+  output_cloud->width = output_cloud->points.size();
+  output_cloud->height = 1;
+  output_cloud->is_dense = true;
+
+  return output_cloud;
+}
+
 sensor_msgs::msg::LaserScan::UniquePtr PointCloudToLaserScanNode::computeLaserScan(
   const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg,
   double min_range,
@@ -371,7 +451,7 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     radialMapScan->header.frame_id = scan->header.frame_id;
     radialMapScan->angle_min = angle_min;
     radialMapScan->angle_max = angle_max;
-    radialMapScan->angle_increment = angle_increment;
+    radialMapScan->angle_increment = angle_increment; //big angle increment 
     radialMapScan->time_increment = scan->time_increment;
     radialMapScan->scan_time = scan->scan_time;
     radialMapScan->range_min = scan->range_min;
@@ -409,7 +489,7 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     radialMapScanVisual->header.frame_id = radialMapScan->header.frame_id;
     radialMapScanVisual->angle_min = angle_min;
     radialMapScanVisual->angle_max = angle_max;
-    radialMapScanVisual->angle_increment = scan->angle_increment;
+    radialMapScanVisual->angle_increment = scan->angle_increment; //fine course angle increment
     radialMapScanVisual->time_increment = scan->time_increment;
     radialMapScanVisual->scan_time = scan->scan_time;
     radialMapScanVisual->range_min = scan->range_min;

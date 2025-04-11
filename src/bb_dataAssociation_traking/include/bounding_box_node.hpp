@@ -32,7 +32,7 @@
 #include "pcl_ros/transforms.hpp"
 #include <pcl/filters/filter.h>
 #include <opencv2/core/types.hpp>
-
+#include <opencv2/imgproc.hpp> 
 
 
 

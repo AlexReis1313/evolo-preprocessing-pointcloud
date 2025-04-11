@@ -1,32 +1,36 @@
 cmake_minimum_required(VERSION 3.5)
 project(bb_dataass_tracking)
 
+# Auto finds dependencies declared in package.xml
 find_package(ament_cmake_auto REQUIRED)
-find_package(pcl_ros REQUIRED)
-find_package(OpenCV REQUIRED)
-find_package(cv_bridge REQUIRED)
-
-
-#find_package(laser_geometry REQUIRED)
-
-
-
 ament_auto_find_build_dependencies()
 
-ament_auto_add_library(bb_dataass_tracking SHARED 
-                  src/bounding_box_node.cpp
-                  src/RotatingCalipers.cpp
-                  src/kalmanFilter.cpp
-                  src/Hungarian.cpp)
+# Explicitly find OpenCV (you can use OpenCV4 if needed)
+find_package(OpenCV REQUIRED)
 
+# Add your library with all sources
+ament_auto_add_library(bb_dataass_tracking SHARED 
+    src/bounding_box_node.cpp
+    src/RotatingCalipers.cpp
+    src/kalmanFilter.cpp
+    src/Hungarian.cpp
+)
+
+# Link OpenCV to the library
+target_include_directories(bb_dataass_tracking PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(bb_dataass_tracking ${OpenCV_LIBS})
+
+# Register the component
 rclcpp_components_register_node(bb_dataass_tracking
   PLUGIN "bb_dataass_tracking::BoundingBoxNode"
-  EXECUTABLE bounding_box_node)  # ✅ Make sure the executable is created
+  EXECUTABLE bounding_box_node)
 
-ament_auto_add_executable(bounding_box_node_main src/main.cpp)  # ✅ Add main.cpp as an executable
+# Add the main executable
+ament_auto_add_executable(bounding_box_node_main src/main.cpp)
 
-#ament_target_dependencies(cv_bridge OpenCV)
-#ament_target_dependencies(pointcloud_to_laserscan_node laser_geometry)
+# Link OpenCV to the executable if needed
+target_include_directories(bounding_box_node_main PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(bounding_box_node_main ${OpenCV_LIBS})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -181,11 +181,11 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
 void BoundingBoxNode::computeMetrics(double& currentTime){
     
     double prediction_time = currentTime + metric_time_horizon;
-    for(auto const& trackedObject : trackedObjectsList){
-        Eigen::VectorXd predicted_state = trackedObject.kf.predictTheFuture(t);
+    for(auto& trackedObject : trackedObjectsList){
+        Eigen::VectorXd predicted_state = trackedObject.kf.predictTheFuture(metric_time_horizon);
         trackedObject.future_predictions.push_back({prediction_time, predicted_state});
          // If the queue has fewer than minimum number of elements to achieve first prediction in current time
-        if (trackedObject.predictionQueue.size() < 10*metric_time_horizon)
+        if (trackedObject.future_predictions.size() < 10*metric_time_horizon)
          continue;
         auto best_match = getPrediction(trackedObject, currentTime);
 
@@ -342,10 +342,10 @@ void BoundingBoxNode::updateKalmanFilters(){
     for(auto& trackedObject : trackedObjectsList){
         if (trackedObject.updateStepKF){
             cout << "updating a kf";
-            if (trackedObject.rectangle.width>trackedObject.rectangle.height){
+            /*if (trackedObject.rectangle.width>trackedObject.rectangle.height){
                 std::swap(trackedObject.rectangle.width,trackedObject.rectangle.height);
-                //should i change the angle?
-            }
+                trackedObject.rectangle.angle_width =  trackedObject.rectangle.angle_height;    //trackedObject.rectangle.angle_width-M_PI/2; //need to fix this
+                }*/
             z << trackedObject.rectangle.center.x, trackedObject.rectangle.center.y,  trackedObject.rectangle.height, trackedObject.rectangle.width, trackedObject.rectangle.angle_width;
             cout << z<<endl;
             trackedObject.kf.update(z);
@@ -750,6 +750,6 @@ width:1.43603, height:0.785398
     marker.color.g = 1.0;
     marker.color.b = 0.0;
     marker.color.a = 0.3;
-    //marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
+    marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
     return res;
 }
