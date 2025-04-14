@@ -10,11 +10,10 @@ This node uses an altered version of the pointcloud_to_laserscan package.
     ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_evolo.py 
 
 
-For alternative vehicle parameters, use:
-    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_boat.py 
-or:
-    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_sim.py 
+For alternative vehicle parameters, use one of the following options:
 
+    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_boat.py 
+    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_sim.py 
 
 
 
@@ -28,9 +27,13 @@ It has the following features:
 * Get the current Tf from a fixed world frame to the frame_id that publishes a PointCLoud2 message
 * Publishes a frame_id from the fixed world frame that has the same x,y,z,yaw as the PointCloud2 publisher's frame_id, and null roll and pitch.
 This new frame is published in sync with new Laser Scan messages. Laser Scan messages have this new frame as their frame_id.
-* Converts the 3D PointCloud messages into 2D LaserScan messages. The convertion is made with an extra step that is ment to filter the water surface that is seen in the PointCloud, for the EVolo Vehicle.
+* Converts the 3D PointCloud messages into 2D LaserScan messages. The convertion is made with several extra steps that filter the water surface and noise from the original PointCloud, in a surface maritime environment.
 
 # Filtering Technique
+
+In order to filter out noisy points in the PointCloud, an addaptive version of Radius Outlier Removal (ROR) is used.
+
+To filter out reflections seen in the water, points are removed if they land in low z coordinates and have a very low intensity in the XYZI pointcloud.
 
 In order to filter/segment out the water surface from the Point Cloud, eliminating all points below a certain height threshold makes use of the assumption that the roll and pitch estimation for the robot are correct.
 When these pitch and roll estimates have an associated error, this height threshold method eliminates a lot of important sections of the PoinCloud in long-range sections.
@@ -43,8 +46,22 @@ The 2 computed LaserSCans are:
 * Long-range LaserScan: It includes points in a big range of heights (for example: -8m to +8m), but is limited between a ´transition_range´ and a maximum range.
 * Short-range LaserScan: It includes points only above a certain height threshold, up until a ´transition_range´. It also considers a minimum range (for example: 1.5m) that eliminates the points belonging to the ego-vehicle.
 
+# Outputs
+
 Output LaserScan:
-* Merged LaserScan: Merges the 2 computed LaserScans, by only considering the minimum range measurement between the 2 for each laser beam.
+* Merged LaserScan: Merges the 2 computed LaserScans, by only considering the minimum range measurement between the 2 for each laser beam. Topic: `scanner/scan/merged`
+
+Output PointClouds:
+* Filtered PointCloud before conversion to LaserScan - Topic: `filtered_pointcloud`
+* PointCloud with same information as merged laserScan - Topic: `scanner/scan/pointcloud`
+
+Output real-time Map:
+
+LaserScan message that defines the range of the closest obstacle, for each angle interval (with big angle intervals in mind). This is meant to be passed as an array of ranges to a Obstacle avoidance algorithm. The data used to generate this message is the filtered and Merged LaserScan.
+* Map for Obstacle avoidance algorithm: `map/radial`
+* Same Map, but meant for RVIZ visualization: `map/radial/visual`
+
+
 
  
 
