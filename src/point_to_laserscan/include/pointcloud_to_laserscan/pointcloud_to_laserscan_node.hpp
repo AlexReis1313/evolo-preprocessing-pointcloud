@@ -152,9 +152,9 @@
  
    // ROS Parameters
    int input_queue_size_,nr_neighbours_;
-   std::string target_frame_, fixed_frame_, cloud_frame_;
+   std::string target_frame_, fixed_frame_, cloud_frame_,baseLink_frame_;
    double tolerance_;
-   double angle_visual_outputmap_, min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_, angle_increment_, scan_time_, range_min_,
+   double angle_visual_outputmap_, min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_,angle_min_map_, angle_max_map_, angle_increment_, scan_time_, range_min_,
    range_transition_, range_max_, inf_epsilon_,b_neighboursRadius_, m_neighboursRadius_;
    bool use_inf_;
 

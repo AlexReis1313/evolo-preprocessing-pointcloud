@@ -48,7 +48,7 @@ namespace pointcloud_to_laserscan
 PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions & options)
 : rclcpp::Node("pointcloud_to_laserscan", options)
 {
-
+  baseLink_frame_ = this->declare_parameter("base_link", "base_link");
   target_frame_ = this->declare_parameter("target_frame", "");
   fixed_frame_ =this->declare_parameter("fixed_frame", "");
   cloud_frame_=this->declare_parameter("cloud_frame", "");
@@ -59,8 +59,10 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
     "queue_size", static_cast<int>(std::thread::hardware_concurrency()));
   min_height_shortrange_ = this->declare_parameter("min_height_shortrange", std::numeric_limits<double>::min());
   max_height_shortrange_ = this->declare_parameter("max_height_shortrange", std::numeric_limits<double>::max());
-  angle_min_ = this->declare_parameter("angle_min", -M_PI);
-  angle_max_ = this->declare_parameter("angle_max", M_PI);
+  angle_min_ = this->declare_parameter("angle_min_laserscan", -M_PI);
+  angle_max_ = this->declare_parameter("angle_max_laserscan", M_PI);
+  angle_min_map_ = this->declare_parameter("angle_min_map", -M_PI/2);
+  angle_max_map_ = this->declare_parameter("angle_max_map", M_PI/2);
   angle_increment_ = this->declare_parameter("angle_increment", M_PI / 180.0);
   scan_time_ = this->declare_parameter("scan_time", 1.0 / 30.0);
   range_min_ = this->declare_parameter("range_min", 0.0);
@@ -152,17 +154,18 @@ void PointCloudToLaserScanNode::cloudCallback(
   sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg)
 {
   auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-  pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed, pcl_cloud_filtered;
+  pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed,pcl_cloud_transformed2, pcl_cloud_filtered;
 
 
   // Transform cloud if necessary
   //if (target_frame_ != cloud_msg->header.frame_id) {
   try {
     
-    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform;
+    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform,transform_cloud2base;
+    
+    transform_stamped = tf2_->lookupTransform(fixed_frame_, baseLink_frame_, tf2::TimePointZero);
 
-
-    transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
+    transform_cloud2base = tf2_->lookupTransform(cloud_msg->header.frame_id, baseLink_frame_, tf2::TimePointZero);
     // adavanced version transform_stamped = tf2_->lookupTransform(fixed_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
     tf2::Quaternion q_orig, q_new;
     tf2::convert(transform_stamped.transform.rotation, q_orig);
@@ -170,7 +173,7 @@ void PointCloudToLaserScanNode::cloudCallback(
     double roll, pitch, yaw;
     tf2::Matrix3x3(q_orig).getRPY(roll, pitch, yaw);
 
-    q_new.setRPY(0, 0, yaw);
+    q_new.setRPY(0, 0, yaw );
 
     noattitude_transform.header.stamp = cloud_msg->header.stamp;
     noattitude_transform.header.frame_id = fixed_frame_;
@@ -180,18 +183,19 @@ void PointCloudToLaserScanNode::cloudCallback(
     noattitude_transform.transform.translation.z = transform_stamped.transform.translation.z;
     noattitude_transform.transform.rotation = tf2::toMsg(q_new);
 
-    tf_broadcaster_->sendTransform(noattitude_transform);
+    tf_broadcaster_->sendTransform(noattitude_transform); //this transform is rotated by 180 degrees by the z axis wrt the original pointcloud frame_id
     noattitude_transform.transform.translation.x =0;
     noattitude_transform.transform.translation.y =0;
     noattitude_transform.transform.translation.z =0;
-    q_new.setRPY(roll, pitch, 0);
+    q_new.setRPY(roll, pitch, 0 );
     noattitude_transform.transform.rotation = tf2::toMsg(q_new);
       
     pcl::fromROSMsg(*cloud_msg, pcl_cloud);
+    pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform_cloud2base);
 
-    pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, noattitude_transform);
-
-    PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed, min_height_shortrange_,pcl_cloud_filtered);
+    pcl_ros::transformPointCloud(pcl_cloud_transformed, pcl_cloud_transformed2, noattitude_transform);
+   
+    PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed2, min_height_shortrange_,pcl_cloud_filtered);
 
     //pcl::toROSMsg(pcl_cloud_transformed, *cloud);
     pcl::toROSMsg(pcl_cloud_filtered,*cloud);
@@ -226,7 +230,7 @@ void PointCloudToLaserScanNode::cloudCallback(
   Laser2PCprojector_.projectLaser(*merged_scan_msg, merged_point_cloud);
 
   //auto clustered_point_cloud = PointCloudToLaserScanNode::DbscanCluster(merged_scan_msg, height_2dscan)
-  auto [radialMap, radialMapVisual] = PointCloudToLaserScanNode::LaserScan2radialMap(merged_scan_msg, angle_min_, angle_max_, angle_visual_outputmap_);
+  auto [radialMap, radialMapVisual] = PointCloudToLaserScanNode::LaserScan2radialMap(merged_scan_msg, angle_min_map_, angle_max_map_, angle_visual_outputmap_);
 
 
   sensor_msgs::msg::PointCloud2 transformed_cloud = *cloud_msg; // Create a modifiable copy
@@ -354,6 +358,9 @@ scan_msg->scan_time = scan_time;
 scan_msg->range_min = min_range;
 scan_msg->range_max = max_range;
 
+//angle_min += M_PI; //because the filtered point cloud frame is rotated by 180 degrees in relation to the cloud msg frame
+//angle_max += M_PI;
+
 // determine amount of rays to create
 uint32_t ranges_size = std::ceil(
   (scan_msg->angle_max - scan_msg->angle_min) / scan_msg->angle_increment);
@@ -456,6 +463,18 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     radialMapScan->scan_time = scan->scan_time;
     radialMapScan->range_min = scan->range_min;
     radialMapScan->range_max = scan->range_max;
+
+
+    radialMapScanVisual->header = radialMapScan->header;
+    radialMapScanVisual->header.frame_id = radialMapScan->header.frame_id;
+    radialMapScanVisual->angle_min = angle_min;
+    radialMapScanVisual->angle_max = angle_max;
+    radialMapScanVisual->angle_increment = scan->angle_increment; //fine course angle increment
+    radialMapScanVisual->time_increment = scan->time_increment;
+    radialMapScanVisual->scan_time = scan->scan_time;
+    radialMapScanVisual->range_min = scan->range_min;
+    radialMapScanVisual->range_max = scan->range_max;
+
     
     // Compute the number of output radial map bins
     int number_of_cells = static_cast<int>((angle_max - angle_min) / angle_increment);
@@ -485,15 +504,7 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
         }
               
     }
-    radialMapScanVisual->header = radialMapScan->header;
-    radialMapScanVisual->header.frame_id = radialMapScan->header.frame_id;
-    radialMapScanVisual->angle_min = angle_min;
-    radialMapScanVisual->angle_max = angle_max;
-    radialMapScanVisual->angle_increment = scan->angle_increment; //fine course angle increment
-    radialMapScanVisual->time_increment = scan->time_increment;
-    radialMapScanVisual->scan_time = scan->scan_time;
-    radialMapScanVisual->range_min = scan->range_min;
-    radialMapScanVisual->range_max = scan->range_max;
+
     
     int visual_cells = static_cast<int>((angle_max - angle_min) / scan->angle_increment);
     radialMapScanVisual->ranges.resize(visual_cells, radialMapScan->range_max);

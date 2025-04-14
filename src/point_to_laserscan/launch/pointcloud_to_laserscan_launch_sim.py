@@ -24,8 +24,8 @@ def generate_launch_description():
                 'transform_tolerance': 0.01,
                 'min_height_longrange': -1.0, #-8 for real evolo
                 'max_height_longrange': 8.0,
-                'angle_min': -3.14159,  # -M_PI/2
-                'angle_max': 3.14159,  # M_PI/2
+                'angle_min_laserscan': -3.14159,  # -M_PI
+                'angle_max_laserscan': 3.14159,  # M_PI
                 'angle_increment': 0.003067,  # M_PI/360.0
                 'scan_time': 0.1,
                 'range_min': 1.5,
@@ -35,6 +35,9 @@ def generate_launch_description():
                 'min_height_shortrange': -0.2,
                 'max_height_shortrange': 6.0,
                 'range_transition': 20.0, #pi/6
+                'angle_increment_output_map': 0.2618, #pi/6 
+                'angle_min_map': -1.570795,  # -M_PI/2
+                'angle_max_map': 1.570795,  # M_PI/2
                 'minimum_radius_paramB': 0.05,#radius for neigbhours search for a point that is at a distance from the base_link = 0
                 'minimum_radius_paramM': 0.0125,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 2
