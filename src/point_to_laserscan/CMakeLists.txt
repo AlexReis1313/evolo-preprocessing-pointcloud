@@ -8,8 +8,6 @@ find_package(pcl_ros REQUIRED)
 
 ament_auto_find_build_dependencies()
 
-ament_auto_add_library(laserscan_to_pointcloud SHARED
-  src/laserscan_to_pointcloud_node.cpp)
 
 ament_auto_add_library(pointcloud_to_laserscan SHARED
   src/pointcloud_to_laserscan_node.cpp)

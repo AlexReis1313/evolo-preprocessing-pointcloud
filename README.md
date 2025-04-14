@@ -7,7 +7,13 @@ This node uses an altered version of the pointcloud_to_laserscan package.
     cd /evolo-preprocessing-pointcloud/
     colcon build
     source the workspace
-    ros2 launch pointcloud_to_laserscan sample_pointcloud_to_laserscan_launch.py 
+    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_evolo.py 
+
+
+For alternative vehicle parameters, use:
+    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_boat.py 
+or:
+    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_sim.py 
 
 
 

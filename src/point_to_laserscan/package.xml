@@ -2,13 +2,17 @@
 <package format="2">
     <name>pointcloud_to_laserscan</name>
     <version>2.0.1</version>
-    <description>Converts a 3D Point Cloud into a 2D laser scan. This is useful for making devices like the Kinect appear like a laser scanner for 2D-based algorithms (e.g. laser-based SLAM).</description>
+    <description>Filters a raw 3D PointCloud for a maritime environment with noisy points from water detection. Converts the filtered 3D Point Cloud into a 2D laser scan.</description>
 
+    <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
     <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
     <maintainer email="michel@ekumenlabs.com">Michel Hidalgo</maintainer>
+    <author email="apldar@kth.se">Alexandre Reis</author>
+
     <author email="paul@bovbel.com">Paul Bovbel</author>
     <author email="michel@ekumenlabs.com">Michel Hidalgo</author>
-    <author>Tully Foote</author>
+    <author>Tully Foote</author>.
+
 
     <license>BSD</license>
 
