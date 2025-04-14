@@ -1,7 +1,6 @@
 # ROS2 Humble Lidar Point Cloud Pre-process node
 This node uses an altered version of the pointcloud_to_laserscan package.
 
-Youtube examples of this Package: https://www.youtube.com/playlist?list=PLS_kAMaDCf634gqgQ6XRzQY9NJVkBzv5d
 # Build and Run
 
     git clone https://github.com/AlexReis1313/evolo-preprocessing-pointcloud.git
@@ -17,6 +16,9 @@ For alternative vehicle parameters, use one of the following options:
     ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_sim.py 
 
 
+# Youtube examples of this Package
+
+https://www.youtube.com/playlist?list=PLS_kAMaDCf634gqgQ6XRzQY9NJVkBzv5d
 
 # ROS 2 pointcloud_to_laserscan package
 This is a ROS 2 package that provides components to convert `sensor_msgs/msg/PointCloud2` messages to `sensor_msgs/msg/LaserScan` messages and back.
