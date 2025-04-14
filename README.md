@@ -62,6 +62,12 @@ LaserScan message that defines the range of the closest obstacle, for each angle
 * Same Map, but meant for RVIZ visualization: `map/radial/visual`
 
 
+# Output visualization
+* Blue: original PointCloud
+* White: Merged/filtered LaserScan `scanner/scan/merged`
+* Brown: Output real-time Map `map/radial/visual`
+
+![image](https://github.com/user-attachments/assets/fd6dd3da-37b4-4103-a2f2-987a9ca6c0b6)
 
  
 
