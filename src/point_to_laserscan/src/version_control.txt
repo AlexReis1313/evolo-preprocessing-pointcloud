@@ -1,0 +1,55 @@
+auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+  auto cloudREJ = std::make_shared<sensor_msgs::msg::PointCloud2>();
+
+  pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed,pcl_cloud_transformed2, pcl_cloud_filtered, rejected_pointcloud;
+
+  // Transform cloud if necessary
+  //if (targetframe != cloud_msg->header.frame_id) {
+  try {
+
+    geometry_msgs::msg::TransformStamped transform_stamped, noattitude_transform,transform_cloud2base;
+
+    transform_stamped = tf2_->lookupTransform(params_->fixed_frame_, params_->baseLink_frame_, tf2::TimePointZero);
+
+    transform_cloud2base = tf2_->lookupTransform(cloud_msg->header.frame_id, params_->baseLink_frame_, tf2::TimePointZero);
+    // adavanced version transformstamped = tf2->lookupTransform(fixedframe, cloud_msg->header.frame_id, tf2::TimePointZero);
+    tf2::Quaternion q_orig, q_new;
+    tf2::convert(transform_stamped.transform.rotation, q_orig);
+
+    double roll, pitch, yaw;
+    tf2::Matrix3x3(q_orig).getRPY(roll, pitch, yaw);
+
+    q_new.setRPY(0, 0, yaw );
+
+    noattitude_transform.header.stamp = cloud_msg->header.stamp;
+    noattitude_transform.header.frame_id = params_->fixed_frame_;
+    noattitude_transform.child_frame_id = params_->target_frame_;
+    noattitude_transform.transform.translation.x = transform_stamped.transform.translation.x;
+    noattitude_transform.transform.translation.y = transform_stamped.transform.translation.y;
+    noattitude_transform.transform.translation.z = transform_stamped.transform.translation.z;
+    noattitude_transform.transform.rotation = tf2::toMsg(q_new);
+
+    tf_broadcaster_->sendTransform(noattitude_transform); //this transform is rotated by 180 degrees by the z axis wrt the original pointcloud frame_id
+    noattitude_transform.transform.translation.x =0;
+    noattitude_transform.transform.translation.y =0;
+    noattitude_transform.transform.translation.z =0;
+    q_new.setRPY(roll, pitch, 0 );
+    noattitude_transform.transform.rotation = tf2::toMsg(q_new);
+
+    pcl::fromROSMsg(*cloud_msg, pcl_cloud);
+    pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform_cloud2base);
+
+    pcl_ros::transformPointCloud(pcl_cloud_transformed, pcl_cloud_transformed2, noattitude_transform);
+
+    PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed2, params_->min_height_shortrange_,pcl_cloud_filtered, rejected_pointcloud);
+
+    pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
+    pcl::toROSMsg(pcl_cloud_filtered,*cloud);
+
+    //here, cloud_msg (ROS PointCLoud) and pcl_cloud_transformed (pcl XYZI pointcloud) have the same information
+    cloud_msg = cloud;
+
+  } catch (tf2::TransformException & ex) {
+    RCLCPP_ERROR_STREAM(this->get_logger(), "Transform failure: " << ex.what());
+    return;
+  }

@@ -149,7 +149,7 @@ private:
     sensor_msgs::msg::PointCloud2::SharedPtr last_3Dcloud_;
     bool has_received_3dcloud_=false;
     bool draw_height_=false;
-    std::string fixed_frame_="map_gt";
+    std::string fixed_frame_="odom";
 
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;

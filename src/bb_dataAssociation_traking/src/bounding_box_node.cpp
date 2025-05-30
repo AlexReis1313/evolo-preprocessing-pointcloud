@@ -253,22 +253,22 @@ TimedPrediction BoundingBoxNode::getPrediction(objectTracker& object, double& cu
 }
 float BoundingBoxNode::computeIoU(float x1, float y1, float len1, float wid1, float angle1,
     float x2, float y2, float len2, float wid2, float angle2) {
-cv::RotatedRect rect1(cv::Point2f(x1, y1), cv::Size2f(len1, wid1), angle1);
-cv::RotatedRect rect2(cv::Point2f(x2, y2), cv::Size2f(len2, wid2), angle2);
+    cv::RotatedRect rect1(cv::Point2f(x1, y1), cv::Size2f(len1, wid1), angle1);
+    cv::RotatedRect rect2(cv::Point2f(x2, y2), cv::Size2f(len2, wid2), angle2);
 
-std::vector<cv::Point2f> intersection;
-float intersection_area = (float)cv::rotatedRectangleIntersection(rect1, rect2, intersection) == cv::INTERSECT_FULL ? //? meaning: condition? return if true : return if false;
-  cv::contourArea(intersection) : 0.0f;
+    std::vector<cv::Point2f> intersection;
+    float intersection_area = (float)cv::rotatedRectangleIntersection(rect1, rect2, intersection) == cv::INTERSECT_FULL ? //? meaning: condition? return if true : return if false;
+    cv::contourArea(intersection) : 0.0f;
 
-float area1 = len1 * wid1;
-float area2 = len2 * wid2;
-float union_area = area1 + area2 - intersection_area;
+    float area1 = len1 * wid1;
+    float area2 = len2 * wid2;
+    float union_area = area1 + area2 - intersection_area;
 
-if (union_area > 0.0f) {
-    return intersection_area / union_area;
-} else {
-    return 0.0f;
-}
+    if (union_area > 0.0f) {
+            return intersection_area / union_area;
+        } else {
+            return 0.0f;
+        }
 }
 
 

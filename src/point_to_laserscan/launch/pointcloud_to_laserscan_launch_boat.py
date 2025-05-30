@@ -12,16 +12,20 @@ def generate_launch_description():
             description='Namespace for sample topics'
         ),
        
-       
+       Node(
+            package='pointcloud_to_laserscan', executable='base_footprint_publisher',
+            parameters=[{'use_sim_time': True}],
+            name='base_footprint_publisher_node'
+        ),
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
             remappings=[('cloud_in', 'ouster/points'),
-                        ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/merged'])],
+                        ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/filtered'])],
 
             parameters=[{
                 'use_sim_time': True,  # Enable simulation time
                 'base_link': 'base_link',
-                'target_frame': 'laser_scan_frame',
+                'target_frame': 'base_footprint',
                 'fixed_frame': 'odom',
                 'cloud_frame': 'os_sensor',             
                 'transform_tolerance': 0.01,
@@ -44,9 +48,11 @@ def generate_launch_description():
                 'angle_max_map': 1.570795,  # M_PI/2
                 # Radius Outlier Removal (ROR) filtering parameters
                 'minimum_radius_paramB': 0.05,#radius for neigbhours search for a point that is at a distance from the base_link = 0
-                'minimum_radius_paramM': 0.0125,#relationship of radisus of neighbours serach with distance of point to base_link
-                'minimum_neighbours': 3 
+                'minimum_radius_paramM': 0.05, #0.016,#relationship of radisus of neighbours serach with distance of point to base_link
+                'minimum_neighbours': 2,
+                'filter_by_intensity': False
+
             }],
-            name='pointcloud_to_laserscan_merged'
+            name='pointcloud_preprocessing_filtering'
         )
     ])

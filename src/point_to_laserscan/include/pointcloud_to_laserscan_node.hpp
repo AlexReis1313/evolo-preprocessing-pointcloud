@@ -58,7 +58,7 @@
  #include "sensor_msgs/msg/laser_scan.hpp"
  #include "sensor_msgs/msg/point_cloud2.hpp"
  
- #include "pointcloud_to_laserscan/visibility_control.h"
+ #include "visibility_control.h"
  #include "laser_geometry/laser_geometry.hpp"
  #include <chrono>
  #include <functional>
@@ -83,6 +83,8 @@
 #include <pcl/point_types.h>
 
 
+#include "filtering_params.hpp"
+
  namespace pointcloud_to_laserscan
  {
  typedef tf2_ros::MessageFilter<sensor_msgs::msg::PointCloud2> MessageFilter;
@@ -105,25 +107,14 @@
    void subscriptionListenerThreadLoop();
    sensor_msgs::msg::LaserScan::UniquePtr mergeLaserScans(const sensor_msgs::msg::LaserScan::UniquePtr & short_scan,
      sensor_msgs::msg::LaserScan::UniquePtr && long_scan);
-   sensor_msgs::msg::LaserScan::UniquePtr computeLaserScan(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg,
-     double min_range,
-     double max_range,
-     double min_height,
-     double max_height,
-     double angle_min,
-     double angle_max,
-     double angle_increment,
-     double scan_time,
-     double inf_epsilon,
-     bool use_inf,
-     std::string target_frame);
-     std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
-        LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan, 
-                    double angle_min, double angle_max, double angle_increment);
-    void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in,
+   sensor_msgs::msg::LaserScan::UniquePtr computeLaserScan(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg);
+
+    std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
+        LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan);
+  void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in,
                     const double & min_height,
-                    pcl::PointCloud<pcl::PointXYZI> & cloud_out);
-    pcl::PointCloud<pcl::PointXYZI>::Ptr  adaptiveRadiusFilter(
+                    pcl::PointCloud<pcl::PointXYZI> & cloud_out,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ);
+  std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(
                       const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
                       float scale = 0.0125f, float min_radius = 0.05f,             // Radius = scale * range
                       int min_neighbors = 3);
@@ -137,6 +128,7 @@
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmapVisual_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_pc_;
    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_OriginalPC_;
+   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_REJ_;
 
 
    laser_geometry::LaserProjection Laser2PCprojector_;
@@ -151,13 +143,7 @@
    std::atomic_bool alive_{true};
  
    // ROS Parameters
-   int input_queue_size_,nr_neighbours_;
-   std::string target_frame_, fixed_frame_, cloud_frame_,baseLink_frame_;
-   double tolerance_;
-   double angle_visual_outputmap_, min_height_shortrange_, max_height_shortrange_, min_height_longrange_, max_height_longrange_, angle_min_, angle_max_,angle_min_map_, angle_max_map_, angle_increment_, scan_time_, range_min_,
-   range_transition_, range_max_, inf_epsilon_,b_neighboursRadius_, m_neighboursRadius_;
-   bool use_inf_;
-
+   std::unique_ptr<PointCloudToLaserScanParams> params_;
    
    
  };

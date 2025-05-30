@@ -10,17 +10,22 @@ def generate_launch_description():
             name='scanner', default_value='scanner',
             description='Namespace for sample topics'
         ),
-       
+       Node(
+            package='pointcloud_to_laserscan', executable='base_footprint_publisher',
+            parameters=[{'use_sim_time': True}],
+            name='base_footprint_publisher_node'
+        ),
        
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
-            remappings=[('cloud_in', '/Evolo/Lidar/LowRes'),
-                        ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/merged'])],
+            remappings=[('cloud_in', '/Evolo/Lidar/HighRes'),
+                        ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/filtered'])],
             parameters=[{
                 'use_sim_time':False,
-                'target_frame': 'laser_scan_frame',
+                'target_frame': 'base_footprint',
                 'fixed_frame': 'map_gt',
-                'cloud_frame': 'Evolo/lidar_link_gt',             
+                'cloud_frame': 'Evolo/lidar_link_gt',      
+                'base_link': 'Evolo/base_link_gt',
                 'transform_tolerance': 0.01,
                 'min_height_longrange': -1.0, #-8 for real evolo
                 'max_height_longrange': 8.0,
@@ -40,8 +45,10 @@ def generate_launch_description():
                 'angle_max_map': 1.570795,  # M_PI/2
                 'minimum_radius_paramB': 0.05,#radius for neigbhours search for a point that is at a distance from the base_link = 0
                 'minimum_radius_paramM': 0.0125,#relationship of radisus of neighbours serach with distance of point to base_link
-                'minimum_neighbours': 2
+                'minimum_neighbours': 2,
+                'filter_by_intensity': False
+
             }],
-            name='pointcloud_to_laserscan_merged'
+            name='pointcloud_preprocessing_filtering'
         )
     ])
