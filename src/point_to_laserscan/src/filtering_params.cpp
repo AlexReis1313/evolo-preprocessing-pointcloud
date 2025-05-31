@@ -51,6 +51,15 @@ PointCloudToLaserScanParams::PointCloudToLaserScanParams(rclcpp::Node* node)
     nr_neighbours_ = node->declare_parameter("minimum_neighbours", 3);
     filterBy_intensity_= node->declare_parameter("filter_by_intensity", false);
 
+    //time decay to accumulate pc
+    timeDecay_= node->declare_parameter("time_decay", 2.0);
+
+    //ransac parameters
+    ransac_range_candidates_ =node->declare_parameter("ransac_range_candidates", 30.0);
+    ransac_height_candidates_=node->declare_parameter("ransac_height_candidates", 1.0);
+    ransac_threshold_inliers_=node->declare_parameter("ransac_threshold_inliers", 0.3);
+    ransac_filter_height_ =node->declare_parameter("ransac_filter_height", 0.5);
+
 }
 
 void PointCloudToLaserScanParams::setUpParamsShortRange(){

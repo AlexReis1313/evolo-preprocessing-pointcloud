@@ -67,6 +67,7 @@
  #include <string>
  #include <thread>
  #include <utility>
+ #include <deque>
  
  #include "sensor_msgs/point_cloud2_iterator.hpp"
  #include "tf2_sensor_msgs/tf2_sensor_msgs.hpp"
@@ -81,6 +82,12 @@
  #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/filters/passthrough.h>
+
 
 
 #include "filtering_params.hpp"
@@ -96,55 +103,78 @@
  class PointCloudToLaserScanNode : public rclcpp::Node
  {
  public:
-   POINTCLOUD_TO_LASERSCAN_PUBLIC
-   explicit PointCloudToLaserScanNode(const rclcpp::NodeOptions & options);
+  POINTCLOUD_TO_LASERSCAN_PUBLIC
+  explicit PointCloudToLaserScanNode(const rclcpp::NodeOptions & options);
  
-   ~PointCloudToLaserScanNode() override;
+  ~PointCloudToLaserScanNode() override;
  
  private:
-   void cloudCallback(sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg);
- 
-   void subscriptionListenerThreadLoop();
-   sensor_msgs::msg::LaserScan::UniquePtr mergeLaserScans(const sensor_msgs::msg::LaserScan::UniquePtr & short_scan,
-     sensor_msgs::msg::LaserScan::UniquePtr && long_scan);
-   sensor_msgs::msg::LaserScan::UniquePtr computeLaserScan(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg);
 
-    std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
-        LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan);
-  void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in,
-                    const double & min_height,
-                    pcl::PointCloud<pcl::PointXYZI> & cloud_out,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ);
-  std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
-                      float scale = 0.0125f, float min_radius = 0.05f,             // Radius = scale * range
+  struct TimedCloud { //this is needed because pcl clouds do not save the time stamp form the ros msg
+        rclcpp::Time timestamp;
+        pcl::PointCloud<pcl::PointXYZI>::Ptr cloud;
+        double counter; //it is a double because it will be compared to a double
+  TimedCloud(const rclcpp::Time& ts, const pcl::PointCloud<pcl::PointXYZI>::Ptr& cld)
+      : timestamp(ts), cloud(cld) {
+        counter=0.0;
+      }
+  };
+
+  std::deque<TimedCloud> clouds_queu_laserscan_;
+  std::deque<TimedCloud> clouds_queu_projectedPc_;
+
+  void cloudCallback(sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg);
+ 
+  void subscriptionListenerThreadLoop();
+  sensor_msgs::msg::LaserScan::UniquePtr mergeLaserScans(const sensor_msgs::msg::LaserScan::UniquePtr & short_scan, sensor_msgs::msg::LaserScan::UniquePtr && long_scan);
+  sensor_msgs::msg::LaserScan::UniquePtr computeLaserScan(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg);
+  std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan);
+  void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height,pcl::PointCloud<pcl::PointXYZI> & cloud_out,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ);
+  std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,float scale = 0.0125f, float min_radius = 0.05f,            // Radius = scale * range
                       int min_neighbors = 3);
  
-   std::unique_ptr<tf2_ros::Buffer> tf2_;
-   std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
-   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
-   message_filters::Subscriber<sensor_msgs::msg::PointCloud2> sub_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmap_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmapVisual_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_pc_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_OriginalPC_;
-   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_REJ_;
+  void project(pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_projected);
+  void accumulate(
+    const pcl::PointCloud<pcl::PointXYZI> & cloud_in,
+    pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
+    const rclcpp::Time & currentTime,
+    const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,
+    geometry_msgs::msg::TransformStamped & inverse_world_fix_transform, std::deque<TimedCloud> cloud_queue);
+  void detectWaterPlane(
+    const pcl::PointCloud<pcl::PointXYZI> &cloud_in,
+    pcl::PointCloud<pcl::PointXYZI>::Ptr &plane_inliers_output,
+    Eigen::Vector4f &plane_equation_output)
 
+  std::unique_ptr<tf2_ros::Buffer> tf2_;
+  std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+  message_filters::Subscriber<sensor_msgs::msg::PointCloud2> sub_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmap_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_radialmapVisual_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_pc_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_OriginalPC_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_REJ_;                                                       
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_projectedPC_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_accumulatedPC_laserscan_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_projected_AccumulatedPC_;
 
-   laser_geometry::LaserProjection Laser2PCprojector_;
-
-
-   //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
-   //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_long_;
  
-   std::unique_ptr<MessageFilter> message_filter_;
- 
-   std::thread subscription_listener_thread_;
-   std::atomic_bool alive_{true};
- 
-   // ROS Parameters
-   std::unique_ptr<PointCloudToLaserScanParams> params_;
-   
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
+
+  laser_geometry::LaserProjection Laser2PCprojector_;
+
+
+  //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_short_;
+  //std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>> pub_long_;
+
+  std::unique_ptr<MessageFilter> message_filter_;
+  std::thread subscription_listener_thread_;
+  std::atomic_bool alive_{true};
+
+  // ROS Parameters
+  std::unique_ptr<PointCloudToLaserScanParams> params_;
+  
    
  };
  

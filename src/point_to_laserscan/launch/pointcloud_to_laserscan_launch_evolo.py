@@ -31,7 +31,7 @@ def generate_launch_description():
                 'fixed_frame': 'odom',
                 'cloud_frame': 'os_sensor',             
                 'transform_tolerance': 0.01,
-                'min_height_longrange': -8.0,
+                'min_height_longrange': -3.0,
                 'max_height_longrange': 3.0,
                 'angle_min_laserscan': -3.14159,  # -M_PI
                 'angle_max_laserscan': 3.14159,  # M_PI
@@ -41,18 +41,24 @@ def generate_launch_description():
                 'range_max': 5000.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
-                'min_height_shortrange': -0.3,
+                'min_height_shortrange':1.0, #-0.1,
                 'max_height_shortrange': 3.0,
-                'range_transition': 15.0,
+                'range_transition': 30.0, #15
                 #for radial map output:
                 'angle_increment_output_map': 0.2618, #pi/6 
                 'angle_min_map': -1.570795,  # -M_PI/2
                 'angle_max_map': 1.570795,  # M_PI/2
                 # Radius Outlier Removal (ROR) filtering parameters
-                'minimum_radius_paramB': 0.05,#radius for neigbhours search for a point that is at a distance from the base_link = 0
-                'minimum_radius_paramM': 0.0125,#relationship of radisus of neighbours serach with distance of point to base_link
+                'minimum_radius_paramB': 0.03,#radius for neigbhours search for a point that is at a distance from the base_link = 0
+                'minimum_radius_paramM': 0.01,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 2 ,
-                'filter_by_intensity': False
+                'filter_by_intensity': False,
+                'time_decay': 0.9,
+                #Ransac params
+                'ransac_range_candidates': 30.0,
+                'ransac_height_candidates':1.5,
+                'ransac_threshold_inliers': 0.3,
+                'ransac_filter_height': 0.5
             }],
             name='pointcloud_preprocessing_filtering'
         )

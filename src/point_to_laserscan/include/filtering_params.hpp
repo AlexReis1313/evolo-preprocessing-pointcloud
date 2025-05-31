@@ -64,6 +64,15 @@ public:
     int nr_neighbours_;
     bool filterBy_intensity_;
 
+    //time decay to accumulate pc
+    double timeDecay_;
+
+    //ransac params
+    double ransac_range_candidates_ ;
+    double ransac_height_candidates_;
+    double ransac_threshold_inliers_;
+    double ransac_filter_height_ ;
+
 };
 
 }  // namespace pointcloud_to_laserscan
