@@ -14,7 +14,11 @@ def generate_launch_description():
        
         Node(
             package='pointcloud_to_laserscan', executable='base_footprint_publisher',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': True,
+                         'base_link': 'base_link',
+                         'target_frame': 'base_footprint',
+                         'fixed_frame': 'odom'
+                         }],
             name='base_footprint_publisher_node'
         ),
         
@@ -31,7 +35,7 @@ def generate_launch_description():
                 'fixed_frame': 'odom',
                 'cloud_frame': 'os_sensor',             
                 'transform_tolerance': 0.01,
-                'min_height_longrange': -6.0,
+                'min_height_longrange': -5.0,
                 'max_height_longrange': 6.0,
                 'angle_min_laserscan': -3.14159,  # -M_PI
                 'angle_max_laserscan': 3.14159,  # M_PI
@@ -41,7 +45,7 @@ def generate_launch_description():
                 'range_max': 5000.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
-                'min_height_shortrange':-3.0, #-0.1,
+                'min_height_shortrange':-0.2, #-0.1,
                 'max_height_shortrange': 4.0,
                 'range_transition': 30.0, #15
                 #for radial map output:
@@ -50,18 +54,18 @@ def generate_launch_description():
                 'angle_max_map': 1.570795,  # M_PI/2
                 # Radius Outlier Removal (ROR) filtering parameters
                 'minimum_radius_paramB': 0.03, #0.03,#radius for neigbhours search for a point that is at a distance from the base_link = 0
-                'minimum_radius_paramM': 0.02,#relationship of radisus of neighbours serach with distance of point to base_link
+                'minimum_radius_paramM': 0.01,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 2 ,
                 'filter_by_intensity': False,
-                'time_decay': 0.9,
+                'time_decay': 1.5,
                 #Ransac params
-                'ransac_range_candidates': 40.0,
-                'ransac_Maxheight_candidates':-0.2,
-                'ransac_Minheight_candidates':-3.5,
+                'ransac_range_candidates': 15.0,
+                'ransac_Maxheight_candidates':0.5,
+                'ransac_Minheight_candidates':-1.5,
                 'use_Ransac': True,
                 'ransac_threshold_inliers': 0.2,
-                'ransac_filter_height': 0.6
+                'ransac_filter_height': 0.5
             }],
-            name='pointcloud_preprocessing_filtering'
+            name=''
         )
     ])

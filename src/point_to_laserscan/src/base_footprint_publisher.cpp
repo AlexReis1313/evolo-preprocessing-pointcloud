@@ -11,6 +11,10 @@ class BaseFootprintPublisher : public rclcpp::Node
 public:
     BaseFootprintPublisher() : Node("base_footprint_publisher")
     {
+        baseLink_frame_ = this->declare_parameter("base_link", "base_link");
+        target_frame_ = this->declare_parameter("target_frame", "");
+        fixed_frame_ = this->declare_parameter("fixed_frame", "");
+        
         // Initialize tf2 buffer and listener
         tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
         tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
@@ -33,18 +37,19 @@ private:
         {
             // Get transform from odom to base_link
             geometry_msgs::msg::TransformStamped transform = 
-                tf_buffer_->lookupTransform("odom", "base_link", tf2::TimePointZero);
-            
+                tf_buffer_->lookupTransform(this->fixed_frame_, this->baseLink_frame_, tf2::TimePointZero);
+                                            //odom          base_link
+
             // Create new transform for base_footprint
             geometry_msgs::msg::TransformStamped base_footprint_transform;
-            base_footprint_transform.header.stamp = this->get_clock()->now();
-            base_footprint_transform.header.frame_id = "odom";
-            base_footprint_transform.child_frame_id = "base_footprint";
+            base_footprint_transform.header.stamp = transform.header.stamp;
+            base_footprint_transform.header.frame_id = this->fixed_frame_; //odom
+            base_footprint_transform.child_frame_id = this->target_frame_;//base_footprint
             
             // Copy x and y translation, set z to 0
             base_footprint_transform.transform.translation.x = transform.transform.translation.x;
             base_footprint_transform.transform.translation.y = transform.transform.translation.y;
-            base_footprint_transform.transform.translation.z = 0.0;
+            base_footprint_transform.transform.translation.z = transform.transform.translation.z;
             
             // Extract yaw from base_link orientation
             tf2::Quaternion base_link_quat(
@@ -82,6 +87,10 @@ private:
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
     std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
     rclcpp::TimerBase::SharedPtr timer_;
+    std::string baseLink_frame_;
+    std::string target_frame_;
+    std::string fixed_frame_;
+
 };
 
 int main(int argc, char * argv[])

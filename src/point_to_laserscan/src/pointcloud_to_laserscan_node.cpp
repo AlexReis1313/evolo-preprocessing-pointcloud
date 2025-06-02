@@ -27,6 +27,8 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   pub_projectedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected", rclcpp::SensorDataQoS());
   pub_projected_AccumulatedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected/accumulated", rclcpp::SensorDataQoS());
 
+  marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("estimatedWaterPlane", 10);
+
 
   using std::placeholders::_1;
   // if pointcloud target frame specified, we need to filter by transform availability
@@ -101,7 +103,8 @@ void PointCloudToLaserScanNode::subscriptionListenerThreadLoop()
 void PointCloudToLaserScanNode::cloudCallback(
     sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg)
 {
- 
+
+
   try {
       //init variables
       auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
@@ -115,14 +118,27 @@ void PointCloudToLaserScanNode::cloudCallback(
       // Convert ROS message to PCL point cloud
       // Transform point cloud to base_footprint frame
       pcl::fromROSMsg(*cloud_msg, pcl_cloud);
-      geometry_msgs::msg::TransformStamped transform = 
-          tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
-      pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
       
+      if(params_->simulation_mode_){
+
+        geometry_msgs::msg::TransformStamped transform = 
+            tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2_ros::fromMsg(cloud_msg->header.stamp));
+
+        pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
+
+
+      }else{ //normal evolo
+        geometry_msgs::msg::TransformStamped transform = 
+          tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
+        pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
+
+      }
+
+
       // Apply filtering: filters out points with negative z and low intensity (water reflections) and does adaptiveRadiusFilter
       //pcl_cloud_filtered is the output, rejected_pointcloud has all the points that were filtered out (for debug purposes)
       PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered, rejected_pointcloud);
-      
+
       // Convert back to ROS message and update headers to reflect the new frame
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
       pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
@@ -138,6 +154,7 @@ void PointCloudToLaserScanNode::cloudCallback(
       //long_scan_msg is a 2d laserscan of points in long range. In this range, small IMU attitude errors accumulate into big z coordinate diferences, so filtering for water reflections is much less agressive
       // merged_scan_msg merges short_scan_msg and long_scan_msg, taking closeste point from both of them, in each horizontal angle
       // merged_point_cloud has the same information as merged_scan_msg but in 3D Point cloud message format, instead of 2D laser scan. It still only has points in one horizonta plane
+
       params_->setUpParamsShortRange();
       auto short_scan_msg = PointCloudToLaserScanNode::computeLaserScan(cloud_msg);
       params_->setUpParamsLongRange();
@@ -145,6 +162,7 @@ void PointCloudToLaserScanNode::cloudCallback(
       auto merged_scan_msg = PointCloudToLaserScanNode::mergeLaserScans(short_scan_msg,  std::move(long_scan_msg));
       merged_scan_msg->header.stamp = cloud_msg->header.stamp;
       sensor_msgs::msg::PointCloud2 merged_point_cloud;
+
       Laser2PCprojector_.projectLaser(*merged_scan_msg, merged_point_cloud);  //https://wiki.ros.org/laser_geometry
 
 
@@ -153,22 +171,23 @@ void PointCloudToLaserScanNode::cloudCallback(
       // radialMapVisual has the same information of radialMap but includes much higher resolution, effectively representing each of the ~12 segments as an arc of points, all with the same range defined in radialMap
       // radialMapVisual is mostly used for RVIZ visualization
       // radialMap is used to communicate regions where obstacles are to the USV's path controller
+
       auto [radialMap, radialMapVisual] = PointCloudToLaserScanNode::LaserScan2radialMap(merged_scan_msg);
 
       //project the filtered and transformed to base_footprint cloud into the 2D horizontal place: used to test clustering methods
       //accumulate the merged_point_cloud over a time horizon, similar to rviz time decay - usefull to get more features to cluster with
       //accumulate the projected clouds over the same time window: used to test clustering methods
-      geometry_msgs::msg::TransformStamped world_fix_transform = 
-          tf2_->lookupTransform(params_->fixed_frame_,params_->target_frame_, tf2::TimePointZero);
-      geometry_msgs::msg::TransformStamped inverse_world_fix_transform = 
-          tf2_->lookupTransform(params_->target_frame_, params_->fixed_frame_,tf2::TimePointZero);
 
-      pcl::PointCloud<pcl::PointXYZI> cloud_projected2D, laserScanPC_timeDecay, cloud_projected2D_timeDecay,pcl_merged_cloud;
-      pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud);
+      geometry_msgs::msg::TransformStamped world_fix_transform = 
+          tf2_->lookupTransform(params_->fixed_frame_,params_->target_frame_, tf2::TimePointZero); //change this for real evolo 
+      geometry_msgs::msg::TransformStamped inverse_world_fix_transform = 
+          tf2_->lookupTransform(params_->target_frame_, params_->fixed_frame_,tf2::TimePointZero);//chang ethis for real_evolo
+      pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
+      pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
+      
       PointCloudToLaserScanNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
       PointCloudToLaserScanNode::project(pcl_cloud_filtered ,cloud_projected2D);
       PointCloudToLaserScanNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
-
       pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
       pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg); //debugging
       pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
@@ -183,7 +202,7 @@ void PointCloudToLaserScanNode::cloudCallback(
       cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
       cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
       
-
+   
       //publishing everything
       pub_OriginalPC_->publish(std::move(*cloud_msg));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));
@@ -202,6 +221,7 @@ void PointCloudToLaserScanNode::cloudCallback(
 }
 
 void PointCloudToLaserScanNode::project(pcl::PointCloud<pcl::PointXYZI> & cloud_in,pcl::PointCloud<pcl::PointXYZI> & cloud_out_projected){
+
   cloud_out_projected = cloud_in;
   for (auto& pt : cloud_out_projected.points) {
          pt.z = 0.0f;
@@ -212,22 +232,46 @@ void PointCloudToLaserScanNode::project(pcl::PointCloud<pcl::PointXYZI> & cloud_
   cloud_out_projected.is_dense = true;
 
 }
+/*
+void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
+    const rclcpp::Time & currentTime, const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,geometry_msgs::msg::TransformStamped & inverse_world_fix_transform ,std::deque<TimedCloud> cloud_queue){ 
+    // method receives Pcl:point clouds XYZI and converts them to XYZ to be able to call the main accumulate function
+    pcl::PointCloud<pcl::PointXYZI> converted_cloud;
+    converted_cloud.reserve(cloud_in.size());
 
+    for (const auto& pt : cloud_in.points) {
+        converted_cloud.emplace_back(pt.x, pt.y, pt.z);
+    }
+    converted_cloud.width = converted_cloud.size();
+    converted_cloud.height = 1;
+    converted_cloud.is_dense = cloud_in.is_dense;
+    accumulate(converted_cloud,cloud_out_accumulated,currentTime,time_decay,world_fix_transform,inverse_world_fix_transform, cloud_queue);
+
+    }*/
 
 void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
     const rclcpp::Time & currentTime, const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,geometry_msgs::msg::TransformStamped & inverse_world_fix_transform ,std::deque<TimedCloud> cloud_queue){ 
-  // Wrap input in a shared_ptr (PCL Ptr)
-  pcl::PointCloud<pcl::PointXYZI> cloud_in_transformed, cloud_out_untrasnformed;
-  pcl_ros::transformPointCloud(cloud_in, cloud_in_transformed, world_fix_transform);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in_transformed));
 
-  // Store with timestamp
-  cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
+  if (cloud_in.empty()) {
+    RCLCPP_WARN(this->get_logger(), "Input point cloud is empty, skipping transformation.");
+       
+  } else{
+    pcl::PointCloud<pcl::PointXYZI> cloud_in_transformed, cloud_out_untrasnformed;
+    pcl_ros::transformPointCloud(cloud_in, cloud_in_transformed, world_fix_transform); //making it crash process has died [pid 43347, exit code -8, 
+    
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in_transformed));
 
+    // Store with timestamp
+    cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
+
+  }
+
+ 
   // Remove clouds older than time_decay                                                     this counter is if time for some reason goes back, for example playing a rosbag in loop with use_sim_time true
   while (!cloud_queue.empty()  &&  (  ((currentTime - cloud_queue.front().timestamp).seconds() > time_decay)  ||   (cloud_queue.front().counter >  time_decay*10 )  ) ) {
             cloud_queue.pop_front();                                            
-        }                                                                                       
+        }    
+                                                                                 
   cloud_out_accumulated.clear();
 
   // Concatenate remaining clouds
@@ -235,7 +279,7 @@ void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI>
       cloud_out_accumulated += *(timed_cloud.cloud);
       timed_cloud.counter +=1.0; //double because it is compared to a double time_decay * 10Hz
   }
-  
+
   /* cloud_out_untrasnformed.clear();
 
   // Concatenate remaining clouds
@@ -249,11 +293,7 @@ void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI>
 
 
 }
-void detectWaterPlane(
-    const pcl::PointCloud<pcl::PointXYZI> &cloud_in,
-    pcl::PointCloud<pcl::PointXYZI>::Ptr &plane_inliers_out,
-    Eigen::Vector4f &plane_coefficients_out)
-{
+bool PointCloudToLaserScanNode::detectWaterPlane(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in, pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_out){
 
     //ransac_range_candidates_ ;
     // ransac_height_candidates_;
@@ -261,19 +301,23 @@ void detectWaterPlane(
     // ransac_filter_height_ ;
     // 1. Filter points within short range and low height - candidates for water (range ~ 30m, z < ~1m)
     pcl::PointCloud<pcl::PointXYZI>::Ptr ransac_candidates(new pcl::PointCloud<pcl::PointXYZI>());
-    for (const auto &pt : cloud_in.points)
+    pcl::PointCloud<pcl::PointXYZI>::Ptr ransac_non_candidates(new pcl::PointCloud<pcl::PointXYZI>());
+
+    for (const auto &pt : cloud_in->points)
     {
-        float range = std::sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z);
-        if (range < params_->ransac_range_candidates_ && pt.z < params_->ransac_height_candidates_)
+        float range = std::sqrt(pt.x * pt.x + pt.y * pt.y);
+        if (range > 1 && range < params_->ransac_range_candidates_ &&  pt.z < params_->ransac_Maxheight_candidates_ &&  pt.z > params_->ransac_Minheight_candidates_)
         {
             ransac_candidates->points.push_back(pt);
+        }else {
+          ransac_non_candidates->points.push_back(pt);
         }
     }
 
-    if (ransac_candidates.size()<3*3) 
+    if (ransac_candidates->size()<15)//we need 3 points to define plane, but we want at least a few inliers to know it is representative
     {
         std::cerr << "[detectGroundPlane] Not enought points found to estimate plane.\n";
-        return;
+        return false;
     }
 
     // 2. Set up RANSAC plane segmentation
@@ -281,42 +325,117 @@ void detectWaterPlane(
     pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
 
     pcl::SACSegmentation<pcl::PointXYZI> seg;
-    seg.setOptimizeCoefficients(true);
-    seg.setModelType(pcl::SACMODEL_PLANE);
+    seg.setOptimizeCoefficients(true); // this makes the coeficients be the least squares of all inliers
+    seg.setModelType(pcl::SACMODEL_PLANE); //modle to fit is a plane ax + by + cz + d = 0)
     seg.setMethodType(pcl::SAC_RANSAC);
-    seg.setDistanceThreshold(0.1);  // in meters
+    seg.setDistanceThreshold(params_->ransac_threshold_inliers_);  // in meters
     seg.setInputCloud(ransac_candidates);
-    seg.segment(*inliers, *coefficients);
+    seg.segment(*inliers, *coefficients); //performs ransac an Least Squares
 
-    if (inliers->indices.empty())
+    if (inliers->indices.size()<10)
     {
         std::cerr << "[detectGroundPlane] No plane inliers found.\n";
-        return;
+        return false;
     }
 
     // 3. Extract plane inliers
-    pcl::ExtractIndices<pcl::PointXYZI> extract;
+    /*pcl::ExtractIndices<pcl::PointXYZI> extract;
     plane_inliers_out.reset(new pcl::PointCloud<pcl::PointXYZI>());
     extract.setInputCloud(ransac_candidates);
     extract.setIndices(inliers);
     extract.setNegative(false);
-    extract.filter(*plane_inliers_out);
+    extract.filter(*plane_inliers_out);*/
+
+    pcl::PointCloud<pcl::PointXYZI>::Ptr outliers(new pcl::PointCloud<pcl::PointXYZI>);
+
+    // Create the extractor
+    pcl::ExtractIndices<pcl::PointXYZI> extract;
+    extract.setInputCloud(cloud_in);
+    extract.setIndices(inliers);
+    extract.setNegative(true);  // <-- This means extract *non-inliers* = outliers
+    extract.filter(*outliers);
 
     // 4. Store plane coefficients: ax + by + cz + d = 0
     if (coefficients->values.size() == 4)
     {
-        plane_coefficients_out = Eigen::Vector4f(
+        /*plane_coefficients_out = Eigen::Vector4f(
             coefficients->values[0],
             coefficients->values[1],
             coefficients->values[2],
-            coefficients->values[3]);
-    }
-    else
+            coefficients->values[3]);*/
+        float a = coefficients->values[0];
+        float b = coefficients->values[1];
+        float c = coefficients->values[2];
+        float d = coefficients->values[3];
+        float threshold = 10.0; //planes more inclined than this will not be considered
+        if (!checkWaterPlane(a,b,c,d, threshold)){
+          return false;
+          RCLCPP_INFO(this->get_logger(), "Plane equation not valid");
+
+        }
+        publish_plane_marker( a, b, c, d);
+        float plane_norm = std::sqrt(a*a + b*b + c*c);
+        //d_planeFilter= (d/plane_norm) + params_->ransac_filter_height_;
+        RCLCPP_INFO( this->get_logger(), " Plane %f x + %f y + %fz +%f =0\n",  a, b, c, d);
+
+        // We only keep points above surface of the water that do not bellong to it
+        /*for (const auto& point : outliers->points) {
+            // Compute plane equation value
+            float plane_dist = a * point.x + b * point.y + c * point.z + d;
+
+            // Keep point only if it's on or above the plane (>= 0)
+            if (plane_dist > 0) {
+                cloud_out->points.push_back(point);
+            }*/
+        //alternitevely we could:
+        *outliers += *ransac_non_candidates; //merge the ransac candidates that do not bellong to water surface with non ransac candidates
+        //then we filter from this big group and only keep points that are above the water or too far away to make considerations
+        for (const auto& point : outliers->points) {
+            // Compute plane equation value
+            float plane_value = a * point.x + b * point.y + c * point.z + d ;
+            float plane_dist = std::abs(plane_value)/plane_norm; //distance from plane to point
+            // Keep point only if it's on or above the plane (>= 0)
+            float range = std::sqrt(point.x * point.x + point.y * point.y);
+            if ((plane_value > 0 && plane_dist > params_->ransac_filter_height_) || range > params_->range_transition_) {
+                cloud_out->points.push_back(point);
+            }
+        }
+
+    }else
     {
         std::cerr << "[detectGroundPlane] Invalid plane coefficients.\n";
     }
+    //pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZI>());
+
+    
+    
+    // Set metadata
+    cloud_out->width = static_cast<uint32_t>(cloud_out->points.size());
+    cloud_out->height = 1;
+    cloud_out->is_dense = true;
+    return true;
+
 }
 
+bool PointCloudToLaserScanNode::checkWaterPlane(float a, float b, float c, float d, float threshold_degrees)
+{
+    float norm = std::sqrt(a * a + b * b + c * c);
+    if (norm == 0.0f) {
+        return false; // invalid normal vector
+    }
+    //we are computinh angle with horizontal plane, wich has normal vector (0,0,1). Dot produc is then just 0 + 0 + c*1. norm_horizontal=1. norm_plane=norm
+    //cost_theta=|dot product|/norm1*norm2
+    float cos_theta = std::abs(c) / norm;
+    float angle_radians = std::acos(cos_theta);
+    float angle_degrees = angle_radians * 180.0f / M_PI;
+    RCLCPP_INFO(this->get_logger(), "Plane angle: %f", angle_degrees);
+
+    if( angle_degrees > threshold_degrees){
+     return false;
+    }
+    return true;
+}
+/*
 void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height, pcl::PointCloud<pcl::PointXYZI> & cloud_out
   ,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ){
 
@@ -324,6 +443,13 @@ void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cl
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(cloud_in, cloud_in, indices);
 
+  if (params_->useRansac){
+
+    bool ransacSuccess = detectWaterPlane(cloud_in, filtered_ptr)
+    if (!ransacSuccess){filtered_ptr = &cloud_in}
+  } else{filtered_ptr = &cloud_in}
+  
+  
   if(params_->filterBy_intensity_){
     //remove points that are under the water and with low intensity water
     
@@ -356,13 +482,15 @@ void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cl
  
 
   }
-        /* This uses standard outlier removal instead of addaptive radius filter
-    pcl::RadiusOutlierRemoval<pcl::PointXYZI> outrem;
-    outrem.setInputCloud(filtered_ptr);
-    outrem.setRadiusSearch(0.45);  // Radius for neighbor search 0.8
-    outrem.setMinNeighborsInRadius(2);  // Keep points with >= 3 neighbors 3
-    outrem.filter(cloud_out);
-        */
+
+  
+        // This uses standard outlier removal instead of addaptive radius filter
+    //pcl::RadiusOutlierRemoval<pcl::PointXYZI> outrem;
+    //outrem.setInputCloud(filtered_ptr);
+    //outrem.setRadiusSearch(0.45);  // Radius for neighbor search 0.8
+    //outrem.setMinNeighborsInRadius(2);  // Keep points with >= 3 neighbors 3
+    //outrem.filter(cloud_out);
+        
     
     
     
@@ -372,7 +500,70 @@ void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cl
     cloud_outREJ=*rejected_output;
 
 
+  }*/
+
+
+void PointCloudToLaserScanNode::filterCloud(
+    pcl::PointCloud<pcl::PointXYZI> &cloud_in,
+    const double &min_height,
+    pcl::PointCloud<pcl::PointXYZI> &cloud_out,
+    pcl::PointCloud<pcl::PointXYZI> &cloud_outREJ)
+{
+  std::vector<int> indices;
+  pcl::removeNaNFromPointCloud(cloud_in, cloud_in, indices);
+  // Use shared_ptr for all filtered stages
+  pcl::PointCloud<pcl::PointXYZI>::Ptr current_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>(cloud_in);
+
+  // 1. RANSAC plane detection (if enabled)
+  if (params_->useRansac_) {
+      pcl::PointCloud<pcl::PointXYZI>::Ptr ransac_filtered(new pcl::PointCloud<pcl::PointXYZI>);
+      bool ransacSuccess = detectWaterPlane(current_cloud, ransac_filtered);
+      if (ransacSuccess) {
+          current_cloud = ransac_filtered;
+      }
+      // If RANSAC fails, we just continue with current_cloud (still points to cloud_in)
   }
+
+  // 2. Intensity filtering (if enabled)
+  if (params_->filterBy_intensity_) {
+      pcl::PointCloud<pcl::PointXYZI>::Ptr intensity_filtered(new pcl::PointCloud<pcl::PointXYZI>);
+
+      float min_intensity = std::numeric_limits<float>::max();
+      float max_intensity = std::numeric_limits<float>::lowest();
+
+      for (const auto &pt : current_cloud->points) {
+          if (!std::isfinite(pt.intensity)) continue;
+          min_intensity = std::min(min_intensity, pt.intensity);
+          max_intensity = std::max(max_intensity, pt.intensity);
+      }
+
+      float intensity_threshold = (max_intensity - min_intensity) * 0.1f + min_intensity;
+
+      for (const auto &pt : current_cloud->points) {
+          if (pt.intensity >= intensity_threshold || pt.z >= min_height - 3.0) {
+              intensity_filtered->points.push_back(pt);
+          }
+      }
+      intensity_filtered->width = intensity_filtered->points.size();
+      intensity_filtered->height = 1;
+      intensity_filtered->is_dense = true;
+
+      current_cloud = intensity_filtered;
+  }
+  // 3. Adaptive radius filtering (always performed)
+  if(!params_->simulation_mode_){
+    auto [output , rejected_output]= PointCloudToLaserScanNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
+    cloud_out=*output;
+    cloud_outREJ=*rejected_output;
+  }else{
+    cloud_out=cloud_in;
+
+  }
+
+
+}
+    
+
 
 
 
@@ -383,15 +574,15 @@ void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cl
   {
     pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::PointCloud<pcl::PointXYZI>::Ptr output_rejectedcloud(new pcl::PointCloud<pcl::PointXYZI>);
-
+    RCLCPP_INFO(this->get_logger(), "ARFstep1");
     pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
     
     kdtree.setInputCloud(input_cloud);
-
+    RCLCPP_INFO(this->get_logger(), "ARFstep2");  
     std::vector<int> indices;
     std::vector<float> distances;
     float distance_to_origin, radius;
-
+    RCLCPP_INFO(this->get_logger(), "ARFstep3");  
     for (const auto& pt : input_cloud->points) {
         //if (!pcl::isFinite(pt)) continue;
 
@@ -415,14 +606,14 @@ void PointCloudToLaserScanNode::filterCloud(pcl::PointCloud<pcl::PointXYZI> & cl
 
         }
     }
-
+    RCLCPP_INFO(this->get_logger(), "ARFstep4");  
     output_cloud->width = output_cloud->points.size();
     output_cloud->height = 1;
     output_cloud->is_dense = true;
     output_rejectedcloud->width = output_rejectedcloud->points.size();
     output_rejectedcloud->height = 1;
     output_rejectedcloud->is_dense = true;
-
+    RCLCPP_INFO(this->get_logger(), "ARFstep5");  
     return {output_cloud,output_rejectedcloud};
   }
 
@@ -453,61 +644,64 @@ uint32_t ranges_size = std::ceil(
 // determine if laserscan rays with no obstacle data will evaluate to infinity or max_range
 if (params_->use_inf_) {
   scan_msg->ranges.assign(ranges_size, std::numeric_limits<double>::infinity());
+  
 } else {
   scan_msg->ranges.assign(ranges_size, scan_msg->range_max + params_->inf_epsilon_);
 }
+scan_msg->intensities.assign(ranges_size, 0.0f); 
 
 // Iterate through pointcloud
 for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(*cloud_msg, "x"),
-iter_y(*cloud_msg, "y"), iter_z(*cloud_msg, "z");
-iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
-{
-if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) {
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "rejected for nan in point(%f, %f, %f)\n",
-    *iter_x, *iter_y, *iter_z);
-  continue;
-}
+  iter_y(*cloud_msg, "y"), iter_z(*cloud_msg, "z"), iter_intensity(*cloud_msg, "intensity");
+  iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z,++iter_intensity)
+  {
+  if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for nan in point(%f, %f, %f)\n",
+      *iter_x, *iter_y, *iter_z);
+    continue;
+    }
 
-if (*iter_z > params_->max_height_ || *iter_z < params_->min_height_) {
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "rejected for height %f not in range (%f, %f)\n",
-    *iter_z, params_->min_height_, params_->max_height_);
-  continue;
-}
+  if (*iter_z > params_->max_height_ || *iter_z < params_->min_height_) {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for height %f not in range (%f, %f)\n",
+      *iter_z, params_->min_height_, params_->max_height_);
+    continue;
+  }
 
-double range = hypot(*iter_x, *iter_y);
-if (range < scan_msg->range_min) {
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "rejected for range %f below minimum value %f. Point: (%f, %f, %f)",
-    range, scan_msg->range_min, *iter_x, *iter_y, *iter_z);
-  continue;
-}
-if (range > scan_msg->range_max) {
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "rejected for range %f above maximum value %f. Point: (%f, %f, %f)",
-    range, scan_msg->range_max, *iter_x, *iter_y, *iter_z);
-  continue;
-}
+  double range = hypot(*iter_x, *iter_y);
+  if (range < scan_msg->range_min) {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for range %f below minimum value %f. Point: (%f, %f, %f)",
+      range, scan_msg->range_min, *iter_x, *iter_y, *iter_z);
+    continue;
+  }
+  if (range > scan_msg->range_max) {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for range %f above maximum value %f. Point: (%f, %f, %f)",
+      range, scan_msg->range_max, *iter_x, *iter_y, *iter_z);
+    continue;
+  }
 
-double angle = atan2(*iter_y, *iter_x);
-if (angle < scan_msg->angle_min || angle > scan_msg->angle_max) {
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "rejected for angle %f not in range (%f, %f)\n",
-    angle, scan_msg->angle_min, scan_msg->angle_max);
-  continue;
-}
+  double angle = atan2(*iter_y, *iter_x);
+  if (angle < scan_msg->angle_min || angle > scan_msg->angle_max) {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for angle %f not in range (%f, %f)\n",
+      angle, scan_msg->angle_min, scan_msg->angle_max);
+    continue;
+  }
 
-// overwrite range at laserscan ray if new range is smaller
-int index = (angle - scan_msg->angle_min) / scan_msg->angle_increment;
-if (range < scan_msg->ranges[index]) {
-  scan_msg->ranges[index] = range;
-}
+  // overwrite range at laserscan ray if new range is smaller
+  int index = (angle - scan_msg->angle_min) / scan_msg->angle_increment;
+  if (range < scan_msg->ranges[index]) {
+    scan_msg->ranges[index] = range;
+    scan_msg->intensities[index]=  *iter_intensity;
+  }
 }
 
 return scan_msg;
@@ -524,7 +718,12 @@ sensor_msgs::msg::LaserScan::UniquePtr PointCloudToLaserScanNode::mergeLaserScan
 
     long_scan->range_min = std::min(long_scan->range_min, short_scan->range_min);
     for (int i=0; i<long_scan->ranges.size(); i++){
-      long_scan->ranges[i] = std::min(long_scan->ranges[i], short_scan->ranges[i]);
+      //long_scan->ranges[i] = std::min(long_scan->ranges[i], short_scan->ranges[i]);
+      if (short_scan->ranges[i] < long_scan->ranges[i]) {
+            long_scan->ranges[i] = short_scan->ranges[i];
+            long_scan->intensities[i] = short_scan->intensities[i];
+       
+      }
     }
     return std::move(long_scan);
   }
@@ -601,6 +800,66 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     }
     
     return {std::move(radialMapScan), std::move(radialMapScanVisual)};
+}
+
+
+
+void PointCloudToLaserScanNode::publish_plane_marker(float a, float b, float c, float d)
+{
+    const std::string frame_id = "base_footprint";
+    int marker_id = 0;
+    // Normalize plane normal
+    Eigen::Vector3f normal(a, b, c);
+    normal.normalize();
+
+    // Create a marker
+    visualization_msgs::msg::Marker marker;
+    marker.header.frame_id = frame_id;
+    //marker.header.stamp = rclcpp::Clock().now();
+    marker.ns = "plane";
+    marker.id = marker_id;
+    marker.type = visualization_msgs::msg::Marker::CUBE;
+    marker.action = visualization_msgs::msg::Marker::ADD;
+
+    // Center point on the plane (pick arbitrary x and y, solve for z)
+    float size = params_->range_transition_ * 2; // size of the visualized plane in meters
+    Eigen::Vector3f point_on_plane;
+
+    // Avoid divide by zero
+    if (c != 0) {
+        point_on_plane = Eigen::Vector3f(0, 0, -d / c);
+    } else if (b != 0) {
+        point_on_plane = Eigen::Vector3f(0, -d / b, 0);
+    } else {
+        point_on_plane = Eigen::Vector3f(-d / a, 0, 0);
+    }
+
+    marker.pose.position.x = point_on_plane.x();
+    marker.pose.position.y = point_on_plane.y();
+    marker.pose.position.z = point_on_plane.z();
+
+    // Compute quaternion from normal
+    Eigen::Vector3f default_normal(0, 0, 1); // cube's default normal
+    Eigen::Quaternionf q = Eigen::Quaternionf::FromTwoVectors(default_normal, normal);
+    marker.pose.orientation.x = q.x();
+    marker.pose.orientation.y = q.y();
+    marker.pose.orientation.z = q.z();
+    marker.pose.orientation.w = q.w();
+
+    // Size of the visualized plane (width, height, and small thickness)
+    marker.scale.x = size;
+    marker.scale.y = size;
+    marker.scale.z = 0.01;
+
+    // Color
+    marker.color.r = 0.0f;
+    marker.color.g = 0.1f;
+    marker.color.b = 0.6f;
+    marker.color.a = 0.4f;
+
+    marker.lifetime = rclcpp::Duration::from_seconds(1); // 0 = forever
+   
+    marker_pub_->publish(marker);
 }
 
 

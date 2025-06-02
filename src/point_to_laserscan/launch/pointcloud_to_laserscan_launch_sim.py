@@ -12,16 +12,22 @@ def generate_launch_description():
         ),
        Node(
             package='pointcloud_to_laserscan', executable='base_footprint_publisher',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': False,
+                         'base_link': 'Evolo/base_link_gt',
+                         'fixed_frame': 'map_gt',
+                         'target_frame': 'base_footprint',
+                         }],
             name='base_footprint_publisher_node'
         ),
-       
+        
+
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
-            remappings=[('cloud_in', '/Evolo/Lidar/HighRes'),
+            remappings=[('cloud_in', 'Evolo/Lidar/HighRes'),
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/filtered'])],
             parameters=[{
                 'use_sim_time':False,
+                'simulation_mode':True,
                 'target_frame': 'base_footprint',
                 'fixed_frame': 'map_gt',
                 'cloud_frame': 'Evolo/lidar_link_gt',      
@@ -46,7 +52,15 @@ def generate_launch_description():
                 'minimum_radius_paramB': 0.05,#radius for neigbhours search for a point that is at a distance from the base_link = 0
                 'minimum_radius_paramM': 0.0125,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 2,
-                'filter_by_intensity': False
+                'filter_by_intensity': False,
+                'time_decay': 1.5,
+                #Ransac params
+                'ransac_range_candidates': 15.0,
+                'ransac_Maxheight_candidates':0.5,
+                'ransac_Minheight_candidates':-1.5,
+                'use_Ransac': False,
+                'ransac_threshold_inliers': 0.2,
+                'ransac_filter_height': 0.5
 
             }],
             name='pointcloud_preprocessing_filtering'

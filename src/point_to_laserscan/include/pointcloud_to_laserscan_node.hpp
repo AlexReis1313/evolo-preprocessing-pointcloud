@@ -68,6 +68,8 @@
  #include <thread>
  #include <utility>
  #include <deque>
+ #include <cmath>
+
  
  #include "sensor_msgs/point_cloud2_iterator.hpp"
  #include "tf2_sensor_msgs/tf2_sensor_msgs.hpp"
@@ -88,7 +90,8 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/passthrough.h>
 
-
+#include <visualization_msgs/msg/marker.hpp>
+#include <geometry_msgs/msg/point.hpp>
 
 #include "filtering_params.hpp"
 
@@ -132,7 +135,8 @@
   void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height,pcl::PointCloud<pcl::PointXYZI> & cloud_out,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ);
   std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,float scale = 0.0125f, float min_radius = 0.05f,            // Radius = scale * range
                       int min_neighbors = 3);
- 
+  bool detectWaterPlane( const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in, pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_out);
+
   void project(pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_projected);
   void accumulate(
     const pcl::PointCloud<pcl::PointXYZI> & cloud_in,
@@ -140,10 +144,16 @@
     const rclcpp::Time & currentTime,
     const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,
     geometry_msgs::msg::TransformStamped & inverse_world_fix_transform, std::deque<TimedCloud> cloud_queue);
+  /*void accumulate(
+    const pcl::PointCloud<pcl::PointXYZI> & cloud_in,
+    pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
+    const rclcpp::Time & currentTime,
+    const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,
+    geometry_msgs::msg::TransformStamped & inverse_world_fix_transform, std::deque<TimedCloud> cloud_queue);*/
   void detectWaterPlane(
     const pcl::PointCloud<pcl::PointXYZI> &cloud_in,
     pcl::PointCloud<pcl::PointXYZI>::Ptr &plane_inliers_output,
-    Eigen::Vector4f &plane_equation_output)
+    Eigen::Vector4f &plane_equation_output);
 
   std::unique_ptr<tf2_ros::Buffer> tf2_;
   std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
@@ -158,8 +168,10 @@
   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_projectedPC_;
   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_accumulatedPC_laserscan_;
   std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_projected_AccumulatedPC_;
+  std::shared_ptr<rclcpp::Publisher<visualization_msgs::msg::Marker>>  marker_pub_;
+  void publish_plane_marker(float a, float b, float c, float d);
+  bool checkWaterPlane(float a, float b, float c, float d, float threshold_degrees);
 
- 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
 
   laser_geometry::LaserProjection Laser2PCprojector_;

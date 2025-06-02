@@ -15,6 +15,7 @@ PointCloudToLaserScanParams::PointCloudToLaserScanParams(rclcpp::Node* node)
     tolerance_ = node->declare_parameter("transform_tolerance", 0.01);
     input_queue_size_ = node->declare_parameter(
         "queue_size", static_cast<int>(std::thread::hardware_concurrency()));
+    simulation_mode_ = node->declare_parameter("simulation_mode", false);
     
     // Height range parameters (short range)
     min_height_shortrange_ = node->declare_parameter(
@@ -56,7 +57,9 @@ PointCloudToLaserScanParams::PointCloudToLaserScanParams(rclcpp::Node* node)
 
     //ransac parameters
     ransac_range_candidates_ =node->declare_parameter("ransac_range_candidates", 30.0);
-    ransac_height_candidates_=node->declare_parameter("ransac_height_candidates", 1.0);
+    ransac_Maxheight_candidates_=node->declare_parameter("ransac_Maxheight_candidates", 1.0);
+    ransac_Minheight_candidates_=node->declare_parameter("ransac_Minheight_candidates", -1.5);
+    useRansac_=node->declare_parameter("use_Ransac", false);
     ransac_threshold_inliers_=node->declare_parameter("ransac_threshold_inliers", 0.3);
     ransac_filter_height_ =node->declare_parameter("ransac_filter_height", 0.5);
 

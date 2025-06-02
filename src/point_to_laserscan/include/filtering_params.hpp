@@ -35,6 +35,7 @@ public:
     // Transform and queue parameters
     double tolerance_;
     int input_queue_size_;
+    bool simulation_mode_;
     
     // Height range parameters
     double min_height_shortrange_;
@@ -69,9 +70,11 @@ public:
 
     //ransac params
     double ransac_range_candidates_ ;
-    double ransac_height_candidates_;
+    double ransac_Maxheight_candidates_;
     double ransac_threshold_inliers_;
     double ransac_filter_height_ ;
+    double ransac_Minheight_candidates_;
+    bool useRansac_ = true;
 
 };
 

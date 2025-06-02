@@ -10,6 +10,8 @@ find_package(pcl_ros REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
+
 
 # Node 1: Shared library for pointcloud_to_laserscan
 ament_auto_add_library(pointcloud_to_laserscan SHARED
