@@ -14,7 +14,8 @@ public:
         baseLink_frame_ = this->declare_parameter("base_link", "base_link");
         target_frame_ = this->declare_parameter("target_frame", "");
         fixed_frame_ = this->declare_parameter("fixed_frame", "");
-        
+        zero_height_ = this->declare_parameter("zero_heigh_footprint", true);
+
         // Initialize tf2 buffer and listener
         tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
         tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
@@ -49,7 +50,13 @@ private:
             // Copy x and y translation, set z to 0
             base_footprint_transform.transform.translation.x = transform.transform.translation.x;
             base_footprint_transform.transform.translation.y = transform.transform.translation.y;
-            base_footprint_transform.transform.translation.z = transform.transform.translation.z;
+            if (zero_height_){
+                base_footprint_transform.transform.translation.z = 0;
+
+            }else{
+                base_footprint_transform.transform.translation.z = transform.transform.translation.z;
+
+            }
             
             // Extract yaw from base_link orientation
             tf2::Quaternion base_link_quat(
@@ -90,6 +97,7 @@ private:
     std::string baseLink_frame_;
     std::string target_frame_;
     std::string fixed_frame_;
+    bool zero_height_;
 
 };
 

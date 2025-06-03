@@ -4,25 +4,26 @@
 #include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
-
+#include <rclcpp/rclcpp.hpp>
 
 class KalmanFilter {
 public:
     int state_dim, sensor_dim;
-    double time_=0;
-    double acell_cov_, pose_cov;
+    rclcpp::Time  time_;
+    double acell_cov_R_, pose_cov_Q_, boundingBox_cov_Q_;
     Eigen::MatrixXd A, A_mask, H, Q, R, P, I;
-    Eigen::VectorXd x;
+    Eigen::VectorXd x, x_boundingBox;
 
-    KalmanFilter(int num_states, int num_sensors, 
+    KalmanFilter(double x_init, double y_init, int num_states, int num_sensors, 
                 const Eigen::MatrixXd& motion_model, 
                 const Eigen::MatrixXd& measurement_model,
                 const Eigen::MatrixXd& process_noise,
-                double a_cov, double xy_cov);
+                double a_cov, double xy_cov, double bb_cov);
 
-    void predict(float currentTime);
+    void predict(rclcpp::Time currentTime);
     void update(const Eigen::VectorXd& z);
     Eigen::VectorXd predictTheFuture(float deltaT);
+    std::pair<double &, double &> produceBoundingBox_withCov(bool verbose);
 };
 
 #endif // KALMANFILTER_H

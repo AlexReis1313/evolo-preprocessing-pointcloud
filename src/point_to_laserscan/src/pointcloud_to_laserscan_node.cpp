@@ -140,6 +140,7 @@ void PointCloudToLaserScanNode::cloudCallback(
       PointCloudToLaserScanNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered, rejected_pointcloud);
 
       // Convert back to ROS message and update headers to reflect the new frame
+
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
       pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
       cloud->header.frame_id = params_->target_frame_;
@@ -165,7 +166,6 @@ void PointCloudToLaserScanNode::cloudCallback(
 
       Laser2PCprojector_.projectLaser(*merged_scan_msg, merged_point_cloud);  //https://wiki.ros.org/laser_geometry
 
-
       //Take the merged_scan_msg 2d laserscan and convert it into lower resolution radialMap. The resolution is defined by params_->angle_increment_, it is normally 12 measurements for a 360degree scan
       // for each angle interval, the closeste laserscan from merged_scan_msg is used as range for radialMap
       // radialMapVisual has the same information of radialMap but includes much higher resolution, effectively representing each of the ~12 segments as an arc of points, all with the same range defined in radialMap
@@ -184,24 +184,26 @@ void PointCloudToLaserScanNode::cloudCallback(
           tf2_->lookupTransform(params_->target_frame_, params_->fixed_frame_,tf2::TimePointZero);//chang ethis for real_evolo
       pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
       pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
-      
+
       PointCloudToLaserScanNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
       PointCloudToLaserScanNode::project(pcl_cloud_filtered ,cloud_projected2D);
       PointCloudToLaserScanNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
+
       pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
       pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg); //debugging
       pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
-      //laserScanPC_timeDecay_msg->header.frame_id = params_->target_frame_;
-      laserScanPC_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+      if(params_->outputOnFixedFrame_){
+        cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+        laserScanPC_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+      }else{
+        cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
+        laserScanPC_timeDecay_msg->header.frame_id = params_->target_frame_;
+      }
 
-      cloud_projected2D_msg->header.frame_id = params_->target_frame_;
-      //cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
-      cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
-     
+      cloud_projected2D_msg->header.frame_id = params_->target_frame_;    
       laserScanPC_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
       cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
       cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
-      
    
       //publishing everything
       pub_OriginalPC_->publish(std::move(*cloud_msg));
@@ -252,44 +254,41 @@ void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI>
 void PointCloudToLaserScanNode::accumulate(const pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
     const rclcpp::Time & currentTime, const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,geometry_msgs::msg::TransformStamped & inverse_world_fix_transform ,std::deque<TimedCloud> cloud_queue){ 
 
+  pcl::PointCloud<pcl::PointXYZI> cloud_in_transformed, cloud_out_untrasnformed;
   if (cloud_in.empty()) {
     RCLCPP_WARN(this->get_logger(), "Input point cloud is empty, skipping transformation.");
        
   } else{
-    pcl::PointCloud<pcl::PointXYZI> cloud_in_transformed, cloud_out_untrasnformed;
-    pcl_ros::transformPointCloud(cloud_in, cloud_in_transformed, world_fix_transform); //making it crash process has died [pid 43347, exit code -8, 
-    
-    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in_transformed));
-
-    // Store with timestamp
-    cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
-
-  }
+      pcl_ros::transformPointCloud(cloud_in, cloud_in_transformed, world_fix_transform); //making it crash process has died [pid 43347, exit code -8, 
+      pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in_transformed));
+      // Store with timestamp
+      cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
+      // Remove clouds older than time_decay                                                     this counter is if time for some reason goes back, for example playing a rosbag in loop with use_sim_time true
+      while (!cloud_queue.empty()  &&  (  ((currentTime - cloud_queue.front().timestamp).seconds() > time_decay)  ||   (cloud_queue.front().counter >  time_decay*10 )  ) ) {
+                cloud_queue.pop_front();                                            
+            }    
+      cloud_out_accumulated.clear();
+      if(params_->outputOnFixedFrame_){
+        // Concatenate remaining clouds
+        for (auto &timed_cloud : cloud_queue) {
+          cloud_out_accumulated += *(timed_cloud.cloud);
+          timed_cloud.counter +=1.0; //double because it is compared to a double time_decay * 10Hz
+        }
+      }else{
+        cloud_out_untrasnformed.clear();
+        // Concatenate remaining clouds
+        for (const auto &timed_cloud : cloud_queue) {
+            cloud_out_untrasnformed += *(timed_cloud.cloud);
+        }
+        pcl_ros::transformPointCloud(cloud_out_untrasnformed, cloud_out_accumulated,inverse_world_fix_transform );
+      }
+      
+      
+     }
 
  
-  // Remove clouds older than time_decay                                                     this counter is if time for some reason goes back, for example playing a rosbag in loop with use_sim_time true
-  while (!cloud_queue.empty()  &&  (  ((currentTime - cloud_queue.front().timestamp).seconds() > time_decay)  ||   (cloud_queue.front().counter >  time_decay*10 )  ) ) {
-            cloud_queue.pop_front();                                            
-        }    
-                                                                                 
-  cloud_out_accumulated.clear();
-
-  // Concatenate remaining clouds
-  for (auto &timed_cloud : cloud_queue) {
-      cloud_out_accumulated += *(timed_cloud.cloud);
-      timed_cloud.counter +=1.0; //double because it is compared to a double time_decay * 10Hz
-  }
-
-  /* cloud_out_untrasnformed.clear();
-
-  // Concatenate remaining clouds
-  for (const auto &timed_cloud : cloud_buffer_) {
-      cloud_out_untrasnformed += *(timed_cloud.cloud);
-  }
-
-
-  pcl_ros::transformPointCloud(cloud_out_untrasnformed, cloud_out_accumulated,inverse_world_fix_transform );
- */
+  
+ 
 
 
 }
@@ -550,7 +549,7 @@ void PointCloudToLaserScanNode::filterCloud(
 
       current_cloud = intensity_filtered;
   }
-  // 3. Adaptive radius filtering (always performed)
+  // 3. Adaptive radius filtering 
   if(!params_->simulation_mode_){
     auto [output , rejected_output]= PointCloudToLaserScanNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
     cloud_out=*output;
@@ -574,15 +573,12 @@ void PointCloudToLaserScanNode::filterCloud(
   {
     pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::PointCloud<pcl::PointXYZI>::Ptr output_rejectedcloud(new pcl::PointCloud<pcl::PointXYZI>);
-    RCLCPP_INFO(this->get_logger(), "ARFstep1");
     pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
     
     kdtree.setInputCloud(input_cloud);
-    RCLCPP_INFO(this->get_logger(), "ARFstep2");  
     std::vector<int> indices;
     std::vector<float> distances;
     float distance_to_origin, radius;
-    RCLCPP_INFO(this->get_logger(), "ARFstep3");  
     for (const auto& pt : input_cloud->points) {
         //if (!pcl::isFinite(pt)) continue;
 
@@ -606,14 +602,12 @@ void PointCloudToLaserScanNode::filterCloud(
 
         }
     }
-    RCLCPP_INFO(this->get_logger(), "ARFstep4");  
     output_cloud->width = output_cloud->points.size();
     output_cloud->height = 1;
     output_cloud->is_dense = true;
     output_rejectedcloud->width = output_rejectedcloud->points.size();
     output_rejectedcloud->height = 1;
     output_rejectedcloud->is_dense = true;
-    RCLCPP_INFO(this->get_logger(), "ARFstep5");  
     return {output_cloud,output_rejectedcloud};
   }
 

@@ -43,12 +43,19 @@
 int num_states = 10;
 int num_sensors = 5;
 float metric_time_horizon = 3.0;
-double acell_cov =0.5;
-double pose_cov = 0.05;
+double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
+double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
+double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
+
 double cost_threshold_ = 15;
 extern Eigen::MatrixXd motion_model;
 extern Eigen::MatrixXd measurement_model;
 extern Eigen::MatrixXd process_noise;
+bool save_metrics_txt_ = false;
+std::string metrics_file = "boundingBoxMetrics.txt";
+std::string fixed_frame_="odom";
+
+
 
 
             
@@ -76,12 +83,13 @@ class FixedSizeQueue {
     };
 
 struct TimedPrediction {
-        double predicted_time;
+        rclcpp::Time predicted_time;
         Eigen::VectorXd predicted_state;
     };
 
 struct objectTracker
 {
+    int id = -1;//undefined
     pcl::PointCloud<pcl::PointXYZI>::Ptr last_cluster;
     MinAreaRect rectangle;
     double height;
@@ -91,15 +99,15 @@ struct objectTracker
     bool updateStepKF = true;
     unsigned int ocludedCounter = 0;
     unsigned int newObjectCounter = 0;
-    int newObjectThreshold=5;
-    int pruneThreshold= 20;
+    int newObjectThreshold=16;
+    int pruneThreshold= 40;
     bool newObject = true;  //if true, the object is newly seen and not yet considered as existent. 
                             //Only when newObjectCounter>=newObjectThreshold, this bool=false and the object is considered for obstacle avoidance
     std::deque<TimedPrediction> future_predictions;
 
-    objectTracker():
+    objectTracker(double x_init, double y_init):
         height_queue(100), //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
-        kf(num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov ,pose_cov) {}
+        kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q ) {}
     
 };
 
@@ -109,19 +117,23 @@ struct objectTracker
 class BoundingBoxNode : public rclcpp::Node {
 public:
     BoundingBoxNode();
+    ~BoundingBoxNode(); 
 
 private:
     void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
     void pointCloud3DBuffer(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
-    void predictKalmanFilters(float currentTime);
+    void predictKalmanFilters(rclcpp::Time currentTime);
     void defineHeight(objectTracker& object);
     void pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
     void pubKfMarkerArrays(std::string frame_id);
     void updateKalmanFilters();
     void DataAssociate();
     void initiateTrackedObjects();
-    void computeMetrics(double& currentTime);
-    TimedPrediction getPrediction(objectTracker& object,double& currentTime);
+    void computeMetrics(rclcpp::Time& currentTime);
+    void correctBBorientation(objectTracker& trackedObject);
+    void saveMetricsTxt(const objectTracker& trackedObject);
+
+    TimedPrediction getPrediction(objectTracker& object,rclcpp::Time& currentTime);
     float computeIoU(float x1, float y1, float len1, float wid1, float angle1,
         float x2, float y2, float len2, float wid2, float angle2);
 
@@ -130,8 +142,7 @@ private:
     double costFuntion(const objectTracker& object, const objectTracker& trackedObject);
 
 
-
-    
+    rclcpp::Time last_iteration_time_;
     MinAreaRect rotatingCaliper2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
     std::vector<Point> convertPCLCloudToCalipersInput(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud);
     std::vector<objectTracker> trackedObjectsList;
@@ -140,6 +151,7 @@ private:
 	HungarianAlgorithm HungAlgo;
 	std::vector<int> assignment_;
     std::vector< std::vector<double> > costMatrix_;
+    std::ofstream outfile_;
 
     std::unique_ptr<tf2_ros::Buffer> tf2_;
     std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
@@ -149,10 +161,11 @@ private:
     sensor_msgs::msg::PointCloud2::SharedPtr last_3Dcloud_;
     bool has_received_3dcloud_=false;
     bool draw_height_=false;
-    std::string fixed_frame_="odom";
+    unsigned int id_counter_ = 0;
 
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
+    
 
 };
 

@@ -54,6 +54,7 @@ PointCloudToLaserScanParams::PointCloudToLaserScanParams(rclcpp::Node* node)
 
     //time decay to accumulate pc
     timeDecay_= node->declare_parameter("time_decay", 2.0);
+    outputOnFixedFrame_ = node->declare_parameter("TimeDecay_output_On_Fixed_Frame", false);
 
     //ransac parameters
     ransac_range_candidates_ =node->declare_parameter("ransac_range_candidates", 30.0);

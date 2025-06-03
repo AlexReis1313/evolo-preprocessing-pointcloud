@@ -67,6 +67,7 @@ public:
 
     //time decay to accumulate pc
     double timeDecay_;
+    bool outputOnFixedFrame_;
 
     //ransac params
     double ransac_range_candidates_ ;

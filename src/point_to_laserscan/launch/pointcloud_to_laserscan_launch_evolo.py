@@ -14,7 +14,13 @@ def generate_launch_description():
        
         Node(
             package='pointcloud_to_laserscan', executable='base_footprint_publisher',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': True,
+                         'base_link': 'base_link',
+                         'target_frame': 'base_footprint',
+                         'fixed_frame': 'odom',
+                         'zero_heigh_footprint':False
+
+                         }],
             name='base_footprint_publisher_node'
         ),
         
@@ -41,7 +47,7 @@ def generate_launch_description():
                 'range_max': 5000.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
-                'min_height_shortrange':-3.0, #-0.1,
+                'min_height_shortrange':-0.2, #-0.1,
                 'max_height_shortrange': 4.0,
                 'range_transition': 30.0, #15
                 #for radial map output:
@@ -53,14 +59,16 @@ def generate_launch_description():
                 'minimum_radius_paramM': 0.02,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 2 ,
                 'filter_by_intensity': False,
-                'time_decay': 0.9,
+                #Filtered output is given with time decay to help cluseting algorithm, here are the settings:
+                'time_decay': 1.5,
+                'TimeDecay_output_On_Fixed_Frame':True,
                 #Ransac params
-                'ransac_range_candidates': 40.0,
-                'ransac_Maxheight_candidates':-0.2,
-                'ransac_Minheight_candidates':-3.5,
+                'ransac_range_candidates': 15.0,
+                'ransac_Maxheight_candidates':0.5,
+                'ransac_Minheight_candidates':-1.5,
                 'use_Ransac': True,
                 'ransac_threshold_inliers': 0.2,
-                'ransac_filter_height': 0.6
+                'ransac_filter_height': 0.5
             }],
             name='pointcloud_preprocessing_filtering'
         )

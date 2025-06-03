@@ -15,6 +15,7 @@ void initMatrices() {
     process_noise = Eigen::MatrixXd(num_states, num_states);
 
         // Initialize the matrices
+        //process noise R depends on dt. here 4 means entry is acell_cov_R_*(dt^4), 3 means acell_cov_R_*(dt^3) and 2 means acell_cov_R_*(dt^2)
     process_noise <<    4,0, 3, 0,0,0,0, 0, 0, 0,//x
                         0,4, 0, 3,0,0,0, 0, 0, 0,//y
                         0,0, 2, 0,0,0,0, 0, 0, 0,//velx
@@ -27,6 +28,7 @@ void initMatrices() {
                         0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB
 
 
+        //in motion model -1 means the variable depends on other with relation to time, like the way x depends on velocity_x
     motion_model <<     1,0,-1, 0,0,0,0, 0, 0, 0,//x
                         0,1, 0,-1,0,0,0, 0, 0, 0,//y
                         0,0, 1, 0,0,0,0, 0, 0, 0,//velx
@@ -45,7 +47,8 @@ void initMatrices() {
                         0,0, 0, 0,0,0,1, 0, 0, 0;//orientationBB
     }
 
-BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node") {
+BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
+    {
     
     initMatrices();
     cloud2D_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
@@ -67,7 +70,16 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node") {
     RCLCPP_INFO(
         this->get_logger(),
         "Started pointcloud subscriber");
+    last_iteration_time_ = rclcpp::Time(0, 0, RCL_ROS_TIME);
 
+    
+    if (save_metrics_txt_) {
+        outfile_.open(metrics_file, std::ios::app);  
+        if (!outfile_.is_open()) {
+            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", metrics_file.c_str());
+            save_metrics_txt_ = false;
+        }
+    }
 
 }
 
@@ -75,52 +87,56 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node") {
 void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
     // Convert PointCloud2 to PCL PointCloud
     cout << "Begining callback"<<endl;
-    geometry_msgs::msg::TransformStamped transform_stamped;
-
     pcl::PointCloud<pcl::PointXYZI> originalFrameCloud, cloud;
-
-    transform_stamped = tf2_->lookupTransform(fixed_frame_, msg->header.frame_id, tf2::TimePointZero);
-    
-    cout << "going to transform cloud"<<endl;
-
-    //pcl::PointCloud<pcl::PointXYZI>::Ptr originalFrameCloud(new pcl::PointCloud<pcl::PointXYZI>), cloud(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::fromROSMsg(*msg, originalFrameCloud);
-
     std::vector<int> valid_indices;
     pcl::removeNaNFromPointCloud(originalFrameCloud, originalFrameCloud, valid_indices);
+    rclcpp::Time currentTime =rclcpp::Time(msg->header.stamp);
+    if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
+        trackedObjectsList.clear();
+        currentObjectsList.clear();
+    }
 
     if (originalFrameCloud.empty()) {
         std::cerr << "Point cloud is empty after removing NaNs. Skipping." << std::endl;
         cout << "Point cloud is empty after removing NaNs. Skipping." << endl;
+        predictKalmanFilters(currentTime);
+        pubKfMarkerArrays(fixed_frame_);
         return;
     }
+    if (fixed_frame_ != msg->header.frame_id){
+        geometry_msgs::msg::TransformStamped transform_stamped;
+        transform_stamped = tf2_->lookupTransform(fixed_frame_, msg->header.frame_id, tf2::TimePointZero);
+        //cout << "step1"<<endl;
 
-    cout << "step1"<<endl;
+            try{
+                //pcl transform is much more effeciente than tf2::doTransform
+                pcl_ros::transformPointCloud(originalFrameCloud, cloud, transform_stamped);
 
-    try{
-        //pcl transform is much more effeciente than tf2::doTransform
-        pcl_ros::transformPointCloud(originalFrameCloud, cloud, transform_stamped);
+            }catch (...) {
+                //there are some times that pcl transform fails and with floating point exception (with correct tfs, but probably bad points in the pointcloud),
+                // in those cases, doing tf2::doTransform is needed
+                std::cerr << "Transform lookup failed: ";//<< ex.what() << std::endl;
+                cout << "/n/n/n CATCHING ERROR /n/n/n/n";
+                sensor_msgs::msg::PointCloud2 cloud_out;
 
-    }catch (...) {
-        //there are some times that pcl transform fails and with floating point exception (with correct tfs, but probably bad points in the pointcloud),
-        // in those cases, doing tf2::doTransform is needed
-        std::cerr << "Transform lookup failed: ";//<< ex.what() << std::endl;
-        cout << "/n/n/n CATCHING ERROR /n/n/n/n";
-        sensor_msgs::msg::PointCloud2 cloud_out;
-
-        tf2::doTransform(*msg, cloud_out, transform_stamped);
-        pcl::fromROSMsg(cloud_out, cloud);
+                tf2::doTransform(*msg, cloud_out, transform_stamped);
+                pcl::fromROSMsg(cloud_out, cloud);
+            }
+    }else{
+        cloud = originalFrameCloud;
     }
+   
+    
+    //cout << "going to transform cloud"<<endl;
 
-    cout << "going to get time"<<endl;
-
-    double currentTime=rclcpp::Time(msg->header.stamp).seconds();
+    //pcl::PointCloud<pcl::PointXYZI>::Ptr originalFrameCloud(new pcl::PointCloud<pcl::PointXYZI>), cloud(new pcl::PointCloud<pcl::PointXYZI>);
     //predict next pose on kalman filters
-    cout << "going to predict kf"<<endl;
-
+    //cout << "going to predict kf"<<endl;
     predictKalmanFilters(currentTime);
-    cout << "going to separate clusters"<<endl;
+    last_iteration_time_=currentTime;
 
+    //cout << "going to separate clusters"<<endl;
     // Separate clusters by intensity value
     std::unordered_map<int, pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
     for (const auto& point : cloud.points) {
@@ -130,14 +146,15 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         }
         clusters[cluster_id]->points.push_back(point);
     }
-    cout << "going to compute bb"<<endl;
+    //cout << "going to compute bb"<<endl;
 
     // Compute bounding boxes for each cluster
     visualization_msgs::msg::MarkerArray marker_array;
     int id = 0;
     currentObjectsList.clear();
     for (const auto& cluster : clusters) {
-        objectTracker object;
+        
+        objectTracker object(cluster.second->points[0].x, cluster.second->points[0].y ); //initiate the object already at one point of the cluster, this helps the kf in the first few seconds
         visualization_msgs::msg::Marker marker;
         //pca2DBoundingBox(cluster.second, marker);
         object.rectangle = rotatingCaliper2DBoundingBox(cluster.second, marker);
@@ -161,26 +178,25 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     cout << "trackedObjectsList.size()= " << trackedObjectsList.size()<< endl;
 
     if (trackedObjectsList.size()>0){
-        cout << "Will now data associate"<<endl;
+        //cout << "Will now data associate"<<endl;
         DataAssociate();    //HUngarian algorithm for matching - 
     } else{
-        cout << "Will not do data associate, only iniciate"<<endl;
+        //cout << "Will not do data associate, only iniciate"<<endl;
         initiateTrackedObjects();
     }
 
     updateKalmanFilters();
-    pubKfMarkerArrays(fixed_frame_);
+    pubKfMarkerArrays(fixed_frame_); //here we publish kf bb
   
-    computeMetrics(currentTime);
+    //computeMetrics(currentTime);//BAD METRICS
 
     // Publish the bounding boxes
     bbox_pub_->publish(marker_array);
-
 }
 
-void BoundingBoxNode::computeMetrics(double& currentTime){
-    
-    double prediction_time = currentTime + metric_time_horizon;
+void BoundingBoxNode::computeMetrics(rclcpp::Time& currentTime){
+    rclcpp::Duration metric_time_horizon_rclpp = rclcpp::Duration::from_seconds(metric_time_horizon);
+    rclcpp::Time prediction_time = currentTime + metric_time_horizon_rclpp;
     for(auto& trackedObject : trackedObjectsList){
         Eigen::VectorXd predicted_state = trackedObject.kf.predictTheFuture(metric_time_horizon);
         trackedObject.future_predictions.push_back({prediction_time, predicted_state});
@@ -216,7 +232,7 @@ void BoundingBoxNode::computeMetrics(double& currentTime){
         float iou = computeIoU(predicted_x, predicted_y, predicted_length, predicted_width, predicted_angle,
                             actual_x, actual_y, actual_length, actual_width, actual_angle);
 
-        std::cout << "Object Metrics: RMSE = " << rmse << " , IoU = " << iou << std::endl;
+        //std::cout << "Object Metrics: RMSE = " << rmse << " , IoU = " << iou << std::endl;
         //predict x tseconds in the future and add it to a queue inside the object struct
 
         //pop out last element in queu and compare that elelemt and the current estimate for this object
@@ -228,14 +244,14 @@ void BoundingBoxNode::computeMetrics(double& currentTime){
 }
 
  
-TimedPrediction BoundingBoxNode::getPrediction(objectTracker& object, double& currentTime) {
+TimedPrediction BoundingBoxNode::getPrediction(objectTracker& object, rclcpp::Time& currentTime) {
     TimedPrediction best_match;
     double min_time_diff = std::numeric_limits<double>::max();
     int best_index = -1;
 
     // Find index of prediction closest to currentTime
     for (size_t i = 0; i < object.future_predictions.size(); ++i) {
-        double time_diff = std::abs(object.future_predictions[i].predicted_time - currentTime);
+        double time_diff = std::abs((object.future_predictions[i].predicted_time - currentTime).seconds());
         if (time_diff < min_time_diff) {
             min_time_diff = time_diff;
             best_match = object.future_predictions[i];
@@ -271,61 +287,182 @@ float BoundingBoxNode::computeIoU(float x1, float y1, float len1, float wid1, fl
         }
 }
 
-
 void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
     visualization_msgs::msg::MarkerArray marker_array;
     int id = 0;
-    for(auto const& trackedObject : trackedObjectsList){
-        visualization_msgs::msg::Marker marker;
-        Eigen::VectorXd state = trackedObject.kf.x;
-        marker.type = visualization_msgs::msg::Marker::CUBE;
-        marker.pose.position.x = state[0];
-        marker.pose.position.y = state[1];
-        marker.pose.position.z = 0.0; // Z is ignored
-        marker.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), state[6]));
-        marker.scale.x = state[5]; //width
-        marker.scale.y = state[4]; //length = height
-        marker.scale.z = 0.1; // Small height for 2D box
-        marker.color.r = 1.0;
-        marker.color.g = 0.0;
-        marker.color.b = 0.0;
-        marker.color.a = 0.3;
-        marker.id = id++;
-        marker.header.frame_id = frame_id;
-        marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
-        marker_array.markers.push_back(marker);
+    for(auto & trackedObject : trackedObjectsList){
+        if(!trackedObject.newObject){
+            auto [elipse_width, elipse_length] =trackedObject.kf.produceBoundingBox_withCov(trackedObject.id == 0 ||trackedObject.id==1 );
+            if(save_metrics_txt_){
+                saveMetricsTxt(trackedObject);
+            }
+            Eigen::VectorXd state = trackedObject.kf.x;
+            Eigen::VectorXd augmented_state = trackedObject.kf.x_boundingBox;
+
+            
+            //draw marker elipse with heading of heading state[6] and [elipse_width, elipse_lenght]
+            visualization_msgs::msg::Marker marker_elip;
+            marker_elip.type = visualization_msgs::msg::Marker::CYLINDER;
+            marker_elip.header.frame_id = frame_id;
+            marker_elip.id = id++;
+            marker_elip.pose.position.x = state[0];
+            marker_elip.pose.position.y = state[1];
+            marker_elip.pose.position.z = 0.05; // Slightly above ground
+
+            // Align with heading
+            tf2::Quaternion q;
+            q.setRPY(0, 0, state[6]); // Z-axis rotation
+            marker_elip.pose.orientation = tf2::toMsg(q);
+
+            marker_elip.scale.x = elipse_width;   // minor axis (width)
+            marker_elip.scale.y = elipse_length;  // major axis (length)
+            marker_elip.scale.z = 0.01;           // Flat ellipse
+
+            marker_elip.color.r = 0.0;
+            marker_elip.color.g = 0.0;
+            marker_elip.color.b = 0.80;
+            marker_elip.color.a = 0.4;
+
+            marker_elip.lifetime = rclcpp::Duration::from_seconds(1);
+            marker_array.markers.push_back(marker_elip);
+
+            //draw maker cube of trackedObject.kf.x_boundingBox - with its width and its height
+            visualization_msgs::msg::Marker marker_bigbb;
+            marker_bigbb.type = visualization_msgs::msg::Marker::CUBE;
+            marker_bigbb.pose.position.x = state[0];
+            marker_bigbb.pose.position.y = state[1];
+            marker_bigbb.pose.position.z = 0.2; // Z is ignored
+            marker_bigbb.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), state[6]));
+            marker_bigbb.scale.x = augmented_state[5]; // width
+            marker_bigbb.scale.y = augmented_state[4]; // length = height
+            marker_bigbb.scale.z = 0.1; // Small height for 2D box
+            marker_bigbb.color.r = 1.0;
+            marker_bigbb.color.g = 1.0;
+            marker_bigbb.color.b = 1.0;
+            marker_bigbb.color.a = 0.2;
+            marker_bigbb.id = id++;
+            marker_bigbb.header.frame_id = frame_id;
+            marker_bigbb.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
+            marker_array.markers.push_back(marker_bigbb);
+
+            
+            visualization_msgs::msg::Marker marker;
+            marker.type = visualization_msgs::msg::Marker::CUBE;
+            marker.pose.position.x = state[0];
+            marker.pose.position.y = state[1];
+            marker.pose.position.z = 0.0; // Z is ignored
+            marker.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), state[6]));
+            marker.scale.x = state[5]; // width
+            marker.scale.y = state[4]; // length = height
+            marker.scale.z = 0.1; // Small height for 2D box
+            marker.color.r = 1.0;
+            marker.color.g = 0.0;
+            marker.color.b = 0.0;
+            marker.color.a = 0.3;
+            marker.id = id++;
+            marker.header.frame_id = frame_id;
+            marker.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
+            marker_array.markers.push_back(marker);
+
+            // Velocity Arrow Marker
+            visualization_msgs::msg::Marker arrow_marker;
+            arrow_marker.type = visualization_msgs::msg::Marker::ARROW;
+            arrow_marker.header.frame_id = frame_id;
+            arrow_marker.id = id++;
+            arrow_marker.scale.x = state[5]/8; // Shaft diameter
+            arrow_marker.scale.y = state[5]/4;  // Arrowhead diameter
+            arrow_marker.scale.z = 0.0;  // Not used for arrows
+            arrow_marker.color.r = 0.0;
+            arrow_marker.color.g = 0.0;
+            arrow_marker.color.b = 1.0; // Blue arrow
+            arrow_marker.color.a = 1.0; // Fully visible
+
+            geometry_msgs::msg::Point start, end;
+            start.x = state[0];
+            start.y = state[1];
+            start.z = 0.1;
+            end.x = state[0] + state[2]; // velx
+            end.y = state[1] + state[3]; // vely
+            end.z = 0.1;
+
+            arrow_marker.points.push_back(start);
+            arrow_marker.points.push_back(end);
+            arrow_marker.lifetime = rclcpp::Duration::from_seconds(1);
+            marker_array.markers.push_back(arrow_marker);
+
+            // ID Text Marker
+            visualization_msgs::msg::Marker text_marker;
+            text_marker.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+            text_marker.header.frame_id = frame_id;
+            text_marker.id = id++;
+            text_marker.pose.position.x = state[0];
+            text_marker.pose.position.y = state[1];
+            text_marker.pose.position.z = 0.3; // Slightly above the bounding box
+            text_marker.scale.z = std::max(0.2, 0.5 * std::max(state[4], state[5])); // Proportional text size
+            text_marker.color.r = 1.0;
+            text_marker.color.g = 1.0;
+            text_marker.color.b = 1.0;
+            text_marker.color.a = 1.0;
+            text_marker.text = "id: " + std::to_string(trackedObject.id);
+            text_marker.lifetime = rclcpp::Duration::from_seconds(1);
+            marker_array.markers.push_back(text_marker);
+
+            /*
+            visualization_msgs::msg::Marker marker_temporary;
+            marker_temporary.type = visualization_msgs::msg::Marker::CUBE;
+            marker_temporary.pose.position.x = trackedObject.rectangle.center.x;
+            marker_temporary.pose.position.y =  trackedObject.rectangle.center.y;
+            marker_temporary.pose.position.z = -0.45; // Z is ignored
+            marker_temporary.id = id++;
+            marker_temporary.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1),  trackedObject.rectangle.angle_width));
+            marker_temporary.scale.x =  trackedObject.rectangle.width;
+            marker_temporary.scale.y =  trackedObject.rectangle.height;
+            marker_temporary.scale.z = 1.4; // Small height for 2D box
+            marker_temporary.color.r = 0.0;
+            marker_temporary.color.g = 1.0;
+            marker_temporary.color.b = 0.0;
+            marker_temporary.color.a = 0.3;
+            marker_temporary.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
+            marker_array.markers.push_back(marker_temporary);*/
 
 
-        // Velocity Arrow Marker
-        visualization_msgs::msg::Marker arrow_marker;
-        arrow_marker.type = visualization_msgs::msg::Marker::ARROW;
-        arrow_marker.header.frame_id = frame_id;
-        arrow_marker.id = id++; // Unique ID for each marker
-        arrow_marker.scale.x = state[5]/8; // Shaft diameter
-        arrow_marker.scale.y = state[5]/4;  // Arrowhead diameter
-        arrow_marker.scale.z = 0.0;  // Not used for arrows
-        arrow_marker.color.r = 0.0;
-        arrow_marker.color.g = 0.0;
-        arrow_marker.color.b = 1.0; // Blue arrow
-        arrow_marker.color.a = 1.0; // Fully visible
-
-        geometry_msgs::msg::Point start, end;
-        start.x = state[0];
-        start.y = state[1];
-        start.z = 0.1; // Slightly above the box
-        end.x = state[0] + state[2]; // velx
-        end.y = state[1] + state[3]; // vely
-        end.z = 0.1; // Keep in the same plane
-
-        arrow_marker.points.push_back(start);
-        arrow_marker.points.push_back(end);
-        arrow_marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
-
-
-        marker_array.markers.push_back(arrow_marker);
+        }
+        
     }
 
     kf_bbox_pub_->publish(marker_array);
+}
+
+
+void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
+    // Get current time in seconds (as frame value), at this functions' call, last_iteration_time_ is already equal to currentTime
+    double currentTimeSec = last_iteration_time_.seconds();  // Don't cast to int
+
+    // Get the bounding box state
+    Eigen::VectorXd augmented_state = trackedObject.kf.x_boundingBox;
+
+    // Extract MOT16 parameters
+    int id = trackedObject.id;
+    double center_x = augmented_state[0];
+    double center_y = augmented_state[1];
+    double width    = augmented_state[5];
+    double height   = augmented_state[4];
+
+    // Convert center to top-left
+    double bb_left = center_x - width / 2.0;
+    double bb_top  = center_y - height / 2.0;
+
+    double conf = 1.0; // Confidence (if unknown, set to 1.0)
+    double x = center_x, y = center_y, z = 0.0; //unused
+    
+    // Write in MOT16 format
+    outfile_ << std::fixed << std::setprecision(2) << currentTimeSec << ","
+            << std::fixed << std::setprecision(0)<< id << ","
+            << std::fixed << std::setprecision(2) //defines 2 decimal places as precision
+            << bb_left << "," << bb_top << ","
+            << width << "," << height << ","
+            << conf << "," << x << "," << y << "," << z << "\n";
+
 }
 
 
@@ -341,17 +478,51 @@ void BoundingBoxNode::updateKalmanFilters(){
     Eigen::VectorXd z(num_sensors);
     for(auto& trackedObject : trackedObjectsList){
         if (trackedObject.updateStepKF){
-            cout << "updating a kf";
+            //cout << "updating a kf";
             /*if (trackedObject.rectangle.width>trackedObject.rectangle.height){
                 std::swap(trackedObject.rectangle.width,trackedObject.rectangle.height);
                 trackedObject.rectangle.angle_width =  trackedObject.rectangle.angle_height;    //trackedObject.rectangle.angle_width-M_PI/2; //need to fix this
                 }*/
+            correctBBorientation(trackedObject);
             z << trackedObject.rectangle.center.x, trackedObject.rectangle.center.y,  trackedObject.rectangle.height, trackedObject.rectangle.width, trackedObject.rectangle.angle_width;
-            cout << z<<endl;
+            //cout << z<<endl;
             trackedObject.kf.update(z);
         }
     }
 
+}
+
+void BoundingBoxNode::correctBBorientation(objectTracker& trackedObject){
+    //logic that longest bounding box side needs to point with angle inferior to 90 degrees to velocity direction
+    double velx = trackedObject.kf.x[2];
+    double vely = trackedObject.kf.x[3];
+    double angle_kf=std::atan2(vely, velx);
+    double angle_bb = trackedObject.rectangle.angle_width;
+    double dif_angle= angle_kf-angle_bb;
+    // Normalize angle difference to [-pi, pi]
+    while (dif_angle > M_PI) dif_angle -= 2 * M_PI;
+    while (dif_angle < -M_PI) dif_angle += 2 * M_PI;
+
+
+
+    if(std::abs(dif_angle)<= M_PI/4 ){ //up to 45 degrees
+        // Already aligned, do nothing
+    }else if(std::abs(dif_angle)< 3*M_PI/4){ //from 45 up to 135 degrees the length and width of bb needs to be changed,the angle_bb needs to be added or subtracted 90 degrees, whichever makes it closest to angle_kf
+        std::swap(trackedObject.rectangle.height, trackedObject.rectangle.width);
+        if( std::abs(angle_kf-(angle_bb + M_PI/2))< std::abs(angle_kf-(angle_bb - M_PI/2))  ){
+            trackedObject.rectangle.angle_width += M_PI/2;
+        }else{
+            trackedObject.rectangle.angle_width -= M_PI/2;
+        }
+
+    }else if(std::abs(dif_angle)< M_PI){ //from 135 to 180 degrres, width and length are kept, M_pi added to the angle_bb - effectively facing bb the other way around
+        if(angle_bb>angle_kf){
+            trackedObject.rectangle.angle_width -= M_PI;
+        }
+        else{
+            trackedObject.rectangle.angle_width += M_PI;
+        }
+    }
 }
 void BoundingBoxNode::DataAssociate(){
     costMatrix_.clear();
@@ -424,6 +595,7 @@ void BoundingBoxNode::DataAssociate(){
         objectTracker& currentObject = currentObjectsList[it];
         int assignedObject= assignment_[it];
         //cout << assignedObject <<", ";
+        //THIS SHOULD BE DONE BEFORE SOLVING ALGORTIHM - GO THROUGH THE MATRIX AND SAY THAT VERY BIG VALUES ARE INFINITE
         if (costMatrix_[it][assignedObject]> cost_threshold_){
             assignment_[it]=-1; //this is done this way, because it is helpfull in finMissingNumbers
             assignedObject= assignment_[it];
@@ -436,6 +608,8 @@ void BoundingBoxNode::DataAssociate(){
             if (trackedObject.newObject) {
                 trackedObject.newObjectCounter++;
                 if (trackedObject.newObjectCounter >trackedObject.newObjectThreshold){ //contiditon to add object
+                    trackedObject.id=id_counter_;
+                    id_counter_ +=1;
                     trackedObject.newObject=false;
                 }
             trackedObject.ocludedCounter=0; //reset on the oclusion counter
@@ -447,17 +621,18 @@ void BoundingBoxNode::DataAssociate(){
     }
     
     
-   
+   //HAVENT I DONE THIS IN THE LAST PUCH_BACK?
+    //to deal with OLD? objects that were not associated to any NEW? objects:
 
     //to deal with new objects that were not associated to any old objects:
     std::vector<int> missing = findMissingNumbers(assignment_, nCols);
-    cout << "missing matrix:" ;
+    //cout << "missing matrix:" ;
     for (int num : missing) {
         objectTracker& trackedObject = trackedObjectsList[num];
         // no match for this old tracked object
         trackedObject.updateStepKF=false;
         trackedObject.ocludedCounter++;
-        cout << num << " , ";
+        //cout << num << " , ";
         if (trackedObject.ocludedCounter>trackedObject.pruneThreshold){ //condition to prune
             //lets not track this object anymore
             trackedObjectsList.erase(trackedObjectsList.begin()+num); //erasing is possible, as the missing indices are sorted in descending order
@@ -465,7 +640,7 @@ void BoundingBoxNode::DataAssociate(){
         }   
         
         }    
-    cout << endl;
+    //cout << endl;
   
         //trackedObjectsList.push_back(currentObjectsList[num])
 }
@@ -539,7 +714,7 @@ double BoundingBoxNode::costFuntion(const objectTracker& object, const objectTra
     return std::sqrt(  std::pow((object.rectangle.center.x - trackedObject.rectangle.center.x),2) + std::pow((object.rectangle.center.y - trackedObject.rectangle.center.y),2)  );
 }
 
-void BoundingBoxNode::predictKalmanFilters(float currentTime){
+void BoundingBoxNode::predictKalmanFilters(rclcpp::Time currentTime){
     for(auto& trackedObject : trackedObjectsList){
         trackedObject.kf.predict(currentTime);
     }
@@ -685,7 +860,7 @@ void BoundingBoxNode::pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Pt
     marker.color.g = 1.0;
     marker.color.b = 0.0;
     marker.color.a = 0.3;
-    marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
+    marker.lifetime = rclcpp::Duration::from_seconds(0); // 0.5s
 }
 
 
@@ -750,6 +925,11 @@ width:1.43603, height:0.785398
     marker.color.g = 1.0;
     marker.color.b = 0.0;
     marker.color.a = 0.3;
-    marker.lifetime = rclcpp::Duration(0, 500000000); // 0.5s
+    marker.lifetime = rclcpp::Duration::from_seconds(0.5); // 0.5s
     return res;
+}
+BoundingBoxNode::~BoundingBoxNode() {
+    if (outfile_.is_open()) {
+        outfile_.close();
+    }
 }

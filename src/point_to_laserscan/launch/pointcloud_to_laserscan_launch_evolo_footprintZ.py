@@ -17,7 +17,8 @@ def generate_launch_description():
             parameters=[{'use_sim_time': True,
                          'base_link': 'base_link',
                          'target_frame': 'base_footprint',
-                         'fixed_frame': 'odom'
+                         'fixed_frame': 'odom',
+                         'zero_heigh_footprint':True
                          }],
             name='base_footprint_publisher_node'
         ),
