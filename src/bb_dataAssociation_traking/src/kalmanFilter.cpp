@@ -4,9 +4,9 @@ KalmanFilter::KalmanFilter(double x_init, double y_init, int num_states, int num
                            const Eigen::MatrixXd& motion_model, 
                            const Eigen::MatrixXd& measurement_model,
                            const Eigen::MatrixXd& process_noise,
-                            double a_cov, double xy_cov, double bb_cov) 
+                            double a_cov, double xy_cov, double bb_cov, double cov_limit_factor) 
     : state_dim(num_states), sensor_dim(num_sensors),
-      A(motion_model), H(measurement_model),R(process_noise),acell_cov_R_(a_cov), pose_cov_Q_(xy_cov),boundingBox_cov_Q_(bb_cov)  {
+      A(motion_model), H(measurement_model),R(process_noise),acell_cov_R_(a_cov), pose_cov_Q_(xy_cov),boundingBox_cov_Q_(bb_cov), covariance_limit_factor_(cov_limit_factor) {
 
     time_ = rclcpp::Time(0, 0, RCL_ROS_TIME);
 
@@ -30,6 +30,7 @@ KalmanFilter::KalmanFilter(double x_init, double y_init, int num_states, int num
     // Override entries related to bounding box sizes with boundingBox_cov_Q
     Q(2, 2) = boundingBox_cov_Q_;
     Q(3, 3) = boundingBox_cov_Q_;
+    
     // entries 2,3 describe the bounding box sizes measurements, we want these to have very high measurement noise and low process noite, these should be aprox constant
 
 
@@ -79,6 +80,9 @@ void KalmanFilter::predict(rclcpp::Time currentTime) {
     R_dt(5, 5) = R_dt(5, 5)/2;
     R_dt(7, 7) = R_dt(7, 7)/2;
     R_dt(8, 8) = R_dt(8, 8)/2;
+
+    R_dt(9, 9) = R_dt(9, 9)*2;
+    R_dt(6, 6) = R_dt(6, 6)/2;
 
 
     // Predict step
@@ -192,7 +196,7 @@ std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verb
     x_boundingBox[4]=total_inflated_bblength;
 
 
-    if (std::abs(total_inflated_bblength*total_inflated_bbwidth) > std::abs(width*length*100)){
+    if (std::abs(total_inflated_bblength*total_inflated_bbwidth) > std::abs(width*length*covariance_limit_factor_)){
         std::cout << "A tracked object has too much covariance - we do not trust him. Not considered an object"<<std::endl;
         x_boundingBox[5]=0;
         x_boundingBox[4]=0;

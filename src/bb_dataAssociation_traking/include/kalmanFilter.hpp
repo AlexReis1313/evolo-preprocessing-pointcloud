@@ -10,7 +10,7 @@ class KalmanFilter {
 public:
     int state_dim, sensor_dim;
     rclcpp::Time  time_;
-    double acell_cov_R_, pose_cov_Q_, boundingBox_cov_Q_;
+    double acell_cov_R_, pose_cov_Q_, boundingBox_cov_Q_, covariance_limit_factor_;
     Eigen::MatrixXd A, A_mask, H, Q, R, P, I;
     Eigen::VectorXd x, x_boundingBox;
 
@@ -18,7 +18,7 @@ public:
                 const Eigen::MatrixXd& motion_model, 
                 const Eigen::MatrixXd& measurement_model,
                 const Eigen::MatrixXd& process_noise,
-                double a_cov, double xy_cov, double bb_cov);
+                double a_cov, double xy_cov, double bb_cov, double cov_limit_factor);
 
     void predict(rclcpp::Time currentTime);
     void update(const Eigen::VectorXd& z);

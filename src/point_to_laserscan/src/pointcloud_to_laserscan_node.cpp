@@ -143,8 +143,7 @@ void PointCloudToLaserScanNode::cloudCallback(
 
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
       pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
-      cloud->header.frame_id = params_->target_frame_;
-      cloud->header.stamp = cloud_msg->header.stamp;
+     
       cloudREJ->header.frame_id = params_->target_frame_;
       cloudREJ->header.stamp = cloud_msg->header.stamp;
       cloud_msg = cloud; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
@@ -204,7 +203,10 @@ void PointCloudToLaserScanNode::cloudCallback(
       laserScanPC_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
       cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
       cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
-   
+      merged_point_cloud.header.frame_id = params_->target_frame_;
+      merged_point_cloud.header.stamp =cloud_msg->header.stamp;
+     
+
       //publishing everything
       pub_OriginalPC_->publish(std::move(*cloud_msg));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));

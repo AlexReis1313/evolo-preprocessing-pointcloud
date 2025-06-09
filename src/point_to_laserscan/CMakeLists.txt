@@ -11,6 +11,9 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+
+
 
 
 # Node 1: Shared library for pointcloud_to_laserscan
@@ -29,6 +32,10 @@ ament_auto_add_executable(base_footprint_publisher
 # Install launch folder
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}/
+)
+#intall config folder
+install(DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 # Testing support

@@ -60,7 +60,7 @@ def generate_launch_description():
                 'minimum_neighbours': 2 ,
                 'filter_by_intensity': False,
                 #Filtered output is given with time decay to help cluseting algorithm, here are the settings:
-                'time_decay': 1.5,
+                'time_decay': 2.5,
                 'TimeDecay_output_On_Fixed_Frame':True,
                 #Ransac params
                 'ransac_range_candidates': 15.0,

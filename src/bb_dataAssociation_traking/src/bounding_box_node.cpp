@@ -16,16 +16,16 @@ void initMatrices() {
 
         // Initialize the matrices
         //process noise R depends on dt. here 4 means entry is acell_cov_R_*(dt^4), 3 means acell_cov_R_*(dt^3) and 2 means acell_cov_R_*(dt^2)
-    process_noise <<    4,0, 3, 0,0,0,0, 0, 0, 0,//x
-                        0,4, 0, 3,0,0,0, 0, 0, 0,//y
-                        0,0, 2, 0,0,0,0, 0, 0, 0,//velx
-                        0,0, 0, 2,0,0,0, 0, 0, 0,//vely
-                        0,0, 0, 0,4,0,0, 3, 0, 0,//lengthBB
-                        0,0, 0, 0,0,4,0, 0, 3, 0,//wigthBB
-                        0,0, 0, 0,0,0,4, 0, 0, 3,//orientationBB
-                        0,0, 0, 0,0,0,0, 2, 0, 0,//deltaLengthBB
-                        0,0, 0, 0,0,0,0, 0, 2, 0,//deltaWidthBB
-                        0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB
+    process_noise <<    4,0, 3, 0,0,0,0, 0, 0, 0,//x 0
+                        0,4, 0, 3,0,0,0, 0, 0, 0,//y 1
+                        0,0, 2, 0,0,0,0, 0, 0, 0,//velx 2 
+                        0,0, 0, 2,0,0,0, 0, 0, 0,//vely 3
+                        0,0, 0, 0,4,0,0, 3, 0, 0,//lengthBB 4
+                        0,0, 0, 0,0,4,0, 0, 3, 0,//wigthBB 5
+                        0,0, 0, 0,0,0,4, 0, 0, 3,//orientationBB 6
+                        0,0, 0, 0,0,0,0, 2, 0, 0,//deltaLengthBB 7
+                        0,0, 0, 0,0,0,0, 0, 2, 0,//deltaWidthBB 8
+                        0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB 9
 
 
         //in motion model -1 means the variable depends on other with relation to time, like the way x depends on velocity_x
@@ -61,6 +61,8 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
     cloud3D_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
         "/rotated_pointcloud", rclcpp::SensorDataQoS().keep_last(2), std::bind(&BoundingBoxNode::pointCloud3DBuffer, this, std::placeholders::_1));
     }
+    pub_NonTRacked_pc_= this->create_publisher<sensor_msgs::msg::PointCloud2>("/static/pointcloud", rclcpp::SensorDataQoS());
+
     tf2_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
       this->get_node_base_interface(), this->get_node_timers_interface());
@@ -147,6 +149,22 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         clusters[cluster_id]->points.push_back(point);
     }
     //cout << "going to compute bb"<<endl;
+    //clusteres of zero intensity are non clustered points
+    // Ensure nonTrackedPc_ is allocated
+    if (!nonTrackedPc_) {
+        nonTrackedPc_ = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
+    } else {
+        nonTrackedPc_->clear();  // Make sure previous contents are removed
+    }
+
+    // Copy all non-clustered points (intensity == 0) to nonTrackedPc_
+    if (clusters.find(0) != clusters.end()) {
+        *nonTrackedPc_ += *(clusters[0]);
+    }
+    clusters.erase(0); //only points that are part of a cluster will be used
+
+
+
 
     // Compute bounding boxes for each cluster
     visualization_msgs::msg::MarkerArray marker_array;
@@ -172,6 +190,8 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         marker.header.frame_id = fixed_frame_ ;
         marker_array.markers.push_back(marker);
         currentObjectsList.push_back(object);
+        // Publish the instantaneous oriented bounding boxes 
+        bbox_pub_->publish(marker_array);
     }
     cout << "currentObjectsList.size()= " << currentObjectsList.size()<< endl;
 
@@ -185,14 +205,33 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         initiateTrackedObjects();
     }
 
-    updateKalmanFilters();
-    pubKfMarkerArrays(fixed_frame_); //here we publish kf bb
-  
+    updateKalmanFilters(); 
+    pubKfMarkerArrays(fixed_frame_); //here we publish kf bounding boxes
+    publishNonTrackedPC(fixed_frame_,currentTime);
+
     //computeMetrics(currentTime);//BAD METRICS
 
-    // Publish the bounding boxes
-    bbox_pub_->publish(marker_array);
+   
 }
+void BoundingBoxNode::publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp){
+    for(auto const& currentObject : currentObjectsList){
+        if (currentObject.newObject && currentObject.last_cluster && !currentObject.last_cluster->empty()) {
+            // Append the cluster to the non-tracked point cloud
+            *nonTrackedPc_ += *(currentObject.last_cluster);
+        }
+        
+    }
+    auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+
+    pcl::toROSMsg(*nonTrackedPc_, *cloud);
+    cloud->header.frame_id = frame_id;
+    cloud->header.stamp = stamp;
+    pub_NonTRacked_pc_->publish(*cloud);
+    nonTrackedPc_->clear();
+
+
+}
+
 
 void BoundingBoxNode::computeMetrics(rclcpp::Time& currentTime){
     rclcpp::Duration metric_time_horizon_rclpp = rclcpp::Duration::from_seconds(metric_time_horizon);
@@ -290,8 +329,10 @@ float BoundingBoxNode::computeIoU(float x1, float y1, float len1, float wid1, fl
 void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
     visualization_msgs::msg::MarkerArray marker_array;
     int id = 0;
-    for(auto & trackedObject : trackedObjectsList){
-        if(!trackedObject.newObject){
+    for(auto & trackedObject : trackedObjectsList){           
+
+        double velocity = std::sqrt(pow(trackedObject.kf.x[2],2) + pow(trackedObject.kf.x[3],2));
+        if((!trackedObject.newObject) && (velocity > min_velocity_threshold_)){
             auto [elipse_width, elipse_length] =trackedObject.kf.produceBoundingBox_withCov(trackedObject.id == 0 ||trackedObject.id==1 );
             if(save_metrics_txt_){
                 saveMetricsTxt(trackedObject);
@@ -339,7 +380,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_bigbb.color.r = 1.0;
             marker_bigbb.color.g = 1.0;
             marker_bigbb.color.b = 1.0;
-            marker_bigbb.color.a = 0.2;
+            marker_bigbb.color.a = 0.5;
             marker_bigbb.id = id++;
             marker_bigbb.header.frame_id = frame_id;
             marker_bigbb.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
@@ -358,7 +399,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker.color.r = 1.0;
             marker.color.g = 0.0;
             marker.color.b = 0.0;
-            marker.color.a = 0.3;
+            marker.color.a = 0.6;
             marker.id = id++;
             marker.header.frame_id = frame_id;
             marker.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
@@ -369,13 +410,13 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             arrow_marker.type = visualization_msgs::msg::Marker::ARROW;
             arrow_marker.header.frame_id = frame_id;
             arrow_marker.id = id++;
-            arrow_marker.scale.x = state[5]/8; // Shaft diameter
+            arrow_marker.scale.x = state[5]/10; // Shaft diameter
             arrow_marker.scale.y = state[5]/4;  // Arrowhead diameter
             arrow_marker.scale.z = 0.0;  // Not used for arrows
             arrow_marker.color.r = 0.0;
             arrow_marker.color.g = 0.0;
             arrow_marker.color.b = 1.0; // Blue arrow
-            arrow_marker.color.a = 1.0; // Fully visible
+            arrow_marker.color.a = 0.80; // Fully visible
 
             geometry_msgs::msg::Point start, end;
             start.x = state[0];
@@ -425,6 +466,10 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_temporary.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
             marker_array.markers.push_back(marker_temporary);*/
 
+
+        }else{
+            //send this objects cluster to static map if he is not being shown as to be tracked
+            *nonTrackedPc_ += *(trackedObject.last_cluster);
 
         }
         
@@ -582,7 +627,6 @@ void BoundingBoxNode::DataAssociate(){
 
     //cout << costMatrix_ << "asssignment: "<< assignment_ << endl;
     double cost = HungAlgo.Solve(costMatrix_, assignment_);
-
     unsigned int nRows = costMatrix_.size(); //nr objects in this frame
 	unsigned int nCols = costMatrix_[0].size(); //nr objects tracked
     /*cout << "rows, coluns: "<< nRows<< nCols;
@@ -591,16 +635,14 @@ void BoundingBoxNode::DataAssociate(){
         cout << aux << ", ";
     }*/
     for (size_t it = 0; it < currentObjectsList.size(); it++) {
-    //for(auto it = trackedObjectsList.begin(); it != trackedObjectsList.end();){
         objectTracker& currentObject = currentObjectsList[it];
         int assignedObject= assignment_[it];
-        //cout << assignedObject <<", ";
         //THIS SHOULD BE DONE BEFORE SOLVING ALGORTIHM - GO THROUGH THE MATRIX AND SAY THAT VERY BIG VALUES ARE INFINITE
         if (costMatrix_[it][assignedObject]> cost_threshold_){
             assignment_[it]=-1; //this is done this way, because it is helpfull in finMissingNumbers
             assignedObject= assignment_[it];
         }
-        //i need to change these lists to vectors or queue, so i can do random access to them https://stackoverflow.com/questions/5733842/how-to-get-a-certain-element-in-a-list-given-the-position
+
         if (assignedObject>=0 && assignedObject< nCols){
             objectTracker& trackedObject = trackedObjectsList[assignedObject];
             trackedObject.updateStepKF=true;
@@ -608,23 +650,22 @@ void BoundingBoxNode::DataAssociate(){
             if (trackedObject.newObject) {
                 trackedObject.newObjectCounter++;
                 if (trackedObject.newObjectCounter >trackedObject.newObjectThreshold){ //contiditon to add object
-                    trackedObject.id=id_counter_;
-                    id_counter_ +=1;
-                    trackedObject.newObject=false;
+                        trackedObject.id=id_counter_;
+                        id_counter_ +=1;
+                        trackedObject.newObject=false;
                 }
             trackedObject.ocludedCounter=0; //reset on the oclusion counter
             }
         }
         else {
+            //Creating a new object - it will only be published if it keeps apearing for some time
             trackedObjectsList.push_back(currentObject);//this newly created object already comes with .updateStepKF=true, newObject = true;newObjectCounter = 0;
+        
         }
     }
     
     
-   //HAVENT I DONE THIS IN THE LAST PUCH_BACK?
-    //to deal with OLD? objects that were not associated to any NEW? objects:
-
-    //to deal with new objects that were not associated to any old objects:
+    //to deal with OLD objects that were not associated to any NEW objects:
     std::vector<int> missing = findMissingNumbers(assignment_, nCols);
     //cout << "missing matrix:" ;
     for (int num : missing) {

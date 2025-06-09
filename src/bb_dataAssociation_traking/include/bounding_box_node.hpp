@@ -46,8 +46,10 @@ float metric_time_horizon = 3.0;
 double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
 double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
 double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
-
-double cost_threshold_ = 15;
+double min_velocity_threshold_ = 1.5; //m/s
+int newObjectThreshold_ = 15;
+double cost_threshold_ = 10;
+double cov_limit_factor_=50;
 extern Eigen::MatrixXd motion_model;
 extern Eigen::MatrixXd measurement_model;
 extern Eigen::MatrixXd process_noise;
@@ -99,7 +101,7 @@ struct objectTracker
     bool updateStepKF = true;
     unsigned int ocludedCounter = 0;
     unsigned int newObjectCounter = 0;
-    int newObjectThreshold=16;
+    int newObjectThreshold=newObjectThreshold_;
     int pruneThreshold= 40;
     bool newObject = true;  //if true, the object is newly seen and not yet considered as existent. 
                             //Only when newObjectCounter>=newObjectThreshold, this bool=false and the object is considered for obstacle avoidance
@@ -107,7 +109,7 @@ struct objectTracker
 
     objectTracker(double x_init, double y_init):
         height_queue(100), //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
-        kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q ) {}
+        kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q , cov_limit_factor_) {}
     
 };
 
@@ -132,6 +134,7 @@ private:
     void computeMetrics(rclcpp::Time& currentTime);
     void correctBBorientation(objectTracker& trackedObject);
     void saveMetricsTxt(const objectTracker& trackedObject);
+    void publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp);
 
     TimedPrediction getPrediction(objectTracker& object,rclcpp::Time& currentTime);
     float computeIoU(float x1, float y1, float len1, float wid1, float angle1,
@@ -152,6 +155,7 @@ private:
 	std::vector<int> assignment_;
     std::vector< std::vector<double> > costMatrix_;
     std::ofstream outfile_;
+    pcl::PointCloud<pcl::PointXYZI>::Ptr nonTrackedPc_;
 
     std::unique_ptr<tf2_ros::Buffer> tf2_;
     std::unique_ptr<tf2_ros::TransformListener> tf2_listener_;
@@ -163,6 +167,7 @@ private:
     bool draw_height_=false;
     unsigned int id_counter_ = 0;
 
+    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_NonTRacked_pc_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
     
