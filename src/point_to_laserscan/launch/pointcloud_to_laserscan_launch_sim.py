@@ -39,7 +39,7 @@ def generate_launch_description():
                 'angle_max_laserscan': 3.14159,  # M_PI
                 'angle_increment': 0.003067,  # M_PI/360.0
                 'scan_time': 0.1,
-                'range_min': 1.5,
+                'range_min': 1.5,# 
                 'range_max': 5000.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
