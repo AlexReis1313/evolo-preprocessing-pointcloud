@@ -1,0 +1,6 @@
+#reliability_override.yaml
+/tf_static:
+  reliability: reliable
+  history: keep_last
+  depth: 10
+  durability: transient_local

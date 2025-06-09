@@ -1,0 +1,74 @@
+controller_server:
+  ros__parameters:
+    use_sim_time: True
+    # Use a valid controller plugin, e.g., RegulatedPurePursuitController
+    controller_plugins: ["RegulatedPurePursuit"] # Name of the plugin instance
+
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugins: ["goal_checker"]
+
+    progress_checker:
+      plugin: "nav2_controller::SimpleProgressChecker"
+
+    goal_checker:
+      plugin: "nav2_controller::SimpleGoalChecker"
+
+    # Configure the chosen controller plugin to effectively do nothing
+    RegulatedPurePursuit:
+      plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
+      # Set velocities to zero or extremely low to prevent movement
+      max_robot_pose_errors: {x: 0.1, y: 0.1, yaw: 0.05} # Small errors
+      max_allowed_time_to_collision: 1.0
+      use_interpolation: true
+      use_costmap_outer_bound: false
+      max_allowed_controller_duration: 10.0
+      base_frame_id: "base_footprint" 
+      odom_topic: "odom" 
+      # Setting velocities to zero to prevent any actual motion
+      max_vel_x: 0.0
+      max_vel_y: 0.0
+      max_vel_theta: 0.0
+      min_vel_x: 0.0
+      min_vel_y: 0.0
+      min_vel_theta: 0.0
+      min_in_place_vel_theta: 0.0 # Also set this to zero
+      transform_tolerance: 0.5
+      control_frequency: 0.1 # Very low frequency since we don't care about control
+      # Other parameters that don't matter much if velocities are zero
+      inflation_cost_scale: 0.0 # No cost scaling
+      lookahead_dist: 0.0 # No lookahead
+      # ... you can leave other parameters at default or adjust as needed
+   
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 10.0
+      publish_frequency: 2.0
+      transform_tolerance: 0.2
+      global_frame: odom
+      robot_base_frame: base_footprint
+      use_sim_time: True
+      always_send_full_costmap: true
+      rolling_window: true ##keeps the robot in the center of the map
+      width: 100  ##number of cells
+      height: 100
+      resolution: 2.0
+      service_introspection_mode: "disabled"
+      plugins: ["obstacle_layer"]
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: pointcloud
+        pointcloud:
+          topic: /filtered/ls/pointcloud 
+          max_obstacle_height: 20.0
+          min_obstacle_height: -20.0
+          obstacle_max_range: 500.0
+          obstacle_min_range: 1.0
+          raytrace_max_range: 100.0
+          raytrace_min_range: 0.0
+          clearing: false
+          marking: True
+          data_type: "PointCloud2"
+          observation_persistence: 3.0
