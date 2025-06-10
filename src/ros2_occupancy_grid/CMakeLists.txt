@@ -23,12 +23,17 @@ find_package(sensor_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED) # Add this line
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(pcl_ros REQUIRED)
 
 
 
 add_executable(occupancy_grid src/occupancy_grid_node.cpp
-                              src/occupancy_grid.cpp)
-ament_target_dependencies(occupancy_grid rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV )
+                              src/occupancy_grid.cpp
+                              src/euclidean_spatial.cpp)
+                              
+
+
+ament_target_dependencies(occupancy_grid rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
 target_include_directories(
   occupancy_grid
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

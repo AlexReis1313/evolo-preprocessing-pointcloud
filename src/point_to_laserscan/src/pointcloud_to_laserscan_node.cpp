@@ -142,11 +142,13 @@ void PointCloudToLaserScanNode::cloudCallback(
       // Convert back to ROS message and update headers to reflect the new frame
 
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
-      pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
-     
-      cloudREJ->header.frame_id = params_->target_frame_;
-      cloudREJ->header.stamp = cloud_msg->header.stamp;
-      cloud_msg = cloud; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
+      //pcl::toROSMsg(rejected_pointcloud, *cloudREJ);
+      //RCLCPP_INFO( this->get_logger(), " before stamp:  %f n",  rclcpp::Time(cloud_msg->header.stamp).seconds());
+      cloud->header.frame_id = params_->target_frame_;
+      cloud->header.stamp = cloud_msg->header.stamp;
+      
+      //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
+      //RCLCPP_INFO( this->get_logger(), " after stamp:  %f n",  rclcpp::Time(cloud_msg->header.stamp).seconds());
 
       //filters point cloud into a laser scan - point coordinate filter for water reflections. A 2d laser scan is outputed, taking closest non-water point to the lidar, in each horizontal angle
       //short_scan_msg is a 2d laserscan of points in a close range. In this range, water reflections filtering is agressive due to there being more water reflections
@@ -156,9 +158,9 @@ void PointCloudToLaserScanNode::cloudCallback(
       // merged_point_cloud has the same information as merged_scan_msg but in 3D Point cloud message format, instead of 2D laser scan. It still only has points in one horizonta plane
 
       params_->setUpParamsShortRange();
-      auto short_scan_msg = PointCloudToLaserScanNode::computeLaserScan(cloud_msg);
+      auto short_scan_msg = PointCloudToLaserScanNode::computeLaserScan(cloud);
       params_->setUpParamsLongRange();
-      auto long_scan_msg = PointCloudToLaserScanNode::computeLaserScan(cloud_msg);
+      auto long_scan_msg = PointCloudToLaserScanNode::computeLaserScan(cloud);
       auto merged_scan_msg = PointCloudToLaserScanNode::mergeLaserScans(short_scan_msg,  std::move(long_scan_msg));
       merged_scan_msg->header.stamp = cloud_msg->header.stamp;
       sensor_msgs::msg::PointCloud2 merged_point_cloud;
@@ -208,7 +210,7 @@ void PointCloudToLaserScanNode::cloudCallback(
      
 
       //publishing everything
-      pub_OriginalPC_->publish(std::move(*cloud_msg));
+      pub_OriginalPC_->publish(std::move(*cloud));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));
       pub_radialmap_->publish(std::move(radialMap));
       pub_pc_->publish(merged_point_cloud);
@@ -317,7 +319,7 @@ bool PointCloudToLaserScanNode::detectWaterPlane(const pcl::PointCloud<pcl::Poin
 
     if (ransac_candidates->size()<15)//we need 3 points to define plane, but we want at least a few inliers to know it is representative
     {
-        std::cerr << "[detectGroundPlane] Not enought points found to estimate plane.\n";
+        //std::cerr << "[detectGroundPlane] Not enought points found to estimate plane.\n";
         return false;
     }
 
@@ -371,13 +373,13 @@ bool PointCloudToLaserScanNode::detectWaterPlane(const pcl::PointCloud<pcl::Poin
         float threshold = 10.0; //planes more inclined than this will not be considered
         if (!checkWaterPlane(a,b,c,d, threshold)){
           return false;
-          RCLCPP_INFO(this->get_logger(), "Plane equation not valid");
+          //RCLCPP_INFO(this->get_logger(), "Plane equation not valid");
 
         }
         publish_plane_marker( a, b, c, d);
         float plane_norm = std::sqrt(a*a + b*b + c*c);
         //d_planeFilter= (d/plane_norm) + params_->ransac_filter_height_;
-        RCLCPP_INFO( this->get_logger(), " Plane %f x + %f y + %fz +%f =0\n",  a, b, c, d);
+        //RCLCPP_INFO( this->get_logger(), " Plane %f x + %f y + %fz +%f =0\n",  a, b, c, d);
 
         // We only keep points above surface of the water that do not bellong to it
         /*for (const auto& point : outliers->points) {
@@ -429,7 +431,7 @@ bool PointCloudToLaserScanNode::checkWaterPlane(float a, float b, float c, float
     float cos_theta = std::abs(c) / norm;
     float angle_radians = std::acos(cos_theta);
     float angle_degrees = angle_radians * 180.0f / M_PI;
-    RCLCPP_INFO(this->get_logger(), "Plane angle: %f", angle_degrees);
+    //RCLCPP_INFO(this->get_logger(), "Plane angle: %f", angle_degrees);
 
     if( angle_degrees > threshold_degrees){
      return false;

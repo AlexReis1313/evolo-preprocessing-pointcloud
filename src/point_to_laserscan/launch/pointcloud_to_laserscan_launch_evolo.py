@@ -61,7 +61,7 @@ def generate_launch_description():
                 'filter_by_intensity': False,
                 #Filtered output is given with time decay to help cluseting algorithm, here are the settings:
                 'time_decay': 2.5,
-                'TimeDecay_output_On_Fixed_Frame':True,
+                'TimeDecay_output_On_Fixed_Frame':False,
                 #Ransac params
                 'ransac_range_candidates': 15.0,
                 'ransac_Maxheight_candidates':0.5,

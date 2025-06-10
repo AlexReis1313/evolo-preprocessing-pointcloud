@@ -6,19 +6,24 @@
 using namespace std::chrono_literals;
 using std::placeholders::_1;
 int size_of_map_=200; //m
-double grid_size_=1.0;
+double grid_size_=2.0;
 OccupancyGridNode::OccupancyGridNode()
-    : Node("occupancy_grid"), grid_map_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)}
+    : Node("occupancy_grid"),  grid_map_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)},  clustering{this->create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10)}
 {
+
+  std::cout <<"Created all nodes"<<std::endl;
   // create publisher
   publisher_ = this->create_publisher<nav_msgs::msg::OccupancyGrid>("ocg", 10);
   // create subscribers
+  sub_lidar_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(points_in_topic, rclcpp::SensorDataQoS().keep_last(1), std::bind(&OccupancyGridNode::lidarCallback, this, std::placeholders::_1));
+
   odom_subscriber_ = this->create_subscription<nav_msgs::msg::Odometry>(
       "footprint_odom", 10, std::bind(&OccupancyGridNode::handleOdom, this, std::placeholders::_1));
   laser_scan_subscriber_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
       "filtered/ls/laserscan", rclcpp::SensorDataQoS().keep_last(2),
       std::bind(&OccupancyGridNode::handleLaserScan, this, std::placeholders::_1));      
   robot_pose_inOCGMapFrame.setIdentity();
+
 
 }
 
@@ -89,11 +94,14 @@ void OccupancyGridNode::handleOdom(const nav_msgs::msg::Odometry::SharedPtr odom
   }else{
     robot_pose_inOCGMapFrame= tf_rel;
   }
+}
 
- 
-
+void OccupancyGridNode::lidarCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg){
+  clustering.lidarAndMapCallback(input_msg,  grid_map_, robot_pose_inOCGMapFrame);
   
 }
+
+
 
 void OccupancyGridNode::handleLaserScan(const sensor_msgs::msg::LaserScan::SharedPtr laser_scan)
 {

@@ -40,22 +40,23 @@
 
 
 //GLOBAL variables
-int num_states = 10;
-int num_sensors = 5;
+const int num_states = 10;
+const int num_sensors = 5;
 float metric_time_horizon = 3.0;
 double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
 double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
 double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
-double min_velocity_threshold_ = 1.5; //m/s
-int newObjectThreshold_ = 15;
-double cost_threshold_ = 10;
+double min_velocity_threshold_ = 1.2; //m/s
+int newObjectThreshold_ = 20;
+double cost_threshold_ = 10;                   
 double cov_limit_factor_=50;
 extern Eigen::MatrixXd motion_model;
 extern Eigen::MatrixXd measurement_model;
 extern Eigen::MatrixXd process_noise;
 bool save_metrics_txt_ = false;
 std::string metrics_file = "boundingBoxMetrics.txt";
-std::string fixed_frame_="odom";
+//std::string fixedEuclideanSpatial
+std::string fixed_frame_ = "odom";
 
 
 
@@ -97,7 +98,7 @@ struct objectTracker
     double height;
     KalmanFilter kf;
     std::vector<double> costVector;
-    FixedSizeQueue height_queue;
+    //FixedSizeQueue height_queue;
     bool updateStepKF = true;
     unsigned int ocludedCounter = 0;
     unsigned int newObjectCounter = 0;
@@ -108,7 +109,7 @@ struct objectTracker
     std::deque<TimedPrediction> future_predictions;
 
     objectTracker(double x_init, double y_init):
-        height_queue(100), //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
+        //height_queue(100), //A class inside a struct needs to be first declared and then initialized in a constructor for the struct
         kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q , cov_limit_factor_) {}
     
 };
