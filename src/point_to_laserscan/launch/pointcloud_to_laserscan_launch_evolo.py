@@ -27,7 +27,7 @@ def generate_launch_description():
 
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
-            remappings=[('cloud_in', 'ouster/points'),
+            remappings=[('cloud_in', 'ouster/   '),
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/filtered'])],
 
             parameters=[{

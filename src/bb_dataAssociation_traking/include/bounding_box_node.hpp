@@ -33,7 +33,8 @@
 #include <pcl/filters/filter.h>
 #include <opencv2/core/types.hpp>
 #include <opencv2/imgproc.hpp> 
-
+#include "tf2_eigen/tf2_eigen.hpp"
+#include <pcl/common/transforms.h>
 
 
 
@@ -135,7 +136,7 @@ private:
     void computeMetrics(rclcpp::Time& currentTime);
     void correctBBorientation(objectTracker& trackedObject);
     void saveMetricsTxt(const objectTracker& trackedObject);
-    void publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp);
+    void publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp, geometry_msgs::msg::TransformStamped transform_stamped);
 
     TimedPrediction getPrediction(objectTracker& object,rclcpp::Time& currentTime);
     float computeIoU(float x1, float y1, float len1, float wid1, float angle1,
@@ -149,6 +150,7 @@ private:
     rclcpp::Time last_iteration_time_;
     MinAreaRect rotatingCaliper2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
     std::vector<Point> convertPCLCloudToCalipersInput(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud);
+    
     std::vector<objectTracker> trackedObjectsList;
     std::vector<objectTracker> toEraseObjectsList;
     std::vector<objectTracker> currentObjectsList;

@@ -45,15 +45,15 @@ local_costmap:
     ros__parameters:
       update_frequency: 10.0
       publish_frequency: 2.0
-      transform_tolerance: 0.2
-      global_frame: odom
+      transform_tolerance: 0.5
+      global_frame: base_footprint
       robot_base_frame: base_footprint
       use_sim_time: True
       always_send_full_costmap: true
       rolling_window: true ##keeps the robot in the center of the map
-      width: 100  ##number of cells
-      height: 100
-      resolution: 2.0
+      width: 200  ##number of cells
+      height: 200
+      resolution: 1.0
       service_introspection_mode: "disabled"
       plugins: ["obstacle_layer"]
       obstacle_layer:
@@ -61,14 +61,14 @@ local_costmap:
         enabled: true
         observation_sources: pointcloud
         pointcloud:
-          topic: /static/pointcloud
-          max_obstacle_height: 20.0
-          min_obstacle_height: -20.0
-          obstacle_max_range: 500.0
+          topic: /filtered/ls/pointcloud #/static/pointcloud
+          max_obstacle_height: 5.0
+          min_obstacle_height: -5.0
+          obstacle_max_range: 300.0
           obstacle_min_range: 1.0
-          raytrace_max_range: 200.0
+          raytrace_max_range: 300.0
           raytrace_min_range: 0.0
           clearing: True
           marking: True
           data_type: "PointCloud2"
-          observation_persistence: 3.0
+          observation_persistence: 1.0

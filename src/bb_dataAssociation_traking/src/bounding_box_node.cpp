@@ -106,9 +106,11 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         pubKfMarkerArrays(fixed_frame_);
         return;
     }
+    geometry_msgs::msg::TransformStamped transform_stamped, inverse_transform_stamped;
+
     if (fixed_frame_ != msg->header.frame_id){
-        geometry_msgs::msg::TransformStamped transform_stamped;
         transform_stamped = tf2_->lookupTransform(fixed_frame_, msg->header.frame_id, tf2::TimePointZero);
+        inverse_transform_stamped = tf2_->lookupTransform( msg->header.frame_id, fixed_frame_, tf2::TimePointZero);
         //cout << "step1"<<endl;
 
             try{
@@ -124,9 +126,14 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
 
                 tf2::doTransform(*msg, cloud_out, transform_stamped);
                 pcl::fromROSMsg(cloud_out, cloud);
+
             }
     }else{
         cloud = originalFrameCloud;
+        tf2::Transform tf2_transform;
+        tf2_transform.setIdentity();
+        tf2::toMsg(tf2_transform, inverse_transform_stamped.transform); //setting transform to identity/null transform
+
     }
    
     
@@ -207,13 +214,13 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
 
     updateKalmanFilters(); 
     pubKfMarkerArrays(fixed_frame_); //here we publish kf bounding boxes
-    publishNonTrackedPC(fixed_frame_,currentTime);
+    publishNonTrackedPC(msg->header.frame_id,currentTime,inverse_transform_stamped);
 
     //computeMetrics(currentTime);//BAD METRICS
 
    
 }
-void BoundingBoxNode::publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp){
+void BoundingBoxNode::publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp, geometry_msgs::msg::TransformStamped transform_stamped){
     for(auto const& currentObject : currentObjectsList){
         if (currentObject.newObject && currentObject.last_cluster && !currentObject.last_cluster->empty()) {
             // Append the cluster to the non-tracked point cloud
@@ -221,14 +228,21 @@ void BoundingBoxNode::publishNonTrackedPC(std::string frame_id, rclcpp::Time sta
         }
         
     }
-    auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-
-    pcl::toROSMsg(*nonTrackedPc_, *cloud);
-    cloud->header.frame_id = frame_id;
-    cloud->header.stamp = stamp;
-    pub_NonTRacked_pc_->publish(*cloud);
+    pcl::PointCloud<pcl::PointXYZI> pcl_cloud_transformed;
+    try {
+      
+        pcl_ros::transformPointCloud(*nonTrackedPc_, pcl_cloud_transformed, transform_stamped); //we want to transfrom back from global frame to local frame
+        auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+        pcl::toROSMsg(pcl_cloud_transformed, *cloud);
+        cloud->header.frame_id = frame_id;
+        cloud->header.stamp = stamp;
+        pub_NonTRacked_pc_->publish(*cloud);
+    } catch (const tf2::TransformException& ex) {
+        RCLCPP_ERROR(this->get_logger(), "Could not transform static cloud: %s", ex.what());
+        return;
+    }
+    
     nonTrackedPc_->clear();
-
 
 }
 

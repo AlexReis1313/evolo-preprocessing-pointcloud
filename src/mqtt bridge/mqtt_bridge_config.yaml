@@ -1,0 +1,14 @@
+# mqtt_bridge_config.yaml
+mqtt:
+  client:
+    host: 20.240.40.232
+    port: 1884
+bridge: # following https://api-docs.waraps.org/#/agent_communication/topics/basic_naming_conventions
+  - factory: "mqtt_bridge.bridge:RosToMqttBridge"
+    msg_type: "sensor_msgs.msg:PointCloud2"
+    topic_from: "/Evolo/mqtt/map"
+    topic_to: "waraps/unit/surface/real/evolo/local_map"
+  - factory: "mqtt_bridge.bridge:MqttToRosBridge"
+    msg_type: "sensor_msgs.msg:PointCloud2"
+    topic_from: "waraps/unit/surface/real/evolo/local_map"
+    topic_to: "/Evolo/mqtt/map/sim"

@@ -30,7 +30,6 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
 
     std::vector<int> indices;
     pcl::removeNaNFromPointCloud(*pointcloud_nonfiltered, *pointcloud, indices);
-    int original_size = pointcloud->width * pointcloud->height;
     pointcloud_ptr = pointcloud;
 
     
@@ -50,7 +49,6 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
 
     pcl::PointIndices::Ptr clustered_indices(new pcl::PointIndices);
     // get number of clusters
-    int num_clusters = cluster_indices.size();
   
 
 
@@ -59,7 +57,7 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
     int intensity = 1; //intensity zero is for clusteres that will be part of the static map
     float total_counter;
     float occ_counter;
-    bool dynamic_cluster =true;
+     //bool dynamic_cluster =true;
     int cluster_intensity;
     for (const auto &cluster : cluster_indices)
     {
@@ -75,11 +73,11 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
       }
       double fraction = occ_counter/total_counter;
       if ( fraction < 0.5 ){//less than 70% of the points are within occupied part of the map
-        dynamic_cluster= true; //cluster is dynamic, will be tracked
+         //dynamic_cluster= true; //cluster is dynamic, will be tracked
         intensity++;
         cluster_intensity=intensity;
       }else{
-        dynamic_cluster=false; //cluster is static - will be mapped in an occupancy grid map
+         //dynamic_cluster=false; //cluster is static - will be mapped in an occupancy grid map
         cluster_intensity = 0;
       }
       //std::cout << " this cluster is dynamic? "<< dynamic_cluster << "with counters (%, occ, total)" << fraction << " occ:"<<occ_counter << " total:"<<total_counter << std::endl;

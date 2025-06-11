@@ -1,0 +1,29 @@
+/**: # we give this config to two nodes, so we cant just "pick" a node for these params
+    ros__parameters:
+        mqtt:
+            client:
+                protocol: 4      # MQTTv311
+            connection:
+                # host: 20.240.40.232 # these are set in the launch file, so we could have args from outside
+                # port: 1884
+                keepalive: 60
+            # private_path: ros2test #also set in the launch file
+        serializer: json:dumps
+        deserializer: json:loads
+        # this needs to be set accordingly 
+        n_bridges: 2
+        bridge:
+            # dont forget to add the ".msg" part!
+            #  the ~ in front will fill with smarc/<robot_name>/ for mqtt
+            #  and this node is run under /<robot_name>/ in ROS, relative topics etc.
+
+            # each one needs to be named "bridgeN" in ros2 version...
+            ###
+            # ROS -> MQTT
+           
+            # following https://api-docs.waraps.org/#/agent_communication/topics/basic_naming_conventions
+            bridge1: ["mqtt_bridge.bridge:RosToMqttBridge", "sensor_msgs.msg:PointCloud2", "waraps/unit/surface/real/evolo/local_map", "/Evolo/mqtt/map"]
+            ###
+            # MQTT -> ROS
+            ###
+            bridge2: ["mqtt_bridge.bridge:MqttToRosBridge", "sensor_msgs.msg:PointCloud2", "/Evolo/mqtt/map/sim", "waraps/unit/surface/real/evolo/local_map"]
