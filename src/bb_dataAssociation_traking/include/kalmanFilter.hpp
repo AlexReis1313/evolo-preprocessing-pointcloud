@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
+// kalmanFilter.hpp: Header file for Class KalmanFilter.
+// 
+// by Alexandre Reis, 2025
+// 
+
 #ifndef KALMANFILTER_H
 #define KALMANFILTER_H
 

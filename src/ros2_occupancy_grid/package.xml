@@ -3,9 +3,13 @@
 <package format="3">
   <name>occupancy_grid</name>
   <version>0.0.1</version>
-  <description>A ROS2 package that takes in odometry and laser scan data to build a 2D occupancy grid.</description>
-  <maintainer email="hiwad.aziz@gmx.de">ubuntu</maintainer>
-  <license>MIT</license>
+  <description>A ROS2 package that takes in odometry and laser scan data to build a 2D local occupancy grid that rools with robot.
+                The package also receives a Point Cloud, clusters it with Eucledian Clusters and outputs a clustered pointcloud
+                The package uses the occupancy_grid to define which new clusters are  .</description>
+  <!-- This package is based on the implementation from Hiwad Aziz to create a rolling occupancy grid. It was extensivey modified and adapted. Original code: https://github.com/hiwad-aziz/ros2_occupancy_grid -->
+    <author email="apldar@kth.se">Alexandre Reis</author>
+    <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
+    <license>MIT</license>
 
   <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>

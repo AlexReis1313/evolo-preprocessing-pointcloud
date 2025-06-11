@@ -21,7 +21,7 @@ enum class CellState : unsigned int { FREE, OCCUPIED };
 
 class OccupancyGrid {
  public:
-  OccupancyGrid(unsigned int grid_size, double cell_size);
+  OccupancyGrid(unsigned int grid_size, double cell_size, );
 
   void toRosMsg(nav_msgs::msg::OccupancyGrid& occupancy_grid_msg,tf2::Transform & robot_pose_inOCGMapFrame);
   void update(double delta_x, double delta_y, double delta_yaw);

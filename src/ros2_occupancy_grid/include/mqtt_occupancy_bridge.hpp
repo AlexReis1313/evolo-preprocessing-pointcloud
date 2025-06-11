@@ -33,7 +33,7 @@ class MqttOccupancyBridgeNode : public rclcpp::Node{
 
   std::string map_in_topic = "local_costmap/costmap";
   std::string points_out_topic = "Evolo/mqtt/map";
-  std::string string_out_topic = "local/map";
+  std::string string_out_topic = "sensor/pointcloud";
 
   double throttle_hz_ = 2.0;
   rclcpp::Time prev_time;
