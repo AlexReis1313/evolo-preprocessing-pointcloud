@@ -5,7 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     config_dir = os.path.join(
-        get_package_share_directory('pointcloud_to_laserscan'), 'config', 'mapping.yaml'
+        get_package_share_directory('pointcloud_preprocessing'), 'config', 'mapping.yaml'
     )
 
     return LaunchDescription([

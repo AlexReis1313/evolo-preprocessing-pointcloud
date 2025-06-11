@@ -7,7 +7,9 @@
 #include <tf2/LinearMath/Matrix3x3.h>
 #include "nav_msgs/msg/odometry.hpp"
 
-
+//takes in robot base_link and publishes base_footprit. base_footprit has same x,y,yaw as base_link and all other coordinates and attitudes null
+//publishes base_footprit Tf at 50hz and odom at 25hz
+//odom has pose, rotation, twist and angular velocities. It has no covariance
 class BaseFootprintPublisher : public rclcpp::Node
 {
 public:

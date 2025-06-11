@@ -1,21 +1,27 @@
-#ifndef POINTCLOUD_TO_LASERSCAN__FILTERING_PARAMS_HPP_
-#define POINTCLOUD_TO_LASERSCAN__FILTERING_PARAMS_HPP_
+#ifndef POINTCLOUD_PREPROCESSING__FILTERING_PARAMS_HPP_
+#define POINTCLOUD_PREPROCESSING__FILTERING_PARAMS_HPP_
 
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <limits>
 #include <cmath>
 #include <thread>
+#include "rcl_interfaces/msg/set_parameters_result.hpp"
+#include "rclcpp/node.hpp"  
+#include "rclcpp/parameter.hpp"
 
-namespace pointcloud_to_laserscan
+
+
+
+namespace pointcloud_preprocessing
 {
 
-class PointCloudToLaserScanParams
+class PointCloudPreProcessingParams
 {
 public:
 
     // Constructor that declares and initializes all parameters
-    explicit PointCloudToLaserScanParams(rclcpp::Node* node);
+    explicit PointCloudPreProcessingParams(rclcpp::Node* node);
     void setUpParamsShortRange();
     void setUpParamsLongRange ();
 
@@ -77,8 +83,15 @@ public:
     double ransac_Minheight_candidates_;
     bool useRansac_ = true;
 
+    // to print time of each computation
+    bool timeMetric;
+    
+    rclcpp::Node* node_;
+    rcl_interfaces::msg::SetParametersResult onParameterChange(const std::vector<rclcpp::Parameter>& parameters);
+
+
 };
 
 }  // namespace pointcloud_to_laserscan
 
-#endif  // POINTCLOUD_TO_LASERSCAN__POINTCLOUD_TO_LASERSCAN_PARAMS_HPP_
+#endif  // POINTCLOUD_PREPROCESSING__FILTERING_PARAMS_HPP_

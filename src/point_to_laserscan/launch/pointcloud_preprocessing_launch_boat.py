@@ -13,12 +13,12 @@ def generate_launch_description():
         ),
        
        Node(
-            package='pointcloud_to_laserscan', executable='base_footprint_publisher',
+            package='pointcloud_preprocessing', executable='base_footprint_publisher',
             parameters=[{'use_sim_time': True}],
             name='base_footprint_publisher_node'
         ),
         Node(
-            package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
+            package='pointcloud_preprocessing', executable='pointcloud_preprocessing_node',
             remappings=[('cloud_in', 'ouster/points'),
                         ('scan', [LaunchConfiguration(variable_name='scanner'), '/scan/filtered'])],
 

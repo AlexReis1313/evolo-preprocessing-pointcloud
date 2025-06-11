@@ -1,24 +1,21 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>pointcloud_to_laserscan</name>
+    <name>pointcloud_preprocessing</name>
     <version>2.0.1</version>
-    <description>Filters a raw 3D PointCloud for a maritime environment with noisy points from water detection. Converts the filtered 3D Point Cloud into a 2D laser scan.</description>
+    <description>Filters a raw 3D PointCloud for a maritime environment with noisy points from water detection. Converts the filtered 3D Point Cloud into a 2D laser scan. Publishes several topics that use the filtered 2D data. 
+    Published topics: filtered laser scan (published in laser scan msg and point cloud msg); time decay / accumulated filtered laser scan (published as 2d point cloud); range radial map of closest detection for each angle interval 
+    ( output in low density laser scan, used for obstacle avoidance, and high density laser scan made to be viewed on rviz); etc.
+    This package also has a node that generates a base_footprint tf and odom from the given robot's base_link</description>
 
-    <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
-    <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
-    <maintainer email="michel@ekumenlabs.com">Michel Hidalgo</maintainer>
+
+    <!-- This package uses the implementation from Paul Bovbel, Tully Foote and Michel Hidalgo to convert Point Clouds to laserscans. Source code found here: https://github.com/ros-perception/pointcloud_to_laserscan -->
     <author email="apldar@kth.se">Alexandre Reis</author>
-
-    <author email="paul@bovbel.com">Paul Bovbel</author>
-    <author email="michel@ekumenlabs.com">Michel Hidalgo</author>
-    <author>Tully Foote</author>.
-
+    <maintainer email="apldar@kth.se">Alexandre Reis</maintainer>
 
     <license>BSD</license>
 
-    <url type="website">http://ros.org/wiki/perception_pcl</url>
-    <url type="bugtracker">https://github.com/ros-perception/perception_pcl/issues</url>
-    <url type="repository">https://github.com/ros-perception/perception_pcl</url>
+    <url type="bugtracker">https://github.com/AlexReis1313/evolo-preprocessing-pointcloud/issues</url>
+    <url type="repository">https://github.com/AlexReis1313/evolo-preprocessing-pointcloud</url>
 
     <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
