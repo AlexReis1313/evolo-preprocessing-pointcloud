@@ -51,9 +51,9 @@ local_costmap:
       use_sim_time: True
       always_send_full_costmap: true
       rolling_window: true ##keeps the robot in the center of the map
-      width: 200  ##number of cells
-      height: 200
-      resolution: 1.0
+      width: 150  ##number of cells
+      height: 150
+      resolution: 1.5
       service_introspection_mode: "disabled"
       plugins: ["obstacle_layer"]
       obstacle_layer:
@@ -61,14 +61,14 @@ local_costmap:
         enabled: true
         observation_sources: pointcloud
         pointcloud:
-          topic: /filtered/ls/pointcloud #/static/pointcloud
-          max_obstacle_height: 5.0
-          min_obstacle_height: -5.0
+          topic: /static/pointcloud #/filtered/ls/pointcloud #/
+          max_obstacle_height: 15.0
+          min_obstacle_height: -15.0
           obstacle_max_range: 300.0
           obstacle_min_range: 1.0
-          raytrace_max_range: 300.0
+          raytrace_max_range: 250.0
           raytrace_min_range: 0.0
           clearing: True
           marking: True
           data_type: "PointCloud2"
-          observation_persistence: 1.0
+          observation_persistence: 2.0

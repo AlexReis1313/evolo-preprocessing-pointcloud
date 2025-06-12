@@ -63,7 +63,7 @@ extern Eigen::MatrixXd process_noise;
 double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
 double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
 double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
-double min_velocity_threshold_ = 1.2; //m/s
+double min_velocity_threshold_ = 1.90; //m/s
 int newObjectThreshold_ = 20;   //number of times an object has to be seen before tracker output starts
 double cost_threshold_ = 10;   //cost threshold to associate cluster to object                
 double cov_limit_factor_=50;   // if a tracked object has more cov than this, it will be deleted
