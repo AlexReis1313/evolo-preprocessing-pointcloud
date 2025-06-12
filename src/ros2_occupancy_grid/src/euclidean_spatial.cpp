@@ -72,7 +72,7 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
         total_counter+=1.0;
       }
       double fraction = occ_counter/total_counter;
-      if ( fraction < 0.5 ){//less than 70% of the points are within occupied part of the map
+      if ( fraction < 0.7 ){//less than 70% of the points are within occupied part of the map
          //dynamic_cluster= true; //cluster is dynamic, will be tracked
         intensity++;
         cluster_intensity=intensity;

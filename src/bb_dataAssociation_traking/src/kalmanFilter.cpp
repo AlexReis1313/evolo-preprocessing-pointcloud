@@ -196,8 +196,8 @@ std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verb
     x_boundingBox[4]=total_inflated_bblength;
 
 
-    if (std::abs(total_inflated_bblength*total_inflated_bbwidth) > std::abs(width*length*covariance_limit_factor_)){
-        std::cout << "A tracked object has too much covariance - we do not trust him. Not considered an object"<<std::endl;
+    if (std::abs(total_inflated_bblength*total_inflated_bbwidth) > std::abs(width*length*covariance_limit_factor_) || total_inflated_bbwidth<x[5] ||total_inflated_bblength<x[4] ){
+        std::cout << "A tracked object has too much covariance or neg covariance - we do not trust him. Not considered an object"<<std::endl;
         x_boundingBox[5]=0;
         x_boundingBox[4]=0;
         width_axis_Elipselength=0;
