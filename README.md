@@ -1,28 +1,51 @@
-# ROS2 Humble Lidar Point Cloud Pre-process node
+# ROS2 Humble Lidar Perception Pipeline for Hydrofoiling USV
 This node uses an altered version of the pointcloud_to_laserscan package.
 
-# Build and Run
+# Build
 
     git clone https://github.com/AlexReis1313/evolo-preprocessing-pointcloud.git
     cd /evolo-preprocessing-pointcloud/
     colcon build
     source the workspace
-    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_evolo.py 
+# Run
+### Lidar Preprocessing Node - essential
+Takes in raw LiDAR Point CLouds in sensor frame (or base_link), filters it and outputs several 2d representations in base_footprint.
+Also produces base_footprint
 
+    ros2 launch pointcloud_preprocessing pointcloud_preprocessing_launch_evolo.py
+### Clustering and local occupancy grid map
+
+    ros2 run clustering_segmentation clustering_segmentation 
+    
+### Tracking
+
+    ros2 run bb_dataass_tracking bounding_box_node_main 
+
+### Other commands - not always used
+
+    ros2 launch pointcloud_preprocessing mapping_launch.py
+    ros2 launch lidar_cluster euclidean_spatial.launch.py topic:=/filtered/ls/pointcloud/accumulated
+    
+### Send lightweight occupancy grid map over MQTT
+    
+    ros2 run occupancy_grid occupancy_grid_mqtt
+    ros2 launch str_json_mqtt_bridge waraps_bridge.launch
 
 For alternative vehicle parameters, use one of the following options:
 
-    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_boat.py 
-    ros2 launch pointcloud_to_laserscan pointcloud_to_laserscan_launch_sim.py 
-
+    ros2 launch pointcloud_preprocessing pointcloud_preprocessing_launch_boat.py
+    ros2 launch pointcloud_preprocessing pointcloud_preprocessing_launch_sim.py
 
 # Youtube examples of this Package
 
 https://www.youtube.com/playlist?list=PLS_kAMaDCf634gqgQ6XRzQY9NJVkBzv5d
 
-# ROS 2 pointcloud_to_laserscan package
-This is a ROS 2 package that provides components to convert `sensor_msgs/msg/PointCloud2` messages to `sensor_msgs/msg/LaserScan` messages and back.
-It provides the base methods for this package. https://github.com/ros-perception/pointcloud_to_laserscan 
+# External used code
+### ROS 2 pointcloud_to_laserscan package
+This reository uses the pointcloud_to_laserscan ROS 2 package that provides components to convert `sensor_msgs/msg/PointCloud2` messages to `sensor_msgs/msg/LaserScan` messages and back.
+Source code can be found here https://github.com/ros-perception/pointcloud_to_laserscan 
+### ROS2 ros2_occupancy_grid package
+This repository adapted and used the local ocupancy grid map implementation in https://github.com/hiwad-aziz/ros2_occupancy_grid
 
 
 # pointcloud <-> laserscan converter with pre-proccessing
