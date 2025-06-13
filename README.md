@@ -1,5 +1,4 @@
 # ROS2 Humble Lidar Perception Pipeline for Hydrofoiling USV
-This node uses an altered version of the pointcloud_to_laserscan package.
 
 # Build
 
