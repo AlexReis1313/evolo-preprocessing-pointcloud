@@ -55,7 +55,7 @@ void KalmanFilter::predict(rclcpp::Time currentTime) {
         std::cout<< "Time dif between cloud messages's stamp is null - no kf tracking is possible. Assuming dt=0.1s to keep running. currentTIME: "<< currentTime.seconds()<< " last time: "<<time_.seconds()<< "dt: "<< dt <<std::endl;
         dt=0.1;
     }
-    std::cout << "currentTIME: "<< currentTime.seconds()<< " last time: "<<time_.seconds()<< "dt: "<< dt <<std::endl;
+    //std::cout << "currentTIME: "<< currentTime.seconds()<< " last time: "<<time_.seconds()<< "dt: "<< dt <<std::endl;
     time_ = currentTime;
     // Modify motion model with time delta
     Eigen::MatrixXd A_dt = A;

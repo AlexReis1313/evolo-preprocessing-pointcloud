@@ -65,8 +65,11 @@ double cov_limit_factor_=50;   // if a tracked object has more cov than this, it
 int pruneThreshold_ = 35; //if an object is not seen for 40 consecutive point clouds, it will be deleted - this leavs ~4seconds where ocluded objects get propagated
 bool save_metrics_txt_ = false;
 std::string metrics_file = "boundingBoxMetrics.txt";
+std::string timing_file = "timingFile.cvs";
+
 std::string fixed_frame_ = "odom";
 bool timeMetric_ = true;
+bool saveTimeMetric_ = true;
 
 
 
@@ -156,7 +159,7 @@ private:
 	HungarianAlgorithm HungAlgo;
 	std::vector<int> assignment_;
     std::vector< std::vector<double> > costMatrix_;
-    std::ofstream outfile_;
+    std::ofstream outfile_, timeoutFile_;
     pcl::PointCloud<pcl::PointXYZI>::Ptr nonTrackedPc_;
 
     std::unique_ptr<tf2_ros::Buffer> tf2_;

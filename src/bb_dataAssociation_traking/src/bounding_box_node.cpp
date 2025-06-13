@@ -92,13 +92,29 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
             save_metrics_txt_ = false;
         }
     }
+    if(saveTimeMetric_){
+        timeoutFile_.open(timing_file, std::ios::app);
+        //std::ofstream timeoutFile_(timing_file, std::ios::app); // append mode
+
+        if (!timeoutFile_.is_open()) {
+            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", timing_file.c_str());
+            saveTimeMetric_ = false;
+        } else{
+            timeoutFile_ << "\n\nNode was restarted\n";
+
+        }
+            
+    }
+
+
+
 
 }
 
 
 void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-    ScopedTimer timer_calback("Entire point cloud callback",this, timeMetric_);
-    ScopedTimer timer_transform("Tranform cloud",this, timeMetric_);
+    ScopedTimer timer_calback("[bbTracking]Entire point cloud callback",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
+    ScopedTimer timer_transform("[bbTracking]Tranform cloud",this, timeMetric_,saveTimeMetric_, timeoutFile_);
     // Convert PointCloud2 to PCL PointCloud
     cout << "Begining callback"<<endl;
     pcl::PointCloud<pcl::PointXYZI> originalFrameCloud, cloud;
@@ -154,7 +170,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     //predict next pose on kalman filters
     predictKalmanFilters(currentTime);
     last_iteration_time_=currentTime;
-    ScopedTimer timer_dealClusters("Separate Clusters",this, timeMetric_);
+    ScopedTimer timer_dealClusters("[bbTracking]Separate Clusters",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
 
 
     // Separate clusters by intensity value
@@ -184,7 +200,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     clusters.erase(0);  //only points that are part of a cluster will be used to track objects
 
     timer_dealClusters.stopClock();
-    ScopedTimer timer_obb("Computing bounding boxes",this, timeMetric_);
+    ScopedTimer timer_obb("[bbTracking]Computing bounding boxes",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
 
 
     // Compute bounding boxes for each cluster
@@ -220,7 +236,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     } else{
         initiateTrackedObjects();//Will not do data associate, only iniciate
     }
-    ScopedTimer timer_ukf("Update kf",this, timeMetric_);
+    ScopedTimer timer_ukf("[bbTracking]Update kf",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
 
     updateKalmanFilters(); 
     pubKfMarkerArrays(fixed_frame_); //here we publish kf bounding boxes
@@ -697,7 +713,7 @@ void BoundingBoxNode::correctBBorientation(objectTracker& trackedObject){
     }
 }
 void BoundingBoxNode::DataAssociate(){
-    ScopedTimer timer_dataAss("Data Association",this, timeMetric_);
+    ScopedTimer timer_dataAss("[bbTracking]Data Association",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
 
 
     costMatrix_.clear();
@@ -945,7 +961,7 @@ Eigen::Matrix2f BoundingBoxNode::approximateCovarianceFromBoundingBox(float widt
     return global_cov;
 }
 void BoundingBoxNode::predictKalmanFilters(rclcpp::Time currentTime){
-    ScopedTimer timer_predictKf("predict KF",this, timeMetric_);
+    ScopedTimer timer_predictKf("[bbTracking]predict KF",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
 
     for(auto& trackedObject : trackedObjectsList){
         trackedObject.kf.predict(currentTime);
@@ -1078,5 +1094,8 @@ width:1.43603, height:0.785398
 BoundingBoxNode::~BoundingBoxNode() {
     if (outfile_.is_open()) {//this deals with the metrics txt file - needs to be closed
         outfile_.close();
+    }
+    if(timeoutFile_.is_open()){
+        timeoutFile_.close();
     }
 }
