@@ -4,12 +4,6 @@
 // by Alexandre Reis, 2025
 // 
 
-
-
-
-
-
-
 #ifndef BOUNDING_BOX_NODE_HPP
 #define BOUNDING_BOX_NODE_HPP
 
@@ -32,6 +26,7 @@
 #include "Hungarian.h"
 #include <vector>
 #include <list>
+#include "sensor_msgs/msg/laser_scan.hpp"
 
 #include "message_filters/subscriber.h"
 #include "tf2_ros/buffer.h"
@@ -63,15 +58,18 @@ extern Eigen::MatrixXd process_noise;
 double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
 double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
 double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
-double min_velocity_threshold_ = 1.90; //m/s
-int newObjectThreshold_ = 20;   //number of times an object has to be seen before tracker output starts
-double cost_threshold_ = 10;   //cost threshold to associate cluster to object                
+double min_velocity_threshold_ = 1.3; //m/s
+int newObjectThreshold_ = 15;   //number of times an object has to be seen before tracker output starts
+double cost_threshold_ = 6;   //cost threshold to associate cluster to object                
 double cov_limit_factor_=50;   // if a tracked object has more cov than this, it will be deleted
-int pruneThreshold_ = 40; //if an object is not seen for 40 consecutive point clouds, it will be deleted - this leavs ~4seconds where ocluded objects get propagated
+int pruneThreshold_ = 35; //if an object is not seen for 40 consecutive point clouds, it will be deleted - this leavs ~4seconds where ocluded objects get propagated
 bool save_metrics_txt_ = false;
 std::string metrics_file = "boundingBoxMetrics.txt";
+std::string timing_file = "BBTrack_timingFile.csv";
+
 std::string fixed_frame_ = "odom";
 bool timeMetric_ = true;
+bool saveTimeMetric_ = true;
 
 
 
@@ -81,6 +79,12 @@ struct TimedPrediction {
         Eigen::VectorXd predicted_state;
     };
 
+struct CovarianceInfo {
+    Eigen::Matrix2f covariance;
+    Eigen::Matrix2f inverse;
+    Eigen::Vector2f meanxy;
+    float determinant;
+};
 struct objectTracker
 {
     int id = -1;//undefined
@@ -88,6 +92,8 @@ struct objectTracker
     MinAreaRect rectangle;
     KalmanFilter kf;
     std::vector<double> costVector;
+    CovarianceInfo covInfo;
+    bool hasPublished_last_cluster = false;
     bool updateStepKF = true;
     unsigned int ocludedCounter = 0;
     unsigned int newObjectCounter = 0;
@@ -116,7 +122,6 @@ private:
     void defineHeight(objectTracker& object);
     void pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker);
     void pubKfMarkerArrays(std::string frame_id);
-    void pupBBMarkerArray(std::string frame_id);
     void updateKalmanFilters();
     void DataAssociate();
     void initiateTrackedObjects();
@@ -124,6 +129,17 @@ private:
     void correctBBorientation(objectTracker& trackedObject);
     void saveMetricsTxt(const objectTracker& trackedObject);
     void publishNonTrackedPC(std::string frame_id, rclcpp::Time stamp, geometry_msgs::msg::TransformStamped transform_stamped);
+    double costFuntion_VANILA(const objectTracker& object, const objectTracker& trackedObject);
+    double costFuntion_IOU(const objectTracker& object, const objectTracker& trackedObject);
+    double costFuntion_BACHY(const objectTracker& object, const objectTracker& trackedObject);
+    double costFuntion_BACHY_covBB(const objectTracker& object, const objectTracker& trackedObject);
+    double costFuntion_BACHY_IOU(const objectTracker& object, const objectTracker& trackedObject);
+    double costFuntion_BACHY_IOU_eucledian(const objectTracker& object, const objectTracker& trackedObject);
+
+    Eigen::Matrix2f approximateCovarianceFromBoundingBox(float width, float length, float heading);
+    CovarianceInfo computeCovarianceInfo(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
+    void pupBBMarkerArray(std::string frame_id);
+
 
     TimedPrediction getPrediction(objectTracker& object,rclcpp::Time& currentTime);
     float computeIoU(float x1, float y1, float len1, float wid1, float angle1,
@@ -131,7 +147,6 @@ private:
 
     std::vector<int> findMissingNumbers(const std::vector<int>& assignment, int m);
     void defineCosts(objectTracker& object);
-    double costFuntion(const objectTracker& object, const objectTracker& trackedObject);
 
 
     rclcpp::Time last_iteration_time_;
@@ -144,7 +159,7 @@ private:
 	HungarianAlgorithm HungAlgo;
 	std::vector<int> assignment_;
     std::vector< std::vector<double> > costMatrix_;
-    std::ofstream outfile_;
+    std::ofstream outfile_, timeoutFile_;
     pcl::PointCloud<pcl::PointXYZI>::Ptr nonTrackedPc_;
 
     std::unique_ptr<tf2_ros::Buffer> tf2_;
@@ -156,10 +171,12 @@ private:
     bool has_received_3dcloud_=false;
     unsigned int id_counter_ = 0;
 
-    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pub_NonTRacked_pc_;
+    std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::LaserScan>>  pub_NonTRacked_pc_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr corrected_bbox_pub_;
+
+
     
 
 };

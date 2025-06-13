@@ -85,6 +85,8 @@ public:
 
     // to print time of each computation
     bool timeMetric;
+    bool saveTimeMetric_ = false;
+    std::string timing_file = "PCfilting_timingFile.csv";
     
     rclcpp::Node* node_;
     rcl_interfaces::msg::SetParametersResult onParameterChange(const std::vector<rclcpp::Parameter>& parameters);

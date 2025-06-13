@@ -172,7 +172,7 @@ bool checkWaterPlane(float a, float b, float c, float d, float threshold_degrees
 rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
 
 laser_geometry::LaserProjection Laser2PCprojector_;
-
+std::ofstream timeoutFile_;
 
 
 std::unique_ptr<MessageFilter> message_filter_;

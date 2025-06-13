@@ -6,6 +6,7 @@ namespace pointcloud_preprocessing
 PointCloudPreProcessingParams::PointCloudPreProcessingParams(rclcpp::Node* node)
 {
     timeMetric = node->declare_parameter("print_time_metric", false);
+    saveTimeMetric_ =node->declare_parameter("save_time_metric", false);
 
     // Frame parameters
     baseLink_frame_ = node->declare_parameter("base_link", "base_link");

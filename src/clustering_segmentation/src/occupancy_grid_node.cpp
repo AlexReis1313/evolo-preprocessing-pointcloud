@@ -1,4 +1,5 @@
 #include "occupancy_grid/occupancy_grid_node.h"
+#include "timing_metrics.cpp"
 
 
 
@@ -24,6 +25,20 @@ OccupancyGridNode::OccupancyGridNode()
       std::bind(&OccupancyGridNode::handleLaserScan, this, std::placeholders::_1));      
   robot_pose_inOCGMapFrame.setIdentity();
 
+  if(saveTimeMetric_){
+        timeoutFile_.open(timing_file, std::ios::app);
+        //std::ofstream timeoutFile_(timing_file, std::ios::app); // append mode
+
+        if (!timeoutFile_.is_open()) {
+            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", timing_file.c_str());
+            saveTimeMetric_ = false;
+        } else{
+            timeoutFile_ << "\n\nNode was restarted\n";
+
+        }
+            
+    }
+
 
 }
 
@@ -33,6 +48,7 @@ void OccupancyGridNode::handleOdom(const nav_msgs::msg::Odometry::SharedPtr odom
   //std::cout << "handleOdom" << std::endl;
 
   // transform based on current and previous odom data
+  ScopedTimer handleodom_timer("[segmentation], HandleOdom",this, timeMetric,saveTimeMetric_,timeoutFile_ );
 
 
   tf2::Vector3 pos_prev(
@@ -97,6 +113,8 @@ void OccupancyGridNode::handleOdom(const nav_msgs::msg::Odometry::SharedPtr odom
 }
 
 void OccupancyGridNode::lidarCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg){
+  ScopedTimer lidarCallback_timer("[segmentation], Clustering",this, timeMetric,saveTimeMetric_,timeoutFile_ );
+
   clustering.lidarAndMapCallback(input_msg,  grid_map_, robot_pose_inOCGMapFrame);
   
 }
@@ -106,10 +124,14 @@ void OccupancyGridNode::lidarCallback(const sensor_msgs::msg::PointCloud2::Const
 void OccupancyGridNode::handleLaserScan(const sensor_msgs::msg::LaserScan::SharedPtr laser_scan)
 {
   //RCLCPP_INFO(this->get_logger(), "Handling laser scan data...");
+  ScopedTimer laserscanCallback_timer("[segmentation], Update Map",this, timeMetric,saveTimeMetric_,timeoutFile_ );
 
   // update grid based on new laser scan data
   std::vector<Point2d<double>> scan_cartesian = convertPolarScantoCartesianScan(laser_scan);
   grid_map_->update(scan_cartesian, robot_pose_inOCGMapFrame);
+  ScopedTimer sweping_timer("[segmentation], Sweping to smoth map",this, timeMetric,saveTimeMetric_,timeoutFile_ );
+  grid_map_->fillFreeBetweenOccupied();
+
   // fill msg and publish grid
   auto message = nav_msgs::msg::OccupancyGrid();
   grid_map_->toRosMsg(message,robot_pose_inOCGMapFrame);

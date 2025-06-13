@@ -27,7 +27,7 @@ find_package(pcl_ros REQUIRED)
 
 
 
-add_executable(occupancy_grid src/occupancy_grid_node.cpp
+add_executable(clustering_segmentation src/occupancy_grid_node.cpp
                               src/occupancy_grid.cpp
                               src/euclidean_spatial.cpp
                               )
@@ -36,15 +36,15 @@ add_executable(occupancy_grid src/occupancy_grid_node.cpp
 add_executable(occupancy_grid_mqtt src/mqtt_occupancy_bridge.cpp)
 
 
-ament_target_dependencies(occupancy_grid rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
+ament_target_dependencies(clustering_segmentation rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
 ament_target_dependencies(occupancy_grid_mqtt rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
 
 target_include_directories(
-  occupancy_grid
+  clustering_segmentation
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIR}> $<INSTALL_INTERFACE:include>)
 
-install(TARGETS occupancy_grid DESTINATION lib/${PROJECT_NAME})
+install(TARGETS clustering_segmentation DESTINATION lib/${PROJECT_NAME})
 
 target_include_directories(
   occupancy_grid_mqtt

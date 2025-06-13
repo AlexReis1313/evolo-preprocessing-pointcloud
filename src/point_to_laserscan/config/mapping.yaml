@@ -59,16 +59,28 @@ local_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
-        observation_sources: pointcloud
-        pointcloud:
-          topic: /static/pointcloud #/filtered/ls/pointcloud #/
+        observation_sources: laserscan #pointcloud
+        laserscan:
+          topic: /static/laserscan #/filtered/ls/pointcloud #/
           max_obstacle_height: 15.0
           min_obstacle_height: -15.0
           obstacle_max_range: 300.0
           obstacle_min_range: 1.0
-          raytrace_max_range: 250.0
+          raytrace_max_range: 300.0
+          raytrace_min_range: 0.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan" #"PointCloud2"
+          observation_persistence: 1.0
+        pointcloud:
+          topic: /filtered/ls/pointcloud #/
+          max_obstacle_height: 15.0
+          min_obstacle_height: -15.0
+          obstacle_max_range: 300.0
+          obstacle_min_range: 1.0
+          raytrace_max_range: 300.0
           raytrace_min_range: 0.0
           clearing: True
           marking: True
           data_type: "PointCloud2"
-          observation_persistence: 2.0
+          observation_persistence: 1.0

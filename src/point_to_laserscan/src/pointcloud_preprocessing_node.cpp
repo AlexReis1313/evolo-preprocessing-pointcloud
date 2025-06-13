@@ -59,6 +59,20 @@ PointCloudPreProcessingNode::PointCloudPreProcessingNode(const rclcpp::NodeOptio
   callback_handle_ = this->add_on_set_parameters_callback(
     std::bind(&PointCloudPreProcessingParams::onParameterChange, params_.get(), std::placeholders::_1)
   );
+  if(params_->saveTimeMetric_){
+        timeoutFile_.open(params_->timing_file, std::ios::app);
+        //std::ofstream timeoutFile_(timing_file, std::ios::app); // append mode
+
+        if (!timeoutFile_.is_open()) {
+            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", params_->timing_file.c_str());
+            params_->saveTimeMetric_ = false;
+        } else{
+            timeoutFile_ << "\n\nNode was restarted\n";
+
+        }
+            
+    }
+
 }
 
 PointCloudPreProcessingNode::~PointCloudPreProcessingNode()
@@ -107,11 +121,11 @@ void PointCloudPreProcessingNode::subscriptionListenerThreadLoop()
 //cloudCallback is effectively the main function of this program
 void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::ConstSharedPtr cloud_msg)
 {
-  ScopedTimer timer_calback("Entire Lidar Cloud callback",this, params_->timeMetric);
+  ScopedTimer timer_calback("[PCpreprocess], Lidar Cloud callback",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
   try {
       //init variables
-      ScopedTimer timer_transform("Transforming original cloud to base_footprint",this, params_->timeMetric);
+      ScopedTimer timer_transform("[PCpreprocess], Transforming original cloud to base_footprint",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
       auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
       auto cloudREJ = std::make_shared<sensor_msgs::msg::PointCloud2>();
@@ -144,7 +158,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
       cloud->header.frame_id = params_->target_frame_;
       cloud->header.stamp = cloud_msg->header.stamp; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
-      ScopedTimer pctoLsTimer("PC 2 LS",this, params_->timeMetric);
+      ScopedTimer pctoLsTimer("[PCpreprocess], PC 2 LS",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
       //the following code tranansforms and filters a point cloud into a laser scan - point coordinate filter for further removal of water reflections. A 2d laser scan is outputed, taking closest non-water point to the lidar, in each horizontal angle
       //short_scan_msg is a 2d laserscan of points in a close range. In this range, water reflections filtering is agressive due to there being more water reflections.
@@ -171,7 +185,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       //project the filtered and transformed cloud into a fixed world frame -> needed to accumulate points in time and get a time decay effect
       //accumulate the merged_point_cloud over a time horizon, similar to rviz time decay - usefull to get more features to cluster with
       //project() zeros the z of all points in the filtered point cloud, getting a 2d one. This is also accumulated over time
-      ScopedTimer accuProjTimer("Accumulating and projecting",this, params_->timeMetric);
+      ScopedTimer accuProjTimer("[PCpreprocess], Accumulating and projecting",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
       geometry_msgs::msg::TransformStamped world_fix_transform = 
           tf2_->lookupTransform(params_->fixed_frame_,params_->target_frame_, tf2::TimePointZero);  
@@ -373,7 +387,7 @@ void PointCloudPreProcessingNode::filterCloud(
     pcl::PointCloud<pcl::PointXYZI> &cloud_out,
     pcl::PointCloud<pcl::PointXYZI> &cloud_outREJ)
 {
-  ScopedTimer filterTimer("Filtering",this, params_->timeMetric);
+  ScopedTimer filterTimer("[PCpreprocess], Filtering",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(cloud_in, cloud_in, indices);
@@ -382,7 +396,7 @@ void PointCloudPreProcessingNode::filterCloud(
 
   // RANSAC plane detection (if enabled)
   if (params_->useRansac_) {
-      ScopedTimer filterTimer("ransac",this, params_->timeMetric);
+      ScopedTimer filterTimer("[PCpreprocess], ransac",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
       pcl::PointCloud<pcl::PointXYZI>::Ptr ransac_filtered(new pcl::PointCloud<pcl::PointXYZI>);
       bool ransacSuccess = detectWaterPlane(current_cloud, ransac_filtered);
       if (ransacSuccess) {
@@ -417,7 +431,7 @@ void PointCloudPreProcessingNode::filterCloud(
 
   // Adaptive radius filtering (if not in sim mode - simulation does not show water reflections and cannot estimate plane)
   if(!params_->simulation_mode_){
-    ScopedTimer timer_tranaform("adaptiveRadiusFilter",this, params_->timeMetric);
+    ScopedTimer timer_tranaform("[PCpreprocess], adaptiveRadiusFilter",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
     auto [output , rejected_output]= PointCloudPreProcessingNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
     cloud_out=*output;

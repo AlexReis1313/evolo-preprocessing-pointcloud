@@ -78,7 +78,7 @@ void OccupancyGrid::toRosMsg(nav_msgs::msg::OccupancyGrid& occupancy_grid_msg,tf
     }
   }
 }
-
+/*
 void OccupancyGrid::update(double delta_x, double delta_y, double delta_yaw)
 {
  
@@ -114,6 +114,84 @@ void OccupancyGrid::update(double delta_x, double delta_y, double delta_yaw)
     }
   }
   map_ = temp_map;
+}
+*/
+
+void OccupancyGrid::update(double delta_x, double delta_y, double delta_yaw)
+{
+  Eigen::MatrixXd new_map(num_cells_, num_cells_);
+  new_map.setConstant(-1.0);  // Initialize with unknown
+
+  // Convert deltas to grid units (assume odom frame to grid frame conversion is handled)
+  double delta_x_grid = delta_x / cell_size_;
+  double delta_y_grid = delta_y / cell_size_;
+  double cos_dyaw = cos(delta_yaw);
+  double sin_dyaw = sin(delta_yaw);
+
+  // Construct inverse transform matrix (maps future -> past)
+  Eigen::MatrixXd inverse_transform(3, 3);
+  inverse_transform << cos_dyaw, -sin_dyaw, delta_x_grid,
+                       sin_dyaw,  cos_dyaw, delta_y_grid,
+                       0.0,       0.0,       1.0;
+
+  for (int x = 0; x < num_cells_; ++x) {
+    for (int y = 0; y < num_cells_; ++y) {
+      Eigen::Vector3d new_index;
+      new_index << x - grid_center_.x, y - grid_center_.y, 1.0;
+
+      // Apply inverse transform
+      Eigen::Vector3d old_index = inverse_transform * new_index;
+      old_index(0) += grid_center_.x;
+      old_index(1) += grid_center_.y;
+
+      int old_x = static_cast<int>(round(old_index(0)));
+      int old_y = static_cast<int>(round(old_index(1)));
+
+      if (isInGridBounds(old_x, old_y)) {
+        new_map(x, y) = map_(old_x, old_y);
+      }
+    }
+  }
+
+  map_ = new_map;
+}
+
+void OccupancyGrid::fillFreeBetweenOccupied()
+{
+  double occ_threshold = 0.9;
+  double free_threshold = 0.1;
+
+  // Horizontal check
+  for (int y = 0; y < num_cells_; ++y) {
+    for (int x = 1; x < num_cells_ - 1; ++x) {
+      double left = map_(x - 1, y);
+      double mid  = map_(x, y);
+      double right= map_(x + 1, y);
+
+      if (left > occ_threshold && right > occ_threshold && mid >= 0 && mid < free_threshold) {
+        //Point2d<int> grid_point{x,y};
+        //updateCellProbability(grid_point, CellState::OCCUPIED); //update as occupied
+        
+        map_(x, y) =0.9;  // update as occupied
+      }
+    }
+  }
+
+  // Vertical check
+  for (int x = 0; x < num_cells_; ++x) {
+    for (int y = 1; y < num_cells_ - 1; ++y) {
+      double top    = map_(x, y - 1);
+      double middle = map_(x, y);
+      double bottom = map_(x, y + 1);
+
+      if (top > occ_threshold && bottom > occ_threshold && middle >= 0 && middle < free_threshold) {
+        //Point2d<int> grid_point{x,y};
+        //updateCellProbability(grid_point, CellState::OCCUPIED); //update as occupied
+        map_(x, y) =0.9;  // update with more occupancy
+
+      }
+    }
+  }
 }
 
 void OccupancyGrid::update(Eigen::MatrixXd& local_map, double delta_x, double delta_y, double delta_yaw)

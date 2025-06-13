@@ -38,7 +38,11 @@ class OccupancyGridNode : public rclcpp::Node{
   std::string points_in_topic = "filtered/ls/pointcloud/accumulated";
   EuclideanSpatial clustering;
   std::string points_out_topic = "clustered_points";
-  std::unique_ptr<ClusteringMappingParams> params_;
+  //std::unique_ptr<ClusteringMappingParams> params_;
+  bool saveTimeMetric_ = true;
+  bool timeMetric = true; //verbose the time metrics
+  std::string timing_file = "Segmentation_timingFile.csv";
+  std::ofstream timeoutFile_;
   
 };
 
