@@ -134,10 +134,22 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       auto cloud_projected2D_timeDecay_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
       pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed, pcl_cloud_filtered, rejected_pointcloud;
 
-      // Get transform from cloud frame to base_footprint
-      // Convert ROS message to PCL point cloud
-      // Transform point cloud to base_footprint frame
-      pcl::fromROSMsg(*cloud_msg, pcl_cloud);
+      bool has_intensity = false;
+      for (const auto &field : cloud_msg->fields) {
+        if (field.name == "intensity") {
+          has_intensity = true;
+          break;
+        }
+      }
+      if(has_intensity){
+        pcl::fromROSMsg(*cloud_msg, pcl_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
+      }else{
+        pcl::PointCloud<pcl::PointXYZ> cloud_noI;
+        pcl::fromROSMsg(*cloud_msg, cloud_noI); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_noI_ptr = std::make_shared<pcl::PointCloud<pcl::PointXYZ>>(cloud_noI);
+        addNullINtensity(cloud_noI_ptr, pcl_cloud);
+      }
+
       
       if(params_->simulation_mode_){ //logic that deals with bad clock and use_sim_time that may come from using Unity Sim
         geometry_msgs::msg::TransformStamped transform = 
@@ -149,15 +161,20 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
         pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
       }
       timer_transform.stopClock(); //prints out time
-     
+
       // Apply filtering: filters out points with negative z and low intensity (water reflections) and does adaptiveRadiusFilter
       //pcl_cloud_filtered is the output, rejected_pointcloud has all the points that were filtered out (for debug purposes) - it is not currently used
-      PointCloudPreProcessingNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered, rejected_pointcloud);
-
+      if(!params_->simulation_mode_){
+        PointCloudPreProcessingNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered, rejected_pointcloud);
+      }else{ //no need to filter if in simulation mode
+        pcl_cloud_filtered = pcl_cloud_transformed;
+      }
       // Convert back to ROS message and update headers to reflect the new frame
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
+
       cloud->header.frame_id = params_->target_frame_;
       cloud->header.stamp = cloud_msg->header.stamp; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
+
       ScopedTimer pctoLsTimer("[PCpreprocess], PC 2 LS",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
       //the following code tranansforms and filters a point cloud into a laser scan - point coordinate filter for further removal of water reflections. A 2d laser scan is outputed, taking closest non-water point to the lidar, in each horizontal angle
@@ -191,11 +208,17 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
           tf2_->lookupTransform(params_->fixed_frame_,params_->target_frame_, tf2::TimePointZero);  
       geometry_msgs::msg::TransformStamped inverse_world_fix_transform = 
           tf2_->lookupTransform(params_->target_frame_, params_->fixed_frame_,tf2::TimePointZero);
+      
       pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
+      
       pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
+      
+
+
       PointCloudPreProcessingNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
       PointCloudPreProcessingNode::project(pcl_cloud_filtered ,cloud_projected2D);
       PointCloudPreProcessingNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
+
       //setup ros msgs to be published
       accuProjTimer.stopClock();
       pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
@@ -215,7 +238,6 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       merged_point_cloud.header.frame_id = params_->target_frame_;
       merged_point_cloud.header.stamp =cloud_msg->header.stamp;
      
-
       //publishing everything
       pub_FilteredPC_->publish(std::move(*cloud));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));
@@ -233,6 +255,28 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
   }
 }
 
+void PointCloudPreProcessingNode::addNullINtensity(const pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::PointCloud<pcl::PointXYZI> & cloud_out)
+{
+  pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  output_cloud->header = input_cloud->header;
+  output_cloud->width = input_cloud->width;
+  output_cloud->height = input_cloud->height;
+  output_cloud->is_dense = input_cloud->is_dense;
+  output_cloud->points.resize(input_cloud->points.size());
+
+  for (size_t i = 0; i < input_cloud->points.size(); ++i)
+  {
+    const auto &pt = input_cloud->points[i];
+    pcl::PointXYZI pt_out;
+    pt_out.x = pt.x;
+    pt_out.y = pt.y;
+    pt_out.z = pt.z;
+    pt_out.intensity = 0.0f;  // Default intensity
+    output_cloud->points[i] = pt_out;
+  }
+
+  cloud_out=*output_cloud;
+}
 void PointCloudPreProcessingNode::project(pcl::PointCloud<pcl::PointXYZI> & cloud_in,pcl::PointCloud<pcl::PointXYZI> & cloud_out_projected){
 
   cloud_out_projected = cloud_in;
@@ -393,7 +437,6 @@ void PointCloudPreProcessingNode::filterCloud(
   pcl::removeNaNFromPointCloud(cloud_in, cloud_in, indices);
   // Use shared_ptr for all filtered stages
   pcl::PointCloud<pcl::PointXYZI>::Ptr current_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>(cloud_in);
-
   // RANSAC plane detection (if enabled)
   if (params_->useRansac_) {
       ScopedTimer filterTimer("[PCpreprocess], ransac",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
@@ -404,7 +447,6 @@ void PointCloudPreProcessingNode::filterCloud(
       }
       // If RANSAC fails, we just continue with current_cloud (still points to cloud_in)
   }
-
   // Intensity filtering (if enabled) - not usually used
   if (params_->filterBy_intensity_) {
       pcl::PointCloud<pcl::PointXYZI>::Ptr intensity_filtered(new pcl::PointCloud<pcl::PointXYZI>);

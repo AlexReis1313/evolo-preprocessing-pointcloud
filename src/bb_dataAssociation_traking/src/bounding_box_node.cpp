@@ -85,11 +85,24 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
     last_iteration_time_ = rclcpp::Time(0, 0, RCL_ROS_TIME);
 
     
-    if (save_metrics_txt_) {
-        outfile_.open(metrics_file, std::ios::app);  
+    if (save_metrics_txt_) { //s
+        std::string base_filename = metrics_file;
+        std::string final_filename = base_filename;
+
+        if (fs::exists(base_filename + ".txt")) { //if tehre is already a file with this name, move on to file n+1
+            int counter = 1;
+            while (fs::exists(base_filename + std::to_string(counter) + ".txt")) {
+                ++counter;
+            }
+            final_filename = base_filename + std::to_string(counter)+ ".txt";
+        }
+
+        outfile_.open(final_filename, std::ios::app);
         if (!outfile_.is_open()) {
-            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", metrics_file.c_str());
+            RCLCPP_WARN(this->get_logger(), "Failed to open %s for writing.", final_filename.c_str());
             save_metrics_txt_ = false;
+        } else {
+            RCLCPP_INFO(this->get_logger(), "Saving metrics to: %s", final_filename.c_str());
         }
     }
     if(saveTimeMetric_){
@@ -122,7 +135,10 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     std::vector<int> valid_indices;
     pcl::removeNaNFromPointCloud(originalFrameCloud, originalFrameCloud, valid_indices);
     rclcpp::Time currentTime =rclcpp::Time(msg->header.stamp);
-    if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
+    if (currentTime.seconds() == 0) {
+        rclcpp::Clock ros_clock(RCL_ROS_TIME);  // Use ROS time (sim time or system time depending on parameter)
+        currentTime = ros_clock.now();
+}    if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
         trackedObjectsList.clear();
         currentObjectsList.clear();
     }
@@ -643,13 +659,13 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
     double conf = 1.0; // Confidence (if unknown, set to 1.0)
     double x = center_x, y = center_y, z = 0.0; //unused
     
-    // Write in MOT16 format
+    // Write in format to then addapt to MOT16 
     outfile_ << std::fixed << std::setprecision(2) << currentTimeSec << ","
             << std::fixed << std::setprecision(0)<< id << ","
             << std::fixed << std::setprecision(2) //defines 2 decimal places as precision
-            << bb_left << "," << bb_top << ","
-            << width << "," << height << ","
-            << conf << "," << x << "," << y << "," << z << "\n";
+            << bb_left << "," << bb_top << "," 
+            << width << "," << height << ","                    // velx                             vely
+            << conf << "," << x << "," << y << "," << z << "," << trackedObject.kf.x[2]  << "," << trackedObject.kf.x[3] <<"\n";
 
 }
 

@@ -31,7 +31,7 @@ def generate_launch_description():
 
             parameters=[{
                 'use_sim_time': True,  # Enable simulation time
-                'print_time_metric':False,
+                'print_time_metric':True,
                 'save_time_metric': True,
                 'base_link': 'base_link',
                 'target_frame': 'base_footprint',

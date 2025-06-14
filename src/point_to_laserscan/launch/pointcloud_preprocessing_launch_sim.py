@@ -23,10 +23,10 @@ def generate_launch_description():
 
         Node(
             package='pointcloud_preprocessing', executable='pointcloud_preprocessing_node',
-            remappings=[('cloud_in', 'Evolo/Lidar/HighRes')],
+            remappings=[('cloud_in', 'Evolo/Lidar/MidRes')],
             parameters=[{
                 'use_sim_time':False,
-                'simulation_mode':False,
+                'simulation_mode':True,
                 'target_frame': 'base_footprint',
                 'fixed_frame': 'map_gt',
                 'cloud_frame': 'Evolo/lidar_link_gt',      
@@ -53,7 +53,7 @@ def generate_launch_description():
                 'time_decay': 2.5,
                 'TimeDecay_output_On_Fixed_Frame':False,
                 #Ransac params
-                'use_Ransac': True,
+                'use_Ransac': False,
                 'ransac_range_candidates': 15.0,
                 'ransac_Maxheight_candidates':0.5,
                 'ransac_Minheight_candidates':-1.5,

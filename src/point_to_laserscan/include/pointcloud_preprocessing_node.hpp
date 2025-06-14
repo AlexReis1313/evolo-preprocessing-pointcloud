@@ -139,6 +139,7 @@ void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min
 std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,float scale = 0.0125f, float min_radius = 0.05f,            // Radius = scale * range
                     int min_neighbors = 3);
 bool detectWaterPlane( const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in, pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_out);
+void addNullINtensity(const pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::PointCloud<pcl::PointXYZI> & cloud_out);
 
 void project(pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_projected);
 void accumulate(
