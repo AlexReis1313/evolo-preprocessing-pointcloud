@@ -69,7 +69,7 @@ bool save_metrics_txt_ = true;
 std::string metrics_file = "boundingBoxMetrics_OnlyStatic_nonoise";//.txt";
 std::string timing_file = "BBTrack_timingFile.csv";
 
-std::string fixed_frame_ = "map_gt";
+std::string fixed_frame_ = "odom";
 bool timeMetric_ = true;
 bool saveTimeMetric_ = true;
 

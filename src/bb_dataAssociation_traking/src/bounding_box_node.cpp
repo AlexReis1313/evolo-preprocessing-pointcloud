@@ -259,7 +259,15 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     publishNonTrackedPC(msg->header.frame_id,currentTime,inverse_transform_stamped);
     pupBBMarkerArray(fixed_frame_); //here we publish the intantaneous oriented bounding boxes
 
+    if(saveTimeMetric_){
+        rclcpp::Clock ros_clock(RCL_ROS_TIME);  // Use ROS time (sim time or system time depending on parameter)
+        rclcpp::Time MetriccurrentTime = ros_clock.now();
+        double totalTime = (MetriccurrentTime - rclcpp::Time(msg->header.stamp)).seconds();
+                timeoutFile_ <<  "[TotalTime],The total run time is " << std::fixed << std::setprecision(6) << totalTime << ", ms\n";
+                std::cout<<  "[TotalTime],The total run time is " << std::fixed << std::setprecision(6) << totalTime << ", ms\n";
 
+    }
+   
     //computeMetrics(currentTime);//BAD METRICS
 }
 
