@@ -24,6 +24,8 @@ find_package(tf2_geometry_msgs REQUIRED) # Add this line
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(pcl_ros REQUIRED)
+find_package(nlohmann_json3 REQUIRED)
+
 
 
 
@@ -37,7 +39,7 @@ add_executable(occupancy_grid_mqtt src/mqtt_occupancy_bridge.cpp)
 
 
 ament_target_dependencies(clustering_segmentation rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
-ament_target_dependencies(occupancy_grid_mqtt rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros)
+ament_target_dependencies(occupancy_grid_mqtt rclcpp nav_msgs sensor_msgs Eigen3 tf2_geometry_msgs OpenCV pcl_ros nlohmann_json3)
 
 target_include_directories(
   clustering_segmentation
