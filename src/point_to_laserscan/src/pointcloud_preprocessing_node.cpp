@@ -472,7 +472,7 @@ void PointCloudPreProcessingNode::filterCloud(
   }
 
   // Adaptive radius filtering (if not in sim mode - simulation does not show water reflections and cannot estimate plane)
-  if(!params_->simulation_mode_){
+  if(!params_->simulation_mode_ && !current_cloud->empty() ){
     ScopedTimer timer_tranaform("[PCpreprocess], adaptiveRadiusFilter",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
     auto [output , rejected_output]= PointCloudPreProcessingNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
