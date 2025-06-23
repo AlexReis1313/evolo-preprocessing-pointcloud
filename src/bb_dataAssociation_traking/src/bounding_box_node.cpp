@@ -17,16 +17,16 @@ void initMatrices() {
 
         // Initialize the matrices
         //process noise R depends on dt. here 4 means entry is acell_cov_R_*(dt^4), 3 means acell_cov_R_*(dt^3) and 2 means acell_cov_R_*(dt^2)
-    process_noise <<    4,0, 3, 0,0,0,0, 0, 0, 0,//x 0
-                        0,4, 0, 3,0,0,0, 0, 0, 0,//y 1
-                        0,0, 2, 0,0,0,0, 0, 0, 0,//velx 2 
-                        0,0, 0, 2,0,0,0, 0, 0, 0,//vely 3
-                        0,0, 0, 0,4,0,0, 3, 0, 0,//lengthBB 4
+    process_noise <<    4,0, 3, 0,//0,0,0, 0, 0, 0,//x 0
+                        0,4, 0, 3,//,0,0,0, 0, 0, 0,//y 1
+                        0,0, 2, 0,//,0,0,0, 0, 0, 0,//velx 2 
+                        0,0, 0, 2;//,0,0,0, 0, 0, 0;//vely 3
+                        /*0,0, 0, 0,4,0,0, 3, 0, 0,//lengthBB 4
                         0,0, 0, 0,0,4,0, 0, 3, 0,//wigthBB 5
                         0,0, 0, 0,0,0,4, 0, 0, 3,//orientationBB 6
                         0,0, 0, 0,0,0,0, 2, 0, 0,//deltaLengthBB 7
                         0,0, 0, 0,0,0,0, 0, 2, 0,//deltaWidthBB 8
-                        0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB 9
+                        0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB 9*/
 
 
     /*   //in motion model -1 means the variable depends on other with relation to time, like the way x depends on velocity_x
@@ -42,30 +42,31 @@ void initMatrices() {
                         0,0, 0, 0,0,0,0, 0, 0, 1;//deltaOrientationBB
     */ 
          //in motion model -1 means the variable depends on other with relation to time, like the way x depends on velocity_x
-    motion_model <<     1,0,-1, 0,0,0,0, 0, 0, 0,//x
-                        0,1, 0,-1,0,0,0, 0, 0, 0,//y
-                        0,0, 1, 0,0,0,0, 0, 0, 0,//velx
-                        0,0, 0, 1,0,0,0, 0, 0, 0,//vely
-                        0,0, 0, 0,1,0,0,-1, 0, 0,//lengthBB
-                        0,0, 0, 0,0,1,0, 0,-1, 0,//wigthBB
-                        0,0, 0, 0,0,0,1, 0, 0,-1,//orientationBB
+    motion_model <<     1,0,-1, 0,//0,0,0, 0, 0, 0,//x
+                        0,1, 0,-1,//0,0,0, 0, 0, 0,//y
+                        0,0, 1, 0,//0,0,0, 0, 0, 0,//velx
+                        0,0, 0, 1;//0,0,0, 0, 0, 0;//vely
+                        /*0,0, 0, 0,1,0,0, 0, 0, 0,//lengthBB
+                        0,0, 0, 0,0,1,0, 0, 0, 0,//wigthBB
+                        0,0, 0, 0,0,0,1, 0, 0, 0,//orientationBB
                         0,0, 0, 0,0,0,0, 0, 0, 0,//deltaLengthBB
                         0,0, 0, 0,0,0,0, 0, 0, 0,//deltaWidthBB
-                        0,0, 0, 0,0,0,0, 0, 0, 0;//deltaOrientationBB
+                        0,0, 0, 0,0,0,0, 0, 0, 0;//deltaOrientationBB*/
                     
-    measurement_model <<1,0, 0, 0,0,0,0, 0, 0, 0,//x
-                        0,1, 0, 0,0,0,0, 0, 0, 0,//y
-                        0,0, 0, 0,1,0,0, 0, 0, 0,//lengthBB
+    measurement_model <<1,0, 0, 0,//0,0,0, 0, 0, 0,//x
+                        0,1, 0, 0;//0,0,0, 0, 0, 0,//y
+                        /*0,0, 0, 0,1,0,0, 0, 0, 0;//lengthBB
                         0,0, 0, 0,0,1,0, 0, 0, 0,//wigthBB
-                        0,0, 0, 0,0,0,1, 0, 0, 0;//orientationBB
+                        0,0, 0, 0,0,0,1, 0, 0, 0;//orientationBB*/
     }
 
 BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
     {
-    
+    std::cout << "Starting node" << std::endl;
     initMatrices();
+    getLaunchParams();
     cloud2D_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/clustered_points", 10, std::bind(&BoundingBoxNode::pointCloudCallback, this, std::placeholders::_1));
+        cloud_in_, 10, std::bind(&BoundingBoxNode::pointCloudCallback, this, std::placeholders::_1));
 
     bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/bounding_boxes", 10);
     kf_bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/kalmanFilter/bounding_boxes", 10);
@@ -124,12 +125,32 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
 
 }
 
+void BoundingBoxNode::getLaunchParams(){
+    //use_sim_time_ = this->declare_parameter("use_sim_time", true);
+    fixed_frame_ = this->declare_parameter("fixed_frame", std::string("odom"));
+    cloud_in_ = this->declare_parameter("cloud_in", std::string("/clustered_points"));
+    acell_cov_R = this->declare_parameter("R_cov", 0.1);
+    pose_cov_Q = this->declare_parameter("Q_cov", 0.5);
+    boundingBox_cov_Q = this->declare_parameter("Q_bb_cov", 0.7);
+    min_velocity_threshold_ = this->declare_parameter("min_velocity_threshold", 0.4);
+    newObjectThreshold_ = this->declare_parameter("newObjectThreshold", 15);
+    cost_threshold_ = this->declare_parameter("DD_cost_threshold", 6.0);
+    cov_limit_factor_ = this->declare_parameter("cov_upper_limit", 40.0);
+    pruneThreshold_ = this->declare_parameter("prune_threshold", 40);
+    save_metrics_txt_ = this->declare_parameter("SaveBbMetric", false);
+    metrics_file = this->declare_parameter("BbMetrics_file", std::string("boundingBoxMetrics_OnlyStatic_nonoise"));
+    timeMetric_ = this->declare_parameter("PrintTimeMetric", true);
+    saveTimeMetric_ = this->declare_parameter("SaveTimeMetric", false);
+    timing_file = this->declare_parameter("timingMetrics_file", std::string("BBTrack_timingFile.csv"));
+
+    RCLCPP_INFO(this->get_logger(), "Parameters loaded.");
+
+}
 
 void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
     ScopedTimer timer_calback("[bbTracking], Entire point cloud callback",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
     ScopedTimer timer_transform("[bbTracking], Tranform cloud",this, timeMetric_,saveTimeMetric_, timeoutFile_);
     // Convert PointCloud2 to PCL PointCloud
-    cout << "Begining callback"<<endl;
     pcl::PointCloud<pcl::PointXYZI> originalFrameCloud, cloud;
     pcl::fromROSMsg(*msg, originalFrameCloud);
     std::vector<int> valid_indices;
@@ -211,6 +232,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
 
     
     if (clusters.find(0) != clusters.end()) {
+        //if (!clusters[0]->empty()){RCLCPP_INFO( this->get_logger(), "Adding cause null cluster intensity");}
         *nonTrackedPc_ += *(clusters[0]);
     }
     clusters.erase(0);  //only points that are part of a cluster will be used to track objects
@@ -224,8 +246,8 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     int id = 0;
     currentObjectsList.clear();
     for (const auto& cluster : clusters) {
-        
-        objectTracker object(cluster.second->points[0].x, cluster.second->points[0].y ); //initiate the object already at one point of the cluster, this helps the kf in the first few seconds
+
+        objectTracker object(cluster.second->points[0].x, cluster.second->points[0].y, this->acell_cov_R , this->pose_cov_Q, this->boundingBox_cov_Q , this->cov_limit_factor_, this->newObjectThreshold_,  this->pruneThreshold_); //initiate the object already at one point of the cluster, this helps the kf in the first few seconds
         visualization_msgs::msg::Marker marker;
         //pca2DBoundingBox(cluster.second, marker);
         object.rectangle = rotatingCaliper2DBoundingBox(cluster.second, marker);
@@ -253,10 +275,16 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         initiateTrackedObjects();//Will not do data associate, only iniciate
     }
     ScopedTimer timer_ukf("[bbTracking], Update kf",this,  timeMetric_,saveTimeMetric_,timeoutFile_ );
+    //RCLCPP_INFO( this->get_logger(), "gOING TO UPDATE KF");
 
     updateKalmanFilters(); 
+    //RCLCPP_INFO( this->get_logger(), "UPDATE KF done");
+
     pubKfMarkerArrays(fixed_frame_); //here we publish kf bounding boxes
+    //RCLCPP_INFO( this->get_logger(), "1st pub done");
+
     publishNonTrackedPC(msg->header.frame_id,currentTime,inverse_transform_stamped);
+    //RCLCPP_INFO( this->get_logger(), "2nd pub done");
     pupBBMarkerArray(fixed_frame_); //here we publish the intantaneous oriented bounding boxes
 
     if(saveTimeMetric_){
@@ -290,7 +318,7 @@ void BoundingBoxNode::pupBBMarkerArray(std::string frame_id){
         marker.color.r = 0.0;
         marker.color.g = 1.0;
         marker.color.b = 0.0;
-        marker.color.a = 0.3;
+        marker.color.a = 0.1;
         marker.lifetime = rclcpp::Duration::from_seconds(0.5); // 0.5s
         marker_array.markers.push_back(marker);
         currentObjectsList.push_back(object);
@@ -306,13 +334,13 @@ void BoundingBoxNode::pupBBMarkerArray(std::string frame_id){
         arrow_marker.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), object.rectangle.angle_width));
         
         // Length of arrow in the direction of orientation
-        arrow_marker.scale.x = 0.5 * object.rectangle.width;  // Arrow length
+        arrow_marker.scale.x = 0.4 * object.rectangle.width;  // Arrow length
         arrow_marker.scale.y = 0.2 * object.rectangle.width; // Arrow shaft diameter
         arrow_marker.scale.z = 0.1; // Arrow head diameter
         
-        arrow_marker.color.r = 0.50;
+        arrow_marker.color.r = 0.80;
         arrow_marker.color.g = 0.0;
-        arrow_marker.color.b = 0.50;
+        arrow_marker.color.b = 0.80;
         arrow_marker.color.a = 1.0;
         arrow_marker.lifetime = rclcpp::Duration::from_seconds(0.5);
         marker_array.markers.push_back(arrow_marker);
@@ -383,30 +411,36 @@ void BoundingBoxNode::publishNonTrackedPC(std::string frame_id, rclcpp::Time sta
     //point cloud made up of all points that do not belong to one of the tracked objects - will be part of a static map
 
     for(auto & currentObject : currentObjectsList){
+
         if (currentObject.newObject && currentObject.last_cluster && !currentObject.last_cluster->empty() && !currentObject.hasPublished_last_cluster) {
             // Append the cluster to the non-tracked point cloud
+            //RCLCPP_INFO( this->get_logger(), "Adding cause non matched current Object");
             *nonTrackedPc_ += *(currentObject.last_cluster);
             currentObject.hasPublished_last_cluster = true;
 
         }
-        
+
+
     }
+
     pcl::PointCloud<pcl::PointXYZI> pcl_cloud_transformed;
     try {
-      
-        pcl_ros::transformPointCloud(*nonTrackedPc_, pcl_cloud_transformed, transform_stamped); //we want to transfrom back from global frame to local frame
-        auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-        pcl::toROSMsg(pcl_cloud_transformed, *cloud);
-        cloud->header.frame_id = frame_id;
-        cloud->header.stamp = stamp;
-        auto laserscan = computeLaserScan(cloud);
-        pub_NonTRacked_pc_->publish(std::move(laserscan));
+        if (!nonTrackedPc_->empty()){
+            pcl_ros::transformPointCloud(*nonTrackedPc_, pcl_cloud_transformed, transform_stamped); //we want to transfrom back from global frame to local frame
+            auto cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+            pcl::toROSMsg(pcl_cloud_transformed, *cloud);
+            cloud->header.frame_id = frame_id;
+            cloud->header.stamp = stamp;
+            auto laserscan = computeLaserScan(cloud);
+            pub_NonTRacked_pc_->publish(std::move(laserscan));
+        }
+    
 
     } catch (const tf2::TransformException& ex) {
         RCLCPP_ERROR(this->get_logger(), "Could not transform static cloud: %s", ex.what());
         return;
     }
-    
+
     nonTrackedPc_->clear();
 
 }
@@ -511,18 +545,24 @@ float BoundingBoxNode::computeIoU(float x1, float y1, float len1, float wid1, fl
 }
 
 void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
+    std::cout << "Breaking at pubKfMarkerArrays? \n";
     visualization_msgs::msg::MarkerArray marker_array;
     int id = 0;
-    for(auto & trackedObject : trackedObjectsList){           
-
+    for (auto it = trackedObjectsList.begin(); it != trackedObjectsList.end(); ) {
+        auto& trackedObject = *it;
         double velocity = std::sqrt(pow(trackedObject.kf.x[2],2) + pow(trackedObject.kf.x[3],2));
-        if((!trackedObject.newObject) && (velocity > min_velocity_threshold_)){
-            auto [elipse_width, elipse_length] =trackedObject.kf.produceBoundingBox_withCov(trackedObject.id == 0 ||trackedObject.id==1 );
+        bool tooMuchCov =trackedObject.kf.produceBoundingBox_withCov(false );
+        bool tooMuchBBCOV = computeTotalBB(trackedObject);
+
+
+        if((!trackedObject.newObject) && (velocity > min_velocity_threshold_) && (!tooMuchCov) && (!tooMuchBBCOV) ){
+            auto elipse_width = trackedObject.kf.width_axis_Elipselength_ ;
+            auto elipse_length =trackedObject.kf.lenght_axis_Elipselength_ ;
+
             if(save_metrics_txt_){
                 saveMetricsTxt(trackedObject);
             }
             Eigen::VectorXd state = trackedObject.kf.x;
-            Eigen::VectorXd augmented_state = trackedObject.kf.x_boundingBox;
 
             
             //draw marker elipse with heading of heading state[6] and [elipse_width, elipse_lenght]
@@ -532,11 +572,11 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_elip.id = id++;
             marker_elip.pose.position.x = state[0];
             marker_elip.pose.position.y = state[1];
-            marker_elip.pose.position.z = 0.05; // Slightly above ground
+            marker_elip.pose.position.z = 0.5; // Slightly above ground
 
             // Align with heading
             tf2::Quaternion q;
-            q.setRPY(0, 0, state[6]); // Z-axis rotation
+            q.setRPY(0, 0, 0); // Z-axis rotation
             marker_elip.pose.orientation = tf2::toMsg(q);
 
             marker_elip.scale.x = elipse_width;   // minor axis (width)
@@ -546,7 +586,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_elip.color.r = 0.0;
             marker_elip.color.g = 0.0;
             marker_elip.color.b = 0.80;
-            marker_elip.color.a = 0.4;
+            marker_elip.color.a = 0.8;
 
             marker_elip.lifetime = rclcpp::Duration::from_seconds(1);
             marker_array.markers.push_back(marker_elip);
@@ -557,50 +597,50 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_bigbb.pose.position.x = state[0];
             marker_bigbb.pose.position.y = state[1];
             marker_bigbb.pose.position.z = 0.2; // Z is ignored
-            marker_bigbb.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), state[6]));
-            marker_bigbb.scale.x = augmented_state[5]; // width
-            marker_bigbb.scale.y = augmented_state[4]; // length = height
+            marker_bigbb.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1),trackedObject.rectangle.angle_width ));
+            marker_bigbb.scale.x = trackedObject.totalBB_width;//augmented_state[5]; // width
+            marker_bigbb.scale.y = trackedObject.totalBB_height;//augmented_state[4]; // length = height
             marker_bigbb.scale.z = 0.1; // Small height for 2D box
-            marker_bigbb.color.r = 0.4;
+            marker_bigbb.color.r = 0.9;
             marker_bigbb.color.g = 0.0;
             marker_bigbb.color.b = 0.0;
-            marker_bigbb.color.a = 0.3;
+            marker_bigbb.color.a = 0.5;
             marker_bigbb.id = id++;
             marker_bigbb.header.frame_id = frame_id;
             marker_bigbb.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
             marker_array.markers.push_back(marker_bigbb);
 
             
-            visualization_msgs::msg::Marker marker;
+            /*visualization_msgs::msg::Marker marker;
             marker.type = visualization_msgs::msg::Marker::CUBE;
             marker.pose.position.x = state[0];
             marker.pose.position.y = state[1];
-            marker.pose.position.z = 0.0; // Z is ignored
+            marker.pose.position.z = -1.0; 
             marker.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), state[6]));
             marker.scale.x = state[5]; // width
             marker.scale.y = state[4]; // length = height
             marker.scale.z = 0.1; // Small height for 2D box
-            marker.color.r = 1.0;
-            marker.color.g = 0.0;
+            marker.color.r = 0.0;
+            marker.color.g = 1.0;
             marker.color.b = 0.0;
-            marker.color.a = 0.6;
+            marker.color.a = 0.3;
             marker.id = id++;
             marker.header.frame_id = frame_id;
-            marker.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
-            marker_array.markers.push_back(marker);
+            marker.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s*/
+            //marker_array.markers.push_back(marker);
 
             // Velocity Arrow Marker
             visualization_msgs::msg::Marker arrow_marker;
             arrow_marker.type = visualization_msgs::msg::Marker::ARROW;
             arrow_marker.header.frame_id = frame_id;
             arrow_marker.id = id++;
-            arrow_marker.scale.x = state[5]/8; // Shaft diameter
-            arrow_marker.scale.y = state[5]/4;  // Arrowhead diameter
+            arrow_marker.scale.x = std::min(5.0,trackedObject.totalBB_width/8); // Shaft diameter
+            arrow_marker.scale.y = std::min(2.0,trackedObject.totalBB_width/4);  // Arrowhead diameter
             arrow_marker.scale.z = 0.0;  // Not used for arrows
             arrow_marker.color.r = 0.0;
             arrow_marker.color.g = 0.0;
             arrow_marker.color.b = 1.0; // Blue arrow
-            arrow_marker.color.a = 0.80; // Fully visible
+            arrow_marker.color.a = 0.80; 
 
             geometry_msgs::msg::Point start, end;
             start.x = state[0];
@@ -623,7 +663,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             text_marker.pose.position.x = state[0];
             text_marker.pose.position.y = state[1];
             text_marker.pose.position.z = 0.3; // Slightly above the bounding box
-            text_marker.scale.z = std::max(0.2, 0.5 * std::max(state[4], state[5])); // Proportional text size
+            text_marker.scale.z = std::min(6.0,std::max(0.2, 0.5 * std::max(trackedObject.totalBB_width,trackedObject.totalBB_height))); // Proportional text size
             text_marker.color.r = 1.0;
             text_marker.color.g = 1.0;
             text_marker.color.b = 1.0;
@@ -634,16 +674,105 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
 
             
 
-        }else if(!trackedObject.hasPublished_last_cluster){
+        }else if(!trackedObject.hasPublished_last_cluster ){
+            //if (velocity < min_velocity_threshold_){RCLCPP_INFO( this->get_logger(), "Adding cause not enough vel");}
+            //if (tooMuchCov) {RCLCPP_INFO( this->get_logger(), "Adding cause too much cov");}
+            //if (tooMuchBBCOV){RCLCPP_INFO( this->get_logger(), "Adding cause too much cov BB");}
+            
+
             //send this objects cluster to static map if he is not being shown as to be tracked
             *nonTrackedPc_ += *(trackedObject.last_cluster);
             trackedObject.hasPublished_last_cluster = true;
         }
-        
+       
+        if (tooMuchCov) {
+            it = trackedObjectsList.erase(it);  // erase returns the next valid iterator
+        } else {
+            ++it; //tracked object is an iterator
+        }
     }
 
     kf_bbox_pub_->publish(marker_array);
 }
+
+bool  BoundingBoxNode::computeTotalBB(objectTracker& trackedObject)
+{
+    Eigen::VectorXd state = trackedObject.kf.x;
+    //Eigen::VectorXd augmented_state = trackedObject.kf.x_boundingBox;    
+    double x=state[0];
+    double y=state[1];
+    Eigen::Vector2d state_center(x, y);
+
+    // Local axes
+    Eigen::Vector2d w = Eigen::Vector2d(std::cos(trackedObject.rectangle.angle_width), std::sin(trackedObject.rectangle.angle_width));       // width direction
+    Eigen::Vector2d h = Eigen::Vector2d(-std::sin(trackedObject.rectangle.angle_width), std::cos(trackedObject.rectangle.angle_width));      // height direction
+
+    // Half dimensions
+    Eigen::Vector2d w_half = (trackedObject.rectangle.width / 2.0) * w;
+    Eigen::Vector2d h_half = (trackedObject.rectangle.height / 2.0) * h;
+    Eigen::Vector2d rect_center=  Eigen::Vector2d(trackedObject.rectangle.center.x,trackedObject.rectangle.center.y);
+    // Four corners (in order: top-right, top-left, bottom-left, bottom-right)
+    std::vector<Eigen::Vector2d> corners;
+    corners.push_back(rect_center + w_half + h_half); // top-right
+    corners.push_back(rect_center - w_half + h_half); // top-left
+    corners.push_back(rect_center - w_half - h_half); // bottom-left
+    corners.push_back(rect_center + w_half - h_half); // bottom-right
+
+    // Find the vertex farthest from (x, y)
+    double max_dist_sq = -1.0;
+    Eigen::Vector2d farthest_corner;
+
+    for (const auto& corner : corners) {
+        double dist_sq = (corner - state_center).squaredNorm();
+        if (dist_sq > max_dist_sq) {
+            max_dist_sq = dist_sq;
+            farthest_corner = corner;
+        }
+    }
+
+    // Compute vector from farthest_corner to state
+    Eigen::Vector2d vec = state_center - farthest_corner;
+
+    // New point = state + 2 * vec
+    Eigen::Vector2d new_point = state_center + 2.0 * vec;
+
+    // Step 2: Project points into rotated frame centered at state
+    std::vector<Eigen::Vector2d> points = {farthest_corner, new_point};
+    std::vector<double> projections_w, projections_h;
+
+    for (const auto& pt : points) {
+        Eigen::Vector2d relative = pt - state_center;
+        projections_w.push_back(relative.dot(w));
+        projections_h.push_back(relative.dot(h));
+    }
+
+    // Step 3: Compute min/max along each axis
+    double min_w = *std::min_element(projections_w.begin(), projections_w.end());
+    double max_w = *std::max_element(projections_w.begin(), projections_w.end());
+    double min_h = *std::min_element(projections_h.begin(), projections_h.end());
+    double max_h = *std::max_element(projections_h.begin(), projections_h.end());
+
+    // Step 4: Compute width and height
+    double totalBB_width = max_w - min_w;
+    double totalBB_height = max_h - min_h;
+
+   
+    double new_old_ratio = (totalBB_width*totalBB_height)/(trackedObject.totalBB_width*trackedObject.totalBB_height ); //ratio between big bounding boxes from this and last frame
+    double big_small_ratio =  (totalBB_width*totalBB_height)/(trackedObject.rectangle.width*trackedObject.rectangle.height); //ratio between big current bounding box and computed bounding box with cluster  
+
+
+    if(big_small_ratio > 10){
+        return true; //the bb is too big and will be discarted
+    } else if (new_old_ratio < 2){ //box is ok, use it
+        trackedObject.totalBB_width =totalBB_width;
+        trackedObject.totalBB_height = totalBB_height;
+    } else { //this does not let bb grow too fast
+        trackedObject.totalBB_width = trackedObject.totalBB_width + (totalBB_width-trackedObject.totalBB_width)/(new_old_ratio*2);
+        trackedObject.totalBB_height = trackedObject.totalBB_height + (totalBB_height-trackedObject.totalBB_height)/(new_old_ratio*2);
+    }
+
+    return false;
+ }
 
 
 void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
@@ -651,18 +780,49 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
     double currentTimeSec = last_iteration_time_.seconds();  // Don't cast to int
 
     // Get the bounding box state
-    Eigen::VectorXd augmented_state = trackedObject.kf.x_boundingBox;
+    Eigen::VectorXd state = trackedObject.kf.x;
 
     // Extract MOT16 parameters
     int id = trackedObject.id;
-    double center_x = augmented_state[0];
-    double center_y = augmented_state[1];
-    double width    = augmented_state[5];
-    double height   = augmented_state[4];
+    double center_x = state[0];
+    double center_y = state[1];
+    double width    = trackedObject.totalBB_width;
+    double height   = trackedObject.totalBB_height;
 
-    // Convert center to top-left
-    double bb_left = center_x - width / 2.0;
-    double bb_top  = center_y - height / 2.0;
+    double angle = trackedObject.rectangle.angle_width;
+
+    // Half dimensions
+    double half_w = width / 2.0;
+    double half_h = height / 2.0;
+
+    // Rotation matrix
+    double cos_a = std::cos(angle);
+    double sin_a = std::sin(angle);
+
+    // Define the 4 corners of the rotated box (relative to center)
+    std::vector<Eigen::Vector2d> corners;
+    corners.emplace_back(center_x + cos_a * (-half_w) - sin_a * (-half_h),
+                        center_y + sin_a * (-half_w) + cos_a * (-half_h));
+    corners.emplace_back(center_x + cos_a * ( half_w) - sin_a * (-half_h),
+                        center_y + sin_a * ( half_w) + cos_a * (-half_h));
+    corners.emplace_back(center_x + cos_a * ( half_w) - sin_a * ( half_h),
+                        center_y + sin_a * ( half_w) + cos_a * ( half_h));
+    corners.emplace_back(center_x + cos_a * (-half_w) - sin_a * ( half_h),
+                        center_y + sin_a * (-half_w) + cos_a * ( half_h));
+
+    // Find axis-aligned bounding box that encloses the rotated box
+    double min_x = corners[0].x(), max_x = corners[0].x();
+    double min_y = corners[0].y(), max_y = corners[0].y();
+    for (const auto& corner : corners) {
+        if (corner.x() < min_x) min_x = corner.x();
+        if (corner.x() > max_x) max_x = corner.x();
+        if (corner.y() < min_y) min_y = corner.y();
+        if (corner.y() > max_y) max_y = corner.y();
+    }
+
+    double bb_left = min_x;
+    double bb_top  = min_y;    // Convert center to top-left
+    
 
     double conf = 1.0; // Confidence (if unknown, set to 1.0)
     double x = center_x, y = center_y, z = 0.0; //unused
@@ -673,7 +833,7 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
             << std::fixed << std::setprecision(2) //defines 2 decimal places as precision
             << bb_left << "," << bb_top << "," 
             << width << "," << height << ","                    // velx                             vely
-            << conf << "," << x << "," << y << "," << z << "," << trackedObject.kf.x[2]  << "," << trackedObject.kf.x[3] <<"\n";
+            << conf << "," << x << "," << y << "," << z << "," << trackedObject.kf.x[2]  << "," << trackedObject.kf.x[3] << "," << angle <<" \n";
 
 }
 
@@ -695,12 +855,31 @@ void BoundingBoxNode::updateKalmanFilters(){
                 std::swap(trackedObject.rectangle.width,trackedObject.rectangle.height);
                 trackedObject.rectangle.angle_width =  trackedObject.rectangle.angle_height;    //trackedObject.rectangle.angle_width-M_PI/2; //need to fix this
                 }*/
-            correctBBorientation(trackedObject);
-            z << trackedObject.rectangle.center.x, trackedObject.rectangle.center.y,  trackedObject.rectangle.height, trackedObject.rectangle.width, trackedObject.rectangle.angle_width;
+            //correctBBorientation(trackedObject);
+            //if(need2RotatedBB(trackedObject)){
+            //    trackedObject.kf.swapBBlengthWidth();
+            //}
+            z << trackedObject.rectangle.center.x, trackedObject.rectangle.center.y;//,  trackedObject.rectangle.height, trackedObject.rectangle.width, trackedObject.rectangle.angle_width;
             //cout << z<<endl;
             trackedObject.kf.update(z);
+                
+            
         }
     }
+
+}
+
+bool BoundingBoxNode::need2RotatedBB(objectTracker& trackedObject){
+    
+    if (((trackedObject.kf.x[4]>trackedObject.kf.x[5]) && (trackedObject.rectangle.height > trackedObject.rectangle.width)) ||
+         ((trackedObject.kf.x[4]<trackedObject.kf.x[5]) && (trackedObject.rectangle.height < trackedObject.rectangle.width))){
+            //if orientation before(tracked kf bb) and now (new bb) is the same - do not change anything
+        return false;
+    }else{
+        return true;
+    }
+
+    
 
 }
 
@@ -773,6 +952,7 @@ void BoundingBoxNode::DataAssociate(){
     for (auto aux : assignment_){
         cout << aux << ", ";
     }*/
+
     for (size_t it = 0; it < currentObjectsList.size(); it++) {
         objectTracker& currentObject = currentObjectsList[it];
         int assignedObject= assignment_[it];
@@ -789,13 +969,17 @@ void BoundingBoxNode::DataAssociate(){
             trackedObject.rectangle= currentObject.rectangle;   //bouding box rectangle has all the needed information to update KF
             trackedObject.covInfo = currentObject.covInfo;      //covariance of the last point cloud cluster - used in next time step for data association
             trackedObject.last_cluster = currentObject.last_cluster;
+            trackedObject.hasPublished_last_cluster = false; //will make it so that last cluster is added to static pointcloud by this node - unless it is being published as a tracked object
+            currentObject.hasPublished_last_cluster=true; //tracker will publish his last cluster if velocity justifies it, current object is not longer availiable for this
+
             if (trackedObject.newObject) {
                 trackedObject.newObjectCounter++;
-                if (trackedObject.newObjectCounter >trackedObject.newObjectThreshold){ //contiditon to add object
+                if (trackedObject.newObjectCounter > trackedObject.newObjectThreshold){ //contiditon to add object
                         trackedObject.id=id_counter_;
                         id_counter_ +=1;
                         trackedObject.newObject=false;
-                        trackedObject.hasPublished_last_cluster = false; //will make it so that last cluster is added to published static pointcloud by this node
+                        //RCLCPP_INFO( this->get_logger(), "new object dealt with");
+
 
                 }
             trackedObject.ocludedCounter=0; //reset on the oclusion counter
@@ -804,14 +988,17 @@ void BoundingBoxNode::DataAssociate(){
         else {
             //Creating a new object - it will only be published if it keeps apearing for some time
             trackedObjectsList.push_back(currentObject);//this newly created object already comes with .updateStepKF=true, newObject = true;newObjectCounter = 0;
+
         
         }
     }
     
-    
+
     //to deal with OLD objects that were not associated to any NEW objects:
     std::vector<int> missing = findMissingNumbers(assignment_, nCols);
     //cout << "missing matrix:" ;
+    //RCLCPP_INFO( this->get_logger(), "Missing?");
+
     for (int num : missing) {
         objectTracker& trackedObject = trackedObjectsList[num];
         // no match for this old tracked object
@@ -825,7 +1012,8 @@ void BoundingBoxNode::DataAssociate(){
         }   
         
         }    
-    //cout << endl;
+
+
   
         //trackedObjectsList.push_back(currentObjectsList[num])
 }
@@ -1068,7 +1256,7 @@ MinAreaRect BoundingBoxNode::rotatingCaliper2DBoundingBox(const pcl::PointCloud<
 
     auto pts = BoundingBoxNode::convertPCLCloudToCalipersInput(cloud);
     MinAreaRect res = RotatingCalipers::minAreaRect(pts);
-
+    
     /*struct MinAreaRect
     {
     double width;

@@ -19,7 +19,7 @@ EuclideanSpatial::EuclideanSpatial(rclcpp::Publisher<sensor_msgs::msg::PointClou
 
   }
 
-void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame){
+void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame, bool & DynamicStatic_segmentation){
 
     // Convert to PCL data type
     pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud_nonfiltered(new pcl::PointCloud<pcl::PointXYZ>); 
@@ -60,28 +60,33 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
      //bool dynamic_cluster =true;
     int cluster_intensity;
     for (const auto &cluster : cluster_indices)
-    {
-      occ_counter =0.0;
-      total_counter = 0.0;
-      for (const auto &point_idx : cluster.indices)
-      {
-        Point2d<double> point = {pointcloud->points[point_idx].x, pointcloud->points[point_idx].y};
-        if(grid_map_->checkOccupancy(point, robot_pose_inOCGMapFrame)){
-          occ_counter +=1.0;
+    { 
+      if(DynamicStatic_segmentation){
+        occ_counter =0.0;
+        total_counter = 0.0;
+        for (const auto &point_idx : cluster.indices)
+        {
+          Point2d<double> point = {pointcloud->points[point_idx].x, pointcloud->points[point_idx].y};
+          if(grid_map_->checkOccupancy(point, robot_pose_inOCGMapFrame)){
+            occ_counter +=1.0;
+          }
+          total_counter+=1.0;
         }
-        total_counter+=1.0;
-      }
-      double fraction = occ_counter/total_counter;
-      if ( fraction < 0.5 ){//less than 70% of the points are within occupied part of the map
-         //dynamic_cluster= true; //cluster is dynamic, will be tracked
+        double fraction = occ_counter/total_counter;
+        if ( fraction < 0.9 ){//less than 70% of the points are within occupied part of the map
+          //dynamic_cluster= true; //cluster is dynamic, will be tracked
+          intensity++;
+          cluster_intensity=intensity;
+        }else{
+          //dynamic_cluster=false; //cluster is static - will be mapped in an occupancy grid map
+          cluster_intensity = 0;
+        }
+        //std::cout << " this cluster is dynamic? "<< dynamic_cluster << "with counters (%, occ, total)" << fraction << " occ:"<<occ_counter << " total:"<<total_counter << std::endl;
+      }else{
         intensity++;
         cluster_intensity=intensity;
-      }else{
-         //dynamic_cluster=false; //cluster is static - will be mapped in an occupancy grid map
-        cluster_intensity = 0;
       }
-      //std::cout << " this cluster is dynamic? "<< dynamic_cluster << "with counters (%, occ, total)" << fraction << " occ:"<<occ_counter << " total:"<<total_counter << std::endl;
-
+      
       for (const auto &point_idx : cluster.indices)
       {
         // convert pointcloud->points[point_idx] to PointXYZI

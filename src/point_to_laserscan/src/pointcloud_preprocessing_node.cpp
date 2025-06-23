@@ -22,8 +22,8 @@ PointCloudPreProcessingNode::PointCloudPreProcessingNode(const rclcpp::NodeOptio
   pub_accumulatedPC_laserscan_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/ls/pointcloud/accumulated", rclcpp::SensorDataQoS()); 
   
   //complete 3d pointcloud projected to 2d pointcloud - all points have z=0 in base_footprint frame
-  pub_projectedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected", rclcpp::SensorDataQoS());
-  pub_projected_AccumulatedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected/accumulated", rclcpp::SensorDataQoS()); //time decay version
+  //pub_projectedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected", rclcpp::SensorDataQoS());
+  //pub_projected_AccumulatedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected/accumulated", rclcpp::SensorDataQoS()); //time decay version
 
   //radial map - filtered/ls/laserscan transformed into a low resolution 2d laserscan that reprsents lower range found in original ls for each angle interval
   pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS()); //1 point per angle interval
@@ -95,9 +95,9 @@ void PointCloudPreProcessingNode::subscriptionListenerThreadLoop()
       pub_radialmap_->get_subscription_count() +  pub_radialmap_->get_intra_process_subscription_count() +
       pub_FilteredPC_->get_subscription_count() +  pub_FilteredPC_->get_intra_process_subscription_count() +
       pub_radialmapVisual_->get_subscription_count() +  pub_radialmapVisual_->get_intra_process_subscription_count() + 
-      pub_accumulatedPC_laserscan_->get_subscription_count() + pub_accumulatedPC_laserscan_->get_intra_process_subscription_count() +
-      pub_projectedPC_->get_subscription_count() + pub_projectedPC_->get_intra_process_subscription_count() +
-      pub_projected_AccumulatedPC_->get_subscription_count() + pub_projected_AccumulatedPC_->get_intra_process_subscription_count(); 
+      pub_accumulatedPC_laserscan_->get_subscription_count() + pub_accumulatedPC_laserscan_->get_intra_process_subscription_count();// +
+      //pub_projectedPC_->get_subscription_count() + pub_projectedPC_->get_intra_process_subscription_count() +
+      //pub_projected_AccumulatedPC_->get_subscription_count() + pub_projected_AccumulatedPC_->get_intra_process_subscription_count(); 
 
     if (subscription_count > 0) {
       if (!sub_.getSubscriber()) {
@@ -132,7 +132,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       auto cloud_projected2D_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
       auto laserScanPC_timeDecay_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
       auto cloud_projected2D_timeDecay_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
-      pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed, pcl_cloud_filtered, rejected_pointcloud;
+      pcl::PointCloud<pcl::PointXYZI> pcl_cloud, pcl_cloud_transformed, pcl_cloud_filtered;
 
       bool has_intensity = false;
       for (const auto &field : cloud_msg->fields) {
@@ -142,6 +142,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
         }
       }
       if(has_intensity){
+
         pcl::fromROSMsg(*cloud_msg, pcl_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
       }else{
         pcl::PointCloud<pcl::PointXYZ> cloud_noI;
@@ -156,18 +157,21 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
             tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2_ros::fromMsg(cloud_msg->header.stamp));
         pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
       }else{ //normal evolo
+        ScopedTimer timer_transform2("[PCpreprocess], Transforming original cloud to base_footprint: ACTUAL TF",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
+
         geometry_msgs::msg::TransformStamped transform = 
           tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
         pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
+        timer_transform2.stopClock();
       }
       timer_transform.stopClock(); //prints out time
 
       // Apply filtering: filters out points with negative z and low intensity (water reflections) and does adaptiveRadiusFilter
       //pcl_cloud_filtered is the output, rejected_pointcloud has all the points that were filtered out (for debug purposes) - it is not currently used
       if(!params_->simulation_mode_){
-        PointCloudPreProcessingNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered, rejected_pointcloud);
+        PointCloudPreProcessingNode::filterCloud(pcl_cloud_transformed, params_->min_height_shortrange_, pcl_cloud_filtered);
       }else{ //no need to filter if in simulation mode
-        pcl_cloud_filtered = pcl_cloud_transformed;
+        pcl_cloud_filtered = std::move(pcl_cloud_transformed);
       }
       // Convert back to ROS message and update headers to reflect the new frame
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
@@ -198,6 +202,12 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       // radialMapVisual is mostly used for RVIZ visualization
       // radialMap is used to communicate regions where obstacles are to the USV's path controller
       auto [radialMap, radialMapVisual] = PointCloudPreProcessingNode::LaserScan2radialMap(merged_scan_msg);
+      pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
+      pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
+      merged_point_cloud.header.frame_id = params_->target_frame_;
+      merged_point_cloud.header.stamp =cloud_msg->header.stamp;
+      pub_pc_->publish(merged_point_cloud);
+      pub_->publish(std::move(merged_scan_msg));
       pctoLsTimer.stopClock();
       //project the filtered and transformed cloud into a fixed world frame -> needed to accumulate points in time and get a time decay effect
       //accumulate the merged_point_cloud over a time horizon, similar to rviz time decay - usefull to get more features to cluster with
@@ -209,44 +219,39 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       geometry_msgs::msg::TransformStamped inverse_world_fix_transform = 
           tf2_->lookupTransform(params_->target_frame_, params_->fixed_frame_,tf2::TimePointZero);
       
-      pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
       
-      pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
       
 
 
       PointCloudPreProcessingNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
-      PointCloudPreProcessingNode::project(pcl_cloud_filtered ,cloud_projected2D);
-      PointCloudPreProcessingNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
+      //PointCloudPreProcessingNode::project(pcl_cloud_filtered ,cloud_projected2D);
+      //PointCloudPreProcessingNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
 
       //setup ros msgs to be published
       accuProjTimer.stopClock();
       pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
-      pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg); //debugging
-      pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
+      //pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg); //debugging
+      //pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
       if(params_->outputOnFixedFrame_){
-        cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+        //cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
         laserScanPC_timeDecay_msg->header.frame_id = params_->fixed_frame_;
       }else{
-        cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
+        //cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
         laserScanPC_timeDecay_msg->header.frame_id = params_->target_frame_;
       }
-      cloud_projected2D_msg->header.frame_id = params_->target_frame_;    
+      //cloud_projected2D_msg->header.frame_id = params_->target_frame_;    
       laserScanPC_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
-      cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
-      cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
-      merged_point_cloud.header.frame_id = params_->target_frame_;
-      merged_point_cloud.header.stamp =cloud_msg->header.stamp;
-     
+      //cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
+      //cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
+      
       //publishing everything
       pub_FilteredPC_->publish(std::move(*cloud));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));
       pub_radialmap_->publish(std::move(radialMap));
-      pub_pc_->publish(merged_point_cloud);
-      pub_->publish(std::move(merged_scan_msg));
+      
       pub_accumulatedPC_laserscan_->publish(std::move(*laserScanPC_timeDecay_msg));
-      pub_projectedPC_->publish(std::move(*cloud_projected2D_msg));
-      pub_projected_AccumulatedPC_->publish(std::move(*cloud_projected2D_timeDecay_msg));
+      //pub_projectedPC_->publish(std::move(*cloud_projected2D_msg));
+      //pub_projected_AccumulatedPC_->publish(std::move(*cloud_projected2D_timeDecay_msg));
   
   } catch (tf2::TransformException & ex) {
       RCLCPP_ERROR_STREAM(this->get_logger(), "Failed to transform point cloud from " << cloud_msg->header.frame_id 
@@ -292,7 +297,8 @@ void PointCloudPreProcessingNode::project(pcl::PointCloud<pcl::PointXYZI> & clou
 
 
 void PointCloudPreProcessingNode::accumulate(const pcl::PointCloud<pcl::PointXYZI> & cloud_in, pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
-    const rclcpp::Time & currentTime, const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,geometry_msgs::msg::TransformStamped & inverse_world_fix_transform ,std::deque<TimedCloud> cloud_queue){ 
+    const rclcpp::Time & currentTime, const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,geometry_msgs::msg::TransformStamped & inverse_world_fix_transform ,std::deque<TimedCloud> & cloud_queue)
+{ 
 
   pcl::PointCloud<pcl::PointXYZI> cloud_in_transformed, cloud_out_untrasnformed;
   if (cloud_in.empty()) {
@@ -302,28 +308,71 @@ void PointCloudPreProcessingNode::accumulate(const pcl::PointCloud<pcl::PointXYZ
     pcl_ros::transformPointCloud(cloud_in, cloud_in_transformed, world_fix_transform); //making it crash process has died [pid 43347, exit code -8, 
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>(cloud_in_transformed));
     // Store with timestamp
-    cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
     // Remove clouds older than time_decay                                                     this counter is if time for some reason goes back, for example playing a rosbag in loop with use_sim_time true
-    while (!cloud_queue.empty()  &&  (  ((currentTime - cloud_queue.front().timestamp).seconds() > time_decay)  ||   (cloud_queue.front().counter >  time_decay*10 )  ) ) {
+    cloud_queue.push_back(TimedCloud(currentTime, cloud_ptr));
+
+    while (!cloud_queue.empty()  &&  (  (std::abs((currentTime - cloud_queue.front().timestamp).seconds()) > time_decay)  ||   (cloud_queue.front().counter >  time_decay*10 ) ) ) {
               cloud_queue.pop_front();                                            
           }    
     cloud_out_accumulated.clear();
+    float counter_=0.0;
     if(params_->outputOnFixedFrame_){
       // Concatenate remaining clouds
       for (auto &timed_cloud : cloud_queue) {
         cloud_out_accumulated += *(timed_cloud.cloud);
         timed_cloud.counter +=1.0; //double because it is compared to a double time_decay * 10Hz
+        counter_++;
       }
     }else{
       cloud_out_untrasnformed.clear();
       // Concatenate remaining clouds
       for (const auto &timed_cloud : cloud_queue) {
           cloud_out_untrasnformed += *(timed_cloud.cloud);
+          counter_++;
+
+
       }
+
+
       pcl_ros::transformPointCloud(cloud_out_untrasnformed, cloud_out_accumulated,inverse_world_fix_transform );
     }
+    
+    voxelDownSampling(cloud_out_accumulated, 0.2);
+
   }
 }
+void PointCloudPreProcessingNode::voxelDownSampling(pcl::PointCloud<pcl::PointXYZI>& input_pointcloud, float voxel_leaf_size){
+    if (voxel_leaf_size <= 0.001f) {
+        voxel_leaf_size = 0.01f; // Default small sensible value if calculated size is too small
+    }
+
+    pcl::PointCloud<pcl::PointXYZI> cloud_downsampled;
+
+    // Initialize the VoxelGrid filter.
+    // The template parameter for pcl::VoxelGrid must match the point type of the cloud (PointXYZI).
+    pcl::VoxelGrid<pcl::PointXYZI> sor;
+
+    // Set the input cloud for the filter.
+    // PCL filters generally expect a shared pointer to the input cloud.
+    // We create a temporary shared_ptr from the input reference. This does not
+    // copy the data, but creates a shared ownership wrapper around the existing data.
+    pcl::PointCloud<pcl::PointXYZI>::Ptr temp_input_ptr = input_pointcloud.makeShared();
+    sor.setInputCloud(temp_input_ptr);
+
+    // Set the dimensions (size) of the voxels in meters for x, y, and z axes.
+    sor.setLeafSize(voxel_leaf_size, voxel_leaf_size, voxel_leaf_size);
+
+    // Perform the filtering operation. The downsampled points are written to 'cloud_downsampled'.
+    sor.filter(cloud_downsampled);
+
+    // Move the content of the downsampled cloud back into the original 'input_pointcloud'.
+    // This is an efficient move assignment, which avoids a deep copy of point data.
+    // Instead, it transfers ownership of the internal data buffer from 'cloud_downsampled'
+    // to 'input_pointcloud'.
+    input_pointcloud = std::move(cloud_downsampled);
+}
+
+
 
 bool PointCloudPreProcessingNode::detectWaterPlane(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in, pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_out){
 
@@ -428,8 +477,7 @@ bool PointCloudPreProcessingNode::checkWaterPlane(float a, float b, float c, flo
 void PointCloudPreProcessingNode::filterCloud(
     pcl::PointCloud<pcl::PointXYZI> &cloud_in,
     const double &min_height,
-    pcl::PointCloud<pcl::PointXYZI> &cloud_out,
-    pcl::PointCloud<pcl::PointXYZI> &cloud_outREJ)
+    pcl::PointCloud<pcl::PointXYZI> &cloud_out)
 {
   ScopedTimer filterTimer("[PCpreprocess], Filtering",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
@@ -470,58 +518,66 @@ void PointCloudPreProcessingNode::filterCloud(
       intensity_filtered->is_dense = true;
       current_cloud = intensity_filtered;
   }
+  //remove points higher than 4 meters
+  pcl::PassThrough<pcl::PointXYZI> pass;
+  pass.setInputCloud(current_cloud);
+  pass.setFilterFieldName("z");
+  pass.setFilterLimits(-std::numeric_limits<float>::max(), params_->max_height_longrange_);  // Keep points with z <= 4.0
+  pcl::PointCloud<pcl::PointXYZI>::Ptr filtered_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  pass.filter(*filtered_cloud);
+  current_cloud = filtered_cloud;
+
 
   // Adaptive radius filtering (if not in sim mode - simulation does not show water reflections and cannot estimate plane)
   if(!params_->simulation_mode_ && !current_cloud->empty() ){
     ScopedTimer timer_tranaform("[PCpreprocess], adaptiveRadiusFilter",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
-    auto [output , rejected_output]= PointCloudPreProcessingNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
+    auto output = PointCloudPreProcessingNode::adaptiveRadiusFilter(current_cloud, params_->m_neighboursRadius_, params_->b_neighboursRadius_, params_->nr_neighbours_);
     cloud_out=*output;
-    cloud_outREJ=*rejected_output;
   }else{
     cloud_out=cloud_in;
   }
 }
     
-std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr> PointCloudPreProcessingNode::adaptiveRadiusFilter(
+pcl::PointCloud<pcl::PointXYZI>::Ptr PointCloudPreProcessingNode::adaptiveRadiusFilter(
   const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
   float scale , float min_radius ,             // Radius = scale * range
   int min_neighbors )
 {
+  RCLCPP_INFO(this->get_logger(), "Input cloud size: %ld", input_cloud->size());
+
   // only keeps points that have at least min_neighbors in a radius search. That radius is proportional
   // to the lidar range at that point - this compensates for LiDAR sparsity at long ranges
   pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr output_rejectedcloud(new pcl::PointCloud<pcl::PointXYZI>);
   pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
   
   kdtree.setInputCloud(input_cloud);
-  std::vector<int> indices;
-  std::vector<float> distances;
+  std::vector<int> indices(min_neighbors + 1);  
+  std::vector<float> distances(min_neighbors + 1);
   float distance_to_origin, radius;
   for (const auto& pt : input_cloud->points) {
       distance_to_origin = std::sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z);
       radius = min_radius + (scale * distance_to_origin);
-      
-      if (kdtree.radiusSearch(pt, radius, indices, distances) >= min_neighbors) {
+      indices.clear();
+      distances.clear();
+      radius = std::min(radius,3.0f); //limit to 3 meters of radius search
+      if (kdtree.radiusSearch(pt, radius, indices, distances, min_neighbors) >= min_neighbors) {
           output_cloud->points.push_back(pt);
       }
-      else{
-        output_rejectedcloud->points.push_back(pt);
-
-      }
+     
   }
   output_cloud->width = output_cloud->points.size();
   output_cloud->height = 1;
   output_cloud->is_dense = true;
-  output_rejectedcloud->width = output_rejectedcloud->points.size();
-  output_rejectedcloud->height = 1;
-  output_rejectedcloud->is_dense = true;
-  return {output_cloud,output_rejectedcloud};
+  
+  return output_cloud;
 }
 
 sensor_msgs::msg::LaserScan::UniquePtr PointCloudPreProcessingNode::computeLaserScan(
   const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg )
 {
+  ScopedTimer PC2LS_time("[PCpreprocess], PC2LS",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
+
 // build laserscan output
 //function created by Paul Bovbel, Tully Foote and Michel Hidalgo. Source code found here: https://github.com/ros-perception/pointcloud_to_laserscan 
 auto scan_msg = std::make_unique<sensor_msgs::msg::LaserScan>();
@@ -623,10 +679,123 @@ sensor_msgs::msg::LaserScan::UniquePtr PointCloudPreProcessingNode::mergeLaserSc
     return std::move(long_scan);
   }
 
- 
+std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr>
+PointCloudPreProcessingNode::LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan)
+{
+    // Scoped timer for performance measurement
+    ScopedTimer LaserScan2radialMap_time("[PCpreprocess], LaserScan2radialMap", this, params_->timeMetric, params_->saveTimeMetric_, timeoutFile_);
+
+    // Create unique pointers for the output LaserScan messages
+    auto radialMapScan = std::make_unique<sensor_msgs::msg::LaserScan>();
+    auto radialMapScanVisual = std::make_unique<sensor_msgs::msg::LaserScan>();
+
+    // --- Configure radialMapScan (low resolution radial map) ---
+    radialMapScan->header = scan->header; // Copy header info
+    radialMapScan->header.frame_id = scan->header.frame_id;
+    radialMapScan->angle_min = params_->angle_min_map_;
+    radialMapScan->angle_max = params_->angle_max_map_;
+    radialMapScan->angle_increment = params_->angle_increment_; // Big angle increment for lower resolution
+    radialMapScan->time_increment = scan->time_increment;
+    radialMapScan->scan_time = scan->scan_time;
+    radialMapScan->range_min = scan->range_min;
+    radialMapScan->range_max = scan->range_max;
+
+    // --- Configure radialMapScanVisual (high resolution for visualization) ---
+    // Shares most metadata with radialMapScan, but uses original scan's angle_increment
+    radialMapScanVisual->header = radialMapScan->header; // Copy header info
+    radialMapScanVisual->header.frame_id = radialMapScan->header.frame_id;
+    radialMapScanVisual->angle_min = params_->angle_min_map_;
+    radialMapScanVisual->angle_max = params_->angle_max_map_;
+    radialMapScanVisual->angle_increment = scan->angle_increment; // Fine angle increment for visual scan
+    radialMapScanVisual->time_increment = scan->time_increment;
+    radialMapScanVisual->scan_time = scan->scan_time;
+    radialMapScanVisual->range_min = scan->range_min;
+    radialMapScanVisual->range_max = scan->range_max;
+
+
+    // Calculate the number of bins for the low-resolution radial map
+    int number_of_cells = static_cast<int>(std::round((params_->angle_max_map_ - params_->angle_min_map_) / params_->angle_increment_));
+    // Ensure the number of cells is non-negative
+    if (number_of_cells < 0) {
+        number_of_cells = 0;
+    }
+    // Initialize radialMapScan ranges with the maximum possible range
+    radialMapScan->ranges.assign(number_of_cells, radialMapScan->range_max);
+
+    // --- Optimized Section: Populate radialMapScan with a single pass through the input scan ---
+    // Iterate through each range measurement in the original high-resolution scan
+    for (size_t j = 0; j < scan->ranges.size(); ++j)
+    {
+        // Calculate the angle corresponding to the current scan measurement
+        double current_angle = scan->angle_min + j * scan->angle_increment;
+
+        // Check if the current angle falls within the desired map's angular limits
+        if (current_angle >= params_->angle_min_map_ && current_angle < params_->angle_max_map_)
+        {
+            // Check if the current range measurement is valid (within min/max range)
+            if (scan->ranges[j] >= scan->range_min && scan->ranges[j] <= scan->range_max)
+            {
+                // Calculate the index for the corresponding bin in the low-resolution radialMapScan
+                // We subtract params_->angle_min_map_ to normalize the angle to start from 0 for index calculation.
+                int radial_index = static_cast<int>(
+                    (current_angle - params_->angle_min_map_) / params_->angle_increment_
+                );
+
+                // Ensure the calculated index is within the valid bounds of radialMapScan->ranges
+                if (radial_index >= 0 && radial_index < number_of_cells)
+                {
+                    // Update the range in the radialMapScan if the current range is smaller
+                    // This ensures that each bin stores the minimum valid range within its angular segment.
+                    radialMapScan->ranges[radial_index] = std::min(radialMapScan->ranges[radial_index], scan->ranges[j]);
+                }
+                // No 'else' needed here, points outside the mapped range or with invalid indices are ignored.
+            }
+        }
+    }
+
+    // --- Populate radialMapScanVisual (high resolution visualization scan) ---
+    // Calculate the number of cells for the high-resolution visual map
+    int visual_cells = static_cast<int>(std::round((params_->angle_max_map_ - params_->angle_min_map_) / scan->angle_increment));
+    if (visual_cells < 0) {
+        visual_cells = 0;
+    }
+    // Initialize radialMapScanVisual ranges with the maximum possible range
+    radialMapScanVisual->ranges.assign(visual_cells, radialMapScanVisual->range_max);
+
+    // Assign values from radialMapScan (low-res) to radialMapScanVisual (high-res)
+    // Each high-resolution visual cell gets the minimum range from its corresponding low-resolution bin.
+    for (int i = 0; i < visual_cells; ++i)
+    {
+        // Calculate the angle for the current visual cell
+        double current_visual_angle = params_->angle_min_map_ + i * scan->angle_increment;
+
+        // Determine which low-resolution radialMapScan bin this high-resolution visual angle falls into
+        int radial_index = static_cast<int>(
+            (current_visual_angle - params_->angle_min_map_) / params_->angle_increment_
+        );
+
+        // Ensure the calculated radial_index is valid for radialMapScan
+        if (radial_index >= 0 && radial_index < number_of_cells)
+        {
+            // Assign the range from the corresponding low-resolution bin
+            radialMapScanVisual->ranges[i] = radialMapScan->ranges[radial_index];
+        } else {
+            // If the angle falls outside the defined map range or index is invalid,
+            // set to max range to represent no valid measurement.
+            radialMapScanVisual->ranges[i] = radialMapScanVisual->range_max;
+        }
+    }
+
+    // Return the pair of generated LaserScan messages
+    return {std::move(radialMapScan), std::move(radialMapScanVisual)};
+} 
+
+/*
 std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> 
   PointCloudPreProcessingNode::LaserScan2radialMap( const sensor_msgs::msg::LaserScan::UniquePtr &scan)
   {
+    ScopedTimer LaserScan2radialMap_time("[PCpreprocess], LaserScan2radialMap",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
+
     //creates low resolution ranges radial map(in the form of a laserscan) from an input laserscan 
     //at each angle interval params_->angle_increment_, this keeps the point with the least range
     // also outputs radialMapScanVisual which has high resolution and is meant to be viewd in RVIZ. For each angle interval,
@@ -695,11 +864,11 @@ std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::U
     return {std::move(radialMapScan), std::move(radialMapScanVisual)};
 }
 
-
+*/
 
 void PointCloudPreProcessingNode::publish_plane_marker(float a, float b, float c, float d)
 {
-    const std::string frame_id = "base_footprint";
+    const std::string frame_id = params_->target_frame_;
     int marker_id = 0;
     // Normalize plane normal
     Eigen::Vector3f normal(a, b, c);
@@ -750,7 +919,7 @@ void PointCloudPreProcessingNode::publish_plane_marker(float a, float b, float c
     marker.color.b = 0.6f;
     marker.color.a = 0.4f;
 
-    marker.lifetime = rclcpp::Duration::from_seconds(1); // 0 = forever
+    marker.lifetime = rclcpp::Duration::from_seconds(0); // 0 = forever
    
     marker_pub_->publish(marker);
 }

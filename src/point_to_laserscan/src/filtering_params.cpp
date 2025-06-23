@@ -30,7 +30,7 @@ PointCloudPreProcessingParams::PointCloudPreProcessingParams(rclcpp::Node* node)
     min_height_longrange_ = node->declare_parameter(
         "min_height_longrange", -6.0);
     max_height_longrange_ = node->declare_parameter(
-        "max_height_longrange", 6.0);
+        "max_height_longrange", 4.0);
     
     // Angle parameters
     angle_min_ = node->declare_parameter("angle_min_laserscan", -M_PI);

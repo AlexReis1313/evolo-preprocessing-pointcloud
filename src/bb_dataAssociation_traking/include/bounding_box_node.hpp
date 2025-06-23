@@ -50,28 +50,13 @@ namespace fs = std::filesystem;
 
 
 //GLOBAL variables
-const int num_states = 10;
-const int num_sensors = 5;
+const int num_states = 4;
+const int num_sensors = 2;
 float metric_time_horizon = 3.0;
 extern Eigen::MatrixXd motion_model;
 extern Eigen::MatrixXd measurement_model;
 extern Eigen::MatrixXd process_noise;
-//Tunning parameters
-double acell_cov_R =0.5; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
-double pose_cov_Q = 0.3; //Q matrix is proporcional to this value - measurement covariance of pose states
-double boundingBox_cov_Q = 6.0; //Q matrix is proporcional to this value - measurement covariance of bounding box states
-double min_velocity_threshold_ = 0.4; //m/s
-int newObjectThreshold_ = 15;   //number of times an object has to be seen before tracker output starts
-double cost_threshold_ = 6;   //cost threshold to associate cluster to object                
-double cov_limit_factor_=50;   // if a tracked object has more cov than this, it will be deleted
-int pruneThreshold_ = 35; //if an object is not seen for 40 consecutive point clouds, it will be deleted - this leavs ~4seconds where ocluded objects get propagated
-bool save_metrics_txt_ = true;
-std::string metrics_file = "boundingBoxMetrics_OnlyStatic_nonoise";//.txt";
-std::string timing_file = "BBTrack_timingFile.csv";
 
-std::string fixed_frame_ = "odom";
-bool timeMetric_ = true;
-bool saveTimeMetric_ = true;
 
 
 
@@ -95,18 +80,21 @@ struct objectTracker
     KalmanFilter kf;
     std::vector<double> costVector;
     CovarianceInfo covInfo;
+    double totalBB_width =1;
+    double totalBB_height=1; //dimensions of bb considering center of tracked kf
     bool hasPublished_last_cluster = false;
     bool updateStepKF = true;
     unsigned int ocludedCounter = 0;
     unsigned int newObjectCounter = 0;
-    int newObjectThreshold=newObjectThreshold_;
-    int pruneThreshold= pruneThreshold_;
+    int newObjectThreshold;
+    int pruneThreshold;
     bool newObject = true;  //if true, the object is newly seen and not yet considered as existent. 
                             //Only when newObjectCounter>=newObjectThreshold, this bool=false and the object is considered for obstacle avoidance
     std::deque<TimedPrediction> future_predictions;
 
-    objectTracker(double x_init, double y_init):
-        kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q , cov_limit_factor_) {}
+    objectTracker(double x_init, double y_init, double acell_cov_R , double pose_cov_Q, double boundingBox_cov_Q , double cov_limit_factor_, int newObjectThreshold_, int pruneThreshold_):
+        kf(x_init,y_init,num_states, num_sensors, motion_model, measurement_model, process_noise,acell_cov_R ,pose_cov_Q,boundingBox_cov_Q , cov_limit_factor_), newObjectThreshold(newObjectThreshold_),
+    pruneThreshold(pruneThreshold_) {}
     
 };
 
@@ -137,6 +125,9 @@ private:
     double costFuntion_BACHY_covBB(const objectTracker& object, const objectTracker& trackedObject);
     double costFuntion_BACHY_IOU(const objectTracker& object, const objectTracker& trackedObject);
     double costFuntion_BACHY_IOU_eucledian(const objectTracker& object, const objectTracker& trackedObject);
+    bool need2RotatedBB(objectTracker& trackedObject);
+    void getLaunchParams();
+    bool computeTotalBB(objectTracker& trackedObject);
 
     Eigen::Matrix2f approximateCovarianceFromBoundingBox(float width, float length, float heading);
     CovarianceInfo computeCovarianceInfo(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
@@ -178,6 +169,22 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr corrected_bbox_pub_;
 
+    //Tunning parameters
+    double acell_cov_R =0.1; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
+    double pose_cov_Q = 0.5; //Q matrix is proporcional to this value - measurement covariance of pose states
+    double boundingBox_cov_Q = 0.7; //Q matrix is proporcional to this value - measurement covariance of bounding box states
+    double min_velocity_threshold_ = 0.4; //m/s
+    int newObjectThreshold_ = 15;   //number of times an object has to be seen before tracker output starts
+    double cost_threshold_ = 6;   //cost threshold to associate cluster to object                
+    double cov_limit_factor_=40;   // if a tracked object has more cov than this, it will be deleted
+    int pruneThreshold_ = 40; //if an object is not seen for 40 consecutive point clouds, it will be deleted - this leavs ~4seconds where ocluded objects get propagated
+    bool save_metrics_txt_ = false;
+    std::string metrics_file; //= "boundingBoxMetrics_OnlyStatic_nonoise";//.txt";
+    std::string timing_file;// = "BBTrack_timingFile.csv";
+    std::string cloud_in_;
+    std::string fixed_frame_;// = "map_gt";
+    bool timeMetric_ = false;
+    bool saveTimeMetric_ = false;
 
     
 

@@ -91,6 +91,7 @@
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/passthrough.h>
+#include <pcl/filters/voxel_grid.h> // For downsampling
 
 #include <visualization_msgs/msg/marker.hpp>
 #include <geometry_msgs/msg/point.hpp>
@@ -135,8 +136,8 @@ void subscriptionListenerThreadLoop();
 sensor_msgs::msg::LaserScan::UniquePtr mergeLaserScans(const sensor_msgs::msg::LaserScan::UniquePtr & short_scan, sensor_msgs::msg::LaserScan::UniquePtr && long_scan);
 sensor_msgs::msg::LaserScan::UniquePtr computeLaserScan(const sensor_msgs::msg::PointCloud2::ConstSharedPtr & cloud_msg);
 std::pair<sensor_msgs::msg::LaserScan::UniquePtr, sensor_msgs::msg::LaserScan::UniquePtr> LaserScan2radialMap(const sensor_msgs::msg::LaserScan::UniquePtr &scan);
-void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height,pcl::PointCloud<pcl::PointXYZI> & cloud_out,pcl::PointCloud<pcl::PointXYZI> & cloud_outREJ);
-std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr , pcl::PointCloud<pcl::PointXYZI>::Ptr>  adaptiveRadiusFilter(const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,float scale = 0.0125f, float min_radius = 0.05f,            // Radius = scale * range
+void filterCloud( pcl::PointCloud<pcl::PointXYZI> & cloud_in, const double & min_height,pcl::PointCloud<pcl::PointXYZI> & cloud_out);
+pcl::PointCloud<pcl::PointXYZI>::Ptr adaptiveRadiusFilter(const pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,float scale = 0.0125f, float min_radius = 0.05f,            // Radius = scale * range
                     int min_neighbors = 3);
 bool detectWaterPlane( const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in, pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_out);
 void addNullINtensity(const pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::PointCloud<pcl::PointXYZI> & cloud_out);
@@ -147,7 +148,8 @@ void accumulate(
   pcl::PointCloud<pcl::PointXYZI> & cloud_out_accumulated,
   const rclcpp::Time & currentTime,
   const double & time_decay,geometry_msgs::msg::TransformStamped & world_fix_transform,
-  geometry_msgs::msg::TransformStamped & inverse_world_fix_transform, std::deque<TimedCloud> cloud_queue);
+  geometry_msgs::msg::TransformStamped & inverse_world_fix_transform, std::deque<TimedCloud> & cloud_queue);
+void voxelDownSampling(pcl::PointCloud<pcl::PointXYZI>&input_pointcloud,float voxel_leaf_size);
 
 void detectWaterPlane(
   const pcl::PointCloud<pcl::PointXYZI> &cloud_in,

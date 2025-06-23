@@ -47,6 +47,8 @@ target_include_directories(
          $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIR}> $<INSTALL_INTERFACE:include>)
 
 install(TARGETS clustering_segmentation DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+
 
 target_include_directories(
   occupancy_grid_mqtt

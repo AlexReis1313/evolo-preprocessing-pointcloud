@@ -23,7 +23,7 @@ bool OccupancyGrid::checkOccupancy(const Point2d<double>& point,tf2::Transform &
   Point2d<int> grid_point{round(transformed.x()/ cell_size_) + grid_center_.x,
                             round(transformed.y() / cell_size_) + grid_center_.y};
   if (isInGridBounds(static_cast<int>(grid_point.x), static_cast<int>(grid_point.y))){
-    if(map_(grid_point.x, grid_point.y)>0.75){
+    if(map_(grid_point.x, grid_point.y)>0.8){ //means that it has been seen as occupied at least 4 times in a row, or 4 times + n occipied + 2n free in a row with 0<n<5
       //std::cout << "occupancy:" << map_(grid_point.x, grid_point.y) << std::endl;
       return true; //is occupied
     } else{
@@ -264,6 +264,7 @@ void OccupancyGrid::update(Eigen::MatrixXd& local_map, double delta_x, double de
 }
 
 
+/*
 void OccupancyGrid::update(const std::vector<Point2d<double>>& laser_scan, tf2::Transform & robot_pose_inOCGMapFrame)
 {
 
@@ -289,7 +290,61 @@ void OccupancyGrid::update(const std::vector<Point2d<double>>& laser_scan, tf2::
     free_cells.clear();
   }
 }
+*/
+void OccupancyGrid::update(const std::vector<Point2d<double>>& laser_scan,
+                           tf2::Transform &robot_pose_inOCGMapFrame, bool & bayesFilterType)
+{
+  //unordered sets can, by definition, not have repeted entries, meaningt that each cell can only be updated once per iteration
+  //unordered sets allow for fast access to individual elements by their hash value
+  std::unordered_set<Point2d<int>> occupied_cells; 
+  std::unordered_set<Point2d<int>> free_cells;
+  tf2::Vector3 map_offset = robot_pose_inOCGMapFrame.getOrigin();
+  int x0 = static_cast<int>(std::floor(map_offset.x() / cell_size_)) + grid_center_.x;
+  int y0 = static_cast<int>(std::floor(map_offset.y() / cell_size_)) + grid_center_.y;
 
+  std::vector<Point2d<double>> transformed_scan;
+  transformed_scan.reserve(laser_scan.size());
+
+  // --- Step 1: Transform all laser points and store occupied cells ---
+  for (const auto& pt : laser_scan) {
+    tf2::Vector3 transformed = robot_pose_inOCGMapFrame * tf2::Vector3(pt.x, pt.y, 0.0);
+    Point2d<double> world_point{transformed.x(), transformed.y()};
+    transformed_scan.push_back(world_point);
+
+    Point2d<int> grid_point{
+      static_cast<int>(std::floor(world_point.x / cell_size_)) + grid_center_.x,
+      static_cast<int>(std::floor(world_point.y / cell_size_)) + grid_center_.y
+    };
+    occupied_cells.insert(grid_point);
+  }
+  //now occupied_cells have all occupied cells to be updated
+  // --- Step 2: For each scan, compute free cells (excluding occupied) ---
+  std::vector<Point2d<int>> ray_free_cells;
+  for (const Point2d<double>& scan_point : transformed_scan) {
+    Point2d<int> grid_point{
+      static_cast<int>(std::floor(scan_point.x / cell_size_)) + grid_center_.x,
+      static_cast<int>(std::floor(scan_point.y / cell_size_)) + grid_center_.y
+    };
+
+    getFreeCells(grid_point, ray_free_cells, x0,y0);
+    for (const auto& free_pt : ray_free_cells) {
+      if (occupied_cells.find(free_pt) == occupied_cells.end()) {
+        free_cells.insert(free_pt); //if a cell is updated as occupied, it cannot also be updated as free
+      }
+    }
+
+  }
+
+  // --- Step 3: Apply updates ---
+  for (const auto& pt : occupied_cells)
+    updateCellProbability(pt, CellState::OCCUPIED, bayesFilterType);
+
+  for (const auto& pt : free_cells)
+    updateCellProbability(pt, CellState::FREE, bayesFilterType);
+}
+
+
+/*
 void OccupancyGrid::updateCellProbability(const Point2d<int>& point, CellState state)
 {
 
@@ -304,35 +359,89 @@ void OccupancyGrid::updateCellProbability(const Point2d<int>& point, CellState s
   if(map_(point.x, point.y)==-1.0){
     map_(point.x, point.y)=0.5;
   }
-  double log_prob{0.0};
-  switch (state) {
-    case CellState::FREE:
-      log_prob = log(p_free_ / (1.0 - p_free_));
-      break;
-    case CellState::OCCUPIED:
-    
-      log_prob = log(p_occ_ / (1.0 - p_occ_));
-      break;
-    default:
-      log_prob = log(p_prior_ / (1.0 - p_prior_));
-      break;
+  if (state==CellState::OCCUPIED){
+  std::cout<< map_(point.x, point.y) << std::endl;}
+
+
+    double log_prob{0.0};
+    switch (state) {
+      case CellState::FREE:
+        log_prob = log(p_free_ / (1.0 - p_free_));
+        break;
+      case CellState::OCCUPIED:
+      
+        log_prob = log(p_occ_ / (1.0 - p_occ_));
+        break;
+      default:
+        log_prob = log(p_prior_ / (1.0 - p_prior_));
+        break;
+    }
+    double current_log_prob = log(map_(point.x, point.y) / (1.0 - map_(point.x, point.y)));
+    current_log_prob += log_prob;
+    // Convert log odds to probability and update cell
+
+    map_(point.x, point.y) = 1.0 - 1.0 / (1 + exp(current_log_prob));
+  //}
+  
+}
+*/
+void OccupancyGrid::updateCellProbability(const Point2d<int>& point, CellState state,  bool & bayesFilterType)
+{
+
+  // --- Crucial addition: Check bounds before any map access ---
+  if (!isInGridBounds(point.x, point.y)) {
+    // Log a warning or error, but do NOT crash the program.
+    // Use a logger instead of std::cout for ROS 2 nodes in production.
+    //std::cout <<  "Attempted to update cell " <<point.x<< point.y <<"which is out of bounds for grid size" << num_cells_<< "Skipping update."<<std::endl;
+    return; // Exit the function to prevent out-of-bounds access
   }
-  double current_log_prob = log(map_(point.x, point.y) / (1.0 - map_(point.x, point.y)));
-  current_log_prob += log_prob;
-  // Convert log odds to probability and update cell
-  map_(point.x, point.y) = 1.0 - 1.0 / (1 + exp(current_log_prob));
+  // Calculate new log odds and add to current log odds
+  if(map_(point.x, point.y)==-1.0){
+    map_(point.x, point.y)=0.5;
+  }
+ 
+
+
+    double log_prob{0.0};
+    switch (state) {
+      case CellState::FREE:
+        if(bayesFilterType){ //this map will be used to compare againts clusters and check if they are dynamic or static, for that reason, we want occupied cells to take a while to become occupied
+          map_(point.x, point.y)-=0.05;
+
+        }else{//this map will represent obstacles for obstacle avoidacen, for this reason we want occupied cells to become occupied very fast and free cells to become free effectively but not as fast
+          map_(point.x, point.y)-=0.1;
+        }
+
+        break;
+      case CellState::OCCUPIED:
+        if(bayesFilterType){//this map will be used to compare againts clusters and check if they are dynamic or static, for that reason, we want occupied cells to take a while to become occupied
+          map_(point.x, point.y) += std::max(map_(point.x, point.y) + 0.1, 0.5);
+        }else{ //this map will represent obstacles for obstacle avoidacen, for this reason we want occupied cells to become occupied very fast
+          map_(point.x, point.y) = 1.0;
+        }
+        break;
+      default:
+        log_prob = 0.5;
+        break;
+    }
+    
+    // Convert log odds to probability and update cell
+
+    map_(point.x, point.y) = std::max(0.0,std::min(map_(point.x, point.y),1.0));
+  //}
+  
 }
 
 
 void OccupancyGrid::getFreeCells(const Point2d<int>& detection,
-                                 std::vector<Point2d<int>>& free_cells, tf2::Transform & robot_pose_inOCGMapFrame)
+                                 std::vector<Point2d<int>>& free_cells,int& x0_, int & y0_)
 { //Bresenham line algorithm
 
     //int x0 = grid_center_.x;
     //int y0 = grid_center_.y;
-    tf2::Vector3 map_offset = robot_pose_inOCGMapFrame.getOrigin();
-    int x0 = static_cast<int>(std::floor(map_offset.x() / cell_size_)) + grid_center_.x;
-    int y0 = static_cast<int>(std::floor(map_offset.y() / cell_size_)) + grid_center_.y;
+    free_cells.clear();
+    int x0 = x0_;
+    int y0 = y0_;
 
     int x1 = detection.x;
     int y1 = detection.y;

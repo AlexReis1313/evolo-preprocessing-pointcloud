@@ -28,8 +28,8 @@ KalmanFilter::KalmanFilter(double x_init, double y_init, int num_states, int num
     Q = Eigen::MatrixXd::Identity(sensor_dim, sensor_dim) * pose_cov_Q_; //MEASUREMENT NOISE
 
     // Override entries related to bounding box sizes with boundingBox_cov_Q
-    Q(2, 2) = boundingBox_cov_Q_;
-    Q(3, 3) = boundingBox_cov_Q_;
+    /*Q(2, 2) = boundingBox_cov_Q_;
+    Q(3, 3) = boundingBox_cov_Q_;*/
     
     // entries 2,3 describe the bounding box sizes measurements, we want these to have very high measurement noise and low process noite, these should be aprox constant
 
@@ -47,7 +47,7 @@ KalmanFilter::KalmanFilter(double x_init, double y_init, int num_states, int num
 
 void KalmanFilter::predict(rclcpp::Time currentTime) {
 
-    double dt = (currentTime - time_).seconds();
+    double dt = std::abs((currentTime - time_).seconds());
     if (dt>10){
         dt=0.1;
     }
@@ -75,19 +75,21 @@ void KalmanFilter::predict(rclcpp::Time currentTime) {
             else if (R(i, j) == 2) R_dt(i, j) = acell_cov_R_ * std::pow(dt,2); // Replace 2 with dt²
         }
     }
-    //INCREASE confidence that bouding box size will stay unchanged  - decreasing covariance of process noise of that
+    /*//INCREASE confidence that bouding box size will stay unchanged  - decreasing covariance of process noise of that
     R_dt(4, 4) = R_dt(4, 4)/2;
     R_dt(5, 5) = R_dt(5, 5)/2;
     R_dt(7, 7) = R_dt(7, 7)/2;
     R_dt(8, 8) = R_dt(8, 8)/2;
 
     R_dt(9, 9) = R_dt(9, 9)*2;
-    R_dt(6, 6) = R_dt(6, 6)/2;
+    R_dt(6, 6) = R_dt(6, 6)/2;*/
 
 
     // Predict step
     x = A_dt * x;
     P = A_dt * P * A_dt.transpose() + R_dt;
+    //this->checkAngleOutBounds();
+
 }
 
 
@@ -102,6 +104,7 @@ void KalmanFilter::update(const Eigen::VectorXd& z) {
     // Update state
     x = x + K * y;
     P = (I - K * H) * P;
+    //this->checkAngleOutBounds();
 
     //std::cout << "x in update: " << x << std::endl;
 }
@@ -121,6 +124,29 @@ Eigen::VectorXd KalmanFilter::predictTheFuture(float deltaT) {
     // Predict step
     return A_dt * x;
 }
+
+void KalmanFilter::checkAngleOutBounds(){
+    if (x[6]>M_PI || x[6]<0){
+        this->swapBBlengthWidth();
+    }
+
+}
+
+void KalmanFilter::swapBBlengthWidth(){
+    std::swap(x[4],x[5]);
+    if (x[6]>(60*M_PI/180)){
+        x[6]-=M_PI/2;
+    }else if (x[6]<(30*M_PI/180)){
+        x[6]+=M_PI/2;
+    }
+    // Swap 4th and 5th columns (index 3 and 4)
+    P.col(4).swap(P.col(5));
+
+    // Swap 4th and 5th rows (index 3 and 4)
+    P.row(4).swap(P.row(5));
+
+    
+}
 /*
      // Initialize the matrices
     process_noise <<    4,0, 3, 0,0,0,0, 0, 0, 0,//x
@@ -133,9 +159,8 @@ Eigen::VectorXd KalmanFilter::predictTheFuture(float deltaT) {
                         0,0, 0, 0,0,0,0, 2, 0, 0,//deltaLengthBB
                         0,0, 0, 0,0,0,0, 0, 2, 0,//deltaWidthBB
                         0,0, 0, 0,0,0,0, 0, 0, 2;//deltaOrientationBB*/
-std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verbose){
+bool KalmanFilter::produceBoundingBox_withCov(bool verbose){
 
-    x_boundingBox = x;
 
     //99% confidense is 3 standar deviations
     Eigen::Matrix2d pos_cov; //includes covariance of x and y
@@ -148,11 +173,11 @@ std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verb
     Eigen::Vector2d eig_vals = eig.eigenvalues();
     Eigen::Matrix2d eig_vecs = eig.eigenvectors();
     // Get orientation of bounding box (theta)
-    double theta = x[6]; // orientation in radians
+    double theta =0;//x[6]; // orientation in radians
 
     // Width and Length from state
-    double width = x[5];  // along x' axis of the box
-    double length = x[4]; // along y' axis of the box
+    //double width = x[5];  // along x' axis of the box
+    //double length = x[4]; // along y' axis of the box
      // Unit vectors along box's local axes (width = x', length = y')
     Eigen::Vector2d u(std::cos(theta), std::sin(theta));       // local x' (width)
     Eigen::Vector2d v(-std::sin(theta), std::cos(theta));      // local y' (length)
@@ -167,18 +192,18 @@ std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verb
     double k = 2.45;
 
     // Inflate each dimension
-    double inflated_bbwidth_withxy = width + k * std::sqrt(var_u);
-    double inflated_bblength_withxy = length + k * std::sqrt(var_v) ;
+    //double inflated_bbwidth_withxy = width + k * std::sqrt(var_u);
+    //double inflated_bblength_withxy = length + k * std::sqrt(var_v) ;
 
-    double width_axis_Elipselength = 2 * k * std::sqrt(var_u);
-    double lenght_axis_Elipselength = 2 * k * std::sqrt(var_v);
+    this->width_axis_Elipselength_ = 2 * k * std::sqrt(var_u);
+    this->lenght_axis_Elipselength_ = 2 * k * std::sqrt(var_v);
 
 
     //length and width of bb are proporcional to the cov of position x,y and cov of lengthBB, wigthBB
     //                                                            x[0], x[1]        x[4],    x[5]
     //                                                          P[0,0], P[1,1]     P[4,4], P[5,5]              
 
-  
+    /* 
     double std_length = std::sqrt(P(4,4));
     double std_width  = std::sqrt(P(5,5));
 
@@ -194,15 +219,18 @@ std::pair<double &, double &> KalmanFilter::produceBoundingBox_withCov(bool verb
 
     x_boundingBox[5]=total_inflated_bbwidth;
     x_boundingBox[4]=total_inflated_bblength;
+    */
 
-
-    if (std::abs(total_inflated_bblength*total_inflated_bbwidth) > std::abs(width*length*covariance_limit_factor_) || total_inflated_bbwidth<x[5] ||total_inflated_bblength<x[4] ){
+    if (std::abs(this->width_axis_Elipselength_*this->lenght_axis_Elipselength_) > std::abs(covariance_limit_factor_) || this->width_axis_Elipselength_<0.0 || this->lenght_axis_Elipselength_<0.0 ){
         std::cout << "A tracked object has too much covariance or neg covariance - we do not trust him. Not considered an object"<<std::endl;
-        x_boundingBox[5]=0;
-        x_boundingBox[4]=0;
-        width_axis_Elipselength=0;
-        lenght_axis_Elipselength=0;
+        //x_boundingBox[5]=0;
+        //x_boundingBox[4]=0;
+        this->width_axis_Elipselength_=-1;
+        this->lenght_axis_Elipselength_=-1;
+        return true;
+    }else{
+        return false;
     }
-    return {width_axis_Elipselength, lenght_axis_Elipselength};
+    
 
 }
