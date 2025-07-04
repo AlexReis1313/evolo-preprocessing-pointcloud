@@ -70,7 +70,7 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
 
     bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/bounding_boxes", 10);
     kf_bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/kalmanFilter/bounding_boxes", 10);
-
+    pca_bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/bounding_boxes/pca", 10);
     corrected_bbox_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/bounding_boxes/corrected", 10);
     pub_NonTRacked_pc_ = this->create_publisher<sensor_msgs::msg::LaserScan>("static/laserscan", rclcpp::SensorDataQoS()); 
 
@@ -126,7 +126,7 @@ BoundingBoxNode::BoundingBoxNode() : Node("bounding_box_node")
 }
 
 void BoundingBoxNode::getLaunchParams(){
-    //use_sim_time_ = this->declare_parameter("use_sim_time", true);
+    //this->declare_parameter("use_sim_time", true);
     fixed_frame_ = this->declare_parameter("fixed_frame", std::string("odom"));
     cloud_in_ = this->declare_parameter("cloud_in", std::string("/clustered_points"));
     acell_cov_R = this->declare_parameter("R_cov", 0.1);
@@ -148,6 +148,7 @@ void BoundingBoxNode::getLaunchParams(){
 }
 
 void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+    
     ScopedTimer timer_calback("[bbTracking], Entire point cloud callback",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
     ScopedTimer timer_transform("[bbTracking], Tranform cloud",this, timeMetric_,saveTimeMetric_, timeoutFile_);
     // Convert PointCloud2 to PCL PointCloud
@@ -155,11 +156,14 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
     pcl::fromROSMsg(*msg, originalFrameCloud);
     std::vector<int> valid_indices;
     pcl::removeNaNFromPointCloud(originalFrameCloud, originalFrameCloud, valid_indices);
-    rclcpp::Time currentTime =rclcpp::Time(msg->header.stamp);
+    rclcpp::Time currentTime =  rclcpp::Time(msg->header.stamp);
     if (currentTime.seconds() == 0) {
         rclcpp::Clock ros_clock(RCL_ROS_TIME);  // Use ROS time (sim time or system time depending on parameter)
         currentTime = ros_clock.now();
-}    if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
+    }    
+    RCLCPP_INFO( this->get_logger(), "ros clock time %f", currentTime.seconds());
+
+    if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
         trackedObjectsList.clear();
         currentObjectsList.clear();
     }
@@ -243,27 +247,35 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
 
     // Compute bounding boxes for each cluster
     visualization_msgs::msg::MarkerArray marker_array;
+    visualization_msgs::msg::MarkerArray pca_marker_array;
+
     int id = 0;
     currentObjectsList.clear();
     for (const auto& cluster : clusters) {
 
         objectTracker object(cluster.second->points[0].x, cluster.second->points[0].y, this->acell_cov_R , this->pose_cov_Q, this->boundingBox_cov_Q , this->cov_limit_factor_, this->newObjectThreshold_,  this->pruneThreshold_); //initiate the object already at one point of the cluster, this helps the kf in the first few seconds
         visualization_msgs::msg::Marker marker;
-        //pca2DBoundingBox(cluster.second, marker);
+        visualization_msgs::msg::Marker marker_pca;
+
+        pca2DBoundingBox(cluster.second, marker_pca);
         object.rectangle = rotatingCaliper2DBoundingBox(cluster.second, marker);
         object.last_cluster = cluster.second;
         object.covInfo = computeCovarianceInfo(cluster.second);
         //define cost to all tracked objects in object.associationCosts
 
         defineCosts(object); //trackedObjectsList is a class variable and can be accessed inside. 
-
         marker.id = id++;
+        marker_pca.id=id;
+        marker_pca.header.frame_id = fixed_frame_ ;
         marker.header.frame_id = fixed_frame_ ;
         marker_array.markers.push_back(marker);
+        pca_marker_array.markers.push_back(marker_pca);
+
         currentObjectsList.push_back(object);
         // Publish the instantaneous oriented bounding boxes 
     }
     bbox_pub_->publish(marker_array);
+    pca_bbox_pub_->publish(pca_marker_array);
 
     //cout << "currentObjectsList.size()= " << currentObjectsList.size()<< endl;
 
@@ -545,7 +557,6 @@ float BoundingBoxNode::computeIoU(float x1, float y1, float len1, float wid1, fl
 }
 
 void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
-    std::cout << "Breaking at pubKfMarkerArrays? \n";
     visualization_msgs::msg::MarkerArray marker_array;
     int id = 0;
     for (auto it = trackedObjectsList.begin(); it != trackedObjectsList.end(); ) {
@@ -572,7 +583,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_elip.id = id++;
             marker_elip.pose.position.x = state[0];
             marker_elip.pose.position.y = state[1];
-            marker_elip.pose.position.z = 0.5; // Slightly above ground
+            marker_elip.pose.position.z = -4.0; // Slightly above ground
 
             // Align with heading
             tf2::Quaternion q;
@@ -581,7 +592,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
 
             marker_elip.scale.x = elipse_width;   // minor axis (width)
             marker_elip.scale.y = elipse_length;  // major axis (length)
-            marker_elip.scale.z = 0.01;           // Flat ellipse
+            marker_elip.scale.z = 0.1;           // Flat ellipse
 
             marker_elip.color.r = 0.0;
             marker_elip.color.g = 0.0;
@@ -596,7 +607,7 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_bigbb.type = visualization_msgs::msg::Marker::CUBE;
             marker_bigbb.pose.position.x = state[0];
             marker_bigbb.pose.position.y = state[1];
-            marker_bigbb.pose.position.z = 0.2; // Z is ignored
+            marker_bigbb.pose.position.z = -4.0; // Z is ignored
             marker_bigbb.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1),trackedObject.rectangle.angle_width ));
             marker_bigbb.scale.x = trackedObject.totalBB_width;//augmented_state[5]; // width
             marker_bigbb.scale.y = trackedObject.totalBB_height;//augmented_state[4]; // length = height
@@ -645,10 +656,10 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             geometry_msgs::msg::Point start, end;
             start.x = state[0];
             start.y = state[1];
-            start.z = 0.1;
+            start.z = -3.6;
             end.x = state[0] + state[2]; // velx
             end.y = state[1] + state[3]; // vely
-            end.z = 0.1;
+            end.z = -3.6;
 
             arrow_marker.points.push_back(start);
             arrow_marker.points.push_back(end);
@@ -662,8 +673,8 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             text_marker.id = id++;
             text_marker.pose.position.x = state[0];
             text_marker.pose.position.y = state[1];
-            text_marker.pose.position.z = 0.3; // Slightly above the bounding box
-            text_marker.scale.z = std::min(6.0,std::max(0.2, 0.5 * std::max(trackedObject.totalBB_width,trackedObject.totalBB_height))); // Proportional text size
+            text_marker.pose.position.z = -2.0; // Slightly above the bounding box
+            text_marker.scale.z = std::min(2.0,std::max(0.2, 0.5 * std::max(trackedObject.totalBB_width,trackedObject.totalBB_height))); // Proportional text size
             text_marker.color.r = 1.0;
             text_marker.color.g = 1.0;
             text_marker.color.b = 1.0;
@@ -779,6 +790,7 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
     // Get current time in seconds (as frame value), at this functions' call, last_iteration_time_ is already equal to currentTime
     double currentTimeSec = last_iteration_time_.seconds();  // Don't cast to int
 
+
     // Get the bounding box state
     Eigen::VectorXd state = trackedObject.kf.x;
 
@@ -791,7 +803,7 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
 
     double angle = trackedObject.rectangle.angle_width;
 
-    // Half dimensions
+  /*   // Half dimensions
     double half_w = width / 2.0;
     double half_h = height / 2.0;
 
@@ -825,15 +837,17 @@ void  BoundingBoxNode::saveMetricsTxt(const objectTracker& trackedObject){
     
 
     double conf = 1.0; // Confidence (if unknown, set to 1.0)
-    double x = center_x, y = center_y, z = 0.0; //unused
-    
+    double x = center_x, y = center_y, z = 0.0; //unused */
+    //Format: <frame>, <id>, <bb_centerX>, <bb_centerY>, <bb_width>, <bb_height>, <bb_angle>, <x>, <y>, <z>
+
+    double z = 0.0;
     // Write in format to then addapt to MOT16 
     outfile_ << std::fixed << std::setprecision(2) << currentTimeSec << ","
             << std::fixed << std::setprecision(0)<< id << ","
             << std::fixed << std::setprecision(2) //defines 2 decimal places as precision
-            << bb_left << "," << bb_top << "," 
+            << center_x << "," << center_y << "," 
             << width << "," << height << ","                    // velx                             vely
-            << conf << "," << x << "," << y << "," << z << "," << trackedObject.kf.x[2]  << "," << trackedObject.kf.x[3] << "," << angle <<" \n";
+            << angle << "," << center_x << "," << center_y << "," << z << "," << trackedObject.kf.x[2]  << "," << trackedObject.kf.x[3]  <<" \n";
 
 }
 
@@ -1186,6 +1200,7 @@ void BoundingBoxNode::predictKalmanFilters(rclcpp::Time currentTime){
 
 
 void BoundingBoxNode::pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker) {
+    ScopedTimer timer_calback("[bbTracking], PCA OBB",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
     if (cloud->empty()) return;
 
     // Compute centroid
@@ -1226,14 +1241,14 @@ void BoundingBoxNode::pca2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Pt
     marker.type = visualization_msgs::msg::Marker::CUBE;
     marker.pose.position.x = worldCenter.x();
     marker.pose.position.y = worldCenter.y();
-    marker.pose.position.z = 0.0; // Z is ignored
+    marker.pose.position.z = 0.2; // Z is ignored
     marker.pose.orientation = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), angle));
     marker.scale.x = maxPt.x() - minPt.x();
     marker.scale.y = maxPt.y() - minPt.y();
     marker.scale.z = 0.1; // Small height for 2D box
     marker.color.r = 0.0;
-    marker.color.g = 1.0;
-    marker.color.b = 0.0;
+    marker.color.g = 0.0;
+    marker.color.b = 1.0;
     marker.color.a = 0.3;
     marker.lifetime = rclcpp::Duration::from_seconds(0); // 0.5s
 }
@@ -1253,6 +1268,7 @@ std::vector<Point> BoundingBoxNode::convertPCLCloudToCalipersInput(const pcl::Po
 }
 
 MinAreaRect BoundingBoxNode::rotatingCaliper2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker) {
+    ScopedTimer timer_calback("[bbTracking], ROTcalp OBB",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
 
     auto pts = BoundingBoxNode::convertPCLCloudToCalipersInput(cloud);
     MinAreaRect res = RotatingCalipers::minAreaRect(pts);
@@ -1300,7 +1316,7 @@ width:1.43603, height:0.785398
     marker.color.g = 1.0;
     marker.color.b = 0.0;
     marker.color.a = 0.3;
-    marker.lifetime = rclcpp::Duration::from_seconds(0.5); // 0.5s
+    marker.lifetime = rclcpp::Duration::from_seconds(0); // 0.5s
     return res;
 }
 BoundingBoxNode::~BoundingBoxNode() {

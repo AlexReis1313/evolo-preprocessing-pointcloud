@@ -19,11 +19,11 @@ PointCloudPreProcessingNode::PointCloudPreProcessingNode(const rclcpp::NodeOptio
   //same as last topic but in PointCloud format
   pub_pc_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/ls/pointcloud", rclcpp::SensorDataQoS());
   //same as last topic but with time decay
-  pub_accumulatedPC_laserscan_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/ls/pointcloud/accumulated", rclcpp::SensorDataQoS()); 
+  pub_accumulatedPC_laserscan_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/ls/laserscan_accumulated", rclcpp::SensorDataQoS()); 
   
   //complete 3d pointcloud projected to 2d pointcloud - all points have z=0 in base_footprint frame
-  //pub_projectedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected", rclcpp::SensorDataQoS());
-  //pub_projected_AccumulatedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected/accumulated", rclcpp::SensorDataQoS()); //time decay version
+  pub_projectedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected", rclcpp::SensorDataQoS());
+  pub_projected_AccumulatedPC_= this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered/pc/pointcloud/Projected/accumulated", rclcpp::SensorDataQoS()); //time decay version
 
   //radial map - filtered/ls/laserscan transformed into a low resolution 2d laserscan that reprsents lower range found in original ls for each angle interval
   pub_radialmap_ = this->create_publisher<sensor_msgs::msg::LaserScan>("map/radial", rclcpp::SensorDataQoS()); //1 point per angle interval
@@ -95,9 +95,9 @@ void PointCloudPreProcessingNode::subscriptionListenerThreadLoop()
       pub_radialmap_->get_subscription_count() +  pub_radialmap_->get_intra_process_subscription_count() +
       pub_FilteredPC_->get_subscription_count() +  pub_FilteredPC_->get_intra_process_subscription_count() +
       pub_radialmapVisual_->get_subscription_count() +  pub_radialmapVisual_->get_intra_process_subscription_count() + 
-      pub_accumulatedPC_laserscan_->get_subscription_count() + pub_accumulatedPC_laserscan_->get_intra_process_subscription_count();// +
-      //pub_projectedPC_->get_subscription_count() + pub_projectedPC_->get_intra_process_subscription_count() +
-      //pub_projected_AccumulatedPC_->get_subscription_count() + pub_projected_AccumulatedPC_->get_intra_process_subscription_count(); 
+      pub_accumulatedPC_laserscan_->get_subscription_count() + pub_accumulatedPC_laserscan_->get_intra_process_subscription_count() +
+      pub_projectedPC_->get_subscription_count() + pub_projectedPC_->get_intra_process_subscription_count() +
+      pub_projected_AccumulatedPC_->get_subscription_count() + pub_projected_AccumulatedPC_->get_intra_process_subscription_count(); 
 
     if (subscription_count > 0) {
       if (!sub_.getSubscriber()) {
@@ -142,7 +142,6 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
         }
       }
       if(has_intensity){
-
         pcl::fromROSMsg(*cloud_msg, pcl_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
       }else{
         pcl::PointCloud<pcl::PointXYZ> cloud_noI;
@@ -151,19 +150,23 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
         addNullINtensity(cloud_noI_ptr, pcl_cloud);
       }
 
-      
+      geometry_msgs::msg::TransformStamped transform;
       if(params_->simulation_mode_){ //logic that deals with bad clock and use_sim_time that may come from using Unity Sim
-        geometry_msgs::msg::TransformStamped transform = 
-            tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2_ros::fromMsg(cloud_msg->header.stamp));
+        transform =  tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2_ros::fromMsg(cloud_msg->header.stamp));
         pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
       }else{ //normal evolo
         ScopedTimer timer_transform2("[PCpreprocess], Transforming original cloud to base_footprint: ACTUAL TF",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
-
-        geometry_msgs::msg::TransformStamped transform = 
-          tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
+        transform =  tf2_->lookupTransform(params_->target_frame_, cloud_msg->header.frame_id, tf2::TimePointZero);
         pcl_ros::transformPointCloud(pcl_cloud, pcl_cloud_transformed, transform);
         timer_transform2.stopClock();
       }
+      rclcpp::Time currentTime;
+      if(rclcpp::Time(cloud_msg->header.stamp).seconds()==0){
+          currentTime =  rclcpp::Time(transform.header.stamp);
+      }else{
+        currentTime=rclcpp::Time(cloud_msg->header.stamp);
+      }
+
       timer_transform.stopClock(); //prints out time
 
       // Apply filtering: filters out points with negative z and low intensity (water reflections) and does adaptiveRadiusFilter
@@ -177,7 +180,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       pcl::toROSMsg(pcl_cloud_filtered, *cloud);
 
       cloud->header.frame_id = params_->target_frame_;
-      cloud->header.stamp = cloud_msg->header.stamp; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
+      cloud->header.stamp = currentTime; //this is the origintal PC, transformed to base_footprint frame and filtered (z and low intensity (water reflections) and adaptiveRadiusFilter)
 
       ScopedTimer pctoLsTimer("[PCpreprocess], PC 2 LS",this, params_->timeMetric,params_->saveTimeMetric_,timeoutFile_ );
 
@@ -192,7 +195,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       params_->setUpParamsLongRange();
       auto long_scan_msg = PointCloudPreProcessingNode::computeLaserScan(cloud);
       auto merged_scan_msg = PointCloudPreProcessingNode::mergeLaserScans(short_scan_msg,  std::move(long_scan_msg));
-      merged_scan_msg->header.stamp = cloud_msg->header.stamp;
+      merged_scan_msg->header.stamp =currentTime;
       sensor_msgs::msg::PointCloud2 merged_point_cloud;
       Laser2PCprojector_.projectLaser(*merged_scan_msg, merged_point_cloud);  //https://wiki.ros.org/laser_geometry
 
@@ -205,7 +208,7 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       pcl::PointCloud<pcl::PointXYZI> cloud_projected2D,cloud_projected2D_timeDecay, pcl_merged_cloud,laserScanPC_timeDecay;; 
       pcl::fromROSMsg(merged_point_cloud, pcl_merged_cloud); // causes [pointcloud_to_laserscan_node-2] Failed to find match for field 'intensity'.
       merged_point_cloud.header.frame_id = params_->target_frame_;
-      merged_point_cloud.header.stamp =cloud_msg->header.stamp;
+      merged_point_cloud.header.stamp =currentTime;
       pub_pc_->publish(merged_point_cloud);
       pub_->publish(std::move(merged_scan_msg));
       pctoLsTimer.stopClock();
@@ -221,37 +224,40 @@ void PointCloudPreProcessingNode::cloudCallback(sensor_msgs::msg::PointCloud2::C
       
       
       
+      PointCloudPreProcessingNode::project(pcl_cloud_filtered ,cloud_projected2D);
+      pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg);
+      cloud_projected2D_msg->header.frame_id = params_->target_frame_;    
+      cloud_projected2D_msg->header.stamp = currentTime;
 
+      if (!params_->simulation_mode_){ //time is weird in sim mode - accumulate breaks down
+        PointCloudPreProcessingNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,currentTime, params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
+        PointCloudPreProcessingNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
 
-      PointCloudPreProcessingNode::accumulate(pcl_merged_cloud, laserScanPC_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_, world_fix_transform, inverse_world_fix_transform,clouds_queu_laserscan_);
-      //PointCloudPreProcessingNode::project(pcl_cloud_filtered ,cloud_projected2D);
-      //PointCloudPreProcessingNode::accumulate(cloud_projected2D, cloud_projected2D_timeDecay,rclcpp::Time(cloud_msg->header.stamp), params_->timeDecay_,world_fix_transform,inverse_world_fix_transform,clouds_queu_projectedPc_);
+        //setup ros msgs to be published
+        accuProjTimer.stopClock();
+        pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
+        pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
+        if(params_->outputOnFixedFrame_){
+          cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+          laserScanPC_timeDecay_msg->header.frame_id = params_->fixed_frame_;
+        }else{
+          cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
+          laserScanPC_timeDecay_msg->header.frame_id = params_->target_frame_;
+        }
+        laserScanPC_timeDecay_msg->header.stamp = currentTime;
+        cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
+        pub_accumulatedPC_laserscan_->publish(std::move(*laserScanPC_timeDecay_msg));
+        pub_projected_AccumulatedPC_->publish(std::move(*cloud_projected2D_timeDecay_msg));
 
-      //setup ros msgs to be published
-      accuProjTimer.stopClock();
-      pcl::toROSMsg(laserScanPC_timeDecay,*laserScanPC_timeDecay_msg);
-      //pcl::toROSMsg(cloud_projected2D, *cloud_projected2D_msg); //debugging
-      //pcl::toROSMsg(cloud_projected2D_timeDecay, *cloud_projected2D_timeDecay_msg);
-      if(params_->outputOnFixedFrame_){
-        //cloud_projected2D_timeDecay_msg->header.frame_id = params_->fixed_frame_;
-        laserScanPC_timeDecay_msg->header.frame_id = params_->fixed_frame_;
-      }else{
-        //cloud_projected2D_timeDecay_msg->header.frame_id = params_->target_frame_;
-        laserScanPC_timeDecay_msg->header.frame_id = params_->target_frame_;
       }
-      //cloud_projected2D_msg->header.frame_id = params_->target_frame_;    
-      laserScanPC_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
-      //cloud_projected2D_msg->header.stamp = cloud_msg->header.stamp;
-      //cloud_projected2D_timeDecay_msg->header.stamp = cloud_msg->header.stamp;
+    
       
       //publishing everything
       pub_FilteredPC_->publish(std::move(*cloud));
       pub_radialmapVisual_->publish(std::move(radialMapVisual));
       pub_radialmap_->publish(std::move(radialMap));
       
-      pub_accumulatedPC_laserscan_->publish(std::move(*laserScanPC_timeDecay_msg));
-      //pub_projectedPC_->publish(std::move(*cloud_projected2D_msg));
-      //pub_projected_AccumulatedPC_->publish(std::move(*cloud_projected2D_timeDecay_msg));
+      pub_projectedPC_->publish(std::move(*cloud_projected2D_msg));
   
   } catch (tf2::TransformException & ex) {
       RCLCPP_ERROR_STREAM(this->get_logger(), "Failed to transform point cloud from " << cloud_msg->header.frame_id 
@@ -292,6 +298,8 @@ void PointCloudPreProcessingNode::project(pcl::PointCloud<pcl::PointXYZI> & clou
   cloud_out_projected.width = cloud_out_projected.points.size();
   cloud_out_projected.height = 1;
   cloud_out_projected.is_dense = true;
+  voxelDownSampling(cloud_out_projected, 0.2);
+
 
 }
 

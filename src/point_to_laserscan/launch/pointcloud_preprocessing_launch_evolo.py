@@ -47,8 +47,8 @@ def generate_launch_description():
                 'angle_min_map': -1.570795,  # -M_PI/2
                 'angle_max_map': 1.570795,  # M_PI/2
                 # Radius Outlier Removal (ROR) filtering parameters
-                'minimum_radius_paramB': 0.03, #0.03,#radius for neigbhours search for a point that is at a distance from the base_link = 0
-                'minimum_radius_paramM': 0.05,#relationship of radisus of neighbours serach with distance of point to base_link
+                'minimum_radius_paramB': 0.0, #0.03,#radius for neigbhours search for a point that is at a distance from the base_link = 0
+                'minimum_radius_paramM': 0.04,#relationship of radisus of neighbours serach with distance of point to base_link
                 'minimum_neighbours': 3,
                 'filter_by_intensity': False,
                 #Filtered output is given with time decay to help cluseting algorithm, here are the settings:
@@ -60,7 +60,7 @@ def generate_launch_description():
                 'ransac_Maxheight_candidates':0.5,
                 'ransac_Minheight_candidates':-1.5,
                 'ransac_threshold_inliers': 0.2,
-                'ransac_filter_height': 0.7
+                'ransac_filter_height': 0.8
             }],
             name='pointcloud_preprocessing_filtering'
         )

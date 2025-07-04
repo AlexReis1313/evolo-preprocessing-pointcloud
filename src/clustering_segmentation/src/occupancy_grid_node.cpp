@@ -11,7 +11,7 @@ double grid_size_=2.0;
 
 
 OccupancyGridNode::OccupancyGridNode()
-    : Node("occupancy_grid"),  grid_map_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)}, grid_map_static_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)}, clustering{this->create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10)}
+    : Node("mapping_andClustering_node"),  grid_map_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)}, grid_map_static_{std::make_unique<OccupancyGrid>(size_of_map_, grid_size_)}, clustering{this->create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10)}
 {
 
   this->paramLaunch();
@@ -59,7 +59,7 @@ void OccupancyGridNode::paramLaunch(){
 
     staticMapping = this->declare_parameter("static_mapping", false);
     staticPoints = this->declare_parameter("static_points_topic", std::string("static/laserscan"));
-    points_in_topic = this->declare_parameter("clustering_points_topic_in", std::string("filtered/ls/pointcloud/accumulated"));
+    points_in_topic = this->declare_parameter("clustering_points_topic_in", std::string("filtered/ls/accumulated"));
     points_out_topic = this->declare_parameter("clustering_points_topic_out", std::string("clustered_points"));
     timeMetric = this->declare_parameter("PrintTimeMetric", false);
     saveTimeMetric_ = this->declare_parameter("SaveTimeMetric", false);

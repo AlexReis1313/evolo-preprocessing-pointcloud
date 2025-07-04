@@ -16,14 +16,14 @@ def generate_launch_description():
                 'R_cov': 0.1,
                 'Q_cov': 0.5,
                 'Q_bb_cov': 0.7 ,
-                'min_velocity_threshold': 0.4,
-                'newObjectThreshold': 15,
-                'DD_cost_threshold': 6.0
+                'min_velocity_threshold': 0.0,
+                'newObjectThreshold': 5,
+                'DD_cost_threshold': 40.0,
                 'cov_upper_limit': 40.0,
                 'prune_threshold': 40,
-                'SaveBbMetric': False,
-                'BbMetrics_file': 'boundingBoxMetrics_OnlyStatic_nonoise',
-                'PrintTimeMetric': True,
+                'SaveBbMetric': True,
+                'BbMetrics_file': 'boundingBoxMetrics_DynamicNonProjected',
+                'PrintTimeMetric': False,
                 'SaveTimeMetric': False,
                 'timingMetrics_file': 'BBTrack_timingFile.csv'
 

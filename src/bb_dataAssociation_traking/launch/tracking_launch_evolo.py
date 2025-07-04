@@ -17,20 +17,20 @@ def generate_launch_description():
                 'R_cov': 0.1,
                 'Q_cov': 0.5,
                 'Q_bb_cov': 0.7 ,
-                'min_velocity_threshold': 2.0,
+                'min_velocity_threshold': 0.0,
                 'newObjectThreshold': 15,
                 'DD_cost_threshold': 15.0,
                 'cov_upper_limit': 15.0,
                 'prune_threshold': 40,
                 'SaveBbMetric': False,
-                'BbMetrics_file': 'boundingBoxMetrics_OnlyStatic_nonoise',
+                'BbMetrics_file': 'bbTracking_realBuster2',
                 'PrintTimeMetric': False,
                 'SaveTimeMetric': False,
                 'timingMetrics_file': 'BBTrack_timingFile.csv'
 
 
             }],
-            name='bouding_box_pkg'
+            name='object_tracking_node'
         )
     ])
 

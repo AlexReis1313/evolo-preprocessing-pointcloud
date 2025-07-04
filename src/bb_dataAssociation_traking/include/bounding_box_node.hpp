@@ -168,7 +168,7 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr kf_bbox_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr corrected_bbox_pub_;
-
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pca_bbox_pub_;
     //Tunning parameters
     double acell_cov_R =0.1; //R matrix is proporcional to this value and dt - used as motion model noise cov - PROCESS NOISE
     double pose_cov_Q = 0.5; //Q matrix is proporcional to this value - measurement covariance of pose states
