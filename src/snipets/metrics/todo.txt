@@ -1,0 +1,20 @@
+Get velocity metrics
+Get good iou values in tracking metric on sim
+Meter fotos de resultados de tracking e mapping
+Write results and method for 
+    preprocess
+    mapping
+    tracking
+Get metrics for tracking vs method A vs method B
+Get photos for method A e method B
+Write method a e B
+Write results method A e B
+Software implementation
+Run time metrics
+Discussion
+Conclusion
+Intro
+ABstract
+Review
+
+

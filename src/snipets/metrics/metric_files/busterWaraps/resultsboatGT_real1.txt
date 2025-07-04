@@ -1,0 +1,3 @@
+For  boatGT_real1
+     num_frames      IDF1       IDP       IDR      Rcll      Prcn   GT  mostly_tracked  partially_tracked  mostly_lost  FP  FN  IDsw  FM      MOTA      MOTP
+acc         132  0.946154  0.960938  0.931818  0.931818  0.960938  132               1                  0            0   5   9     0   7  0.893939  2.868302
