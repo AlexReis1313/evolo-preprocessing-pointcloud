@@ -71,6 +71,7 @@
 #include <utility>
 #include <deque>
 #include <cmath>
+#include <omp.h>
 
 
 #include "sensor_msgs/point_cloud2_iterator.hpp"

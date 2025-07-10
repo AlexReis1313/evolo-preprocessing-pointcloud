@@ -533,7 +533,21 @@ void PointCloudPreProcessingNode::filterCloud(
   pass.setFilterLimits(-std::numeric_limits<float>::max(), params_->max_height_longrange_);  // Keep points with z <= 4.0
   pcl::PointCloud<pcl::PointXYZI>::Ptr filtered_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   pass.filter(*filtered_cloud);
-  current_cloud = filtered_cloud;
+
+  // Step 2: Remove points closer than 2 meters from the origin
+  pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  for (const auto& point : filtered_cloud->points) {
+      float distance = std::sqrt(point.x * point.x + point.y * point.y);
+      if (distance >= params_->range_min_) {
+          final_cloud->points.push_back(point);
+      }
+  }
+  final_cloud->width = static_cast<uint32_t>(final_cloud->points.size());
+  final_cloud->height = 1;
+  final_cloud->is_dense = true;
+
+  current_cloud = final_cloud;
+
 
 
   // Adaptive radius filtering (if not in sim mode - simulation does not show water reflections and cannot estimate plane)
@@ -574,6 +588,7 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr PointCloudPreProcessingNode::adaptiveRadius
       }
      
   }
+  
   output_cloud->width = output_cloud->points.size();
   output_cloud->height = 1;
   output_cloud->is_dense = true;

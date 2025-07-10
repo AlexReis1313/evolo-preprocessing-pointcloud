@@ -52,7 +52,8 @@ class OccupancyGridNode : public rclcpp::Node{
   std::string points_out_topic = "clustered_points";
   bool DynamicStatic_segmentation=true; //if true, builds map from filtered/ls/pointcloud with slow occupancy gain and uses it to classify clusteres into dynamic and static before publishing them
                                         //if false, builds map from filtered/ls/pointcloud with very fast occupancy
-  
+  double threshold_occupancy_=0.8;
+  double occupancy_percentage_=0.8;
 };
 
 #endif  // OCCUPANCYGRIDNODE_H

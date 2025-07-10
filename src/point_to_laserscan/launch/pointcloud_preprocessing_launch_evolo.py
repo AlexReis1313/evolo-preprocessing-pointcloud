@@ -37,7 +37,7 @@ def generate_launch_description():
                 'target_frame': 'base_footprint',
                 'fixed_frame': 'odom',
                 'cloud_frame': 'os_sensor',             
-                'range_min': 1.0,
+                'range_min': 2.50,
                 'range_transition': 30.0, #15
                 'range_max': 5000.0,
                 'use_inf': True,

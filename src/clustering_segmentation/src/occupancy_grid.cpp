@@ -15,6 +15,10 @@ OccupancyGrid::OccupancyGrid(unsigned int grid_size, double cell_size)
   map_.setConstant(-1.0);
 }
 
+void OccupancyGrid::setOccupancyPercentage(const double & threshold_occupancy){
+  threshold_occupancy_=threshold_occupancy;
+
+}
 
 bool OccupancyGrid::checkOccupancy(const Point2d<double>& point,tf2::Transform & robot_pose_inOCGMapFrame)
 {  //returns true if point is in occupied part of map and false otherwise
@@ -23,7 +27,7 @@ bool OccupancyGrid::checkOccupancy(const Point2d<double>& point,tf2::Transform &
   Point2d<int> grid_point{round(transformed.x()/ cell_size_) + grid_center_.x,
                             round(transformed.y() / cell_size_) + grid_center_.y};
   if (isInGridBounds(static_cast<int>(grid_point.x), static_cast<int>(grid_point.y))){
-    if(map_(grid_point.x, grid_point.y)>0.8){ //means that it has been seen as occupied at least 4 times in a row, or 4 times + n occipied + 2n free in a row with 0<n<5
+    if(map_(grid_point.x, grid_point.y)>threshold_occupancy_){ //means that it has been seen as occupied at least 4 times in a row, or 4 times + n occipied + 2n free in a row with 0<n<5
       //std::cout << "occupancy:" << map_(grid_point.x, grid_point.y) << std::endl;
       return true; //is occupied
     } else{
@@ -321,6 +325,7 @@ void OccupancyGrid::update(const std::vector<Point2d<double>>& laser_scan,
   // --- Step 2: For each scan, compute free cells (excluding occupied) ---
   std::vector<Point2d<int>> ray_free_cells;
   for (const Point2d<double>& scan_point : transformed_scan) {
+    ray_free_cells.clear();
     Point2d<int> grid_point{
       static_cast<int>(std::floor(scan_point.x / cell_size_)) + grid_center_.x,
       static_cast<int>(std::floor(scan_point.y / cell_size_)) + grid_center_.y
@@ -334,6 +339,7 @@ void OccupancyGrid::update(const std::vector<Point2d<double>>& laser_scan,
     }
 
   }
+  
 
   // --- Step 3: Apply updates ---
   for (const auto& pt : occupied_cells)
@@ -415,7 +421,7 @@ void OccupancyGrid::updateCellProbability(const Point2d<int>& point, CellState s
         break;
       case CellState::OCCUPIED:
         if(bayesFilterType){//this map will be used to compare againts clusters and check if they are dynamic or static, for that reason, we want occupied cells to take a while to become occupied
-          map_(point.x, point.y) += std::max(map_(point.x, point.y) + 0.1, 0.5);
+          map_(point.x, point.y) = std::max(map_(point.x, point.y) + 0.01, 0.5);
         }else{ //this map will represent obstacles for obstacle avoidacen, for this reason we want occupied cells to become occupied very fast
           map_(point.x, point.y) = 1.0;
         }
@@ -455,6 +461,8 @@ void OccupancyGrid::getFreeCells(const Point2d<int>& detection,
     while (true) {
         if (isInGridBounds(x0, y0)) {
             free_cells.push_back({x0, y0});
+        }else{
+          break;
         }
 
         //if (x0 == x1 && y0 == y1) //stop when we get to the detection point

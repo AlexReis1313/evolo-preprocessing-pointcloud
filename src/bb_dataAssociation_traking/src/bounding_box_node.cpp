@@ -161,7 +161,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         rclcpp::Clock ros_clock(RCL_ROS_TIME);  // Use ROS time (sim time or system time depending on parameter)
         currentTime = ros_clock.now();
     }    
-    RCLCPP_INFO( this->get_logger(), "ros clock time %f", currentTime.seconds());
+    //RCLCPP_INFO( this->get_logger(), "ros clock time %f", currentTime.seconds());
 
     if(std::abs((currentTime - last_iteration_time_).seconds())>10){ //if more than 10 seconds of difference between callbacks, restart trackers
         trackedObjectsList.clear();
@@ -172,6 +172,10 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         std::cerr << "Point cloud is empty after removing NaNs. Skipping." << std::endl;
         cout << "Point cloud is empty after removing NaNs. Skipping." << endl;
         predictKalmanFilters(currentTime);
+        for(auto& trackedObject : trackedObjectsList){
+            trackedObject.updateStepKF = false;
+        }
+ 
         pubKfMarkerArrays(fixed_frame_);
         return;
     }
@@ -257,7 +261,7 @@ void BoundingBoxNode::pointCloudCallback(const sensor_msgs::msg::PointCloud2::Sh
         visualization_msgs::msg::Marker marker;
         visualization_msgs::msg::Marker marker_pca;
 
-        pca2DBoundingBox(cluster.second, marker_pca);
+        //pca2DBoundingBox(cluster.second, marker_pca);
         object.rectangle = rotatingCaliper2DBoundingBox(cluster.second, marker);
         object.last_cluster = cluster.second;
         object.covInfo = computeCovarianceInfo(cluster.second);
@@ -612,10 +616,10 @@ void BoundingBoxNode::pubKfMarkerArrays(std::string frame_id){
             marker_bigbb.scale.x = trackedObject.totalBB_width;//augmented_state[5]; // width
             marker_bigbb.scale.y = trackedObject.totalBB_height;//augmented_state[4]; // length = height
             marker_bigbb.scale.z = 0.1; // Small height for 2D box
-            marker_bigbb.color.r = 0.9;
+            marker_bigbb.color.r = 1.0;
             marker_bigbb.color.g = 0.0;
             marker_bigbb.color.b = 0.0;
-            marker_bigbb.color.a = 0.5;
+            marker_bigbb.color.a = 0.8;
             marker_bigbb.id = id++;
             marker_bigbb.header.frame_id = frame_id;
             marker_bigbb.lifetime = rclcpp::Duration::from_seconds(1); // 0.5s
@@ -721,7 +725,13 @@ bool  BoundingBoxNode::computeTotalBB(objectTracker& trackedObject)
     // Half dimensions
     Eigen::Vector2d w_half = (trackedObject.rectangle.width / 2.0) * w;
     Eigen::Vector2d h_half = (trackedObject.rectangle.height / 2.0) * h;
-    Eigen::Vector2d rect_center=  Eigen::Vector2d(trackedObject.rectangle.center.x,trackedObject.rectangle.center.y);
+    Eigen::Vector2d rect_center;
+    if (trackedObject.updateStepKF){
+        rect_center=  Eigen::Vector2d(trackedObject.rectangle.center.x,trackedObject.rectangle.center.y);
+
+    }else{
+        rect_center = Eigen::Vector2d(x,y); //if no new cluster was seen in this time step, we will just use the kf state position and the last seen bounding box size
+    }
     // Four corners (in order: top-right, top-left, bottom-left, bottom-right)
     std::vector<Eigen::Vector2d> corners;
     corners.push_back(rect_center + w_half + h_half); // top-right
@@ -745,29 +755,17 @@ bool  BoundingBoxNode::computeTotalBB(objectTracker& trackedObject)
     Eigen::Vector2d vec = state_center - farthest_corner;
 
     // New point = state + 2 * vec
-    Eigen::Vector2d new_point = state_center + 2.0 * vec;
+    Eigen::Vector2d new_point = state_center + vec; //opposing point to farthest point
 
-    // Step 2: Project points into rotated frame centered at state
-    std::vector<Eigen::Vector2d> points = {farthest_corner, new_point};
-    std::vector<double> projections_w, projections_h;
+     // Compute corner-to-center vector and project onto local axes
+    Eigen::Vector2d corner_vec = farthest_corner - state_center;
+    double half_width = std::abs(corner_vec.dot(w));
+    double half_height = std::abs(corner_vec.dot(h));
+    double totalBB_width = 2 * half_width;
+    double totalBB_height = 2 * half_height;
 
-    for (const auto& pt : points) {
-        Eigen::Vector2d relative = pt - state_center;
-        projections_w.push_back(relative.dot(w));
-        projections_h.push_back(relative.dot(h));
-    }
 
-    // Step 3: Compute min/max along each axis
-    double min_w = *std::min_element(projections_w.begin(), projections_w.end());
-    double max_w = *std::max_element(projections_w.begin(), projections_w.end());
-    double min_h = *std::min_element(projections_h.begin(), projections_h.end());
-    double max_h = *std::max_element(projections_h.begin(), projections_h.end());
 
-    // Step 4: Compute width and height
-    double totalBB_width = max_w - min_w;
-    double totalBB_height = max_h - min_h;
-
-   
     double new_old_ratio = (totalBB_width*totalBB_height)/(trackedObject.totalBB_width*trackedObject.totalBB_height ); //ratio between big bounding boxes from this and last frame
     double big_small_ratio =  (totalBB_width*totalBB_height)/(trackedObject.rectangle.width*trackedObject.rectangle.height); //ratio between big current bounding box and computed bounding box with cluster  
 
@@ -1268,7 +1266,7 @@ std::vector<Point> BoundingBoxNode::convertPCLCloudToCalipersInput(const pcl::Po
 }
 
 MinAreaRect BoundingBoxNode::rotatingCaliper2DBoundingBox(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, visualization_msgs::msg::Marker& marker) {
-    ScopedTimer timer_calback("[bbTracking], ROTcalp OBB",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
+    //ScopedTimer timer_calback("[bbTracking], ROTcalp OBB",this, timeMetric_,saveTimeMetric_,timeoutFile_ );
 
     auto pts = BoundingBoxNode::convertPCLCloudToCalipersInput(cloud);
     MinAreaRect res = RotatingCalipers::minAreaRect(pts);

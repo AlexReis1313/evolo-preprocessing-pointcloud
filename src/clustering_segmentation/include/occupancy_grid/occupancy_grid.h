@@ -54,6 +54,7 @@ class OccupancyGrid {
   void update(const std::vector<Point2d<double>>& laser_scan, tf2::Transform & robot_pose_inOCGMapFrame, bool & bayesFilterType);
   Eigen::MatrixXd getMap();
   bool checkOccupancy(const Point2d<double>& point,tf2::Transform & robot_pose_inOCGMapFrame);
+  void setOccupancyPercentage(const double & threshold_occupancy);
   void fillFreeBetweenOccupied();
 
 
@@ -69,6 +70,7 @@ class OccupancyGrid {
   const double p_free_{0.3};
   const double p_occ_{0.99};
   const double p_prior_{0.5};
+  double threshold_occupancy_=0.8;
   
 };
 

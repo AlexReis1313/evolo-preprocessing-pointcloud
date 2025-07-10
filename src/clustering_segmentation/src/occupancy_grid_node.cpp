@@ -64,7 +64,9 @@ void OccupancyGridNode::paramLaunch(){
     timeMetric = this->declare_parameter("PrintTimeMetric", false);
     saveTimeMetric_ = this->declare_parameter("SaveTimeMetric", false);
     timing_file = this->declare_parameter("timingMetrics_file", std::string("Segmentation_timingFile.csv"));
-
+    threshold_occupancy_  = this->declare_parameter("threshold_occupancy", 0.8);
+    occupancy_percentage_ =this->declare_parameter("occupancy_percentage", 0.8);
+    grid_map_->setOccupancyPercentage(threshold_occupancy_);
     RCLCPP_INFO(this->get_logger(), "Parameters loaded.");
 }
 
@@ -132,7 +134,7 @@ void OccupancyGridNode::handleOdom(const nav_msgs::msg::Odometry::SharedPtr odom
 void OccupancyGridNode::lidarCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg){
   ScopedTimer lidarCallback_timer("[segmentation], Clustering",this, timeMetric,saveTimeMetric_,timeoutFile_ );
 
-  clustering.lidarAndMapCallback(input_msg,  grid_map_, robot_pose_inOCGMapFrame, DynamicStatic_segmentation);
+  clustering.lidarAndMapCallback(input_msg,  grid_map_, robot_pose_inOCGMapFrame, DynamicStatic_segmentation,occupancy_percentage_ );
   
 }
 
@@ -146,7 +148,10 @@ void OccupancyGridNode::handleStaticLaserScan(const sensor_msgs::msg::LaserScan:
   // update grid based on new laser scan data
   std::vector<Point2d<double>> scan_cartesian = convertPolarScantoCartesianScan(laser_scan);
   bool bayesFilterSelector=false;
+  ScopedTimer trueupdate_timer("[segmentation], true update Static Map",this, timeMetric,saveTimeMetric_,timeoutFile_ );
+
   grid_map_static_->update(scan_cartesian, robot_pose_inOCGMapFrame, bayesFilterSelector); //false selectes the bayesian filter to be used to update cell values - one where occupancy is fast to update and free cell status takes some time to be achieved
+  trueupdate_timer.stopClock();
   ScopedTimer sweping_timer("[segmentation], Sweping to smoth map",this, timeMetric,saveTimeMetric_,timeoutFile_ );
   grid_map_static_->fillFreeBetweenOccupied();
 

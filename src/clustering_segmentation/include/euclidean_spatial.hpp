@@ -45,7 +45,7 @@ class EuclideanSpatial {
 public:
     explicit EuclideanSpatial(rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_lidar); 
     void lidar_callback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg);
-    void lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame, bool & DynamicStatic_segmentation);
+    void lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame, bool & DynamicStatic_segmentation, double & occupancy_percentage);
 
 private:
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_lidar_;

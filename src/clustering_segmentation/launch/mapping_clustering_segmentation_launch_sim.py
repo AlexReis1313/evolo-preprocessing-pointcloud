@@ -15,7 +15,7 @@ def generate_launch_description():
                 {"DynamicStatic_clusters_segmentation": False},
                 {"static_mapping": False},
                 {"static_points_topic": "static/laserscan"},
-                {"clustering_points_topic_in": "filtered/ls/pointcloud"},  # "filtered/ls/pointcloud"   filtered/pc/pointcloud/Projected
+                {"clustering_points_topic_in": "filtered/pc/pointcloud/Projected"},  # "filtered/ls/pointcloud"   filtered/pc/pointcloud/Projected
                 {"clustering_points_topic_out": "clustered_points"},
                 {"PrintTimeMetric": False},
                 {"SaveTimeMetric": False}

@@ -15,10 +15,12 @@ def generate_launch_description():
                 {"DynamicStatic_clusters_segmentation": True},
                 {"static_mapping": True},
                 {"static_points_topic": "static/laserscan"},
-                {"clustering_points_topic_in": "filtered/ls/laserscan_accumulated"},
+                {"clustering_points_topic_in": "filtered/ls/pointcloud"},
                 {"clustering_points_topic_out": "clustered_points"},
                 {"PrintTimeMetric": False},
-                {"SaveTimeMetric": False}
+                {"SaveTimeMetric": False},
+                {"threshold_occupancy":0.65},
+                {"occupancy_percentage":0.12}
             ]
         )
     ])

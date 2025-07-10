@@ -19,7 +19,7 @@ EuclideanSpatial::EuclideanSpatial(rclcpp::Publisher<sensor_msgs::msg::PointClou
 
   }
 
-void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame, bool & DynamicStatic_segmentation){
+void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr input_msg, std::unique_ptr<OccupancyGrid> & grid_map_, tf2::Transform & robot_pose_inOCGMapFrame, bool & DynamicStatic_segmentation, double & occupancy_percentage){
 
     // Convert to PCL data type
     pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud_nonfiltered(new pcl::PointCloud<pcl::PointXYZ>); 
@@ -73,7 +73,7 @@ void EuclideanSpatial::lidarAndMapCallback(const sensor_msgs::msg::PointCloud2::
           total_counter+=1.0;
         }
         double fraction = occ_counter/total_counter;
-        if ( fraction < 0.9 ){//less than 70% of the points are within occupied part of the map
+        if ( fraction < occupancy_percentage){//less than 70% of the points are within occupied part of the map
           //dynamic_cluster= true; //cluster is dynamic, will be tracked
           intensity++;
           cluster_intensity=intensity;

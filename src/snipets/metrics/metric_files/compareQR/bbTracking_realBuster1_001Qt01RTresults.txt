@@ -1,0 +1,2 @@
+     num_frames      idf1  idp       idr      Rcll  Prcn   GT  mostly_tracked  partially_tracked  mostly_lost  FP  FN  IDsw  FM      MOTA      MOTP
+acc         154  0.952381  1.0  0.909091  0.909091   1.0  154               1                  0            0   0  14     0   2  0.909091  18.41015
