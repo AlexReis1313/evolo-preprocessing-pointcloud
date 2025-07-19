@@ -39,7 +39,7 @@ Preprocessing steps:
 6. Time decay: Temporal accumulation of 2D Laser Scans to construct a more complete 2D point cloud, gathered over a specified time horizon.
 
 <p align="center">
-    <img src="media/imuworking" width="40%" />
+    <img src="media/preprocessing_img_git.png" width="40%" />
 </p>
 
 ### Rolling Local Occupancy Grid Mapping 
